@@ -5,94 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My ASP.NET Application</title>
     @Styles.Render("~/Content/bootstrap/css")
-    @Styles.Render("~/Content/theme/css")
+    @Styles.Render("~/Content/landing-page/css")
+
 </head>
 
 <body class="nav-md  pace-done">
-    <div class="pace  pace-inactive">
-        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
-            <div class="pace-progress-inner"></div>
+
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#">Start Bootstrap</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    @{
+
+                        if (Request.IsAuthenticated)
+                        {
+                            <li class="">
+                                @Html.ActionLink("Sign out", "SignOut", "Security")
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="">
+                                @Html.ActionLink("Login", "Login", "Security")
+                            </li>
+
+                            <li class="">
+                                @Html.ActionLink("Register", "Register", "Security")
+                            </li>
+                        }
+
+                    }
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <div class="pace-activity"></div>
-    </div>
+        <!-- /.container -->
+    </nav>
 
-    <div class="container">
+    @RenderBody()
 
-
-        <div class="">
-
-            <!-- top navigation -->
-            <div class="top_nav">
-
-                <div class="nav_menu">
-                    <nav class="" role="navigation">                       
-
-                        <ul class="nav navbar-nav navbar-right" style="padding-right: 100px">
-
-                            @{
-
-                                if (Request.IsAuthenticated)
-                                {
-                                    <li class="">
-                                        @Html.ActionLink("Sign out", "SignOut", "Security")
-                                    </li>
-
-                                    <li>
-                                        <h3>Halo @User.Identity.Name</h3>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="">
-                                        @Html.ActionLink("Register", "Register", "Security")
-                                    </li>
-
-                                    <li class="">
-                                        @Html.ActionLink("Login", "Login", "Security")
-                                    </li>
-                                }
-
-                            }
-                            
-                           
-                        </ul>
-                    </nav>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
                 </div>
-
             </div>
-            <!-- /top navigation -->
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-
-                @RenderBody()
-
-                <!-- footer content -->
-                <footer>
-                    <div class="copyright-info">
-                        <p class="pull-right">
-                            This is footer
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-                </footer>
-                <!-- /footer content -->
-
-            </div>
-            <!-- /page content -->
         </div>
-
-    </div>
-
-    @*<div id="custom_notifications" class="custom-notifications dsp_none">
-            <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
-            <div class="clearfix"></div>
-            <div id="notif-group" class="tabbed_notifications"></div>
-        </div>*@
+    </footer>
 
     @Scripts.Render("~/bundles/jquery/js")
     @Scripts.Render("~/bundles/bootstrap/js")
-    @Scripts.Render("~/bundles/customs/js")
+
 </body>
 
 </html>

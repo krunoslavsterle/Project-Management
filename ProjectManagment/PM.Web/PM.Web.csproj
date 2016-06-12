@@ -202,6 +202,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\docs.min.css" />
+    <Content Include="Content\img\intro-bg.jpg" />
+    <Content Include="Content\landing.css" />
     <Content Include="Content\shCoreDefault.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

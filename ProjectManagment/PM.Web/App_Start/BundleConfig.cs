@@ -24,6 +24,9 @@ namespace PM.Web.App_Start
                 "~/Scripts/shBrushXml.js"
                 ));
 
+            bundles.Add(new StyleBundle("~/Content/landing-page/css").Include(
+                "~/Content/landing.css"));
+
             bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include(
                 "~/Content/bootstrap.css"));
 
