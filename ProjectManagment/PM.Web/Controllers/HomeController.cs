@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace PM.Web.Controllers
 {
+    /// <summary>
+    /// Home controller.
+    /// </summary>
     public class HomeController : Controller
-    {   
-        // GET: Home
+    {
+        /// <summary>
+        /// Index async GET action.
+        /// </summary>
+        /// <returns>View.</returns>
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        public ActionResult Register()
-        {
-            return View();
-        }
+            return View("Index");
+        }        
     }
 }

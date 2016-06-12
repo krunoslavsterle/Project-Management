@@ -1,41 +1,40 @@
-﻿@Styles.Render("~/Content/bootstrap/css")
+﻿@model PM.Web.Models.LoginViewModel
+
+@Styles.Render("~/Content/bootstrap/css")
 @Styles.Render("~/Content/theme/css")
 
 <body style="background:#F7F7F7;">
 
-    <div class="">        
+    <div class="">
+        <a class="hiddenanchor" id="toregister"></a>
+        <a class="hiddenanchor" id="tologin"></a>
+
         <div id="wrapper">
             <div id="login" class="animate form">
                 <section class="login_content">
-                    <form>
-                        <h1>Registration Form</h1>
-                        <div>
-                            <input type="text" class="form-control" placeholder="First name" required="">
-                        </div>
-                        <div>
-                            <input type="text" class="form-control" placeholder="Last name" required="">
-                        </div>
+                    @using (Html.BeginForm("Login", "Security", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h1>Login Form</h1>
                         <div>
                             <input type="text" class="form-control" placeholder="Username" required="">
-                        </div>
-                        <div>
-                            <input type="text" class="form-control" placeholder="Email" required="">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control " })
                         </div>
                         <div>
                             <input type="password" class="form-control" placeholder="Password" required="">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control " })
                         </div>
                         <div>
-                            <input type="password" class="form-control" placeholder="Repeat password" required="">
-                        </div>
-                        <div>
-                            <a class="btn btn-default submit" href="index.html">Register</a>
-                           
+                            <button type="submit" class="btn btn-default submit" href="index.html">Log in</button>
+                            <a class="reset_pass" href="#">Lost your password?</a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="separator">
 
-                            <p class="change_link">Already have an account?
-                                <a href="#" class=""> Log In </a>
+                            <p class="change_link">
+                                New to site?
+                                <a href="#toregister" class="to_register"> Create Account </a>
                             </p>
                             <div class="clearfix"></div>
                             <br>
@@ -45,7 +44,7 @@
                                 <p>©2015 All Rights Reserved. Privacy and Terms</p>
                             </div>
                         </div>
-                    </form>
+                    }
                     <!-- form -->
                 </section>
                 <!-- content -->
@@ -53,5 +52,8 @@
           
         </div>
     </div>
+
+
+
 
 </body>

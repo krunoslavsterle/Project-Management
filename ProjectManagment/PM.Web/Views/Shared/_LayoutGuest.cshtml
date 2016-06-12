@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My ASP.NET Application</title>
+    @Styles.Render("~/Content/bootstrap/css")
+    @Styles.Render("~/Content/theme/css")
+</head>
+
+<body class="nav-md  pace-done">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+
+    <div class="container">
+
+
+        <div class="">
+
+            <!-- top navigation -->
+            <div class="top_nav">
+
+                <div class="nav_menu">
+                    <nav class="" role="navigation">                       
+
+                        <ul class="nav navbar-nav navbar-right" style="padding-right: 100px">
+
+                            @{
+
+                                if (Request.IsAuthenticated)
+                                {
+                                    <li class="">
+                                        @Html.ActionLink("Sign out", "SignOut", "Security")
+                                    </li>
+
+                                    <li>
+                                        <h3>Halo @User.Identity.Name</h3>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="">
+                                        @Html.ActionLink("Register", "Register", "Security")
+                                    </li>
+
+                                    <li class="">
+                                        @Html.ActionLink("Login", "Login", "Security")
+                                    </li>
+                                }
+
+                            }
+                            
+                           
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+
+                @RenderBody()
+
+                <!-- footer content -->
+                <footer>
+                    <div class="copyright-info">
+                        <p class="pull-right">
+                            This is footer
+                        </p>
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+                <!-- /footer content -->
+
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+
+    @*<div id="custom_notifications" class="custom-notifications dsp_none">
+            <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group"></ul>
+            <div class="clearfix"></div>
+            <div id="notif-group" class="tabbed_notifications"></div>
+        </div>*@
+
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/customs/js")
+</body>
+
+</html>
+
+
