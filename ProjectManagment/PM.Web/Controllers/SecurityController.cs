@@ -90,7 +90,7 @@ namespace PM.Web.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, true);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Projects", "Project", new { area = "Administration" });
                 }
                 else
                 {

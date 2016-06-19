@@ -195,34 +195,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\custom.css" />
-    <Content Include="Content\docs.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\img\intro-bg.jpg" />
     <Content Include="Content\img\ipad.png" />
+    <Content Include="Content\img\ui-zac.jpg" />
     <Content Include="Content\landing.css" />
-    <Content Include="Content\shCoreDefault.css" />
+    <Content Include="Content\style-responsive.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\table-responsive.css" />
+    <Content Include="Content\to-do.css" />
+    <Content Include="Content\zabuto_calendar.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\bootstrap\bootstrap-progressbar.min.js" />
-    <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\bootstrap\bootstrap-inputmask.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\custom.js" />
-    <Content Include="Scripts\icheck.min.js" />
-    <Content Include="Scripts\jquery\jquery.min.js" />
-    <Content Include="Scripts\jquery\jquery.nicescroll.min.js" />
-    <Content Include="Scripts\nprogress.js" />
-    <Content Include="Scripts\shBrushXml.js" />
-    <Content Include="Scripts\shCore.js" />
+    <Content Include="Scripts\common-scripts.js" />
+    <Content Include="Scripts\jquery\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="Scripts\jquery\jquery.dcjqaccordion.2.7.js" />
+    <Content Include="Scripts\jquery\jquery.js" />
+    <Content Include="Scripts\jquery\jquery.nicescroll.js" />
+    <Content Include="Scripts\jquery\jquery.scrollTo.min.js" />
+    <Content Include="Scripts\jquery\jquery.sparkline.js" />
+    <Content Include="Scripts\jquery\jquery.tagsinput.js" />
+    <Content Include="Scripts\jquery\jquery.ui.touch-punch.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -233,6 +231,8 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\ProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -250,15 +250,16 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Views\Security\Login.cshtml" />
     <Content Include="Views\Security\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutGuest.cshtml" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\Project\Projects.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -268,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PM.Common\PM.Common.csproj">
