@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using PM.DAL.Entities;
+using PM.DAL.TypeConfigurations;
+using System.Data.Entity;
 
 namespace PM.DAL
 {
@@ -20,6 +22,8 @@ namespace PM.DAL
         #endregion Constructors
 
         #region Methods
+        
+        public virtual DbSet<ProjectEntity> Projects { get; set; }
 
         /// <summary>
         /// On model creating method.
@@ -27,6 +31,7 @@ namespace PM.DAL
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new ProjectConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
