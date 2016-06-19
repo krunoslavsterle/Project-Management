@@ -68,9 +68,9 @@ namespace PM.Web.Controllers
         /// <returns>View.</returns>
         [HttpGet]
         [ActionName("Login")]
-        public async Task<ActionResult> LoginAsync()
+        public Task<ViewResult> LoginAsync()
         {
-            return View();
+            return Task.FromResult(View());
         }
 
         /// <summary>
@@ -107,10 +107,10 @@ namespace PM.Web.Controllers
         /// <returns>View.</returns>
         [HttpGet]
         [ActionName("SignOut")]
-        public async Task<ActionResult> SignOutAsync()
+        public Task<RedirectToRouteResult> SignOutAsync()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return Task.FromResult(RedirectToAction("Index", "Home"));
         }
 
         /// <summary>
@@ -119,9 +119,9 @@ namespace PM.Web.Controllers
         /// <returns>View.</returns>
         [HttpGet]
         [ActionName("Register")]
-        public async Task<ActionResult> RegisterAsync()
+        public Task<ViewResult> RegisterAsync()
         {
-            return View();
+            return Task.FromResult(View());
         }
 
         /// <summary>

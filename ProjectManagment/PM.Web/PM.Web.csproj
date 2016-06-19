@@ -203,6 +203,7 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\docs.min.css" />
     <Content Include="Content\img\intro-bg.jpg" />
+    <Content Include="Content\img\ipad.png" />
     <Content Include="Content\landing.css" />
     <Content Include="Content\shCoreDefault.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
