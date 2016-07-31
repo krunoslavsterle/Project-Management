@@ -17,7 +17,7 @@ namespace PM.Repository.Common
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Enumerable list of records.</returns>
-        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null);
+        Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null);
 
         /// <summary>
         /// Asynchronously gets one record using predicate.
@@ -25,6 +25,13 @@ namespace PM.Repository.Common
         /// <param name="predicate">The predicate.</param>
         /// <returns>One record.</returns>
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// Gets all records using predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>Enumerable list of records.</returns>
+        IList<T> GetAll();
 
         /// <summary>
         /// Asynchronously adds entity to database.

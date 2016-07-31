@@ -11,6 +11,7 @@ namespace PM.Repository
         public override void Load()
         {
             Bind(typeof(IRepository<>)).To(typeof(Repository<>));
+            Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork));
         }
     }
 }

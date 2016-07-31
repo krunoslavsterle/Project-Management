@@ -227,7 +227,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -239,8 +238,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\DAL\PMIdentityDbContext.cs" />
-    <Compile Include="Identity\Models\ApplicationUser.cs" />
+    <Compile Include="Identity\IdentityRole.cs" />
+    <Compile Include="Identity\IdentityUser.cs" />
+    <Compile Include="Identity\RoleStore.cs" />
+    <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,6 +276,14 @@
     <ProjectReference Include="..\PM.Common\PM.Common.csproj">
       <Project>{c0c26bc3-afc4-4af5-bb77-e99327e74c71}</Project>
       <Name>PM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PM.DAL\PM.DAL.csproj">
+      <Project>{618B774C-614C-4FC6-884E-683579F1CFF9}</Project>
+      <Name>PM.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PM.Repository.Common\PM.Repository.Common.csproj">
+      <Project>{4AADD5B9-692D-4352-90A6-D36A7656FBC4}</Project>
+      <Name>PM.Repository.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PM.Service.Common\PM.Service.Common.csproj">
       <Project>{5efad5c8-e5e9-48d4-a6d0-645b732e6595}</Project>

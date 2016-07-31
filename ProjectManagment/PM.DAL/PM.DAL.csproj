@@ -49,14 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Claim.cs" />
     <Compile Include="Entities\ProjectEntity.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="PMAppContext.cs" />
     <Compile Include="PMDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeConfigurations\ClaimConfiguration.cs" />
+    <Compile Include="TypeConfigurations\ExternalLoginConfiguration.cs" />
     <Compile Include="TypeConfigurations\ProjectConfiguration.cs" />
+    <Compile Include="TypeConfigurations\RoleConfiguration.cs" />
+    <Compile Include="TypeConfigurations\UserConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Entities\ExternalLogin.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

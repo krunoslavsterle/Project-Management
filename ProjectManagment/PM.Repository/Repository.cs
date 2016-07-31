@@ -82,13 +82,23 @@ namespace PM.Repository
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Enumerable list of records.</returns>
-        public Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
+        public Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
         {
             if (predicate == null)
             {
-                return Task.FromResult<IEnumerable<T>>(dbSet.AsEnumerable());
+                return Task.FromResult<IList<T>>(dbSet.ToList());
             }
-            return Task.FromResult<IEnumerable<T>>(dbSet.Where(predicate));
+            return Task.FromResult<IList<T>>(dbSet.Where(predicate).ToList());
+        }
+
+        /// <summary>
+        /// Gets all records using predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>Enumerable list of records.</returns>
+        public IList<T> GetAll()
+        {
+            return dbSet.ToList();
         }
 
         /// <summary>

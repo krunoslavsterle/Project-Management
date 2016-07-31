@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
-using PM.Web.App_Start;
 using PM.Web.Models;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using PM.Web.Identity.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
+using PM.Web.Identity;
 
 namespace PM.Web.Controllers
 {
@@ -17,36 +17,21 @@ namespace PM.Web.Controllers
     {
         #region Fields
 
-        private ApplicationUserManager _userManager;
+        private readonly UserManager<IdentityUser, Guid> _userManager;
 
         #endregion Fields
 
         #region Constructors
 
-        public SecurityController()
+        public SecurityController(UserManager<IdentityUser, Guid> userManager)
         {
-
+            _userManager = userManager;
         }
 
         #endregion Constructors
 
         #region Properties
-
-        /// <summary>
-        /// Gets user manager lazy.
-        /// </summary>
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
+        
         /// <summary>
         /// Gets the AuthenticationManager.
         /// </summary>
@@ -86,7 +71,7 @@ namespace PM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                var user = await _userManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, true);
@@ -137,20 +122,12 @@ namespace PM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                var user = new IdentityUser() { UserName = model.UserName };
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-
-                    // TODO: Implement acc register confiramition.
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return View();
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -161,10 +138,11 @@ namespace PM.Web.Controllers
             return View(model);
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(IdentityUser user, bool isPersistent)
         {
-            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            this.AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
         #endregion Methods

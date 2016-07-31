@@ -22,7 +22,10 @@ namespace PM.DAL
         #endregion Constructors
 
         #region Methods
-        
+
+        internal IDbSet<User> Users { get; set; }
+        internal IDbSet<Role> Roles { get; set; }
+        internal IDbSet<ExternalLogin> Logins { get; set; }
         public virtual DbSet<ProjectEntity> Projects { get; set; }
 
         /// <summary>
@@ -31,8 +34,12 @@ namespace PM.DAL
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new ClaimConfiguration());
+            modelBuilder.Configurations.Add(new ExternalLoginConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new ProjectConfiguration());
-            base.OnModelCreating(modelBuilder);
+            
         }
 
         #endregion Methods

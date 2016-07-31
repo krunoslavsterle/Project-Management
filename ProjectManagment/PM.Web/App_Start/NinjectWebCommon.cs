@@ -12,6 +12,8 @@ namespace PM.Web.App_Start
     using Ninject.Web.Common;
     using Ninject.Web.WebApi;
     using System.Collections.Generic;
+    using Microsoft.AspNet.Identity;
+    using Identity;
 
     public static class NinjectWebCommon 
     {
@@ -70,6 +72,8 @@ namespace PM.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind(typeof(IUserStore<IdentityUser, Guid>)).To(typeof(UserStore)).InTransientScope();
+            kernel.Bind(typeof(IRoleStore<IdentityRole, Guid>)).To(typeof(RoleStore)).InTransientScope();
         }        
     }
 }
