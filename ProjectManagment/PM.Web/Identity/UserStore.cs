@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using PM.Common;
 
 namespace PM.Web.Identity
 {
     public class UserStore : IUserLoginStore<IdentityUser, Guid>, IUserClaimStore<IdentityUser, Guid>, IUserRoleStore<IdentityUser, Guid>, IUserPasswordStore<IdentityUser, Guid>, IUserSecurityStampStore<IdentityUser, Guid>, IUserStore<IdentityUser, Guid>, IDisposable
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public UserStore(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
+        
+        public UserStore(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         #region IUserStore<IdentityUser, Guid> Members
+
         public Task CreateAsync(IdentityUser user)
         {
             if (user == null)
@@ -27,8 +31,8 @@ namespace PM.Web.Identity
 
             var u = getUser(user);
 
-            _unitOfWork.UserRepository.AddAsync(u);
-            return _unitOfWork.SaveChangesAsync();
+            unitOfWork.UserRepository.AddAsync(u);
+            return unitOfWork.SaveChangesAsync();
         }
 
         public Task DeleteAsync(IdentityUser user)
@@ -38,19 +42,19 @@ namespace PM.Web.Identity
 
             var u = getUser(user);
 
-            _unitOfWork.UserRepository.DeleteAsync(u);
-            return _unitOfWork.SaveChangesAsync();
+            unitOfWork.UserRepository.DeleteAsync(u);
+            return unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IdentityUser> FindByIdAsync(Guid userId)
         {
-            var user = await _unitOfWork.UserRepository.GetAsync(u => u.UserId == userId);
+            var user = await unitOfWork.UserRepository.GetAsync(u => u.UserId == userId);
             return getIdentityUser(user);
         }
 
         public async Task<IdentityUser> FindByNameAsync(string userName)
         {
-            var user = await _unitOfWork.UserRepository.FindByUserNameAsync(userName);
+            var user = await unitOfWork.UserRepository.FindByUserNameAsync(userName);
             return getIdentityUser(user);
         }
 
@@ -59,14 +63,14 @@ namespace PM.Web.Identity
             if (user == null)
                 throw new ArgumentException("user");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            populateUser(u, user);
+            u = this.mapper.Map<User>(user);
 
-            await _unitOfWork.UserRepository.UpdateAsync(u);
-            await _unitOfWork.SaveChangesAsync();           
+            await unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.SaveChangesAsync();           
         }
 
         #endregion
@@ -86,7 +90,7 @@ namespace PM.Web.Identity
             if (claim == null)
                 throw new ArgumentNullException("claim");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
@@ -98,7 +102,7 @@ namespace PM.Web.Identity
             };
             u.Claims.Add(c);
 
-            await _unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.UserRepository.UpdateAsync(u);
         }
 
         public async Task<IList<System.Security.Claims.Claim>> GetClaimsAsync(IdentityUser user)
@@ -106,7 +110,7 @@ namespace PM.Web.Identity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
@@ -120,14 +124,14 @@ namespace PM.Web.Identity
             if (claim == null)
                 throw new ArgumentNullException("claim");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
             var c = u.Claims.FirstOrDefault(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value);
             u.Claims.Remove(c);
 
-            await _unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.UserRepository.UpdateAsync(u);
         }
         #endregion
 
@@ -139,7 +143,7 @@ namespace PM.Web.Identity
             if (login == null)
                 throw new ArgumentNullException("login");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
@@ -151,7 +155,7 @@ namespace PM.Web.Identity
             };
             u.Logins.Add(l);
 
-            await _unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.UserRepository.UpdateAsync(u);
         }
 
         public async Task<IdentityUser> FindAsync(UserLoginInfo login)
@@ -161,7 +165,7 @@ namespace PM.Web.Identity
 
             var identityUser = default(IdentityUser);
 
-            var l = await _unitOfWork.ExternalLoginRepository.GetByProviderAndKeyAsync(login.LoginProvider, login.ProviderKey);
+            var l = await unitOfWork.ExternalLoginRepository.GetByProviderAndKeyAsync(login.LoginProvider, login.ProviderKey);
             if (l != null)
                 identityUser = getIdentityUser(l.User);
 
@@ -173,7 +177,7 @@ namespace PM.Web.Identity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
@@ -187,14 +191,14 @@ namespace PM.Web.Identity
             if (login == null)
                 throw new ArgumentNullException("login");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
             var l = u.Logins.FirstOrDefault(x => x.LoginProvider == login.LoginProvider && x.ProviderKey == login.ProviderKey);
             u.Logins.Remove(l);
 
-            await _unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.UserRepository.UpdateAsync(u);
         }
         #endregion
 
@@ -206,17 +210,17 @@ namespace PM.Web.Identity
             if (string.IsNullOrWhiteSpace(roleName))
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: roleName.");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
-            var r = await _unitOfWork.RoleRepository.FindByNameAsync(roleName);
+            var r = await unitOfWork.RoleRepository.FindByNameAsync(roleName);
             if (r == null)
                 throw new ArgumentException("roleName does not correspond to a Role entity.", "roleName");
 
             u.Roles.Add(r);
-            await _unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.UserRepository.UpdateAsync(u);
 
-            await _unitOfWork.SaveChangesAsync();
+            await unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IList<string>> GetRolesAsync(IdentityUser user)
@@ -224,7 +228,7 @@ namespace PM.Web.Identity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
@@ -238,7 +242,7 @@ namespace PM.Web.Identity
             if (string.IsNullOrWhiteSpace(roleName))
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: role.");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
@@ -252,15 +256,15 @@ namespace PM.Web.Identity
             if (string.IsNullOrWhiteSpace(roleName))
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: role.");
 
-            var u = await _unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
+            var u = await unitOfWork.UserRepository.GetAsync(i => i.UserId == user.Id);
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
             var r = u.Roles.FirstOrDefault(x => x.Name == roleName);
             u.Roles.Remove(r);
 
-            await _unitOfWork.UserRepository.UpdateAsync(u);
-            await _unitOfWork.SaveChangesAsync();
+            await unitOfWork.UserRepository.UpdateAsync(u);
+            await unitOfWork.SaveChangesAsync();
         }
         #endregion
 
@@ -306,21 +310,8 @@ namespace PM.Web.Identity
         {
             if (identityUser == null)
                 return null;
-
-            var user = new User();
-            populateUser(user, identityUser);
-
-            return user;
-        }
-
-        private void populateUser(User user, IdentityUser identityUser)
-        {
-            // TDOO: RESOLVE THIS USING AUTOMAPPER!
-            user.UserId = identityUser.Id;
-            user.UserName = identityUser.UserName;
-            user.PasswordHash = identityUser.PasswordHash;
-            user.SecurityStamp = identityUser.SecurityStamp;
-            user.Email = identityUser.Email;
+            
+            return this.mapper.Map<User>(identityUser);
         }
 
         private IdentityUser getIdentityUser(User user)

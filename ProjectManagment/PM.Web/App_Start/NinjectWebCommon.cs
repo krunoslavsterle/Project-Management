@@ -14,6 +14,7 @@ namespace PM.Web.App_Start
     using System.Collections.Generic;
     using Microsoft.AspNet.Identity;
     using Identity;
+    using AutoMapper;
 
     public static class NinjectWebCommon 
     {
@@ -74,6 +75,7 @@ namespace PM.Web.App_Start
         {
             kernel.Bind(typeof(IUserStore<IdentityUser, Guid>)).To(typeof(UserStore)).InTransientScope();
             kernel.Bind(typeof(IRoleStore<IdentityRole, Guid>)).To(typeof(RoleStore)).InTransientScope();
+            kernel.Bind<Profile>().To<MapperProfile>().InTransientScope();
         }        
     }
 }
