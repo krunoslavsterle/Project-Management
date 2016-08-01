@@ -1,7 +1,7 @@
 ﻿@model PM.Web.Models.LoginViewModel
 
 @Styles.Render("~/Content/bootstrap/css")
-@Styles.Render("~/Content/theme/css")
+@Styles.Render("~/Content/site-style/css")
 
 <body style="background:#F7F7F7;">
 
@@ -17,13 +17,10 @@
                         @Html.AntiForgeryToken()
                         <h1>Login Form</h1>
                         <div>
-                            <input type="text" class="form-control" placeholder="Username" required="">
-                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control " })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username", required="" })
                         </div>
                         <div>
-                            <input type="password" class="form-control" placeholder="Password" required="">
-                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control " })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", required = "" })
                         </div>
                         <div>
                             <button type="submit" class="btn btn-default submit" href="index.html">Log in</button>
@@ -34,7 +31,7 @@
 
                             <p class="change_link">
                                 New to site?
-                                <a href="#toregister" class="to_register"> Create Account </a>
+                                @Html.ActionLink("Create Account", "Register", null, new { @class= "to_register" })
                             </p>
                             <div class="clearfix"></div>
                             <br>

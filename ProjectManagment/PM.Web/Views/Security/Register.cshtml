@@ -1,7 +1,7 @@
 ﻿@model PM.Web.Models.RegisterViewModel
 
 @Styles.Render("~/Content/bootstrap/css")
-@Styles.Render("~/Content/theme/css")
+@Styles.Render("~/Content/site-style/css")
 
 <body style="background:#F7F7F7;">
     
@@ -13,38 +13,29 @@
                     {
                         @Html.AntiForgeryToken();
                         <h1>Registration Form</h1>
+                      
                         <div>
-                            @*<input type="text" class="form-control" placeholder="First name" required="">*@
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control ", required="", placeholder = "Username" })
                         </div>
                         <div>
-                            @*<input type="text" class="form-control" placeholder="Last name" required="">*@
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", required="", placeholder="Email" })
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Username" required="">
-                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control " })
-                        </div>
-                        <div>
-                            <input type="text" class="form-control" placeholder="Email" required="">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control " })
-                        </div>
-                        <div>
-                            <input type="password" class="form-control" placeholder="Password" required="">
-                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control " })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", required="", placeholder="Password" })
                         </div>
                         <div>
                             @*<input type="password" class="form-control" placeholder="Repeat password" required="">*@
+                            
                         </div>
                         <div>
                             <button type="submit" class="btn btn-default submit" href="index.html">Register</button>
-
                         </div>
                         <div class="clearfix"></div>
                         <div class="separator">
 
                             <p class="change_link">
                                 Already have an account?
-                                <a href="#" class=""> Log In </a>
+                                @Html.ActionLink("Log In", "Login")
                             </p>
                             <div class="clearfix"></div>
                             <br>
