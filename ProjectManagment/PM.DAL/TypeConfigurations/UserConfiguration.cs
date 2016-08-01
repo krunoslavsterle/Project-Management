@@ -33,6 +33,11 @@ namespace PM.DAL
                 .HasMaxLength(256)
                 .IsRequired();
 
+            Property(x => x.Email)
+                .HasColumnName("Email")
+                .HasColumnType("nvarchar")
+                .IsRequired();
+
             HasMany(x => x.Roles)
                 .WithMany(x => x.Users)
                 .Map(x =>

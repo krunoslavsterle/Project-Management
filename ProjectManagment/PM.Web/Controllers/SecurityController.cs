@@ -120,9 +120,10 @@ namespace PM.Web.Controllers
         [ActionName("Register")]
         public async Task<ActionResult> RegisterAsync(RegisterViewModel model)
         {
+            // TODO: Implement loger.
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser() { UserName = model.UserName };
+                var user = new IdentityUser() { UserName = model.UserName, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -131,7 +132,7 @@ namespace PM.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Faild to register user.");
+                    ModelState.AddModelError("", "Faild to register user");
                 }
             }
 

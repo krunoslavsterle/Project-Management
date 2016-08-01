@@ -13,7 +13,9 @@
                     {
                         @Html.AntiForgeryToken();
                         <h1>Registration Form</h1>
-                      
+
+                        @Html.ValidationSummary();
+
                         <div>
                             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control ", required="", placeholder = "Username" })
                         </div>
@@ -24,8 +26,7 @@
                             @Html.TextBoxFor(m => m.Password, new { @class = "form-control", required="", placeholder="Password" })
                         </div>
                         <div>
-                            @*<input type="password" class="form-control" placeholder="Repeat password" required="">*@
-                            
+                            @Html.TextBoxFor(m => m.RepatePassword, new { @class = "form-control", required = "", placeholder = "Repeat password" })
                         </div>
                         <div>
                             <button type="submit" class="btn btn-default submit" href="index.html">Register</button>

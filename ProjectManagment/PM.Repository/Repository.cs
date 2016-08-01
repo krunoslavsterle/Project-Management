@@ -74,7 +74,7 @@ namespace PM.Repository
         /// <returns>One record.</returns>
         public Task<T> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return dbSet.FirstOrDefaultAsync();
+            return dbSet.FirstOrDefaultAsync(predicate);
         }
 
         /// <summary>

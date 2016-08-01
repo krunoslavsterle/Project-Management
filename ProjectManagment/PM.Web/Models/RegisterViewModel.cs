@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PM.Web.Models
 {
+    /// <summary>
+    /// Register view model.
+    /// </summary>
     public class RegisterViewModel
     {
         [Required]
@@ -22,6 +20,12 @@ namespace PM.Web.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Password does not match.")]
+        public string RepatePassword { get; set; }
         
     }
 }

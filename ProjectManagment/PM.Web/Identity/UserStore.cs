@@ -315,10 +315,12 @@ namespace PM.Web.Identity
 
         private void populateUser(User user, IdentityUser identityUser)
         {
+            // TDOO: RESOLVE THIS USING AUTOMAPPER!
             user.UserId = identityUser.Id;
             user.UserName = identityUser.UserName;
             user.PasswordHash = identityUser.PasswordHash;
             user.SecurityStamp = identityUser.SecurityStamp;
+            user.Email = identityUser.Email;
         }
 
         private IdentityUser getIdentityUser(User user)

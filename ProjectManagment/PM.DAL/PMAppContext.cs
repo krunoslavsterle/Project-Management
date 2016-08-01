@@ -16,7 +16,7 @@ namespace PM.DAL
         /// </summary>
         public PMAppContext() : base("PMLocalDBConnection")
         {
-
+            Database.SetInitializer<PMAppContext>(new DropCreateDatabaseIfModelChanges<PMAppContext>());
         }
 
         #endregion Constructors
