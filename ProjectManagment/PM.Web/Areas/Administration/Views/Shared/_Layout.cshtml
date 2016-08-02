@@ -167,7 +167,9 @@
             </div>
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                    <li>@Html.ActionLink("Logout", "SignOut", "Security", new { area=""}, new { @class="logout"})</li>
+
+
                 </ul>
             </div>
         </header>
