@@ -6,11 +6,11 @@ namespace PM.DAL.Entities
     /// <summary>
     /// Role entity.
     /// </summary>
-    public class Role
+    public class RoleEntity
     {
         #region Fields
 
-        private ICollection<User> _users;
+        private ICollection<UserEntity> _users;
 
         #endregion Fields
 
@@ -42,9 +42,9 @@ namespace PM.DAL.Entities
         /// <value>
         /// The users.
         /// </value>
-        public ICollection<User> Users
+        public ICollection<UserEntity> Users
         {
-            get { return _users ?? (_users = new List<User>()); }
+            get { return _users ?? (_users = new List<UserEntity>()); }
             set { _users = value; }
         }
 

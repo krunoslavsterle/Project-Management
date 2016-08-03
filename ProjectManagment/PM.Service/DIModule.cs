@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using PM.Service.Common;
 
 namespace PM.Service
 {
@@ -6,7 +7,7 @@ namespace PM.Service
     {
         public override void Load()
         {
-            //Bind<ITestService>().To<TestService>();
+            Bind<IIdentityService>().To<IdentityService>();
         }
     }
 }

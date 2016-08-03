@@ -25,32 +25,7 @@ namespace PM.Repository.Common
         /// <param name="predicate">The predicate.</param>
         /// <returns>One record.</returns>
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);
-
-        /// <summary>
-        /// Gets all records using predicate.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>Enumerable list of records.</returns>
-        IList<T> GetAll();
-
-        /// <summary>
-        /// Asynchronously adds entity to database.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        Task AddAsync(T entity);
-
-        /// <summary>
-        /// Asynchronously updates entity in the database.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        Task UpdateAsync(T entity);
-
-        /// <summary>
-        /// Asynchronously deletes entity form the database.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        Task DeleteAsync(T entity);
-
+                
         /// <summary>
         /// Asynchronously gets record count.
         /// </summary>

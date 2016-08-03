@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using AutoMapper;
+using Ninject.Modules;
 using PM.Repository.Common;
 
 namespace PM.Repository
@@ -12,6 +13,8 @@ namespace PM.Repository
         {
             Bind(typeof(IRepository<>)).To(typeof(Repository<>));
             Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork));
+            Bind<Profile>().To<MapperProfile>().InTransientScope();
         }
     }
 }
+    

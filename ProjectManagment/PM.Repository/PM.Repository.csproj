@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="DIModule.cs" />
     <Compile Include="Identity\RoleRepository.cs" />
+    <Compile Include="Mapping\MapperProfile.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
@@ -78,11 +79,20 @@
       <Project>{618b774c-614c-4fc6-884e-683579f1cff9}</Project>
       <Name>PM.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PM.Model.Common\PM.Model.Common.csproj">
+      <Project>{EC16EA4F-0278-4C87-B659-A374A4F12DDF}</Project>
+      <Name>PM.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PM.Model\PM.Model.csproj">
+      <Project>{BF6093BD-4AE0-4CB7-B9B5-AD95E4913F14}</Project>
+      <Name>PM.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PM.Repository.Common\PM.Repository.Common.csproj">
       <Project>{4aadd5b9-692d-4352-90a6-d36a7656fbc4}</Project>
       <Name>PM.Repository.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)*.dll" "$(SolutionDir)PM.Web\bin\"

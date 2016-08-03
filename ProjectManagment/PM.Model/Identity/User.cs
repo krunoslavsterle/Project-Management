@@ -1,24 +1,16 @@
-﻿using System;
+﻿using PM.Model.Common;
+using System;
 using System.Collections.Generic;
 
-namespace PM.DAL.Entities
+namespace PM.Model
 {
-    // TODO: THIS SHOULD BE ENTITY CLASS. - CREATE DOMAIN MODEL FOR THIS AND IMPLEMENT AUTOMAPPER.
     /// <summary>
-    /// User entity.
+    /// User domain model.
     /// </summary>
-    public class User
+    public class User : IUser
     {
-        #region Fields
+        #region Properties
 
-        private ICollection<Claim> _claims;
-        private ICollection<ExternalLogin> _externalLogins;
-        private ICollection<Role> _roles;
-
-        #endregion Fields
-
-        #region Scalar Properties
-        
         /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
@@ -41,7 +33,7 @@ namespace PM.DAL.Entities
         /// <value>
         /// The password hash.
         /// </value>
-        public virtual string PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
 
         /// <summary>
         /// Gets or sets the security stamp.
@@ -49,7 +41,7 @@ namespace PM.DAL.Entities
         /// <value>
         /// The security stamp.
         /// </value>
-        public virtual string SecurityStamp { get; set; }
+        public string SecurityStamp { get; set; }
 
         /// <summary>
         /// Gets or sets the email.
@@ -57,23 +49,15 @@ namespace PM.DAL.Entities
         /// <value>
         /// The email.
         /// </value>
-        public virtual string Email { get; set; }
-
-        #endregion
-
-        #region Navigation Properties
-
+        public string Email { get; set; }
+        
         /// <summary>
         /// Gets or sets the claims.
         /// </summary>
         /// <value>
         /// The claims.
         /// </value>
-        public virtual ICollection<Claim> Claims
-        {
-            get { return _claims ?? (_claims = new List<Claim>()); }
-            set { _claims = value; }
-        }
+        public ICollection<IClaim> Claims { get; set; }
 
         /// <summary>
         /// Gets or sets the logins.
@@ -81,15 +65,7 @@ namespace PM.DAL.Entities
         /// <value>
         /// The logins.
         /// </value>
-        public virtual ICollection<ExternalLogin> Logins
-        {
-            get
-            {
-                return _externalLogins ??
-                    (_externalLogins = new List<ExternalLogin>());
-            }
-            set { _externalLogins = value; }
-        }
+        public ICollection<IExternalLogin> Logins { get; set; }
 
         /// <summary>
         /// Gets or sets the roles.
@@ -97,11 +73,8 @@ namespace PM.DAL.Entities
         /// <value>
         /// The roles.
         /// </value>
-        public virtual ICollection<Role> Roles
-        {
-            get { return _roles ?? (_roles = new List<Role>()); }
-            set { _roles = value; }
-        }
-        #endregion
+        public ICollection<IRole> Roles { get; set; }
+
+        #endregion Properties
     }
 }

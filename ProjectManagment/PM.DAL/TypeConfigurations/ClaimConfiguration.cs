@@ -4,7 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {   
-    internal class ClaimConfiguration : EntityTypeConfiguration<Claim>
+    internal class ClaimConfiguration : EntityTypeConfiguration<ClaimEntity>
     {
         internal ClaimConfiguration()
         {

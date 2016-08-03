@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL
 {
-    internal class UserConfiguration : EntityTypeConfiguration<User>
+    internal class UserConfiguration : EntityTypeConfiguration<UserEntity>
     {
         internal UserConfiguration()
         {

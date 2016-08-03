@@ -16,37 +16,37 @@ namespace PM.Repository
     /// </summary>
     public class Repository<T> : IRepository<T> where T : class
     {
-        #region Fields
-
-        private PMAppContext context = null;
-        private DbSet<T> dbSet = null;
-
-        #endregion Fields
-
         #region Constructors
 
         /// <summary>
         /// Initialize a new instance of <see cref="Repository{T}"/> class.
         /// </summary>
-        /// <param name="context">PM app context.</param>
-        public Repository(PMAppContext context)
+        /// <param name="Context">PM app Context.</param>
+        public Repository(PMAppContext Context)
         {
-            this.context = context;
-            dbSet = this.context.Set<T>();
+            this.Context = Context;
+            DbSet = this.Context.Set<T>();
         }
-
+        
         #endregion Constructors
 
-        #region Methods
+        /// <summary>
+        /// Gets the database set.
+        /// </summary>
+        /// <value>
+        /// The database set.
+        /// </value>
+        protected DbSet<T> DbSet { get; private set; }
 
         /// <summary>
-        /// Asynchronously adds entity to database.
+        /// Gets the Context.
         /// </summary>
-        /// <param name="entity">Entity.</param>
-        public Task AddAsync(T entity)
-        {
-            return Task.FromResult(dbSet.Add(entity));
-        }
+        /// <value>
+        /// The Context.
+        /// </value>
+        protected PMAppContext Context { get; private set; }
+
+        #region Methods
 
         /// <summary>
         /// Asynchronously gets record count.
@@ -54,19 +54,9 @@ namespace PM.Repository
         /// <returns>Records count.</returns>
         public Task<long> CountAsync()
         {
-            return Task.FromResult<long>(dbSet.Count());
+            return Task.FromResult<long>(DbSet.Count());
         }
-
-        /// <summary>
-        /// Asynchronously deletes entity form the database.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        public Task DeleteAsync(T entity)
-        {
-            dbSet.Remove(entity);
-            return Task.FromResult(true);
-        }
-
+        
         /// <summary>
         /// Asynchronously gets one record using predicate.
         /// </summary>
@@ -74,7 +64,7 @@ namespace PM.Repository
         /// <returns>One record.</returns>
         public Task<T> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return dbSet.FirstOrDefaultAsync(predicate);
+            return DbSet.FirstOrDefaultAsync(predicate);
         }
 
         /// <summary>
@@ -86,32 +76,13 @@ namespace PM.Repository
         {
             if (predicate == null)
             {
-                return Task.FromResult<IList<T>>(dbSet.ToList());
+                return Task.FromResult<IList<T>>(DbSet.ToList());
             }
-            return Task.FromResult<IList<T>>(dbSet.Where(predicate).ToList());
+            return Task.FromResult<IList<T>>(DbSet.Where(predicate).ToList());
         }
 
-        /// <summary>
-        /// Gets all records using predicate.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>Enumerable list of records.</returns>
-        public IList<T> GetAll()
-        {
-            return dbSet.ToList();
-        }
-
-        /// <summary>
-        /// Asynchronously updates entity in the database.
-        /// </summary>
-        /// <param name="entity">Entity.</param>
-        public Task UpdateAsync(T entity)
-        {
-            dbSet.Attach(entity);
-            ((IObjectContextAdapter)context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
-            return Task.FromResult(true);
-        }
-
+        
+        
         #endregion Methods
     }
 }

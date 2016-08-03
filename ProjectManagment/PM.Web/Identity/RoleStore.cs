@@ -1,21 +1,22 @@
 ﻿using Microsoft.AspNet.Identity;
-using PM.DAL.Entities;
-using PM.Repository.Common;
+using PM.Common;
+using PM.Service.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PM.Web.Identity
 {
     public class RoleStore : IRoleStore<IdentityRole, Guid>, IQueryableRoleStore<IdentityRole, Guid>, IDisposable
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IIdentityService identityService;
+        private readonly IMapper mapper;
 
-        public RoleStore(IUnitOfWork unitOfWork)
+        public RoleStore(IIdentityService identityService, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            this.identityService = identityService;
+            this.mapper = mapper;
         }
 
         #region IRoleStore<IdentityRole, Guid> Members
@@ -24,10 +25,9 @@ namespace PM.Web.Identity
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var r = getRole(role);
+            var model = mapper.Map<PM.Model.Common.IRole>(role);
 
-            _unitOfWork.RoleRepository.AddAsync(r);
-            return _unitOfWork.SaveChangesAsync();
+            return identityService.AddRoleAsync(model);
         }
 
         public System.Threading.Tasks.Task DeleteAsync(IdentityRole role)
@@ -35,31 +35,29 @@ namespace PM.Web.Identity
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var r = getRole(role);
-
-            _unitOfWork.RoleRepository.DeleteAsync(r);
-            return _unitOfWork.SaveChangesAsync();
+            var model = mapper.Map<PM.Model.Common.IRole>(role);
+            return identityService.DeleteRoleAsync(model);
         }
 
         public async System.Threading.Tasks.Task<IdentityRole> FindByIdAsync(Guid roleId)
         {
-            var role = await _unitOfWork.RoleRepository.FindByIdAsync(roleId);
-            return getIdentityRole(role);
+            var role = await identityService.GetRoleAsync(roleId);
+            return mapper.Map<IdentityRole>(role);
         }
 
         public async System.Threading.Tasks.Task<IdentityRole> FindByNameAsync(string roleName)
         {
-            var role = await _unitOfWork.RoleRepository.FindByNameAsync(roleName);
-            return getIdentityRole(role);
+            var role = await identityService.GetRoleAsync(roleName);
+            return mapper.Map<IdentityRole>(role);
         }
 
         public System.Threading.Tasks.Task UpdateAsync(IdentityRole role)
         {
             if (role == null)
                 throw new ArgumentNullException("role");
-            var r = getRole(role);
-            _unitOfWork.RoleRepository.UpdateAsync(r);
-            return _unitOfWork.SaveChangesAsync();
+
+            var model = mapper.Map<PM.Model.Common.IRole>(role);
+            return identityService.UpdateRoleAsync(model);
         }
         #endregion
 
@@ -75,36 +73,11 @@ namespace PM.Web.Identity
         {
             get
             {
-                return _unitOfWork.RoleRepository
-                    .GetAll()
-                    .Select(x => getIdentityRole(x))
-                    .AsQueryable();
+                var roles = identityService.GetAllRoles();
+                return mapper.Map<IList<IdentityRole>>(roles).AsQueryable();
             }
         }
         #endregion
-
-        #region Private Methods
-        private Role getRole(IdentityRole identityRole)
-        {
-            if (identityRole == null)
-                return null;
-            return new Role
-            {
-                RoleId = identityRole.Id,
-                Name = identityRole.Name
-            };
-        }
-
-        private IdentityRole getIdentityRole(Role role)
-        {
-            if (role == null)
-                return null;
-            return new IdentityRole
-            {
-                Id = role.RoleId,
-                Name = role.Name
-            };
-        }
-        #endregion
+        
     }
 }

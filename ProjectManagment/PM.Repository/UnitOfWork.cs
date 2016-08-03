@@ -1,4 +1,6 @@
-﻿using PM.DAL;
+﻿
+using PM.Common;
+using PM.DAL;
 using PM.Repository.Common;
 using PM.Repository.Identity;
 using System.Threading.Tasks;
@@ -12,29 +14,31 @@ namespace PM.Repository
         private IExternalLoginRepository _externalLoginRepository;
         private IRoleRepository _roleRepository;
         private IUserRepository _userRepository;
+        private IMapper _mapper;
         #endregion
 
         #region Constructors
-        public UnitOfWork()
+        public UnitOfWork(IMapper mapper)
         {
             _context = new PMAppContext();
+            _mapper = mapper;
         }
         #endregion
 
         #region IUnitOfWork Members
         public IExternalLoginRepository ExternalLoginRepository
         {
-            get { return _externalLoginRepository ?? (_externalLoginRepository = new ExternalLoginRepository(_context)); }
+            get { return _externalLoginRepository ?? (_externalLoginRepository = new ExternalLoginRepository(_context, _mapper)); }
         }
 
         public IRoleRepository RoleRepository
         {
-            get { return _roleRepository ?? (_roleRepository = new RoleRepository(_context)); }
+            get { return _roleRepository ?? (_roleRepository = new RoleRepository(_context, _mapper)); }
         }
 
         public IUserRepository UserRepository
         {
-            get { return _userRepository ?? (_userRepository = new UserRepository(_context)); }
+            get { return _userRepository ?? (_userRepository = new UserRepository(_context, _mapper)); }
         }
 
         public int SaveChanges()

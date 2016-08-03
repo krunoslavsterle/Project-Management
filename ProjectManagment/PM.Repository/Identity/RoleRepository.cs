@@ -4,25 +4,94 @@ using PM.Repository.Common;
 using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
+using PM.Model.Common;
+using PM.Common;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 
 namespace PM.Repository.Identity
 {
-    internal class RoleRepository : Repository<Role>, IRoleRepository
+    internal class RoleRepository : Repository<RoleEntity>, IRoleRepository
     {
-        internal RoleRepository(PMAppContext context)
+        #region Fields
+
+        private IMapper mapper = null;
+
+        #endregion Fields
+
+        internal RoleRepository(PMAppContext context, IMapper mapper)
             : base(context)
         {
+            this.mapper = mapper;
         }
 
-        public Task<Role> FindByIdAsync(Guid id)
+
+        /// <summary>
+        /// Finds the by identifier asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public async Task<IRole> FindByIdAsync(Guid id)
         {
-            return GetAsync(x => x.RoleId == id);
+            var entity = await GetAsync(x => x.RoleId == id);
+            return mapper.Map<IRole>(entity);
         }
 
-        public Task<Role> FindByNameAsync(string roleName)
+        /// <summary>
+        /// Finds the by name asynchronous.
+        /// </summary>
+        /// <param name="roleName">Name of the role.</param>
+        /// <returns></returns>
+        public async Task<IRole> FindByNameAsync(string roleName)
         {
-            return GetAsync(x => x.Name == roleName);
-        }        
+            var entity = await GetAsync(x => x.Name == roleName);
+            return mapper.Map<IRole>(entity);
+        }
+
+        /// <summary>
+        /// Adds the <see cref="IRole"/> asynchronous.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>Task.</returns>
+        public Task AddAsync(IRole model)
+        {
+            var entity = mapper.Map<RoleEntity>(model);
+            return Task.FromResult(DbSet.Add(entity));
+        }
+
+        /// <summary>
+        /// Asynchronously deletes <see cref="IUser"/> form the database.
+        /// </summary>
+        /// <param name="model">Model.</param>
+        public Task DeleteAsync(IRole model)
+        {
+            var entity = mapper.Map<RoleEntity>(model);
+            DbSet.Remove(entity);
+            return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// Asynchronously updates entity in the database.
+        /// </summary>
+        /// <param name="entity">Entity.</param>
+        public Task UpdateAsync(IRole model)
+        {
+            var entity = mapper.Map<RoleEntity>(model);
+            DbSet.Attach(entity);
+            ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            return Task.FromResult(true);
+        }
+
+        /// <summary>
+        /// Gets all records.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>Enumerable list of records.</returns>
+        public IList<IRole> GetAll()
+        {
+            var entities = DbSet.ToList();
+            return mapper.Map<IList<IRole>>(entities);
+        }
     }
 }

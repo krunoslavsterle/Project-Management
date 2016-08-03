@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity.Owin;
-using PM.Web.Models;
+﻿using PM.Web.Models;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;

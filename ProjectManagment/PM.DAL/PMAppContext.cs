@@ -23,9 +23,9 @@ namespace PM.DAL
 
         #region Methods
 
-        internal IDbSet<User> Users { get; set; }
-        internal IDbSet<Role> Roles { get; set; }
-        internal IDbSet<ExternalLogin> Logins { get; set; }
+        internal IDbSet<UserEntity> Users { get; set; }
+        internal IDbSet<RoleEntity> Roles { get; set; }
+        internal IDbSet<ExternalLoginEntity> Logins { get; set; }
         public virtual DbSet<ProjectEntity> Projects { get; set; }
 
         /// <summary>

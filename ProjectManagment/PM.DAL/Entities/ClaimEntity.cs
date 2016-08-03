@@ -5,11 +5,11 @@ namespace PM.DAL.Entities
     /// <summary>
     /// Claim entity.
     /// </summary>
-    public class Claim
+    public class ClaimEntity
     {
         #region Fields
 
-        private User _user;
+        private UserEntity _user;
 
         #endregion Fields
 
@@ -58,7 +58,7 @@ namespace PM.DAL.Entities
         /// The user.
         /// </value>
         /// <exception cref="System.ArgumentNullException">value</exception>
-        public virtual User User
+        public virtual UserEntity User
         {
             get { return _user; }
             set

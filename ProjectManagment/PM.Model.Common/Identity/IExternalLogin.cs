@@ -1,19 +1,13 @@
 ﻿using System;
 
-namespace PM.DAL.Entities
+namespace PM.Model.Common
 {
     /// <summary>
-    /// External login entity.
+    /// External login domain model contract.
     /// </summary>
-    public class ExternalLogin
+    public interface IExternalLogin
     {
-        #region Fields
-
-        private User _user;
-
-        #endregion Fields
-
-        #region Scalar Properties
+        #region Properties
 
         /// <summary>
         /// Gets or sets the login provider.
@@ -21,7 +15,7 @@ namespace PM.DAL.Entities
         /// <value>
         /// The login provider.
         /// </value>
-        public virtual string LoginProvider { get; set; }
+        string LoginProvider { get; set; }
 
         /// <summary>
         /// Gets or sets the provider key.
@@ -29,7 +23,7 @@ namespace PM.DAL.Entities
         /// <value>
         /// The provider key.
         /// </value>
-        public virtual string ProviderKey { get; set; }
+        string ProviderKey { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -37,11 +31,7 @@ namespace PM.DAL.Entities
         /// <value>
         /// The user identifier.
         /// </value>
-        public virtual Guid UserId { get; set; }
-
-        #endregion Scalar Properties
-
-        #region Navigation Properties
+        Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the user.
@@ -49,16 +39,8 @@ namespace PM.DAL.Entities
         /// <value>
         /// The user.
         /// </value>
-        public virtual User User
-        {
-            get { return _user; }
-            set
-            {
-                _user = value;
-                UserId = value.UserId;
-            }
-        }
+        IUser User { get; set; }
 
-        #endregion Navigation Properties
+        #endregion Properties
     }
 }

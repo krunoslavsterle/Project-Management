@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using PM.DAL.Entities;
 using PM.Web.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PM.Web
 {
@@ -14,14 +9,20 @@ namespace PM.Web
     /// </summary>
     public class MapperProfile : Profile
     {
+        [Obsolete]
         protected override void Configure()
         {
             #region Identity models
 
-            CreateMap<User, IdentityUser>()
-                .ForMember(x => x.Id, opt => opt.MapFrom(user => user.UserId))
+            CreateMap<Model.Common.IUser, IdentityUser>()
+                .ForMember(v => v.Id, opt => opt.MapFrom(d => d.UserId))
                 .ReverseMap()
-                .ForMember(x => x.UserId, opt => opt.MapFrom(user => user.Id));
+                .ForMember(d => d.UserId, opt => opt.MapFrom(v => v.Id));
+
+            CreateMap<Model.Common.IRole, IdentityRole>()
+                .ForMember(v => v.Id, opt => opt.MapFrom(d => d.RoleId))
+                .ReverseMap()
+                .ForMember(d => d.RoleId, opt => opt.MapFrom(v => v.Id));
 
             #endregion Identity models
         }

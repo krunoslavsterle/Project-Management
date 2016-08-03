@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {
-    internal class ExternalLoginConfiguration : EntityTypeConfiguration<ExternalLogin>
+    internal class ExternalLoginConfiguration : EntityTypeConfiguration<ExternalLoginEntity>
     {
         internal ExternalLoginConfiguration()
         {

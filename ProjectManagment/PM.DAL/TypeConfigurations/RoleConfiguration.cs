@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {
-    internal class RoleConfiguration : EntityTypeConfiguration<Role>
+    internal class RoleConfiguration : EntityTypeConfiguration<RoleEntity>
     {
         internal RoleConfiguration()
         {

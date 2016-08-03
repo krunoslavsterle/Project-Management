@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\IClaim.cs" />
+    <Compile Include="Identity\IExternalLogin.cs" />
+    <Compile Include="Identity\IRole.cs" />
+    <Compile Include="Identity\IUser.cs" />
     <Compile Include="IProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
