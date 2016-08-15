@@ -95,6 +95,7 @@ namespace PM.Web.Areas.Administration.Controllers
             var project = await ProjectService.GetProjectAsync(projectId);
 
             ViewBag.ProjectName = project.Name;
+            ViewBag.ProjectId = project.Id;
 
             return View("Project");
         }

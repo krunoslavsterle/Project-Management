@@ -1,8 +1,12 @@
-﻿@{
+﻿
+@{
+    ViewBag.Title = "List";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
 }
 
-<h3><i class="fa fa-angle-right"></i> Overview</h3>
+<h3><i class="fa fa-angle-right"></i> Tasks</h3>
+
+@Html.ActionLink("New Task", "New", "Task", new { area = "Administration", projectId = ViewBag.ProjectId }, new { @class = "btn btn-theme03" })
 
 <div class="row mt">
     <div class="col-lg-12">
@@ -11,9 +15,10 @@
 
             <div class="form-horizontal style-form">
 
-               
+
             </div>
 
         </div>
     </div>
 </div>
+

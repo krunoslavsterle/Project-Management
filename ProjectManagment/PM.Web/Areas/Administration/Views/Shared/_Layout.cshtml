@@ -187,7 +187,7 @@
                     <h5 class="centered">@User.Identity.Name</h5>
 
                     <li class="mt">
-                        <a href="#">
+                        <a href="@Url.Action("Projects", "Project", new { area = "Administration" })">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
@@ -203,11 +203,13 @@
                     @if (ViewBag.ProjectName != null)
                     {
                         <br/>
-                        <h5 class="centered">@((string)ViewBag.ProjectName)</h5>
+                        <h5 class="centered"><a href="@Url.Action("Project", "Project", new { area = "Administration", projectId = ViewBag.ProjectId })">@((string)ViewBag.ProjectName)</a> </h5>
 
                         <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-desktop"></i>
+
+
+                            <a href="@Url.Action("List", "Task", new { area = "Administration", projectId = ViewBag.ProjectId })">
+                                <i class="fa fa-book"></i>
                                 <span>Tasks</span>
                             </a>
                         </li>
