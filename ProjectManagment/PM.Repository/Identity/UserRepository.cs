@@ -13,21 +13,14 @@ namespace PM.Repository
 {
     internal class UserRepository : Repository<UserEntity>, IUserRepository
     {
-        #region Fields
-
-        private IMapper mapper = null;
-
-        #endregion Fields
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="mapper">The mapper.</param>
         internal UserRepository(PMAppContext context, IMapper mapper)
-            : base(context)
+            : base(context, mapper)
         {
-            this.mapper = mapper;
         }
 
         /// <summary>
@@ -38,7 +31,7 @@ namespace PM.Repository
         public async Task<IUser> FindByUserNameAsync(string username)
         {
             var entity = await GetAsync(x => x.UserName == username);
-            return mapper.Map<IUser>(entity);
+            return Mapper.Map<IUser>(entity);
         }
 
         /// <summary>
@@ -49,7 +42,7 @@ namespace PM.Repository
         public async Task<IUser> GetByUserIdAsync(Guid id)
         {
             var entity = await GetAsync(i => i.UserId == id);
-            return mapper.Map<IUser>(entity);
+            return Mapper.Map<IUser>(entity);
         }
 
         /// <summary>
@@ -59,7 +52,7 @@ namespace PM.Repository
         /// <returns>Task.</returns>
         public Task AddAsync(IUser model)
         {
-            var entity = mapper.Map<UserEntity>(model);
+            var entity = Mapper.Map<UserEntity>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
         
@@ -69,7 +62,7 @@ namespace PM.Repository
         /// <param name="model">Model.</param>
         public Task DeleteAsync(IUser model)
         {
-            var entity = mapper.Map<UserEntity>(model);
+            var entity = Mapper.Map<UserEntity>(model);
             DbSet.Remove(entity);
             return Task.FromResult(true);
         }
@@ -80,7 +73,7 @@ namespace PM.Repository
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IUser model)
         {
-            var entity = mapper.Map<UserEntity>(model);
+            var entity = Mapper.Map<UserEntity>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return Task.FromResult(true);

@@ -29,6 +29,13 @@ namespace PM.Repository
             CreateMap<Claim, IClaim>().ReverseMap();
 
             #endregion Identity models
+
+            #region Project models
+
+            CreateMap<Project, IProject>().ReverseMap();
+            CreateMap<ProjectEntity, IProject>().ReverseMap();
+
+            #endregion Project models
         }
     }
 }

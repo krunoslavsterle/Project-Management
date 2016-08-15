@@ -60,6 +60,7 @@
     <Compile Include="DIModule.cs" />
     <Compile Include="Identity\RoleRepository.cs" />
     <Compile Include="Mapping\MapperProfile.cs" />
+    <Compile Include="ProjectRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />

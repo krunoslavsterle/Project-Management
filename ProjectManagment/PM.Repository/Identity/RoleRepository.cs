@@ -13,17 +13,10 @@ using System.Data.Entity;
 namespace PM.Repository.Identity
 {
     internal class RoleRepository : Repository<RoleEntity>, IRoleRepository
-    {
-        #region Fields
-
-        private IMapper mapper = null;
-
-        #endregion Fields
-
+    {       
         internal RoleRepository(PMAppContext context, IMapper mapper)
-            : base(context)
+            : base(context, mapper)
         {
-            this.mapper = mapper;
         }
 
 
@@ -35,7 +28,7 @@ namespace PM.Repository.Identity
         public async Task<IRole> FindByIdAsync(Guid id)
         {
             var entity = await GetAsync(x => x.RoleId == id);
-            return mapper.Map<IRole>(entity);
+            return Mapper.Map<IRole>(entity);
         }
 
         /// <summary>
@@ -46,7 +39,7 @@ namespace PM.Repository.Identity
         public async Task<IRole> FindByNameAsync(string roleName)
         {
             var entity = await GetAsync(x => x.Name == roleName);
-            return mapper.Map<IRole>(entity);
+            return Mapper.Map<IRole>(entity);
         }
 
         /// <summary>
@@ -56,7 +49,7 @@ namespace PM.Repository.Identity
         /// <returns>Task.</returns>
         public Task AddAsync(IRole model)
         {
-            var entity = mapper.Map<RoleEntity>(model);
+            var entity = Mapper.Map<RoleEntity>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
 
@@ -66,7 +59,7 @@ namespace PM.Repository.Identity
         /// <param name="model">Model.</param>
         public Task DeleteAsync(IRole model)
         {
-            var entity = mapper.Map<RoleEntity>(model);
+            var entity = Mapper.Map<RoleEntity>(model);
             DbSet.Remove(entity);
             return Task.FromResult(true);
         }
@@ -77,7 +70,7 @@ namespace PM.Repository.Identity
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IRole model)
         {
-            var entity = mapper.Map<RoleEntity>(model);
+            var entity = Mapper.Map<RoleEntity>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return Task.FromResult(true);
@@ -91,7 +84,7 @@ namespace PM.Repository.Identity
         public IList<IRole> GetAll()
         {
             var entities = DbSet.ToList();
-            return mapper.Map<IList<IRole>>(entities);
+            return Mapper.Map<IList<IRole>>(entities);
         }
     }
 }

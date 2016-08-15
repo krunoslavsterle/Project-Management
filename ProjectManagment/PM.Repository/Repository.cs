@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using PM.DAL;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using PM.Common;
 
 namespace PM.Repository
 {
@@ -22,9 +23,10 @@ namespace PM.Repository
         /// Initialize a new instance of <see cref="Repository{T}"/> class.
         /// </summary>
         /// <param name="Context">PM app Context.</param>
-        public Repository(PMAppContext Context)
+        public Repository(PMAppContext Context, IMapper mapper)
         {
             this.Context = Context;
+            this.Mapper = mapper;
             DbSet = this.Context.Set<T>();
         }
         
@@ -45,6 +47,14 @@ namespace PM.Repository
         /// The Context.
         /// </value>
         protected PMAppContext Context { get; private set; }
+
+        /// <summary>
+        /// Gets the mapper.
+        /// </summary>
+        /// <value>
+        /// The mapper.
+        /// </value>
+        protected IMapper Mapper { get; private set; }
 
         #region Methods
 

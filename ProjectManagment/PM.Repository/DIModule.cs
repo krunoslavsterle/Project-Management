@@ -14,6 +14,8 @@ namespace PM.Repository
             Bind(typeof(IRepository<>)).To(typeof(Repository<>));
             Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork));
             Bind<Profile>().To<MapperProfile>().InTransientScope();
+
+            Bind(typeof(IProjectRepository)).To(typeof(ProjectRepository));
         }
     }
 }

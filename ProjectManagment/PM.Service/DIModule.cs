@@ -8,6 +8,7 @@ namespace PM.Service
         public override void Load()
         {
             Bind<IIdentityService>().To<IdentityService>();
+            Bind<IProjectService>().To<ProjectService>();
         }
     }
 }

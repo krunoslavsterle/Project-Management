@@ -12,18 +12,11 @@ namespace PM.Repository.Identity
 {
     internal class ExternalLoginRepository : Repository<ExternalLoginEntity>, IExternalLoginRepository
     {
-        #region Fields
-
-        private IMapper mapper = null;
-
-        #endregion Fields
-
         #region Constructors
 
         internal ExternalLoginRepository(PMAppContext context, IMapper mapper)
-            : base(context)
+            : base(context, mapper)
         {
-            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -39,7 +32,7 @@ namespace PM.Repository.Identity
         public async Task<IExternalLogin> GetByProviderAndKeyAsync(string loginProvider, string providerKey)
         {
             var entity = await GetAsync(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey);
-            return mapper.Map<IExternalLogin>(entity);
+            return Mapper.Map<IExternalLogin>(entity);
         }
 
         /// <summary>
@@ -49,7 +42,7 @@ namespace PM.Repository.Identity
         /// <returns>Task.</returns>
         public Task AddAsync(IExternalLogin model)
         {
-            var entity = mapper.Map<ExternalLoginEntity>(model);
+            var entity = Mapper.Map<ExternalLoginEntity>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
 
@@ -59,7 +52,7 @@ namespace PM.Repository.Identity
         /// <param name="model">Model.</param>
         public Task DeleteAsync(IExternalLogin model)
         {
-            var entity = mapper.Map<ExternalLoginEntity>(model);
+            var entity = Mapper.Map<ExternalLoginEntity>(model);
             DbSet.Remove(entity);
             return Task.FromResult(true);
         }
@@ -80,7 +73,7 @@ namespace PM.Repository.Identity
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IExternalLogin model)
         {
-            var entity = mapper.Map<ExternalLoginEntity>(model);
+            var entity = Mapper.Map<ExternalLoginEntity>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return Task.FromResult(true);

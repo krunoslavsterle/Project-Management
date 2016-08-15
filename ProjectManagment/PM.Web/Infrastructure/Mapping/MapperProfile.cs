@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PM.Model.Common;
+using PM.Web.Areas.Administration.Models;
 using PM.Web.Identity;
 using System;
 
@@ -25,6 +27,12 @@ namespace PM.Web
                 .ForMember(d => d.RoleId, opt => opt.MapFrom(v => v.Id));
 
             #endregion Identity models
+
+            #region Project models
+
+            CreateMap<IProject, CreateProjectViewModel>().ReverseMap();
+
+            #endregion Project models
         }
     }
 }
