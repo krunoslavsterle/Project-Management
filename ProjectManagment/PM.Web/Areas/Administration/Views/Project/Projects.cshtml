@@ -1,4 +1,4 @@
-﻿
+﻿@model IList<ProjectViewModel>
 @{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
 }
@@ -6,15 +6,38 @@
 <h3><i class="fa fa-angle-right"></i> Projects</h3>
 
 @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-theme03" })
-<!-- BASIC FORM ELELEMNTS -->
+
 <div class="row mt">
     <div class="col-lg-12">
 
         <div class="form-panel">
-            <h4 class="mb"><i class="fa fa-angle-right"></i> Project Details</h4>
 
             <div class="form-horizontal style-form">
-                <!-- LIST OF PROJECTS -->
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Latest Update</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var project in Model)
+                        {
+                            <tr>
+                                <td>@project.Name</td>
+                                <td>@project.Description</td>
+                                <td>@project.DateUpdated</td>
+                                <td>
+                                    @Html.ActionLink("Open", "Project", "Project", new { area = "Administration", projectId = project.Id }, null)
+                                </td>
+                            </tr>
+                        }                       
+                    </tbody>
+                </table>
+
             </div>
 
         </div>

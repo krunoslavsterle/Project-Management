@@ -189,17 +189,59 @@
                     <li class="mt">
                         <a href="#">
                             <i class="fa fa-dashboard"></i>
-                            <span>Home</span>
+                            <span>Dashboard</span>
                         </a>
                     </li>
 
                     <li class="sub-menu">
-                        <a href="#">
+                        <a href="javascript:;">
                             <i class="fa fa-desktop"></i>
-                            <span>Projects</span>
+                            <span>Settings</span>
                         </a>
-                      
                     </li>
+                   
+                    @if (ViewBag.ProjectName != null)
+                    {
+                        <br/>
+                        <h5 class="centered">@((string)ViewBag.ProjectName)</h5>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Tasks</span>
+                            </a>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Progress</span>
+                            </a>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Peoples</span>
+                            </a>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Documents</span>
+                            </a>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Calendar</span>
+                            </a>
+                        </li>
+                    }
+
+                   
                 </ul>
                 <!-- sidebar menu end-->
             </div>

@@ -3,6 +3,9 @@ using PM.Model.Common;
 using PM.Service.Common;
 using PM.Web.Areas.Administration.Models;
 using PM.Web.Controllers;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -44,9 +47,12 @@ namespace PM.Web.Areas.Administration.Controllers
 
         [HttpGet]
         [ActionName("Projects")]
-        public Task<ViewResult> ProjectsAsync()
+        public async Task<ViewResult> ProjectsAsync()
         {
-            return Task.FromResult(View());
+            var domainList = await ProjectService.FindAsync(null);
+            var vm = Mapper.Map <IList<ProjectViewModel>>(domainList);
+
+            return View("Projects", vm);
         }
 
 
@@ -80,6 +86,17 @@ namespace PM.Web.Areas.Administration.Controllers
             }
 
             return View("NewProject", vm);
+        }
+
+        [HttpGet]
+        [ActionName("Project")]
+        public async Task<ViewResult> ProjectAsync(Guid projectId)
+        {
+            var project = await ProjectService.GetProjectAsync(projectId);
+
+            ViewBag.ProjectName = project.Name;
+
+            return View("Project");
         }
 
         #endregion Methods

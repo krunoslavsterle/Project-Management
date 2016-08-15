@@ -31,6 +31,7 @@ namespace PM.Web
             #region Project models
 
             CreateMap<IProject, CreateProjectViewModel>().ReverseMap();
+            CreateMap<IProject, ProjectViewModel>().ReverseMap();
 
             #endregion Project models
         }

@@ -77,19 +77,7 @@ namespace PM.Repository
             return DbSet.FirstOrDefaultAsync(predicate);
         }
 
-        /// <summary>
-        /// Asynchronously gets all records using predicate.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>Enumerable list of records.</returns>
-        public Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
-        {
-            if (predicate == null)
-            {
-                return Task.FromResult<IList<T>>(DbSet.ToList());
-            }
-            return Task.FromResult<IList<T>>(DbSet.Where(predicate).ToList());
-        }
+        
 
         
         

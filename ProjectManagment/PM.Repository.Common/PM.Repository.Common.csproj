@@ -51,6 +51,10 @@
     <Compile Include="Identity\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PM.Common\PM.Common.csproj">
+      <Project>{C0C26BC3-AFC4-4AF5-BB77-E99327E74C71}</Project>
+      <Name>PM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PM.DAL\PM.DAL.csproj">
       <Project>{618b774c-614c-4fc6-884e-683579f1cff9}</Project>
       <Name>PM.DAL</Name>

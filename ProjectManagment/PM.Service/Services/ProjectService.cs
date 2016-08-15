@@ -1,7 +1,9 @@
-﻿using PM.Model.Common;
+﻿using PM.Common.Filters;
+using PM.Model.Common;
 using PM.Repository.Common;
 using PM.Service.Common;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PM.Service
@@ -23,6 +25,16 @@ namespace PM.Service
         #region Methods
 
         /// <summary>
+        /// Gets the <see cref="IProject"/> asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public Task<IProject> GetProjectAsync(Guid id)
+        {
+            return UnitOfWork.ProjectRepository.GetProjectAsync(id);
+        }
+
+        /// <summary>
         /// Adds the project asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
@@ -35,6 +47,16 @@ namespace PM.Service
 
             await UnitOfWork.ProjectRepository.AddAsync(model);
             return await UnitOfWork.SaveChangesAsync() > 0;
+        }
+
+        /// <summary>
+        /// Finds the list of <see cref="IProject"/>'s asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
+        public Task<IList<IProject>> FindAsync(ProjectFilter filter)
+        {
+            return UnitOfWork.ProjectRepository.FindAsync(filter);
         }
 
         #endregion Methods

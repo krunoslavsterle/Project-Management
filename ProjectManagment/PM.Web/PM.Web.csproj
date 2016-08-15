@@ -237,6 +237,7 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\ProjectController.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
@@ -269,6 +270,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Areas\Administration\Views\Project\NewProject.cshtml" />
+    <Content Include="Areas\Administration\Views\Project\Project.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

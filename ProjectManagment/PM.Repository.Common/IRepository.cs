@@ -13,13 +13,6 @@ namespace PM.Repository.Common
     public interface IRepository<T> where T : class
     {
         /// <summary>
-        /// Asynchronously gets all records using predicate.
-        /// </summary>
-        /// <param name="predicate">The predicate.</param>
-        /// <returns>Enumerable list of records.</returns>
-        Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null);
-
-        /// <summary>
         /// Asynchronously gets one record using predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
