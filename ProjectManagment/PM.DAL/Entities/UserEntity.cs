@@ -9,6 +9,12 @@ namespace PM.DAL.Entities
     /// </summary>
     public class UserEntity
     {
+        public UserEntity()
+        {
+            this.Claims =  new List<ClaimEntity>();
+            this.Logins = new List<ExternalLoginEntity>();
+            this.Roles = new List<RoleEntity>();
+        }
         #region Fields
 
         private ICollection<ClaimEntity> _claims;

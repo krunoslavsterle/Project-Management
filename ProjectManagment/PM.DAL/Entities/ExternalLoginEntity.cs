@@ -7,6 +7,8 @@ namespace PM.DAL.Entities
     /// </summary>
     public class ExternalLoginEntity
     {
+        
+
         #region Fields
 
         private UserEntity _user;

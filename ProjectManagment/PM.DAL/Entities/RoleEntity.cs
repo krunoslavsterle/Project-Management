@@ -8,6 +8,11 @@ namespace PM.DAL.Entities
     /// </summary>
     public class RoleEntity
     {
+        public RoleEntity()
+        {
+            this.Users = new List<UserEntity>();
+        }
+
         #region Fields
 
         private ICollection<UserEntity> _users;
