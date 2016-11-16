@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PM.DAL.Entities;
+using PM.DAL;
 using PM.Model;
 using PM.Model.Common;
 using System;
@@ -16,24 +16,24 @@ namespace PM.Repository
         {
             #region Identity models
 
+            CreateMap<UserPoco, IUser>().ReverseMap();
             CreateMap<User, IUser>().ReverseMap();
-            CreateMap<UserEntity, IUser>().ReverseMap();
 
+            CreateMap<RolePoco, IRole>().ReverseMap();
             CreateMap<Role, IRole>().ReverseMap();
-            CreateMap<RoleEntity, IRole>().ReverseMap();
 
-            CreateMap<ExternalLoginEntity, IExternalLogin>().ReverseMap();
             CreateMap<ExternalLogin, IExternalLogin>().ReverseMap();
+            CreateMap<ExternalLoginPoco, IExternalLogin>().ReverseMap();
 
-            CreateMap<ClaimEntity, IClaim>().ReverseMap();
             CreateMap<Claim, IClaim>().ReverseMap();
+            CreateMap<ClaimPoco, IClaim>().ReverseMap();
 
             #endregion Identity models
 
             #region Project models
 
+            CreateMap<ProjectPoco, IProject>().ReverseMap();
             CreateMap<Project, IProject>().ReverseMap();
-            CreateMap<ProjectEntity, IProject>().ReverseMap();
 
             #endregion Project models
         }

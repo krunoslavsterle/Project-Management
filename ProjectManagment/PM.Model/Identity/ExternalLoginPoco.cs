@@ -6,7 +6,7 @@ namespace PM.Model
     /// <summary>
     /// External login domain model.
     /// </summary>
-    public class ExternalLogin : IExternalLogin
+    public class ExternalLoginPoco : IExternalLogin
     {
         #region Properties
 

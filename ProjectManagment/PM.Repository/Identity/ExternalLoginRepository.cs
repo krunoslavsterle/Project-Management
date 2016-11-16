@@ -1,7 +1,5 @@
 ﻿using PM.Common;
 using PM.DAL;
-using PM.DAL.Entities;
-using PM.Model;
 using PM.Model.Common;
 using PM.Repository.Common;
 using System.Data.Entity;
@@ -10,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PM.Repository.Identity
 {
-    internal class ExternalLoginRepository : Repository<ExternalLoginEntity>, IExternalLoginRepository
+    internal class ExternalLoginRepository : Repository<ExternalLogin>, IExternalLoginRepository
     {
         #region Constructors
 
-        internal ExternalLoginRepository(PMAppContext context, IMapper mapper)
+        internal ExternalLoginRepository(PMDatabaseEntities context, IMapper mapper)
             : base(context, mapper)
         {
         }
@@ -42,7 +40,7 @@ namespace PM.Repository.Identity
         /// <returns>Task.</returns>
         public Task AddAsync(IExternalLogin model)
         {
-            var entity = Mapper.Map<ExternalLoginEntity>(model);
+            var entity = Mapper.Map<ExternalLogin>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
 
@@ -52,7 +50,7 @@ namespace PM.Repository.Identity
         /// <param name="model">Model.</param>
         public Task DeleteAsync(IExternalLogin model)
         {
-            var entity = Mapper.Map<ExternalLoginEntity>(model);
+            var entity = Mapper.Map<ExternalLogin>(model);
             DbSet.Remove(entity);
             return Task.FromResult(true);
         }
@@ -63,7 +61,7 @@ namespace PM.Repository.Identity
         /// <returns><see cref="IExternalLogin"/>.</returns>
         public Task<IExternalLogin> CreateAsync()
         {
-            IExternalLogin model = new ExternalLogin();
+            IExternalLogin model = new Model.ExternalLoginPoco();
             return Task.FromResult(model);
         }
 
@@ -73,7 +71,7 @@ namespace PM.Repository.Identity
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IExternalLogin model)
         {
-            var entity = Mapper.Map<ExternalLoginEntity>(model);
+            var entity = Mapper.Map<ExternalLogin>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return Task.FromResult(true);

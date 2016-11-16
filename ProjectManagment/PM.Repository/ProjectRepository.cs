@@ -1,5 +1,4 @@
-﻿using PM.DAL.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PM.DAL;
 using PM.Model.Common;
 using PM.Common;
@@ -15,11 +14,11 @@ namespace PM.Repository
     /// <summary>
     /// Project repository.
     /// </summary>
-    public class ProjectRepository : Repository<ProjectEntity>, IProjectRepository
+    public class ProjectRepository : Repository<Project>, IProjectRepository
     {
         #region Constructors
         
-        public ProjectRepository(PMAppContext Context, IMapper mapper) 
+        public ProjectRepository(PMDatabaseEntities Context, IMapper mapper) 
             : base(Context, mapper)
         {
             
@@ -47,7 +46,7 @@ namespace PM.Repository
         /// <returns></returns>
         public Task AddAsync(IProject model)
         {
-            var entity = Mapper.Map<ProjectEntity>(model);
+            var entity = Mapper.Map<Project>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
 

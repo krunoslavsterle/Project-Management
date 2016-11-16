@@ -23,7 +23,7 @@ namespace PM.Repository
         /// Initialize a new instance of <see cref="Repository{T}"/> class.
         /// </summary>
         /// <param name="Context">PM app Context.</param>
-        public Repository(PMAppContext Context, IMapper mapper)
+        public Repository(PMDatabaseEntities Context, IMapper mapper)
         {
             this.Context = Context;
             this.Mapper = mapper;
@@ -46,7 +46,7 @@ namespace PM.Repository
         /// <value>
         /// The Context.
         /// </value>
-        protected PMAppContext Context { get; private set; }
+        protected PMDatabaseEntities Context { get; private set; }
 
         /// <summary>
         /// Gets the mapper.

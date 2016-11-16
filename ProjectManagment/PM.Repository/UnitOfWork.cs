@@ -15,7 +15,7 @@ namespace PM.Repository
     {
         #region Fields
 
-        private readonly PMAppContext _context;
+        private readonly PMDatabaseEntities _context;
         private IMapper _mapper;
 
         private IExternalLoginRepository _externalLoginRepository;
@@ -33,7 +33,7 @@ namespace PM.Repository
         /// <param name="mapper">The mapper.</param>
         public UnitOfWork(IMapper mapper)
         {
-            _context = new PMAppContext();
+            _context = new PMDatabaseEntities();
             _mapper = mapper;
         }
 

@@ -1,5 +1,4 @@
 ﻿using PM.DAL;
-using PM.DAL.Entities;
 using PM.Repository.Common;
 using System.Threading.Tasks;
 using System;
@@ -12,9 +11,9 @@ using System.Data.Entity;
 
 namespace PM.Repository.Identity
 {
-    internal class RoleRepository : Repository<RoleEntity>, IRoleRepository
+    internal class RoleRepository : Repository<Role>, IRoleRepository
     {       
-        internal RoleRepository(PMAppContext context, IMapper mapper)
+        internal RoleRepository(PMDatabaseEntities context, IMapper mapper)
             : base(context, mapper)
         {
         }
@@ -49,7 +48,7 @@ namespace PM.Repository.Identity
         /// <returns>Task.</returns>
         public Task AddAsync(IRole model)
         {
-            var entity = Mapper.Map<RoleEntity>(model);
+            var entity = Mapper.Map<Role>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
 
@@ -59,7 +58,7 @@ namespace PM.Repository.Identity
         /// <param name="model">Model.</param>
         public Task DeleteAsync(IRole model)
         {
-            var entity = Mapper.Map<RoleEntity>(model);
+            var entity = Mapper.Map<Role>(model);
             DbSet.Remove(entity);
             return Task.FromResult(true);
         }
@@ -70,7 +69,7 @@ namespace PM.Repository.Identity
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IRole model)
         {
-            var entity = Mapper.Map<RoleEntity>(model);
+            var entity = Mapper.Map<Role>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return Task.FromResult(true);

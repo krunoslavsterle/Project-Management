@@ -1,9 +1,8 @@
-﻿using PM.DAL.Entities;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL
 {
-    internal class UserConfiguration : EntityTypeConfiguration<UserEntity>
+    internal class UserConfiguration : EntityTypeConfiguration<User>
     {
         internal UserConfiguration()
         {
@@ -50,10 +49,7 @@ namespace PM.DAL
             HasMany(x => x.Claims)
                 .WithRequired(x => x.User)
                 .HasForeignKey(x => x.UserId);
-
-            HasMany(x => x.Logins)
-                .WithRequired(x => x.User)
-                .HasForeignKey(x => x.UserId);
+            
         }
     }
 }

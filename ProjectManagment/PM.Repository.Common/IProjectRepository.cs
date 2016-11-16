@@ -1,5 +1,5 @@
 ﻿using PM.Common.Filters;
-using PM.DAL.Entities;
+using PM.DAL;
 using PM.Model.Common;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace PM.Repository.Common
     /// Project repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.ProjectEntity}" />
-    public interface IProjectRepository : IRepository<ProjectEntity>
+    public interface IProjectRepository : IRepository<Project>
     {
         /// <summary>
         /// Gets the <see cref="IProject"/> asynchronous.

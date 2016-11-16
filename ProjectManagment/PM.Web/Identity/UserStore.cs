@@ -145,7 +145,7 @@ namespace PM.Web.Identity
             l.ProviderKey = login.ProviderKey;
             l.User = u;
 
-            u.Logins.Add(l);
+            u.ExternalLogins.Add(l);
             await identityService.UpdateUserAsync(u);
         }
 
@@ -172,7 +172,7 @@ namespace PM.Web.Identity
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            return u.Logins.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList();
+            return u.ExternalLogins.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList();
         }
 
         public async Task RemoveLoginAsync(IdentityUser user, UserLoginInfo login)
@@ -186,8 +186,8 @@ namespace PM.Web.Identity
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            var l = u.Logins.FirstOrDefault(x => x.LoginProvider == login.LoginProvider && x.ProviderKey == login.ProviderKey);
-            u.Logins.Remove(l);
+            var l = u.ExternalLogins.FirstOrDefault(x => x.LoginProvider == login.LoginProvider && x.ProviderKey == login.ProviderKey);
+            u.ExternalLogins.Remove(l);
 
             await identityService.UpdateUserAsync(u);
         }

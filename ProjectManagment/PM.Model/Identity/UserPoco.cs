@@ -7,7 +7,7 @@ namespace PM.Model
     /// <summary>
     /// User domain model.
     /// </summary>
-    public class User : IUser
+    public class UserPoco : IUser
     {
         #region Properties
 
@@ -65,7 +65,7 @@ namespace PM.Model
         /// <value>
         /// The logins.
         /// </value>
-        public ICollection<IExternalLogin> Logins { get; set; }
+        public ICollection<IExternalLogin> ExternalLogins { get; set; }
 
         /// <summary>
         /// Gets or sets the roles.

@@ -5,7 +5,7 @@ namespace PM.Model
     /// <summary>
     /// Project model.
     /// </summary>
-    public class Project
+    public class ProjectPoco
     {
         #region Properties
 

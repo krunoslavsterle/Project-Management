@@ -64,7 +64,7 @@ namespace PM.Model.Common
         /// <value>
         /// The logins.
         /// </value>
-        ICollection<IExternalLogin> Logins { get; set; }
+        ICollection<IExternalLogin> ExternalLogins { get; set; }
 
         /// <summary>
         /// Gets or sets the roles.

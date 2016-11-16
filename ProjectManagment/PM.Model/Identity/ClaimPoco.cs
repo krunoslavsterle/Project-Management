@@ -6,7 +6,7 @@ namespace PM.Model
     /// <summary>
     /// Claim domain model.
     /// </summary>
-    public class Claim : IClaim
+    public class ClaimPoco : IClaim
     {
         #region Properties
 

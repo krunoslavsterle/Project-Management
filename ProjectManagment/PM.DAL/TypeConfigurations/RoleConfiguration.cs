@@ -1,9 +1,8 @@
-﻿using PM.DAL.Entities;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {
-    internal class RoleConfiguration : EntityTypeConfiguration<RoleEntity>
+    internal class RoleConfiguration : EntityTypeConfiguration<Role>
     {
         internal RoleConfiguration()
         {

@@ -1,24 +1,21 @@
-﻿using PM.DAL.Entities;
-using PM.DAL;
+﻿using PM.DAL;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Threading.Tasks;
 using PM.Model.Common;
 using PM.Common;
 using System;
-using PM.Model;
 
 namespace PM.Repository
 {
-    internal class UserRepository : Repository<UserEntity>, IUserRepository
+    internal class UserRepository : Repository<User>, IUserRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="mapper">The mapper.</param>
-        internal UserRepository(PMAppContext context, IMapper mapper)
+        internal UserRepository(PMDatabaseEntities context, IMapper mapper)
             : base(context, mapper)
         {
         }
@@ -52,7 +49,7 @@ namespace PM.Repository
         /// <returns>Task.</returns>
         public Task AddAsync(IUser model)
         {
-            var entity = Mapper.Map<UserEntity>(model);
+            var entity = Mapper.Map<User>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
         
@@ -62,7 +59,7 @@ namespace PM.Repository
         /// <param name="model">Model.</param>
         public Task DeleteAsync(IUser model)
         {
-            var entity = Mapper.Map<UserEntity>(model);
+            var entity = Mapper.Map<User>(model);
             DbSet.Remove(entity);
             return Task.FromResult(true);
         }
@@ -73,7 +70,7 @@ namespace PM.Repository
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IUser model)
         {
-            var entity = Mapper.Map<UserEntity>(model);
+            var entity = Mapper.Map<User>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return Task.FromResult(true);
@@ -85,7 +82,7 @@ namespace PM.Repository
         /// <returns><see cref="IClaim"/>.</returns>
         public Task<IClaim> CreateClaimAsync()
         {
-            IClaim claim = new Claim();
+            IClaim claim = new Model.ClaimPoco();
             return Task.FromResult(claim);
         }
     }

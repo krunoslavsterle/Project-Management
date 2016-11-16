@@ -1,9 +1,8 @@
-﻿using PM.DAL.Entities;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {
-    internal class ExternalLoginConfiguration : EntityTypeConfiguration<ExternalLoginEntity>
+    internal class ExternalLoginConfiguration : EntityTypeConfiguration<ExternalLogin>
     {
         internal ExternalLoginConfiguration()
         {
@@ -27,10 +26,7 @@ namespace PM.DAL.TypeConfigurations
                 .HasColumnName("UserId")
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
-
-            HasRequired(x => x.User)
-                .WithMany(x => x.Logins)
-                .HasForeignKey(x => x.UserId);
+           
         }
     }
 }

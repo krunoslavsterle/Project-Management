@@ -1,4 +1,4 @@
-﻿using PM.DAL.Entities;
+﻿using PM.DAL;
 using PM.Model.Common;
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ namespace PM.Repository.Common
     /// External login repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.ExternalLoginEntity}" />
-    public interface IExternalLoginRepository : IRepository<ExternalLoginEntity>
+    public interface IExternalLoginRepository : IRepository<ExternalLogin>
     {
         /// <summary>
         /// Gets the by provider and key asynchronous.

@@ -1,10 +1,9 @@
-﻿using PM.DAL.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {   
-    internal class ClaimConfiguration : EntityTypeConfiguration<ClaimEntity>
+    internal class ClaimConfiguration : EntityTypeConfiguration<Claim>
     {
         internal ClaimConfiguration()
         {

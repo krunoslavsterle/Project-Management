@@ -1,25 +1,15 @@
-﻿using System;
+﻿using PM.Model.Common;
+using System;
 using System.Collections.Generic;
 
-namespace PM.DAL.Entities
+namespace PM.Model
 {
     /// <summary>
-    /// Role entity.
+    /// Role domain model.
     /// </summary>
-    public class RoleEntity
+    public class RolePoco : IRole
     {
-        public RoleEntity()
-        {
-            this.Users = new List<UserEntity>();
-        }
-
-        #region Fields
-
-        private ICollection<UserEntity> _users;
-
-        #endregion Fields
-
-        #region Scalar Properties
+        #region Properties
 
         /// <summary>
         /// Gets or sets the role identifier.
@@ -36,24 +26,15 @@ namespace PM.DAL.Entities
         /// The name.
         /// </value>
         public string Name { get; set; }
-
-        #endregion Scalar Properies
-
-        #region Navigation Properties
-
+        
         /// <summary>
         /// Gets or sets the users.
         /// </summary>
         /// <value>
         /// The users.
         /// </value>
-        public ICollection<UserEntity> Users
-        {
-            get { return _users ?? (_users = new List<UserEntity>()); }
-            set { _users = value; }
-        }
+        public ICollection<IUser> Users { get; set; }
 
-        #endregion Navigation Properties
+        #endregion Properies
     }
 }
- 

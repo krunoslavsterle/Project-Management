@@ -1,4 +1,4 @@
-﻿using PM.DAL.Entities;
+﻿using PM.DAL;
 using PM.Model.Common;
 using PM.Repository.Common;
 using System;
@@ -9,8 +9,8 @@ namespace PM.Repository
     /// <summary>
     /// User repository contract.
     /// </summary>
-    /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.UserEntity}" />
-    public interface IUserRepository : IRepository<UserEntity>
+    /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.User}" />
+    public interface IUserRepository : IRepository<User>
     {
         /// <summary>
         /// Finds <see cref="IUser"/> the by user name asynchronous.

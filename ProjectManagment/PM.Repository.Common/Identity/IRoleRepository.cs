@@ -1,4 +1,4 @@
-﻿using PM.DAL.Entities;
+﻿using PM.DAL;
 using PM.Model.Common;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace PM.Repository.Common
     /// Role repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.RoleEntity}" />
-    public interface IRoleRepository : IRepository<RoleEntity>
+    public interface IRoleRepository : IRepository<Role>
     {
         /// <summary>
         /// Finds the by name asynchronous.

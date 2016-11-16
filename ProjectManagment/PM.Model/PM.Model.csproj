@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Identity\Claim.cs" />
-    <Compile Include="Identity\ExternalLogin.cs" />
-    <Compile Include="Identity\Role.cs" />
-    <Compile Include="Identity\User.cs" />
-    <Compile Include="Project.cs" />
+    <Compile Include="Identity\ClaimPoco.cs" />
+    <Compile Include="Identity\ExternalLoginPoco.cs" />
+    <Compile Include="Identity\RolePoco.cs" />
+    <Compile Include="Identity\UserPoco.cs" />
+    <Compile Include="ProjectPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

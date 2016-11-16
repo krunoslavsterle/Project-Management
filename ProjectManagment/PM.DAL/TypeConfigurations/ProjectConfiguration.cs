@@ -1,12 +1,11 @@
-﻿using PM.DAL.Entities;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 
 namespace PM.DAL.TypeConfigurations
 {
     /// <summary>
     /// Project entity configuration.
     /// </summary>
-    public class ProjectConfiguration : EntityTypeConfiguration<ProjectEntity>
+    public class ProjectConfiguration : EntityTypeConfiguration<Project>
     {
         #region Constructors
 
