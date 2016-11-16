@@ -49,6 +49,7 @@ namespace PM.Repository
         /// </value>
         public IExternalLoginRepository ExternalLoginRepository
         {
+            // TODO: FACTORY PATTERN
             get { return _externalLoginRepository ?? (_externalLoginRepository = new ExternalLoginRepository(_context, _mapper)); }
         }
 

@@ -82,11 +82,6 @@
     <Compile Include="Role.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TypeConfigurations\ClaimConfiguration.cs" />
-    <Compile Include="TypeConfigurations\ExternalLoginConfiguration.cs" />
-    <Compile Include="TypeConfigurations\ProjectConfiguration.cs" />
-    <Compile Include="TypeConfigurations\RoleConfiguration.cs" />
-    <Compile Include="TypeConfigurations\UserConfiguration.cs" />
     <Compile Include="User.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
