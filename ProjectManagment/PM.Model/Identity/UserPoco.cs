@@ -42,6 +42,22 @@ namespace PM.Model
         /// The security stamp.
         /// </value>
         public string SecurityStamp { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the date created.
+        /// </summary>
+        /// <value>
+        /// The date created.
+        /// </value>
+        public DateTime DateCreated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date updated.
+        /// </summary>
+        /// <value>
+        /// The date updated.
+        /// </value>
+        public DateTime DateUpdated { get; set; }
 
         /// <summary>
         /// Gets or sets the email.

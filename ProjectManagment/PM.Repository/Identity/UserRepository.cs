@@ -49,6 +49,8 @@ namespace PM.Repository
         /// <returns>Task.</returns>
         public Task AddAsync(IUser model)
         {
+            model.DateCreated = DateTime.UtcNow;
+            model.DateUpdated = DateTime.UtcNow;
             var entity = Mapper.Map<User>(model);
             return Task.FromResult(DbSet.Add(entity));
         }
@@ -70,6 +72,7 @@ namespace PM.Repository
         /// <param name="entity">Entity.</param>
         public Task UpdateAsync(IUser model)
         {
+            model.DateUpdated = DateTime.UtcNow;
             var entity = Mapper.Map<User>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);

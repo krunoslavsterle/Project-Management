@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PMDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PMDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -61,6 +61,8 @@
           <Property Name="PasswordHash" Type="nvarchar" MaxLength="4000" />
           <Property Name="SecurityStamp" Type="nvarchar" MaxLength="4000" />
           <Property Name="Email" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -151,8 +153,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PMDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -218,6 +219,8 @@
           <NavigationProperty Name="Claims" Relationship="Self.FK_dbo_Claim_dbo_User_UserId" FromRole="User" ToRole="Claim" />
           <NavigationProperty Name="ExternalLogins" Relationship="Self.FK_dbo_ExternalLogin_dbo_User_UserId" FromRole="User" ToRole="ExternalLogin" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_Claim_dbo_User_UserId">
           <End Role="User" Type="Self.User" Multiplicity="1">
@@ -329,6 +332,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PMDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />

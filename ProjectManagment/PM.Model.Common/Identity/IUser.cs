@@ -51,6 +51,22 @@ namespace PM.Model.Common
         string Email { get; set; }
 
         /// <summary>
+        /// Gets or sets the date created.
+        /// </summary>
+        /// <value>
+        /// The date created.
+        /// </value>
+        DateTime DateCreated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date updated.
+        /// </summary>
+        /// <value>
+        /// The date updated.
+        /// </value>
+        DateTime DateUpdated { get; set; }
+
+        /// <summary>
         /// Gets or sets the claims.
         /// </summary>
         /// <value>
