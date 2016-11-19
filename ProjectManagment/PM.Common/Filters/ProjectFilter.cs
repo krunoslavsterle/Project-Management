@@ -1,4 +1,6 @@
-﻿namespace PM.Common.Filters
+﻿using System;
+
+namespace PM.Common.Filters
 {
     /// <summary>
     /// Project filter.
@@ -20,5 +22,13 @@
         /// The description.
         /// </value>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owner identifier.
+        /// </summary>
+        /// <value>
+        /// The owner identifier.
+        /// </value>
+        public Guid? OwnerId { get; set; }
     }
 }

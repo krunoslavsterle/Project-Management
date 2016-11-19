@@ -54,7 +54,7 @@ namespace PM.Repository
         /// Finds the list of <see cref="IProject"/>'s asynchronous.
         /// </summary>
         /// <param name="filter">The filter.</param>
-        /// <returns></returns>
+        /// <returns>The list of <see cref="IProject"/>'s.</returns>
         public async Task<IList<IProject>> FindAsync(ProjectFilter filter)
         {
             var query = DbSet.AsQueryable();
@@ -62,14 +62,13 @@ namespace PM.Repository
             if (filter != null)
             {
                 if (!String.IsNullOrEmpty(filter.Name))
-                {
-                    query.Where(p => p.Name.Contains(filter.Name));
-                }
+                    query = query.Where(p => p.Name.Contains(filter.Name));
 
                 if (!String.IsNullOrEmpty(filter.Description))
-                {
-                    query.Where(p => p.Description.Contains(filter.Description));
-                }
+                    query = query.Where(p => p.Description.Contains(filter.Description));
+
+                if (filter.OwnerId.HasValue)
+                    query = query.Where(p => p.OwnerId == filter.OwnerId.Value);
             }
 
             var domainList = await query.ToListAsync();

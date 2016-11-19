@@ -1,10 +1,11 @@
 ﻿using PM.Common;
+using PM.Common.Filters;
 using PM.Model.Common;
 using PM.Service.Common;
 using PM.Web.Areas.Administration.Models;
 using PM.Web.Controllers;
 using System;
-using System.Collections;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -48,8 +49,8 @@ namespace PM.Web.Areas.Administration.Controllers
         [HttpGet]
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
-        {
-            var domainList = await ProjectService.FindAsync(null);
+        {   
+            var domainList = await ProjectService.FindAsync(new ProjectFilter() { OwnerId = UserId });
             var vm = Mapper.Map <IList<ProjectViewModel>>(domainList);
 
             return View("Projects", vm);
