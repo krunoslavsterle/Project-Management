@@ -1,11 +1,10 @@
 ﻿@model IList<ProjectViewModel>
 @{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Projects";
 }
 
-<h3><i class="fa fa-angle-right"></i> Projects</h3>
 
-@Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-theme03" })
 
 <div class="row mt">
     <div class="col-lg-12">
@@ -37,6 +36,8 @@
                         }                       
                     </tbody>
                 </table>
+
+                @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-theme03" })
 
             </div>
 

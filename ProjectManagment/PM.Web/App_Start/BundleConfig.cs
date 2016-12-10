@@ -10,17 +10,15 @@ namespace PM.Web.App_Start
                 "~/Scripts/bootstrap/bootstrap.min.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/common/js").Include(
-                "~/Scripts/common-scripts.js"
-                ));
+            bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
+                "~/Scripts/app.js", 
+                "~/Scripts/core.js", 
+                "~/Scripts/metisMenu.js", 
+                "~/Scripts/screenfull.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery/js").Include(
-                "~/Scripts/jquery/jquery.js",
-                "~/Scripts/jquery/jquery-ui-1.9.2.custom.min.js",
-                "~/Scripts/jquery/jquery-ui.touch-punch.min.js",
-                "~/Scripts/jquery/jquery.dcjqaccordion.2.7.js",
-                "~/Scripts/jquery/jquery.scrollTo.min.js",
-                "~/Scripts/jquery/jquery.nicescroll.js"
+                "~/Scripts/jquery/jquery.js"
+                
                 ));
 
 
@@ -28,12 +26,13 @@ namespace PM.Web.App_Start
                 "~/Content/landing.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include(
-                "~/Content/bootstrap.css",
+                "~/Content/bootstrap.css", 
                 "~/Content/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/site-style/css").Include(
-                "~/Content/style.css",
-                "~/Content/style-responsive.css"));
+                "~/Content/main.css",
+                "~/Content/animate.css",
+                "~/Content/metisMenu.css"));
 
         }
             

@@ -199,32 +199,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\img\intro-bg.jpg" />
     <Content Include="Content\img\ipad.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\metis-tile.png" />
     <Content Include="Content\img\ui-zac.jpg" />
+    <Content Include="Content\img\user.gif" />
     <Content Include="Content\landing.css" />
-    <Content Include="Content\style-responsive.css" />
-    <Content Include="Content\style.css" />
-    <Content Include="Content\table-responsive.css" />
-    <Content Include="Content\to-do.css" />
-    <Content Include="Content\zabuto_calendar.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\metisMenu.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap\bootstrap-inputmask.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\common-scripts.js" />
+    <Content Include="Scripts\core.js" />
     <Content Include="Scripts\jquery\jquery-1.8.3.min.js" />
-    <Content Include="Scripts\jquery\jquery-ui-1.9.2.custom.min.js" />
-    <Content Include="Scripts\jquery\jquery.dcjqaccordion.2.7.js" />
     <Content Include="Scripts\jquery\jquery.js" />
-    <Content Include="Scripts\jquery\jquery.nicescroll.js" />
-    <Content Include="Scripts\jquery\jquery.scrollTo.min.js" />
-    <Content Include="Scripts\jquery\jquery.sparkline.js" />
-    <Content Include="Scripts\jquery\jquery.tagsinput.js" />
-    <Content Include="Scripts\jquery\jquery.ui.touch-punch.min.js" />
+    <Content Include="Scripts\metisMenu.js" />
+    <Content Include="Scripts\screenfull.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -267,14 +264,14 @@
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Administration\Views\Project\Projects.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Areas\Administration\Views\Project\NewProject.cshtml" />
     <Content Include="Areas\Administration\Views\Project\Project.cshtml" />
     <Content Include="Areas\Administration\Views\Task\List.cshtml" />
     <Content Include="Areas\Administration\Views\Task\NewTask.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
