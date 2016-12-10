@@ -61,8 +61,6 @@
           <Property Name="PasswordHash" Type="nvarchar" MaxLength="4000" />
           <Property Name="SecurityStamp" Type="nvarchar" MaxLength="4000" />
           <Property Name="Email" Type="nvarchar" MaxLength="4000" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -219,8 +217,6 @@
           <NavigationProperty Name="Claims" Relationship="Self.FK_dbo_Claim_dbo_User_UserId" FromRole="User" ToRole="Claim" />
           <NavigationProperty Name="ExternalLogins" Relationship="Self.FK_dbo_ExternalLogin_dbo_User_UserId" FromRole="User" ToRole="ExternalLogin" />
           <NavigationProperty Name="Roles" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_Claim_dbo_User_UserId">
           <End Role="User" Type="Self.User" Multiplicity="1">
@@ -332,8 +328,6 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PMDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
