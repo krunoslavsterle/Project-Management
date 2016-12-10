@@ -1782,11 +1782,12 @@ fieldset[disabled] .btn-line.btn-metis-6.active {
 .pricing-table {
   text-align: center;
   padding: 0;
-  margin: 30px 0;
-  line-height: 150%;
+  margin: 15px auto;
+  line-height: 130%;
 }
 .pricing-table li {
   list-style: none;
+  
 }
 .pricing-table > li {
   background-image: linear-gradient(to bottom, #EBEEF5 0%, #fff 100%);
@@ -1794,6 +1795,7 @@ fieldset[disabled] .btn-line.btn-metis-6.active {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffebeef5', endColorstr='#ffffffff', GradientType=0);
   color: #444;
   transition: all 0.2s;
+  border: 2px solid #fff;
 }
 .pricing-table.dark > li {
   background-image: linear-gradient(to bottom, #666 0%, #444 100%);
@@ -1851,13 +1853,12 @@ fieldset[disabled] .btn-line.btn-metis-6.active {
 .pricing-table.dark .footer {
   background: #333;
 }
-.pricing-table h3 {
-  text-transform: uppercase;
+.pricing-table h4 {  
   padding: 15px 0;
 }
 .pricing-table .price-body {
-  width: 125px;
-  height: 125px;
+  width: 70px;
+  height: 70px;
   margin: 0 auto 15px auto;
   border: 2px solid #444;
   border-radius: 100%;
@@ -1874,7 +1875,7 @@ fieldset[disabled] .btn-line.btn-metis-6.active {
   border-color: #fff;
 }
 .pricing-table .price {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   text-transform: uppercase;
   /*Lets vertically center align the price now*/
