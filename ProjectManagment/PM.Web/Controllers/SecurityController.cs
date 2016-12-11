@@ -84,12 +84,12 @@ namespace PM.Web.Controllers
 
             return View(model);
         }
-
+        
         /// <summary>
         /// Sign out async GET action.
         /// </summary>
         /// <returns>View.</returns>
-        [HttpGet]
+        [HttpPost]
         [ActionName("SignOut")]
         public Task<RedirectToRouteResult> SignOutAsync()
         {

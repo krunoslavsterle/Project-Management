@@ -9,6 +9,7 @@ metisAdmin: Base
 ========================================================================== */
 body {
   transition: all 0.3s ease-in-out;
+  min-height:inherit;
 }
 /*********************************************************/
 /*                 Layout Styles                         */
@@ -23,7 +24,8 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 48px;
-}
+  min-height:inherit;
+  }
 .Footer,
 #footer {
   position: absolute;
@@ -1869,7 +1871,7 @@ fieldset[disabled] .btn-line.btn-metis-6.active {
 }
 .pricing-table > li.active.primary .price-body,
 .pricing-table > li.active.success .price-body,
-.pricing-table > li.active.warning .price-body,
+.pricing-table > li.active.warning .price-body, 
 .pricing-table > li.active.danger .price-body,
 .pricing-table > li.active.info .price-body {
   border-color: #fff;
