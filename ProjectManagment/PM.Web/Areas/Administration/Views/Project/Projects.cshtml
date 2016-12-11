@@ -4,7 +4,9 @@
     ViewBag.Title = "Dashboard";
 }
 
-<div class="col-lg-12" style="padding:0px;">
+<div class="col-lg-12" style="padding:5px 0px;">
+
+    @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-success btn-lg" })
 
     <ul class="pricing-table dark">
         @foreach (var project in Model)
@@ -30,8 +32,6 @@
         }
         <div class="clearfix"></div>
     </ul>
-
-    @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-theme03" })
 
 </div>
 

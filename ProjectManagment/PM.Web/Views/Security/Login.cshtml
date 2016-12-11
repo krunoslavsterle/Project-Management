@@ -3,54 +3,40 @@
 @Styles.Render("~/Content/bootstrap/css")
 @Styles.Render("~/Content/site-style/css")
 
-<body style="background:#F7F7F7;">
-
-    <div class="">
-        <a class="hiddenanchor" id="toregister"></a>
-        <a class="hiddenanchor" id="tologin"></a>
-
-        <div id="wrapper">
-            <div id="login" class="animate form">
-                <section class="login_content">
-                    @using (Html.BeginForm("Login", "Security", FormMethod.Post, new { }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <h1>Login Form</h1>
-                        <div>
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username", required="" })
-                        </div>
-                        <div>
-                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", required = "" })
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-default submit" href="index.html">Log in</button>
-                            <a class="reset_pass" href="#">Lost your password?</a>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="separator">
-
-                            <p class="change_link">
-                                New to site?
-                                @Html.ActionLink("Create Account", "Register", null, new { @class= "to_register" })
-                            </p>
-                            <div class="clearfix"></div>
-                            <br>
-                            <div>
-                                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Project Managment</h1>
-
-                                <p>©2015 All Rights Reserved. Privacy and Terms</p>
-                            </div>
-                        </div>
-                    }
-                    <!-- form -->
-                </section>
-                <!-- content -->
-            </div>
-          
+<body class="login">
+    <div class="form-signin">
+        <div class="text-center">
+            <img src="~/Content/img/logo.png" alt="Metis Logo">
         </div>
+        <hr />
+
+        @using (Html.BeginForm("Login", "Security", FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+            <p class="text-muted text-center">
+                Enter your username and password
+            </p>
+
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control top", placeholder = "username", required = "", type="text" })
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control bottom", placeholder = "password", required = "", type="password" })
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Remember Me
+                </label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+            <hr>
+
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li><a class="text-muted" href="#forgot">Forgot Password</a></li>
+                    <li>@Html.ActionLink("Signup", "Register", null, new { @class = "text-muted" })</li>
+                </ul>
+            </div>
+        }
+
     </div>
-
-
-
-
 </body>
