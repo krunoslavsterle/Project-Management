@@ -44,7 +44,6 @@ body {
 
 .main-container {
     padding-top: 50px;
-    background-color: yellow;
     height: 100%;
 }
 
@@ -56,7 +55,6 @@ body {
 }
 
 .right-content {
-    background-color:green;
     margin-left: 250px;
     height: 100%;
 }
@@ -175,7 +173,27 @@ body {
 #menu.affix:hover {
 }
 
+.main-outer {
+    height: 100%;
+    border-top: 13px solid #6e6e6e;
+    border-bottom: 58px solid #6e6e6e;
+    border-left: 10px solid #6e6e6e;
+    border-right: 10px solid #6e6e6e;
+}
 
+.main-inner {
+    height: 100%;
+    border-top: 10px solid #e4e4e4;
+    border-bottom: 10px solid #e4e4e4;
+    border-left: 10px solid #e4e4e4;
+    border-right: 10px solid #e4e4e4;
+}
+
+.main-content {
+    background-color: white;
+    height: 100%;
+    padding: 10px;
+}
 
 .footer {
   margin: 0 auto;
