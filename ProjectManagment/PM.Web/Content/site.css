@@ -49,9 +49,15 @@ body {
 }
 
 .sidemenu-left {
-    width: 18%;
+    width: 250px;
     float:left;
     background-color: #3a3a3a !important;
+    height: 100%;
+}
+
+.right-content {
+    background-color:green;
+    margin-left: 250px;
     height: 100%;
 }
 
@@ -61,7 +67,6 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-
 .search-bar .main-search {
   border-bottom: 1px solid #7c7c7c;
 }
@@ -170,11 +175,7 @@ body {
 #menu.affix:hover {
 }
 
-.right-content {
-    background-color:green;
-    margin-left: 18%;
-    height: 100%;
-}
+
 
 .footer {
   margin: 0 auto;
