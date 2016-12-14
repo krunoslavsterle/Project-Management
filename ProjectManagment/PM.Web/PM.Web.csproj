@@ -211,6 +211,7 @@
     <Content Include="Content\landing.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\metisMenu.css" />
+    <Content Include="Content\site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app.js" />
@@ -272,6 +273,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\Administration\Views\Project\Timeline.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_LeftMenuBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,194 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.bg-dark {
+  background-color: #444;
+  color: #fff !important;
+}
+
+.navbar {
+    background-color: #222;
+    margin-bottom: 0;
+    border-top: 3px solid #CD0067;
+}
+
+.navbar-header {
+    margin: auto;
+    padding: 0;
+}
+
+.navbar-header img {
+    margin: 0 auto;
+}
+
+.topnav {
+  margin: 10px 0;
+  text-align: right;
+  padding-right: 50px;
+}
+
+.navbar-nav>li>a {
+    color: #9d9d9d;
+    background-color: transparent;
+}
+
+.navbar-nav>li>a:hover, .navbar-nav>li>a:focus {
+    color: #fff;
+    background-color: transparent;
+}
+
+.main-container {
+    padding-top: 50px;
+    background-color: yellow;
+    height: 100%;
+}
+
+.sidemenu-left {
+    width: 18%;
+    float:left;
+    background-color: #3a3a3a !important;
+    height: 100%;
+}
+
+.search-bar {
+  margin: 0 auto;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.search-bar .main-search {
+  border-bottom: 1px solid #7c7c7c;
+}
+.search-bar .main-search input[type="text"] {
+  background-color: transparent;
+  border-color: transparent;
+  color: #ccc;
+  box-shadow: none;
+}
+.search-bar .main-search button,
+.search-bar .main-search input[type=submit] {
+  background: transparent;
+  border: transparent;
+}
+
+.user-wrapper {
+  top: 0;
+  background-color: #303030 !important;
+  padding:10px 0px 0px 10px;
+  color: #fff;
+}
+
+.user-link {
+    float:left;
+}
+
+.media-body {
+    padding:0 0 0 15px;
+}
+
+.user-media:hover .user-wrapper {
+  left: 100%;
+  display: inherit;
+  z-index: 9999;
+}
+.user-media:hover .user-wrapper {
+  left: auto;
+  right: 100%;
+}
+.user-media .media-body h5.media-heading {
+  color: #fff;
+  padding-top: 8px;
+  margin-bottom: 3px;
+}
+.media-body ul.user-info li {
+  color: #ccc;
+}
+
+#menu,
+#menu ul,
+#menu li,
+#menu a {
+  padding: 0;
+  margin: 0;
+  color: #f4f4f4;
+}
+#menu,
+#menu ul {
+  list-style: none;
+}
+#menu li,
+#menu a {
+  position: relative;
+  display: block;
+}
+#menu a,
+#menu a:hover,
+#menu a:focus,
+#menu a:active {
+  text-decoration: none;
+}
+#menu ul {
+  background: rgba(0, 0, 0, 0.3);
+}
+#menu > li > a {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px 0 10px 15px;
+}
+#menu > li.active > a {
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+#menu > li:hover > a,
+#menu > li:focus > a {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: none;
+  box-shadow: none;
+}
+#menu > li ul {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-left-width: 0;
+}
+#menu > li ul a {
+  padding: 11px 0 11px 30px;
+  font-size: 13px;
+}
+#menu > li ul a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+#menu.affix {
+  position: fixed;
+  width: 250px;
+}
+#menu.affix:hover {
+}
+
+.right-content {
+    background-color:green;
+    margin-left: 18%;
+    height: 100%;
+}
+
+.footer {
+  margin: 0 auto;
+  color: #f4f4f4;
+  background-color: #303030 !important;
+  border-top: 1px solid #222;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 48px;
+}
+.footer p {
+  padding: 1.2rem 0;
+  margin: 0;
+  text-align: center;
+}

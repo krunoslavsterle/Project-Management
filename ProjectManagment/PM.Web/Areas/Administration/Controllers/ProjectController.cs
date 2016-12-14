@@ -104,6 +104,19 @@ namespace PM.Web.Areas.Administration.Controllers
             return View("Project");
         }
 
+        /// <summary>
+        /// Timeline async GET action.
+        /// </summary>
+        /// <param name="pId">The project identifier.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [ActionName("Timeline")]
+        public async Task<ActionResult> TimelineAsync(string pId)
+        {
+            
+            return View("Timeline");
+        }
+
         #endregion Methods
     }
 }

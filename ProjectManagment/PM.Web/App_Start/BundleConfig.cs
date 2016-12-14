@@ -10,11 +10,11 @@ namespace PM.Web.App_Start
                 "~/Scripts/bootstrap/bootstrap.min.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
-                "~/Scripts/app.js", 
-                "~/Scripts/core.js", 
-                "~/Scripts/metisMenu.js", 
-                "~/Scripts/screenfull.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
+            //    "~/Scripts/app.js", 
+            //    "~/Scripts/core.js", 
+            //    "~/Scripts/metisMenu.js", 
+            //    "~/Scripts/screenfull.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery/js").Include(
                 "~/Scripts/jquery/jquery.js"
@@ -30,9 +30,7 @@ namespace PM.Web.App_Start
                 "~/Content/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/site-style/css").Include(
-                "~/Content/main.css",
-                "~/Content/animate.css",
-                "~/Content/metisMenu.css"));
+                "~/Content/site.css" ));
 
         }
             

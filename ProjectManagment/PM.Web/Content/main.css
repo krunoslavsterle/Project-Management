@@ -9,7 +9,8 @@ metisAdmin: Base
 ========================================================================== */
 body {
   transition: all 0.3s ease-in-out;
-  min-height:inherit;
+  height:100%;
+  min-height:100%;
 }
 /*********************************************************/
 /*                 Layout Styles                         */
@@ -20,11 +21,12 @@ body {
 html {
   position: relative;
   min-height: 100%;
+  min-width: 100%;
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 48px;
-  min-height:inherit;
+  
+  
   }
 .Footer,
 #footer {
@@ -65,6 +67,7 @@ body {
 #right {
   transition: all 0.3s ease-in-out;
   width: 250px;
+  min-height: 100%;
   z-index: 999;
 }
 #left {
@@ -75,9 +78,28 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-  overflow-y: auto;
   right: -250px;
 }
+.sidemenu-left {
+    width: 11%;
+    float:left;
+    background-color: rebeccapurple;
+}
+
+.main {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    height: 100%;
+
+}
+
+.main-content {
+    background-color:yellow;
+    margin-left: 11%;
+}
+
+
 .sidebar-left-opened #left {
   left: 0;
 }
@@ -106,7 +128,6 @@ body {
   }
   #content {
     transition: all 0.3s ease-in-out;
-    overflow: hidden;
   }
   .sidebar-right-opened {
     right: 0;
@@ -221,7 +242,6 @@ body {
   }
   .main-bar {
     display: block;
-    overflow: hidden;
   }
 }
 @media (min-width: 992px) {
@@ -376,12 +396,8 @@ body {
 #menu.affix {
   position: fixed;
   width: 250px;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 #menu.affix:hover {
-  overflow-y: scroll;
 }
 @media (min-width: 768px) {
   body:not(.sidebar-left-mini) #menu li.active > ul,
@@ -474,7 +490,6 @@ body:not(.sidebar-left-mini) #menu .nav-header {
 }
 .sidebar-left-mini #menu .nav-header {
   position: absolute !important;
-  overflow: hidden !important;
   width: 1px !important;
   height: 1px !important;
   padding: 0 !important;
@@ -510,7 +525,7 @@ body:not(.sidebar-left-mini) #menu .nav-header {
 }
 .inner {
   position: relative;
-  min-height: 1px;
+  min-height: 100%;
   padding-right: 10px;
   padding-left: 10px;
   background: #fff;
@@ -729,11 +744,12 @@ body:not(.sidebar-left-mini) #menu .nav-header {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff333333', endColorstr='#ff222222', GradientType=0);
 }
-.box .body {
+.body {
   padding: 10px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   width: 100%;
   background-color: #fff;
+  display:inline-block;
 }
 .box .body hr {
   margin-left: -10px;
@@ -1745,7 +1761,6 @@ fieldset[disabled] .btn-line.btn-metis-6.active {
   /*checked*/
   /*checked icon will be hidden by default by using 0 max-width and overflow hidden*/
   max-width: 0;
-  overflow: hidden;
   opacity: 0.5;
   /*CSS3 transitions for animated effect*/
   transition: all 0.35s;
@@ -2423,6 +2438,18 @@ div.uploader {
 .bg-dark {
   background-color: #444;
   color: #fff !important;
+}
+
+.content {
+    height: 100%;
+    min-height: 100%;
+    background-color: #3a3a3a !important;
+    position: absolute;
+    width:100%;
+}
+.bg-dark.dk {
+  height: 100%;
+  background-color: purple;
 }
 .bg-dark.dker,
 .bg-dark > .dker {

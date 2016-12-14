@@ -1,0 +1,55 @@
+﻿<div class="search-bar">
+    <form class="main-search" action="">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Live Search ...">
+            <span class="input-group-btn">
+                <button class="btn btn-primary btn-sm text-muted" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+</div>
+
+<div class="user-wrapper bg-dark">
+    <a class="user-link" href="">
+        <img class="media-object img-thumbnail user-img" alt="User Picture" src="~/Content/img/user.gif">
+    </a>
+
+    <div class="media-body">
+        <h5 class="media-heading">@User.Identity.Name</h5>
+        <ul class="list-unstyled user-info">
+            <li><a href="">Administrator</a></li>
+            <li>
+                Last Access : <br>
+                <small><i class="fa fa-calendar"></i>&nbsp;16 Mar 16:32</small>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- #menu -->
+<ul id="menu" class="">
+    <li class="nav-divider"></li>
+    <li class="">
+        <a href="@Url.Action("Timeline", "Project", new { area="Administration"})">
+            <i class="fa fa-dashboard"></i><span class="link-title" aria-hidden="true">&nbsp;Timeline</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="dashboard.html">
+            <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Tasks</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="dashboard.html">
+            <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Calendar</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="dashboard.html">
+            <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Team</span>
+        </a>
+    </li>
+</ul>
+<!-- /#menu -->
