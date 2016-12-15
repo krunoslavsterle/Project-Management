@@ -4,48 +4,59 @@
     ViewBag.Title = "Dashboard";
 }
 
-<div class="sidemenu-left">
-    @Html.Partial("_LeftMenuBar")
-</div>
+<header class="head">
+    <div class="search-bar">
+        <form class="main-search" action="">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Live Search ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm text-muted" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="main-bar">
+        <h3>
+            <i class="fa fa-dashboard"></i>&nbsp; Dashboard
+        </h3>
+    </div><!-- /.main-bar -->
+</header>
+
+@Html.Partial("_LeftMenuBar")
 
 <div class="right-content">
+   
     <div class="main-outer">
         <div class="main-inner">
-            <div class="main-content">
-                @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-success btn-lg" })
-                <ul class="pricing-table dark">
-                    @foreach (var project in Model)
-            {
-                        <li class="col-lg-2">
-                            <h4>@project.Name</h4>
-                            <div class="price-body">
-                                <div class="price">
-                                    30%
-                                </div>
+
+            @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-success btn-lg" })
+            <ul class="pricing-table dark">
+                @foreach (var project in Model)
+                 {
+                    <li class="col-lg-2">
+                        <h4>@project.Name</h4>
+                        <div class="price-body">
+                            <div class="price">
+                                30%
                             </div>
-                            <div class="features">
-                                <ul>
-                                    <li>Total tasks: 127</li>
-                                    <li>Completed tasks: 45</li>
-                                    <li style="color: red">Late: 4</li>
-                                </ul>
-                            </div>
-                            <div class="footer">
-                                @Html.ActionLink("Open Project", "Project", "Project", new { area = "Administration", projectId = project.Id }, new { @class = "btn btn-info btn-rect" })
-                            </div>
-                        </li>
-                    }
-                </ul>
-            </div>
-            
+                        </div>
+                        <div class="features">
+                            <ul>
+                                <li>Total tasks: 127</li>
+                                <li>Completed tasks: 45</li>
+                                <li style="color: red">Late: 4</li>
+                            </ul>
+                        </div>
+                        <div class="footer">
+                            @Html.ActionLink("Open Project", "Project", "Project", new { area = "Administration", projectId = project.Id }, new { @class = "btn btn-info btn-rect" })
+                        </div>
+                    </li>
+                }
+            </ul>
         </div>
-
-        
-
     </div>
-    
 </div>
-
-
 
 
