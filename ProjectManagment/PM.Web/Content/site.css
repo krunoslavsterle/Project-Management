@@ -57,7 +57,7 @@ body {
 
 .right-content {
     margin-left: 250px;
-    height: calc(100% - 94px);
+    height: calc(100% - 86px);
 }
 
 .head {
@@ -218,6 +218,55 @@ body {
     padding: 10px;
 }
 
+.project-table {
+  text-align: center;
+  padding: 0;
+  line-height: 130%;
+}
+.project-table li {
+  list-style: none;
+  height: 200px;
+  background-image: linear-gradient(to bottom, #666 0%, #444 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff666666', endColorstr='#ff444444', GradientType=0);
+  color: #fff;
+  border: 2px solid #fff;
+}
+.project-table-name {
+    height: 50px;
+    
+}
+
+.project-table-name h4 {
+    padding: 10px 0;
+}
+
+.project-table-body {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 15px auto;
+  border: 2px solid #444;
+  border-radius: 100%;
+  display: table;
+  border-color: #fff;
+}
+.project-table .footer {
+  padding: 10px;
+  margin: 15px -15px 0;
+  background: #eee;
+}
+
+
+.project-table-body .percentage-round {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  /*Lets vertically center align the price now*/
+  vertical-align: middle;
+  display: table-cell;
+
+}
+
 .footer {
   margin: 0 auto;
   color: #f4f4f4;
@@ -227,10 +276,18 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 40px;
 }
 .footer p {
-  padding-top:10px;
+  padding-top:7px;
+  padding-bottom: 7px;
   margin: auto;
   text-align: center;
+  font-size: 12px;
+}
+
+.bar-right-content {
+    margin-right: 15px;
+}
+.bar-right-content a:hover {
+    text-decoration: none;
 }

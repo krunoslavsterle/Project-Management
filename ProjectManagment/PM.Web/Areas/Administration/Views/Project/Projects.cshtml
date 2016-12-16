@@ -17,44 +17,49 @@
             </div>
         </form>
     </div>
-    <div class="main-bar">
-        <h3>
-            <i class="fa fa-dashboard"></i>&nbsp; Dashboard
-        </h3>
-    </div><!-- /.main-bar -->
+    <div class="main-bar row">
+        <div class="col-md-6">
+                <h3><i class="fa fa-dashboard"></i>&nbsp; Dashboard</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="bar-right-content pull-right">
+                <a href="@Url.Action("NewProject", "Project", new { area = "Administration" })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
+            </div>
+        </div>
+    </div>
 </header>
 
 @Html.Partial("_LeftMenuBar")
 
-<div class="right-content">
-   
+<div class="right-content">   
     <div class="main-outer">
         <div class="main-inner">
 
-            @Html.ActionLink("New Project", "NewProject", "Project", new { area = "Administration" }, new { @class = "btn btn-success btn-lg" })
-            <ul class="pricing-table dark">
+            
+           
+             <ul class="project-table dark">
                 @foreach (var project in Model)
                  {
                     <li class="col-lg-2">
-                        <h4>@project.Name</h4>
-                        <div class="price-body">
-                            <div class="price">
+                        <div class="project-table-name">
+                            <h4>@project.Name</h4>
+                        </div>
+                        <div class="project-table-body">
+                            <div class="percentage-round">
                                 30%
                             </div>
                         </div>
-                        <div class="features">
-                            <ul>
-                                <li>Total tasks: 127</li>
-                                <li>Completed tasks: 45</li>
-                                <li style="color: red">Late: 4</li>
-                            </ul>
-                        </div>
-                        <div class="footer">
-                            @Html.ActionLink("Open Project", "Project", "Project", new { area = "Administration", projectId = project.Id }, new { @class = "btn btn-info btn-rect" })
-                        </div>
+                       
+                        <a href="@Url.Action("Project", "Project", new { area = "Administration", projectId = project.Id })">
+                            <div class="footer">
+                                OPEN
+                            </div>
+                        </a>
+                        
                     </li>
                 }
             </ul>
+
         </div>
     </div>
 </div>
