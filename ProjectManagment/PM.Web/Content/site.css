@@ -48,7 +48,7 @@ body {
 }
 
 .sidemenu-left {
-    width: 250px;
+    width: 225px;
     float:left;
     background-color: #3a3a3a !important;
     height: calc(100% - 55px);
@@ -56,7 +56,7 @@ body {
 }
 
 .right-content {
-    margin-left: 250px;
+    margin-left: 225px;
     height: calc(100% - 86px);
 }
 
@@ -68,7 +68,7 @@ body {
 
 .search-bar {
   background-color: #3a3a3a !important;
-  width: 250px;
+  width: 225px;
   float:left;
   margin: 0 auto;
   padding: 10px 15px;
@@ -91,7 +91,7 @@ body {
 
 .main-bar {
   height: 100%;
-  margin-left: 250px;
+  margin-left: 225px;
   background-color: #3a3a3a !important;
   padding: 15px 15px;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
