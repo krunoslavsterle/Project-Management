@@ -25,68 +25,68 @@ namespace PM.Repository
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns><see cref="IUser"/>.</returns>
-        public async Task<IUser> FindByUserNameAsync(string username)
+        public async System.Threading.Tasks.Task<IUserPoco> FindByUserNameAsync(string username)
         {
             var entity = await GetAsync(x => x.UserName == username);
-            return Mapper.Map<IUser>(entity);
+            return Mapper.Map<IUserPoco>(entity);
         }
 
         /// <summary>
-        /// Gets <see cref="IUser"/> the by user identifier asynchronous.
+        /// Gets <see cref="IUserPoco"/> the by user identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns><see cref="IUser"/>.</returns>
-        public async Task<IUser> GetByUserIdAsync(Guid id)
+        public async System.Threading.Tasks.Task<IUserPoco> GetByUserIdAsync(Guid id)
         {
             var entity = await GetAsync(i => i.UserId == id);
-            return Mapper.Map<IUser>(entity);
+            return Mapper.Map<IUserPoco>(entity);
         }
 
         /// <summary>
-        /// Adds the <see cref="IUser"/> asynchronous.
+        /// Adds the <see cref="IUserPoco"/> asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Task.</returns>
-        public Task AddAsync(IUser model)
+        public System.Threading.Tasks.Task AddAsync(IUserPoco model)
         {
             model.DateCreated = DateTime.UtcNow;
             model.DateUpdated = DateTime.UtcNow;
             var entity = Mapper.Map<User>(model);
-            return Task.FromResult(DbSet.Add(entity));
+            return System.Threading.Tasks.Task.FromResult(DbSet.Add(entity));
         }
-        
+
         /// <summary>
-        /// Asynchronously deletes <see cref="IUser"/> form the database.
+        /// Asynchronously deletes <see cref="IUserPoco"/> form the database.
         /// </summary>
         /// <param name="model">Model.</param>
-        public Task DeleteAsync(IUser model)
+        public System.Threading.Tasks.Task DeleteAsync(IUserPoco model)
         {
             var entity = Mapper.Map<User>(model);
             DbSet.Remove(entity);
-            return Task.FromResult(true);
+            return System.Threading.Tasks.Task.FromResult(true);
         }
 
         /// <summary>
         /// Asynchronously updates entity in the database.
         /// </summary>
         /// <param name="entity">Entity.</param>
-        public Task UpdateAsync(IUser model)
+        public System.Threading.Tasks.Task UpdateAsync(IUserPoco model)
         {
             model.DateUpdated = DateTime.UtcNow;
             var entity = Mapper.Map<User>(model);
             DbSet.Attach(entity);
             ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
-            return Task.FromResult(true);
+            return System.Threading.Tasks.Task.FromResult(true);
         }
 
         /// <summary>
         /// Creates the claim asynchronous.
         /// </summary>
         /// <returns><see cref="IClaim"/>.</returns>
-        public Task<IClaim> CreateClaimAsync()
+        public System.Threading.Tasks.Task<IClaimPoco> CreateClaimAsync()
         {
-            IClaim claim = new Model.ClaimPoco();
-            return Task.FromResult(claim);
+            IClaimPoco claim = new Model.ClaimPoco();
+            return System.Threading.Tasks.Task.FromResult(claim);
         }
     }
 }

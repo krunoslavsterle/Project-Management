@@ -19,13 +19,13 @@ namespace PM.Web.Identity
             this.mapper = mapper;
         }
 
-        #region IRoleStore<IdentityRole, Guid> Members
+        #region IRolePocoStore<IdentityRole, Guid> Members
         public Task CreateAsync(IdentityRole role)
         {
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var model = mapper.Map<PM.Model.Common.IRole>(role);
+            var model = mapper.Map<PM.Model.Common.IRolePoco>(role);
 
             return identityService.AddRoleAsync(model);
         }
@@ -35,7 +35,7 @@ namespace PM.Web.Identity
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var model = mapper.Map<PM.Model.Common.IRole>(role);
+            var model = mapper.Map<PM.Model.Common.IRolePoco>(role);
             return identityService.DeleteRoleAsync(model);
         }
 
@@ -56,7 +56,7 @@ namespace PM.Web.Identity
             if (role == null)
                 throw new ArgumentNullException("role");
 
-            var model = mapper.Map<PM.Model.Common.IRole>(role);
+            var model = mapper.Map<PM.Model.Common.IRolePoco>(role);
             return identityService.UpdateRoleAsync(model);
         }
         #endregion

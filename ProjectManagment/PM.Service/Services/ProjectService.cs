@@ -29,7 +29,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public Task<IProject> GetProjectAsync(Guid id)
+        public Task<IProjectPoco> GetProjectAsync(Guid id)
         {
             return UnitOfWork.ProjectRepository.GetProjectAsync(id);
         }
@@ -39,7 +39,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns><see cref="IProject"/>. </returns>
-        public async Task<bool> AddAsync(IProject model)
+        public async Task<bool> AddAsync(IProjectPoco model)
         {
             model.Id = Guid.NewGuid();
             model.DateCreated = DateTime.UtcNow;
@@ -54,7 +54,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        public Task<IList<IProject>> FindAsync(ProjectFilter filter)
+        public Task<IList<IProjectPoco>> FindAsync(ProjectFilter filter)
         {
             return UnitOfWork.ProjectRepository.FindAsync(filter);
         }

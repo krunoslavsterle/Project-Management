@@ -6,14 +6,23 @@
     <edmx:Diagrams>
       <Diagram DiagramId="79ea5da3e676444f9e65922fb3cd5c1b" Name="Diagram1">
         <EntityTypeShape EntityType="PMDatabaseModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PMDatabaseModel.Claim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PMDatabaseModel.ExternalLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PMDatabaseModel.Project" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PMDatabaseModel.Role" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMDatabaseModel.Claim" Width="1.5" PointX="5.125" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMDatabaseModel.ExternalLogin" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMDatabaseModel.Project" Width="1.5" PointX="7.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMDatabaseModel.Role" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="PMDatabaseModel.User" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <AssociationConnector Association="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="PMDatabaseModel.FK_dbo_ExternalLogin_dbo_User_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="PMDatabaseModel.UserRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PMDatabaseModel.Task" Width="1.5" PointX="7.375" PointY="7.625" />
+        <EntityTypeShape EntityType="PMDatabaseModel.TaskPriority" Width="1.5" PointX="9.75" PointY="10.375" />
+        <EntityTypeShape EntityType="PMDatabaseModel.TaskStatu" Width="1.5" PointX="9.75" PointY="7.625" />
+        <AssociationConnector Association="PMDatabaseModel.FK_Task_Project" />
+        <AssociationConnector Association="PMDatabaseModel.FK_Task_AssignedToUser" />
+        <AssociationConnector Association="PMDatabaseModel.FK_Task_CreatedByUser" />
+        <AssociationConnector Association="PMDatabaseModel.FK_Task_TaskPriority" />
+        <AssociationConnector Association="PMDatabaseModel.FK_Task_TaskStatus" />
+        <AssociationConnector Association="PMDatabaseModel.FK_Project_OwnerUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

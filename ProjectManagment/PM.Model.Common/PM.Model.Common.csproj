@@ -40,11 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Identity\IClaim.cs" />
-    <Compile Include="Identity\IExternalLogin.cs" />
-    <Compile Include="Identity\IRole.cs" />
-    <Compile Include="Identity\IUser.cs" />
-    <Compile Include="IProject.cs" />
+    <Compile Include="Identity\IClaimPoco.cs" />
+    <Compile Include="Identity\IExternalLoginPoco.cs" />
+    <Compile Include="Identity\IRolePoco.cs" />
+    <Compile Include="Identity\IUserPoco.cs" />
+    <Compile Include="Models\IProjectPoco.cs" />
+    <Compile Include="Models\ITaskPoco.cs" />
+    <Compile Include="Models\ITaskPriorityPoco.cs" />
+    <Compile Include="Models\ITaskStatusPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

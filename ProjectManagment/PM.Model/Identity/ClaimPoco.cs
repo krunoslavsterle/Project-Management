@@ -6,7 +6,7 @@ namespace PM.Model
     /// <summary>
     /// Claim domain model.
     /// </summary>
-    public class ClaimPoco : IClaim
+    public class ClaimPoco : IClaimPoco
     {
         #region Properties
 
@@ -48,7 +48,7 @@ namespace PM.Model
         /// <value>
         /// The user.
         /// </value>
-        public IUser User { get; set; }
+        public IUserPoco User { get; set; }
 
         #endregion Properties
     }

@@ -6,7 +6,7 @@ namespace PM.Model.Common
     /// <summary>
     /// User domain model contract.
     /// </summary>
-    public interface IUser
+    public interface IUserPoco
     {
         #region Properties
 
@@ -72,7 +72,7 @@ namespace PM.Model.Common
         /// <value>
         /// The claims.
         /// </value>
-        ICollection<IClaim> Claims { get; set; }
+        ICollection<IClaimPoco> Claims { get; set; }
 
         /// <summary>
         /// Gets or sets the logins.
@@ -80,7 +80,7 @@ namespace PM.Model.Common
         /// <value>
         /// The logins.
         /// </value>
-        ICollection<IExternalLogin> ExternalLogins { get; set; }
+        ICollection<IExternalLoginPoco> ExternalLogins { get; set; }
 
         /// <summary>
         /// Gets or sets the roles.
@@ -88,7 +88,7 @@ namespace PM.Model.Common
         /// <value>
         /// The roles.
         /// </value>
-        ICollection<IRole> Roles { get; set; }
+        ICollection<IRolePoco> Roles { get; set; }
 
         #endregion Properties
     }

@@ -20,6 +20,9 @@ namespace PM.DAL
             this.Claims = new HashSet<Claim>();
             this.ExternalLogins = new HashSet<ExternalLogin>();
             this.Roles = new HashSet<Role>();
+            this.AssignedToTasks = new HashSet<Task>();
+            this.TasksCreated = new HashSet<Task>();
+            this.Projects = new HashSet<Project>();
         }
     
         public System.Guid UserId { get; set; }
@@ -34,5 +37,11 @@ namespace PM.DAL
         public virtual ICollection<ExternalLogin> ExternalLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Task> AssignedToTasks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Task> TasksCreated { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }

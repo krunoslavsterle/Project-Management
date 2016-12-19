@@ -3,7 +3,6 @@ using PM.DAL;
 using PM.Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PM.Repository.Common
 {
@@ -14,24 +13,24 @@ namespace PM.Repository.Common
     public interface IProjectRepository : IRepository<Project>
     {
         /// <summary>
-        /// Gets the <see cref="IProject"/> asynchronous.
+        /// Gets the <see cref="IProjectPoco"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        Task<IProject> GetProjectAsync(Guid id);
+        System.Threading.Tasks.Task<IProjectPoco> GetProjectAsync(Guid id);
 
         /// <summary>
         /// Adds the project asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        Task AddAsync(IProject model);
+        System.Threading.Tasks.Task AddAsync(IProjectPoco model);
 
         /// <summary>
-        /// Finds the list of <see cref="IProject"/>'s asynchronous.
+        /// Finds the list of <see cref="IProjectPoco"/>'s asynchronous.
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        Task<IList<IProject>> FindAsync(ProjectFilter filter);
+        System.Threading.Tasks.Task<IList<IProjectPoco>> FindAsync(ProjectFilter filter);
     }
 }

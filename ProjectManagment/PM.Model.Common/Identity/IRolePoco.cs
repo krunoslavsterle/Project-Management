@@ -6,7 +6,7 @@ namespace PM.Model.Common
     /// <summary>
     /// Role domain model contract.
     /// </summary>
-    public interface IRole
+    public interface IRolePoco
     {
         #region Properties
 
@@ -32,7 +32,7 @@ namespace PM.Model.Common
         /// <value>
         /// The users.
         /// </value>
-        ICollection<IUser> Users { get; set; }
+        ICollection<IUserPoco> Users { get; set; }
 
         #endregion Properies
     }

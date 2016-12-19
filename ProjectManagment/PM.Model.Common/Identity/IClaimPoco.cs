@@ -5,7 +5,7 @@ namespace PM.Model.Common
     /// <summary>
     /// Claim domain model contract.
     /// </summary>
-    public interface IClaim
+    public interface IClaimPoco
     {
         #region Properties
 
@@ -47,7 +47,7 @@ namespace PM.Model.Common
         /// <value>
         /// The user.
         /// </value>
-        IUser User { get; set; }
+        IUserPoco User { get; set; }
 
         #endregion Properties
     }

@@ -1,13 +1,10 @@
 ﻿using PM.Repository.Common;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PM.DAL;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using PM.Common;
 
 namespace PM.Repository
@@ -62,9 +59,9 @@ namespace PM.Repository
         /// Asynchronously gets record count.
         /// </summary>
         /// <returns>Records count.</returns>
-        public Task<long> CountAsync()
+        public System.Threading.Tasks.Task<long> CountAsync()
         {
-            return Task.FromResult<long>(DbSet.Count());
+            return System.Threading.Tasks.Task.FromResult<long>(DbSet.Count());
         }
         
         /// <summary>

@@ -29,14 +29,14 @@ namespace PM.Repository
         #region Methods
 
         /// <summary>
-        /// Gets the <see cref="IProject"/> asynchronous.
+        /// Gets the <see cref="IProjectPoco"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public async Task<IProject> GetProjectAsync(Guid id)
+        public async Task<IProjectPoco> GetProjectAsync(Guid id)
         {
             var entity = await GetAsync(p => p.Id == id);
-            return Mapper.Map<IProject>(entity);
+            return Mapper.Map<IProjectPoco>(entity);
         }
 
         /// <summary>
@@ -44,18 +44,18 @@ namespace PM.Repository
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public Task AddAsync(IProject model)
+        public System.Threading.Tasks.Task AddAsync(IProjectPoco model)
         {
             var entity = Mapper.Map<Project>(model);
-            return Task.FromResult(DbSet.Add(entity));
+            return System.Threading.Tasks.Task.FromResult(DbSet.Add(entity));
         }
 
         /// <summary>
-        /// Finds the list of <see cref="IProject"/>'s asynchronous.
+        /// Finds the list of <see cref="IProjectPoco"/>'s asynchronous.
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns>The list of <see cref="IProject"/>'s.</returns>
-        public async Task<IList<IProject>> FindAsync(ProjectFilter filter)
+        public async Task<IList<IProjectPoco>> FindAsync(ProjectFilter filter)
         {
             var query = DbSet.AsQueryable();
 
@@ -72,7 +72,7 @@ namespace PM.Repository
             }
 
             var domainList = await query.ToListAsync();
-            return Mapper.Map<IList<IProject>>(domainList);
+            return Mapper.Map<IList<IProjectPoco>>(domainList);
         }
 
         #endregion Methods

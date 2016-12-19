@@ -82,6 +82,15 @@
     <Compile Include="Role.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Task.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskPriority.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskStatu.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>

@@ -80,7 +80,7 @@ namespace PM.Web.Areas.Administration.Controllers
             if (ModelState.IsValid)
             {
                 vm.OwnerId = this.UserId;
-                bool isAdded = await this.projectService.AddAsync(Mapper.Map<IProject>(vm));
+                bool isAdded = await this.projectService.AddAsync(Mapper.Map<IProjectPoco>(vm));
 
                 if (isAdded)
                     return RedirectToAction("Projects");

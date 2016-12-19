@@ -7,7 +7,7 @@ namespace PM.Model
     /// <summary>
     /// Role domain model.
     /// </summary>
-    public class RolePoco : IRole
+    public class RolePoco : IRolePoco
     {
         #region Properties
 
@@ -33,7 +33,7 @@ namespace PM.Model
         /// <value>
         /// The users.
         /// </value>
-        public ICollection<IUser> Users { get; set; }
+        public ICollection<IUserPoco> Users { get; set; }
 
         #endregion Properies
     }

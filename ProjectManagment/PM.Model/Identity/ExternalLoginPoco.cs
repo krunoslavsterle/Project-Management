@@ -6,7 +6,7 @@ namespace PM.Model
     /// <summary>
     /// External login domain model.
     /// </summary>
-    public class ExternalLoginPoco : IExternalLogin
+    public class ExternalLoginPoco : IExternalLoginPoco
     {
         #region Properties
 
@@ -40,7 +40,7 @@ namespace PM.Model
         /// <value>
         /// The user.
         /// </value>
-        public IUser User { get; set; }
+        public IUserPoco User { get; set; }
 
         #endregion Properties
     }

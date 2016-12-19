@@ -16,20 +16,20 @@ namespace PM.Service.Common
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        Task<IProject> GetProjectAsync(Guid id);
+        Task<IProjectPoco> GetProjectAsync(Guid id);
 
         /// <summary>
         /// Adds the project asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns><see cref="IProject"/>. </returns>
-        Task<bool> AddAsync(IProject model);
+        Task<bool> AddAsync(IProjectPoco model);
 
         /// <summary>
         /// Finds the list of <see cref="IProject"/>'s asynchronous.
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns></returns>
-        Task<IList<IProject>> FindAsync(ProjectFilter filter);
+        Task<IList<IProjectPoco>> FindAsync(ProjectFilter filter);
     }
 }

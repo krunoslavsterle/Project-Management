@@ -5,7 +5,7 @@ namespace PM.Model.Common
     /// <summary>
     /// External login domain model contract.
     /// </summary>
-    public interface IExternalLogin
+    public interface IExternalLoginPoco
     {
         #region Properties
 
@@ -39,7 +39,7 @@ namespace PM.Model.Common
         /// <value>
         /// The user.
         /// </value>
-        IUser User { get; set; }
+        IUserPoco User { get; set; }
 
         #endregion Properties
     }

@@ -19,14 +19,14 @@ namespace PM.Web.Identity
             this.mapper = mapper;
         }
 
-        #region IUserStore<IdentityUser, Guid> Members
+        #region IUserPocoStore<IdentityUser, Guid> Members
 
         public Task CreateAsync(IdentityUser user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var model = mapper.Map<PM.Model.Common.IUser>(user);
+            var model = mapper.Map<PM.Model.Common.IUserPoco>(user);
             return identityService.AddUserAsync(model);
         }
 
@@ -35,7 +35,7 @@ namespace PM.Web.Identity
             if (user == null)
                 throw new ArgumentNullException("user");
 
-            var model = mapper.Map<PM.Model.Common.IUser>(user);
+            var model = mapper.Map<PM.Model.Common.IUserPoco>(user);
             return identityService.DeleteUserAsync(model);
         }
 
@@ -61,7 +61,7 @@ namespace PM.Web.Identity
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            u = this.mapper.Map<PM.Model.Common.IUser>(user);
+            u = this.mapper.Map<PM.Model.Common.IUserPoco>(user);
             await identityService.UpdateUserAsync(u);
         }
 
@@ -74,7 +74,7 @@ namespace PM.Web.Identity
         }
         #endregion
 
-        #region IUserClaimStore<IdentityUser, Guid> Members
+        #region IUserPocoClaimStore<IdentityUser, Guid> Members
 
         public async Task AddClaimAsync(IdentityUser user, System.Security.Claims.Claim claim)
         {
@@ -127,7 +127,7 @@ namespace PM.Web.Identity
 
         #endregion
 
-        #region IUserLoginStore<IdentityUser, Guid> Members
+        #region IUserPocoLoginStore<IdentityUser, Guid> Members
 
         public async Task AddLoginAsync(IdentityUser user, UserLoginInfo login)
         {
@@ -194,7 +194,7 @@ namespace PM.Web.Identity
 
         #endregion
 
-        #region IUserRoleStore<IdentityUser, Guid> Members
+        #region IUserPocoRoleStore<IdentityUser, Guid> Members
         public async Task AddToRoleAsync(IdentityUser user, string roleName)
         {
             if (user == null)
@@ -257,7 +257,7 @@ namespace PM.Web.Identity
         }
         #endregion
 
-        #region IUserPasswordStore<IdentityUser, Guid> Members
+        #region IUserPocoPasswordStore<IdentityUser, Guid> Members
         public Task<string> GetPasswordHashAsync(IdentityUser user)
         {
             if (user == null)
@@ -279,7 +279,7 @@ namespace PM.Web.Identity
         }
         #endregion
 
-        #region IUserSecurityStampStore<IdentityUser, Guid> Members
+        #region IUserPocoSecurityStampStore<IdentityUser, Guid> Members
 
         public Task<string> GetSecurityStampAsync(IdentityUser user)
         {

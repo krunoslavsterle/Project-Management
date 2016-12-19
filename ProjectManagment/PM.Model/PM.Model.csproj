@@ -44,11 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasePoco.cs" />
     <Compile Include="Identity\ClaimPoco.cs" />
     <Compile Include="Identity\ExternalLoginPoco.cs" />
     <Compile Include="Identity\RolePoco.cs" />
     <Compile Include="Identity\UserPoco.cs" />
-    <Compile Include="ProjectPoco.cs" />
+    <Compile Include="Models\ProjectPoco.cs" />
+    <Compile Include="Models\TaskPoco.cs" />
+    <Compile Include="Models\TaskPriorityPoco.cs" />
+    <Compile Include="Models\TaskStatusPoco.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

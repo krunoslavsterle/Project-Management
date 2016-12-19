@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PM.Model.Common;
+using System;
+using System.Collections.Generic;
 
 namespace PM.Model
 {
@@ -45,6 +47,34 @@ namespace PM.Model
         /// <value>The date updated.</value>
         public DateTime DateUpdated { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time stamp.
+        /// </summary>
+        /// <value>
+        /// The time stamp.
+        /// </value>
+        public byte[] TimeStamp { get; set; }
+
         #endregion Properties
+
+        #region Navigation Properties
+
+        /// <summary>
+        /// Gets or sets the tasks.
+        /// </summary>
+        /// <value>
+        /// The tasks.
+        /// </value>
+        public virtual ICollection<ITaskPoco> Tasks { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user.
+        /// </summary>
+        /// <value>
+        /// The user.
+        /// </value>
+        public virtual IUserPoco User { get; set; }
+
+        #endregion Navigation Properties
     }
 }

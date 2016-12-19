@@ -16,40 +16,40 @@ namespace PM.Repository
         /// Finds <see cref="IUser"/> the by user name asynchronous.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <returns><see cref="IUser"/>.</returns>
-        Task<IUser> FindByUserNameAsync(string username);
+        /// <returns><see cref="IUserPoco"/>.</returns>
+        System.Threading.Tasks.Task<IUserPoco> FindByUserNameAsync(string username);
 
         /// <summary>
         /// Gets <see cref="IUser"/> the by user identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IUser"/>.</returns>
-        Task<IUser> GetByUserIdAsync(Guid id);
+        /// <returns><see cref="IUserPoco"/>.</returns>
+        System.Threading.Tasks.Task<IUserPoco> GetByUserIdAsync(Guid id);
 
         /// <summary>
-        /// Adds the <see cref="IUser"/> asynchronous.
+        /// Adds the <see cref="IUserPoco"/> asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Task.</returns>
-        Task AddAsync(IUser model);
+        System.Threading.Tasks.Task AddAsync(IUserPoco model);
 
         /// <summary>
-        /// Asynchronously deletes <see cref="IUser"/> form the database.
+        /// Asynchronously deletes <see cref="IUserPoco"/> form the database.
         /// </summary>
         /// <param name="model">Model.</param>
-        Task DeleteAsync(IUser model);
+        System.Threading.Tasks.Task DeleteAsync(IUserPoco model);
 
         /// <summary>
         /// Asynchronously updates entity in the database.
         /// </summary>
         /// <param name="entity">Entity.</param>
-        Task UpdateAsync(IUser model);
+        System.Threading.Tasks.Task UpdateAsync(IUserPoco model);
 
         /// <summary>
         /// Creates the claim asynchronous.
         /// </summary>
-        /// <returns><see cref="IClaim"/>.</returns>
-        Task<IClaim> CreateClaimAsync();
+        /// <returns><see cref="IClaimPoco"/>.</returns>
+        System.Threading.Tasks.Task<IClaimPoco> CreateClaimAsync();
 
 
     }

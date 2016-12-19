@@ -17,39 +17,39 @@ namespace PM.Repository.Common
         /// </summary>
         /// <param name="roleName">Name of the role.</param>
         /// <returns></returns>
-        Task<IRole> FindByNameAsync(string roleName);
+        System.Threading.Tasks.Task<IRolePoco> FindByNameAsync(string roleName);
 
         /// <summary>
         /// Finds the by identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        Task<IRole> FindByIdAsync(Guid id);
+        System.Threading.Tasks.Task<IRolePoco> FindByIdAsync(Guid id);
 
         /// <summary>
-        /// Adds the <see cref="IRole"/> asynchronous.
+        /// Adds the <see cref="IRolePoco"/> asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>Task.</returns>
-        Task AddAsync(IRole model);
+        System.Threading.Tasks.Task AddAsync(IRolePoco model);
 
         /// <summary>
         /// Asynchronously deletes <see cref="IUser"/> form the database.
         /// </summary>
         /// <param name="model">Model.</param>
-        Task DeleteAsync(IRole model);
+        System.Threading.Tasks.Task DeleteAsync(IRolePoco model);
 
         /// <summary>
         /// Asynchronously updates entity in the database.
         /// </summary>
         /// <param name="entity">Entity.</param>
-        Task UpdateAsync(IRole model);
+        System.Threading.Tasks.Task UpdateAsync(IRolePoco model);
 
         /// <summary>
         /// Gets all records.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Enumerable list of records.</returns>
-        IList<IRole> GetAll();
+        IList<IRolePoco> GetAll();
     }
 }

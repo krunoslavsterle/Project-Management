@@ -7,7 +7,7 @@ namespace PM.Model
     /// <summary>
     /// User domain model.
     /// </summary>
-    public class UserPoco : IUser
+    public class UserPoco : IUserPoco
     {
         #region Properties
 
@@ -73,7 +73,7 @@ namespace PM.Model
         /// <value>
         /// The claims.
         /// </value>
-        public ICollection<IClaim> Claims { get; set; }
+        public ICollection<IClaimPoco> Claims { get; set; }
 
         /// <summary>
         /// Gets or sets the logins.
@@ -81,7 +81,7 @@ namespace PM.Model
         /// <value>
         /// The logins.
         /// </value>
-        public ICollection<IExternalLogin> ExternalLogins { get; set; }
+        public ICollection<IExternalLoginPoco> ExternalLogins { get; set; }
 
         /// <summary>
         /// Gets or sets the roles.
@@ -89,7 +89,7 @@ namespace PM.Model
         /// <value>
         /// The roles.
         /// </value>
-        public ICollection<IRole> Roles { get; set; }
+        public ICollection<IRolePoco> Roles { get; set; }
 
         #endregion Properties
     }

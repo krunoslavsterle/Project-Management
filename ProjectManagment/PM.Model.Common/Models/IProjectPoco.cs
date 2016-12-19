@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PM.Model.Common
 {
     /// <summary>
     /// Project contract.
     /// </summary>
-    public interface IProject
+    public interface IProjectPoco
     {
         #region Properties
 
@@ -45,6 +46,34 @@ namespace PM.Model.Common
         /// <value>The date updated.</value>
         DateTime DateUpdated { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time stamp.
+        /// </summary>
+        /// <value>
+        /// The time stamp.
+        /// </value>
+        byte[] TimeStamp { get; set; }
+
         #endregion Properties
+
+        #region Navigation Properties
+
+        /// <summary>
+        /// Gets or sets the tasks.
+        /// </summary>
+        /// <value>
+        /// The tasks.
+        /// </value>
+        ICollection<ITaskPoco> Tasks { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user.
+        /// </summary>
+        /// <value>
+        /// The user.
+        /// </value>
+        IUserPoco User { get; set; }
+
+        #endregion Navigation Properties
     }
 }

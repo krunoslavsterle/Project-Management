@@ -16,24 +16,24 @@ namespace PM.Repository
         {
             #region Identity models
 
-            CreateMap<UserPoco, IUser>().ReverseMap();
-            CreateMap<User, IUser>().ReverseMap();
+            CreateMap<UserPoco, IUserPoco>().ReverseMap();
+            CreateMap<User, IUserPoco>().ReverseMap();
 
-            CreateMap<RolePoco, IRole>().ReverseMap();
-            CreateMap<Role, IRole>().ReverseMap();
+            CreateMap<RolePoco, IRolePoco>().ReverseMap();
+            CreateMap<Role, IRolePoco>().ReverseMap();
 
-            CreateMap<ExternalLogin, IExternalLogin>().ReverseMap();
-            CreateMap<ExternalLoginPoco, IExternalLogin>().ReverseMap();
+            CreateMap<ExternalLogin, IExternalLoginPoco>().ReverseMap();
+            CreateMap<ExternalLoginPoco, IExternalLoginPoco>().ReverseMap();
 
-            CreateMap<Claim, IClaim>().ReverseMap();
-            CreateMap<ClaimPoco, IClaim>().ReverseMap();
+            CreateMap<Claim, IClaimPoco>().ReverseMap();
+            CreateMap<ClaimPoco, IClaimPoco>().ReverseMap();
 
             #endregion Identity models
 
             #region Project models
 
-            CreateMap<ProjectPoco, IProject>().ReverseMap();
-            CreateMap<Project, IProject>().ReverseMap();
+            CreateMap<ProjectPoco, IProjectPoco>().ReverseMap();
+            CreateMap<Project, IProjectPoco>().ReverseMap();
 
             #endregion Project models
         }

@@ -40,7 +40,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public Task AddUserAsync(IUser model)
+        public Task AddUserAsync(IUserPoco model)
         {
             unitOfWork.UserRepository.AddAsync(model);
             return unitOfWork.SaveChangesAsync();
@@ -51,7 +51,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public Task DeleteUserAsync(IUser model)
+        public Task DeleteUserAsync(IUserPoco model)
         {
             unitOfWork.UserRepository.DeleteAsync(model);
             return unitOfWork.SaveChangesAsync();
@@ -61,8 +61,8 @@ namespace PM.Service
         /// Gets the user by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IUser"/>.</returns>
-        public Task<IUser> GetUserById(Guid id)
+        /// <returns><see cref="IUserPoco"/>.</returns>
+        public Task<IUserPoco> GetUserById(Guid id)
         {
             return unitOfWork.UserRepository.GetByUserIdAsync(id);
         }
@@ -72,7 +72,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <returns></returns>
-        public Task<IUser> GetUserByUserNameAsync(string userName)
+        public Task<IUserPoco> GetUserByUserNameAsync(string userName)
         {
             return unitOfWork.UserRepository.FindByUserNameAsync(userName);
         }
@@ -82,7 +82,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>True if updated.</returns>
-        public async Task<bool> UpdateUserAsync(IUser model)
+        public async Task<bool> UpdateUserAsync(IUserPoco model)
         {
             await unitOfWork.UserRepository.UpdateAsync(model);
             return await unitOfWork.SaveChangesAsync() > 0;
@@ -95,8 +95,8 @@ namespace PM.Service
         /// <summary>
         /// Creates the claim asynchronous.
         /// </summary>
-        /// <returns><see cref="IClaim"/>.</returns>
-        public Task<IClaim> CreateClaimAsync()
+        /// <returns><see cref="IClaimPoco"/>.</returns>
+        public Task<IClaimPoco> CreateClaimAsync()
         {
             return unitOfWork.UserRepository.CreateClaimAsync();
         }
@@ -109,7 +109,7 @@ namespace PM.Service
         /// Creates the external login.
         /// </summary>
         /// <returns><see cref="IExternalLogin"/></returns>
-        public Task<IExternalLogin> CreateExternalLoginAsync()
+        public Task<IExternalLoginPoco> CreateExternalLoginAsync()
         {
             return unitOfWork.ExternalLoginRepository.CreateAsync();
         }
@@ -120,7 +120,7 @@ namespace PM.Service
         /// <param name="loginProvider">The login provider.</param>
         /// <param name="providerKey">The provider key.</param>
         /// <returns><see cref="IExternalLogin"/>.</returns>
-        public Task<IExternalLogin> GetExternalLoginAsync(string loginProvider, string providerKey)
+        public Task<IExternalLoginPoco> GetExternalLoginAsync(string loginProvider, string providerKey)
         {
             return unitOfWork.ExternalLoginRepository.GetByProviderAndKeyAsync(loginProvider, providerKey);            
         }
@@ -134,7 +134,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>True if added.</returns>
-        public async Task<bool> AddRoleAsync(IRole model)
+        public async Task<bool> AddRoleAsync(IRolePoco model)
         {
             await unitOfWork.RoleRepository.AddAsync(model);
             return await unitOfWork.SaveChangesAsync() > 0;
@@ -145,7 +145,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        public async Task<bool> DeleteRoleAsync(IRole model)
+        public async Task<bool> DeleteRoleAsync(IRolePoco model)
         {
             await unitOfWork.RoleRepository.UpdateAsync(model);
             return await unitOfWork.SaveChangesAsync() > 0;
@@ -156,7 +156,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        public Task<IRole> GetRoleAsync(string name)
+        public Task<IRolePoco> GetRoleAsync(string name)
         {
             return unitOfWork.RoleRepository.FindByNameAsync(name);
         }
@@ -166,7 +166,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public Task<IRole> GetRoleAsync(Guid id)
+        public Task<IRolePoco> GetRoleAsync(Guid id)
         {
             return unitOfWork.RoleRepository.FindByIdAsync(id);
         }
@@ -175,7 +175,7 @@ namespace PM.Service
         /// Gets all roles.
         /// </summary>
         /// <returns></returns>
-        public IList<IRole> GetAllRoles()
+        public IList<IRolePoco> GetAllRoles()
         {
             return unitOfWork.RoleRepository.GetAll();
         }
@@ -185,7 +185,7 @@ namespace PM.Service
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>True if updated.</returns>
-        public async Task<bool> UpdateRoleAsync(IRole model)
+        public async Task<bool> UpdateRoleAsync(IRolePoco model)
         {
             await unitOfWork.RoleRepository.UpdateAsync(model);
             return await unitOfWork.SaveChangesAsync() > 0;
