@@ -46,7 +46,18 @@ namespace PM.Service
             model.DateUpdated = DateTime.UtcNow;
 
             await UnitOfWork.ProjectRepository.AddAsync(model);
-            return await UnitOfWork.SaveChangesAsync() > 0;
+            try
+            {
+
+                var save = await UnitOfWork.SaveChangesAsync() > 0;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return false;
         }
 
         /// <summary>

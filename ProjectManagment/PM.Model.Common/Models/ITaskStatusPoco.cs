@@ -58,18 +58,16 @@ namespace PM.Model.Common
         /// </value>
         DateTime DateUpdated { get; set; }
 
-        /// <summary>
-        /// Gets or sets the time stamp.
-        /// </summary>
-        /// <value>
-        /// The time stamp.
-        /// </value>
-        byte[] TimeStamp { get; set; }
-
         #endregion Properties
 
         #region Navigation Properties
 
+        /// <summary>
+        /// Gets or sets the tasks navigation property.
+        /// </summary>
+        /// <value>
+        /// The tasks.
+        /// </value>
         ICollection<ITaskPoco> Tasks { get; set; }
 
         #endregion Navigation Properties

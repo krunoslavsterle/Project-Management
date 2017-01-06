@@ -291,3 +291,34 @@ body {
 .bar-right-content a:hover {
     text-decoration: none;
 }
+#table-tasks.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
+#table-tasks tr {
+    height:60px;
+}
+
+.task-row {
+    height: 50px;
+}
+
+#task-priority {
+    width: 20px;
+    height:20px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+}
+
+.low-priority {
+    background-color: deepskyblue;
+}
+
+.normal-priority {
+    background-color: greenyellow;
+}
+
+.high-priority {
+    background-color: red;
+}

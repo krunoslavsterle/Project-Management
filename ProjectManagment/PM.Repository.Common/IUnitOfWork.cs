@@ -44,6 +44,14 @@ namespace PM.Repository.Common
         /// </value>
         IProjectRepository ProjectRepository { get; }
 
+        /// <summary>
+        /// Gets the task repository.
+        /// </summary>
+        /// <value>
+        /// The task repository.
+        /// </value>
+        ITaskRepository TaskRepository { get; }
+
         #endregion Properties
 
         #region Methods

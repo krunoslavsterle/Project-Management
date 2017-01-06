@@ -16,6 +16,7 @@ namespace PM.Repository
             Bind<Profile>().To<MapperProfile>().InTransientScope();
 
             Bind(typeof(IProjectRepository)).To(typeof(ProjectRepository));
+            Bind(typeof(ITaskRepository)).To(typeof(TaskRepository));
         }
     }
 }

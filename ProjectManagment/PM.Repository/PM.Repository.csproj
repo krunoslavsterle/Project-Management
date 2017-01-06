@@ -64,6 +64,7 @@
     <Compile Include="Generic\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Generic\Repository.cs" />
+    <Compile Include="Repository\TaskRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

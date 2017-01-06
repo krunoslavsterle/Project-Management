@@ -17,9 +17,14 @@ namespace PM.Repository
     public class ProjectRepository : Repository<Project>, IProjectRepository
     {
         #region Constructors
-        
-        public ProjectRepository(PMDatabaseEntities Context, IMapper mapper) 
-            : base(Context, mapper)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectRepository"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="mapper">The mapper.</param>
+        public ProjectRepository(PMDatabaseEntities context, IMapper mapper) 
+            : base(context, mapper)
         {
             
         }

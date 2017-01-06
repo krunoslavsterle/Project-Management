@@ -53,11 +53,11 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("List")]
-        public async Task<ActionResult> ListAsync(Guid projectId)
+        public async Task<ActionResult> ListAsync()
         {
-            var project = await ProjectService.GetProjectAsync(projectId);
-            ViewBag.ProjectName = project.Name;
-            ViewBag.ProjectId = project.Id;
+            //var project = await ProjectService.GetProjectAsync(projectId);
+            //ViewBag.ProjectName = project.Name;
+            //ViewBag.ProjectId = project.Id;
 
             return View("List");
         }

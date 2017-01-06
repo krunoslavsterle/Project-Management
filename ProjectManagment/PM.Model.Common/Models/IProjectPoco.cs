@@ -45,15 +45,7 @@ namespace PM.Model.Common
         /// </summary>
         /// <value>The date updated.</value>
         DateTime DateUpdated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the time stamp.
-        /// </summary>
-        /// <value>
-        /// The time stamp.
-        /// </value>
-        byte[] TimeStamp { get; set; }
-
+        
         #endregion Properties
 
         #region Navigation Properties

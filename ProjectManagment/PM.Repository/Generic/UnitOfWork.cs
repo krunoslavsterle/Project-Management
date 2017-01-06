@@ -16,12 +16,12 @@ namespace PM.Repository
         #region Fields
 
         private readonly PMDatabaseEntities _context;
-        private IMapper _mapper;
-
+        private readonly IMapper _mapper;
         private IExternalLoginRepository _externalLoginRepository;
         private IRoleRepository _roleRepository;
         private IUserRepository _userRepository;
         private IProjectRepository projectRepository;
+        private ITaskRepository taskRepositor;
 
         #endregion Fields
 
@@ -84,6 +84,17 @@ namespace PM.Repository
         public IProjectRepository ProjectRepository
         {
             get { return projectRepository ?? (projectRepository = new ProjectRepository(_context, _mapper)); }
+        }
+
+        /// <summary>
+        /// Gets the task repository.
+        /// </summary>
+        /// <value>
+        /// The task repository.
+        /// </value>
+        public ITaskRepository TaskRepository
+        {
+            get { return taskRepositor ?? (taskRepositor = new TaskRepository(_context, _mapper)); }
         }
 
         /// <summary>

@@ -33,7 +33,9 @@ namespace PM.Repository
             #region Project models
 
             CreateMap<ProjectPoco, IProjectPoco>().ReverseMap();
-            CreateMap<Project, IProjectPoco>().ReverseMap();
+            CreateMap<Project, IProjectPoco>()
+                .ReverseMap()
+                .ForMember(ent => ent.User, e => e.Ignore());
 
             #endregion Project models
         }
