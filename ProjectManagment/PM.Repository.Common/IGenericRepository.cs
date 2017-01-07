@@ -23,7 +23,7 @@ namespace PM.Repository.Common
         IEnumerable<TEntity> GetAll(
             IPagingParameters pagingParameters,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null);
+            params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of all <see cref="TEntity"/> asynchronous.
@@ -35,7 +35,7 @@ namespace PM.Repository.Common
         Task<IEnumerable<TEntity>> GetAllAsync(
             IPagingParameters pagingParameters,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null);
+            params string[] includeProperties);
 
         /// <summary>
         /// Gets the one <see cref="TEntity"/> asynchronously.
@@ -43,7 +43,7 @@ namespace PM.Repository.Common
         /// <param name="filter">The filter.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity"/> asynchronously.</returns>
-        Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, string includeProperties = null);
+        Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the one <see cref="TEntity"/>.
@@ -51,7 +51,7 @@ namespace PM.Repository.Common
         /// <param name="filter">The filter.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity" />.</returns>
-        TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, string includeProperties = null);
+        TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of <see cref="TEntity"/>.
@@ -65,7 +65,7 @@ namespace PM.Repository.Common
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null);
+            params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of <see cref="TEntity"/> asynchronous.
@@ -79,7 +79,7 @@ namespace PM.Repository.Common
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null);
+            params string[] includeProperties);
 
         /// <summary>
         /// Gets the <see cref="TEntity"/> by identifier.

@@ -56,20 +56,21 @@ namespace PM.Repository
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            params string[] includeProperties)
         {
-            includeProperties = includeProperties ?? string.Empty;
             IQueryable<TEntity> query = context.Set<TEntity>();
 
             if (filter != null)
                 query = query.Where(filter);
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (includeProperties != null && includeProperties.Length > 0)
             {
-                query = query.Include(includeProperty);
+                foreach(var item in includeProperties)
+                {
+                    query = query.Include(item);
+                }
             }
-
+            
             if (orderBy != null)
                 query = orderBy(query);
 
@@ -92,7 +93,7 @@ namespace PM.Repository
         public virtual IEnumerable<TEntity> GetAll(
             IPagingParameters pagingParameters,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            params string[] includeProperties)
         {
             return GetQueryable(pagingParameters, null, orderBy, includeProperties).ToList();
         }
@@ -107,7 +108,7 @@ namespace PM.Repository
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             IPagingParameters pagingParameters,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            params string[] includeProperties)
         {
             return await GetQueryable(pagingParameters, null, orderBy, includeProperties).ToListAsync();
         }
@@ -118,7 +119,7 @@ namespace PM.Repository
         /// <param name="filter">The filter.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity"/> asynchronously.</returns>
-        public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, string includeProperties = null)
+        public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties)
         {
             return await GetQueryable(null, filter, null, includeProperties).SingleOrDefaultAsync();
         }
@@ -129,7 +130,7 @@ namespace PM.Repository
         /// <param name="filter">The filter.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity" />.</returns>
-        public virtual TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, string includeProperties = null)
+        public virtual TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties)
         {
             return GetQueryable(null, filter, null, includeProperties).SingleOrDefault();
         }
@@ -146,7 +147,7 @@ namespace PM.Repository
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            params string[] includeProperties)
         {
             return GetQueryable(pagingParameters, filter, orderBy, includeProperties).ToList();
         }
@@ -163,7 +164,7 @@ namespace PM.Repository
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            params string[] includeProperties)
         {
             return await GetQueryable(pagingParameters, filter, orderBy, includeProperties).ToListAsync();
         }

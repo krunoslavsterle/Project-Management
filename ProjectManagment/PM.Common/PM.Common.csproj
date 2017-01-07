@@ -54,6 +54,7 @@
     <Compile Include="Helpers\IPagingParameters.cs" />
     <Compile Include="Helpers\PagingParameters.cs" />
     <Compile Include="Helpers\ShortGuid.cs" />
+    <Compile Include="Helpers\SortingParameters.cs" />
     <Compile Include="Mapping\IMapper.cs" />
     <Compile Include="Mapping\Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
