@@ -10,7 +10,7 @@ namespace PM.Repository.Common
     /// Role repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.RoleEntity}" />
-    public interface IRoleRepository : IRepository<Role>
+    public interface IRoleRepository : IGenericRepository<Role>
     {
         /// <summary>
         /// Finds the by name asynchronous.

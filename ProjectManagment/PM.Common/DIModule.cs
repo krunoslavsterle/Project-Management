@@ -10,6 +10,7 @@ namespace PM.Common
         public override void Load()
         {
             Bind<IMapper>().To<Mapper>().InSingletonScope();
+            Bind<IPagingParameters>().To<PagingParameters>();
         }
     }
 }

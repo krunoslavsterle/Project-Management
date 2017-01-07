@@ -7,7 +7,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace PM.Repository.Identity
 {
-    internal class ExternalLoginRepository : Repository<ExternalLogin>, IExternalLoginRepository
+    internal class ExternalLoginRepository : GenericRepository<ExternalLogin>, IExternalLoginRepository
     {
         #region Constructors
 
@@ -28,8 +28,8 @@ namespace PM.Repository.Identity
         /// <returns></returns>
         public async System.Threading.Tasks.Task<IExternalLoginPoco> GetByProviderAndKeyAsync(string loginProvider, string providerKey)
         {
-            var entity = await GetAsync(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey);
-            return Mapper.Map<IExternalLoginPoco>(entity);
+            var entity = await GetOneAsync(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey);
+            return mapper.Map<IExternalLoginPoco>(entity);
         }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace PM.Repository.Identity
         /// <returns>System.Threading.Tasks.Task.</returns>
         public System.Threading.Tasks.Task AddAsync(IExternalLoginPoco model)
         {
-            var entity = Mapper.Map<ExternalLogin>(model);
-            return System.Threading.Tasks.Task.FromResult(DbSet.Add(entity));
+            var entity = mapper.Map<ExternalLogin>(model);
+            return System.Threading.Tasks.Task.FromResult(dbSet.Add(entity));
         }
 
         /// <summary>
@@ -49,8 +49,8 @@ namespace PM.Repository.Identity
         /// <param name="model">Model.</param>
         public System.Threading.Tasks.Task DeleteAsync(IExternalLoginPoco model)
         {
-            var entity = Mapper.Map<ExternalLogin>(model);
-            DbSet.Remove(entity);
+            var entity = mapper.Map<ExternalLogin>(model);
+            dbSet.Remove(entity);
             return System.Threading.Tasks.Task.FromResult(true);
         }
 
@@ -70,9 +70,9 @@ namespace PM.Repository.Identity
         /// <param name="entity">Entity.</param>
         public System.Threading.Tasks.Task UpdateAsync(IExternalLoginPoco model)
         {
-            var entity = Mapper.Map<ExternalLogin>(model);
-            DbSet.Attach(entity);
-            ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            var entity = mapper.Map<ExternalLogin>(model);
+            dbSet.Attach(entity);
+            ((IObjectContextAdapter)context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return System.Threading.Tasks.Task.FromResult(true);
         }
 

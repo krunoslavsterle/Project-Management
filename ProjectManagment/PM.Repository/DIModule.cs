@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Ninject.Modules;
+using Ninject.Web.Common;
+using PM.DAL;
 using PM.Repository.Common;
 
 namespace PM.Repository
@@ -11,8 +13,8 @@ namespace PM.Repository
     {
         public override void Load()
         {
-            Bind(typeof(IRepository<>)).To(typeof(Repository<>));
-            Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork));
+            Bind<PMDatabaseEntities>().ToSelf().InRequestScope();
+            Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
             Bind<Profile>().To<MapperProfile>().InTransientScope();
 
             Bind(typeof(IProjectRepository)).To(typeof(ProjectRepository));

@@ -15,7 +15,7 @@ namespace PM.Repository
     /// Task repository class.
     /// </summary>
     /// <seealso cref="PM.Repository.Repository{PM.DAL.Task}" />
-    public class TaskRepository : Repository<DAL.Task>, ITaskRepository
+    public class TaskRepository : GenericRepository<DAL.Task>, ITaskRepository
     {
         #region Constructors
 
@@ -41,8 +41,8 @@ namespace PM.Repository
         /// <returns></returns>
         public async Task<ITaskPoco> GetTaskAsync(Guid id)
         {
-            var entity = await GetAsync(p => p.Id == id);
-            return Mapper.Map<ITaskPoco>(entity);
+            var entity = await GetOneAsync(p => p.Id == id);
+            return mapper.Map<ITaskPoco>(entity);
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace PM.Repository
         /// <returns>Task.</returns>
         public System.Threading.Tasks.Task AddAsync(ITaskPoco model)
         {
-            var entity = Mapper.Map<DAL.Task>(model);
-            return System.Threading.Tasks.Task.FromResult(DbSet.Add(entity));
+            var entity = mapper.Map<DAL.Task>(model);
+            return System.Threading.Tasks.Task.FromResult(dbSet.Add(entity));
         }
 
 
@@ -64,7 +64,7 @@ namespace PM.Repository
         /// <returns>List of <see cref="ITaskPoco"/>.</returns>
         public async Task<IList<ITaskPoco>> FindAsync(TaskFilter filter)
         {
-            var query = DbSet.AsQueryable();
+            var query = dbSet.AsQueryable();
 
             if (filter != null)
             {
@@ -73,7 +73,7 @@ namespace PM.Repository
             }
 
             var domainList = await query.ToListAsync();
-            return Mapper.Map<IList<ITaskPoco>>(domainList);
+            return mapper.Map<IList<ITaskPoco>>(domainList);
         }
 
 

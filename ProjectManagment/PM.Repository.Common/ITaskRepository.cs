@@ -10,7 +10,7 @@ namespace PM.Repository.Common
     /// Task repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Task}" />
-    public interface ITaskRepository : IRepository<DAL.Task>
+    public interface ITaskRepository : IGenericRepository<DAL.Task>
     {
         /// <summary>
         /// Gets the task asynchronous.

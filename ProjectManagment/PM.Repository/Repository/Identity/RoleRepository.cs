@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace PM.Repository.Identity
 {
-    internal class RoleRepository : Repository<Role>, IRoleRepository
+    internal class RoleRepository : GenericRepository<Role>, IRoleRepository
     {       
         internal RoleRepository(PMDatabaseEntities context, IMapper mapper)
             : base(context, mapper)
@@ -25,8 +25,8 @@ namespace PM.Repository.Identity
         /// <returns></returns>
         public async System.Threading.Tasks.Task<IRolePoco> FindByIdAsync(Guid id)
         {
-            var entity = await GetAsync(x => x.RoleId == id);
-            return Mapper.Map<IRolePoco>(entity);
+            var entity = await GetOneAsync(x => x.RoleId == id);
+            return mapper.Map<IRolePoco>(entity);
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace PM.Repository.Identity
         /// <returns></returns>
         public async System.Threading.Tasks.Task<IRolePoco> FindByNameAsync(string roleName)
         {
-            var entity = await GetAsync(x => x.Name == roleName);
-            return Mapper.Map<IRolePoco>(entity);
+            var entity = await GetOneAsync(x => x.Name == roleName);
+            return mapper.Map<IRolePoco>(entity);
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace PM.Repository.Identity
         /// <returns>System.Threading.Tasks.Task.</returns>
         public System.Threading.Tasks.Task AddAsync(IRolePoco model)
         {
-            var entity = Mapper.Map<Role>(model);
-            return System.Threading.Tasks.Task.FromResult(DbSet.Add(entity));
+            var entity = mapper.Map<Role>(model);
+            return System.Threading.Tasks.Task.FromResult(dbSet.Add(entity));
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace PM.Repository.Identity
         /// <param name="model">Model.</param>
         public System.Threading.Tasks.Task DeleteAsync(IRolePoco model)
         {
-            var entity = Mapper.Map<Role>(model);
-            DbSet.Remove(entity);
+            var entity = mapper.Map<Role>(model);
+            dbSet.Remove(entity);
             return System.Threading.Tasks.Task.FromResult(true);
         }
 
@@ -68,9 +68,9 @@ namespace PM.Repository.Identity
         /// <param name="entity">Entity.</param>
         public System.Threading.Tasks.Task UpdateAsync(IRolePoco model)
         {
-            var entity = Mapper.Map<Role>(model);
-            DbSet.Attach(entity);
-            ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            var entity = mapper.Map<Role>(model);
+            dbSet.Attach(entity);
+            ((IObjectContextAdapter)context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return System.Threading.Tasks.Task.FromResult(true);
         }
 
@@ -81,8 +81,8 @@ namespace PM.Repository.Identity
         /// <returns>Enumerable list of records.</returns>
         public IList<IRolePoco> GetAll()
         {
-            var entities = DbSet.ToList();
-            return Mapper.Map<IList<IRolePoco>>(entities);
+            var entities = dbSet.ToList();
+            return mapper.Map<IList<IRolePoco>>(entities);
         }
     }
 }

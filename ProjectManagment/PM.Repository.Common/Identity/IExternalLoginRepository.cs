@@ -8,7 +8,7 @@ namespace PM.Repository.Common
     /// External login repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.ExternalLoginEntity}" />
-    public interface IExternalLoginRepository : IRepository<ExternalLogin>
+    public interface IExternalLoginRepository : IGenericRepository<ExternalLogin>
     {
         /// <summary>
         /// Gets the by provider and key asynchronous.

@@ -11,13 +11,15 @@ namespace PM.Service
     /// <summary>
     /// Project service.
     /// </summary>
-    public class ProjectService : BaseService, IProjectService
+    public class ProjectService : IProjectService
     {
+        private readonly IProjectRepository projectRepository;
+
         #region Constructors
 
-        public ProjectService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public ProjectService(IProjectRepository projectRepository)
         {
-
+            this.projectRepository = projectRepository;
         }
 
         #endregion Constructors
@@ -31,7 +33,8 @@ namespace PM.Service
         /// <returns></returns>
         public Task<IProjectPoco> GetProjectAsync(Guid id)
         {
-            return UnitOfWork.ProjectRepository.GetProjectAsync(id);
+            //return UnitOfWork.ProjectRepository.GetProjectAsync(id);
+            return null;
         }
 
         /// <summary>
@@ -45,11 +48,11 @@ namespace PM.Service
             model.DateCreated = DateTime.UtcNow;
             model.DateUpdated = DateTime.UtcNow;
 
-            await UnitOfWork.ProjectRepository.AddAsync(model);
+            //await UnitOfWork.ProjectRepository.AddAsync(model);
             try
             {
 
-                var save = await UnitOfWork.SaveChangesAsync() > 0;
+                //var save = await UnitOfWork.SaveChangesAsync() > 0;
 
             }
             catch (Exception ex)
@@ -67,7 +70,9 @@ namespace PM.Service
         /// <returns></returns>
         public Task<IList<IProjectPoco>> FindAsync(ProjectFilter filter)
         {
-            return UnitOfWork.ProjectRepository.FindAsync(filter);
+            //return UnitOfWork.ProjectRepository.FindAsync(filter);
+            // return projectRepository.GetAllAsync();
+            return null;
         }
 
         #endregion Methods

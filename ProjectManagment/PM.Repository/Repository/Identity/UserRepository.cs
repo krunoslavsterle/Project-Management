@@ -8,7 +8,7 @@ using System;
 
 namespace PM.Repository
 {
-    internal class UserRepository : Repository<User>, IUserRepository
+    internal class UserRepository : GenericRepository<User>, IUserRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository"/> class.
@@ -27,8 +27,8 @@ namespace PM.Repository
         /// <returns><see cref="IUser"/>.</returns>
         public async System.Threading.Tasks.Task<IUserPoco> FindByUserNameAsync(string username)
         {
-            var entity = await GetAsync(x => x.UserName == username);
-            return Mapper.Map<IUserPoco>(entity);
+            var entity = await GetOneAsync(x => x.UserName == username);
+            return mapper.Map<IUserPoco>(entity);
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace PM.Repository
         /// <returns><see cref="IUser"/>.</returns>
         public async System.Threading.Tasks.Task<IUserPoco> GetByUserIdAsync(Guid id)
         {
-            var entity = await GetAsync(i => i.UserId == id);
-            return Mapper.Map<IUserPoco>(entity);
+            var entity = await GetOneAsync(i => i.UserId == id);
+            return mapper.Map<IUserPoco>(entity);
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace PM.Repository
         {
             model.DateCreated = DateTime.UtcNow;
             model.DateUpdated = DateTime.UtcNow;
-            var entity = Mapper.Map<User>(model);
-            return System.Threading.Tasks.Task.FromResult(DbSet.Add(entity));
+            var entity = mapper.Map<User>(model);
+            return System.Threading.Tasks.Task.FromResult(dbSet.Add(entity));
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace PM.Repository
         /// <param name="model">Model.</param>
         public System.Threading.Tasks.Task DeleteAsync(IUserPoco model)
         {
-            var entity = Mapper.Map<User>(model);
-            DbSet.Remove(entity);
+            var entity = mapper.Map<User>(model);
+            dbSet.Remove(entity);
             return System.Threading.Tasks.Task.FromResult(true);
         }
 
@@ -73,9 +73,9 @@ namespace PM.Repository
         public System.Threading.Tasks.Task UpdateAsync(IUserPoco model)
         {
             model.DateUpdated = DateTime.UtcNow;
-            var entity = Mapper.Map<User>(model);
-            DbSet.Attach(entity);
-            ((IObjectContextAdapter)Context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            var entity = mapper.Map<User>(model);
+            dbSet.Attach(entity);
+            ((IObjectContextAdapter)context).ObjectContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
             return System.Threading.Tasks.Task.FromResult(true);
         }
 
