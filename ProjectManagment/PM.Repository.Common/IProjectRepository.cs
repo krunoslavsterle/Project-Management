@@ -18,7 +18,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models.</returns>
-        IEnumerable<IProjectPoco> GetAll(string orderBy = null, params string[] includeProperties);
+        IEnumerable<IProjectPoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets a list of all <see cref="IProjectPoco"/> models asynchronously.
@@ -26,7 +26,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models asynchronously.</returns>
-        System.Threading.Tasks.Task<IEnumerable<IProjectPoco>> GetAllAsync(string orderBy = null, params string[] includeProperties);
+        System.Threading.Tasks.Task<IEnumerable<IProjectPoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets a paged list of all <see cref="IProjectPoco"/> models.
@@ -35,7 +35,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of all <see cref="IProjectPoco"/> models.</returns>
-        IPagedList<IProjectPoco> GetAllPaged(IPagingParameters pagingParameters, string orderBy = null, params string[] includeProperties);
+        IPagedList<IProjectPoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets a paged list of all <see cref="IProjectPoco"/> models asynchronously.
@@ -44,7 +44,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of all <see cref="IProjectPoco"/> models asynchronously.</returns>
-        System.Threading.Tasks.Task<IPagedList<IProjectPoco>> GetAllPagedAsync(IPagingParameters pagingParameters, string orderBy = null, params string[] includeProperties);
+        System.Threading.Tasks.Task<IPagedList<IProjectPoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the one <see cref="IProjectPoco"/> model asynchronously.
@@ -69,7 +69,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models.</returns>
-        IEnumerable<IProjectPoco> Get(ProjectFilter filter = null, string orderBy = null, params string[] includeProperties);
+        IEnumerable<IProjectPoco> Get(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of <see cref="IProjectPoco"/> models asynchronous.
@@ -78,7 +78,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models asynchronous.</returns>
-        System.Threading.Tasks.Task<IEnumerable<IProjectPoco>> GetAsync(ProjectFilter filter = null, string orderBy = null, params string[] includeProperties);
+        System.Threading.Tasks.Task<IEnumerable<IProjectPoco>> GetAsync(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the paged list of <see cref="IProjectPoco"/> models.
@@ -88,7 +88,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of <see cref="IProjectPoco"/> models.</returns>
-        IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, ProjectFilter filter = null, string orderBy = null, params string[] includeProperties);
+        IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the paged list of <see cref="IProjectPoco"/> models asynchronous.
@@ -101,7 +101,7 @@ namespace PM.Repository.Common
         System.Threading.Tasks.Task<IPagedList<IProjectPoco>> GetPagedAsync(
             IPagingParameters pagingParameters, 
             ProjectFilter filter = null, 
-            string orderBy = null, 
+            ISortingParameters orderBy = null, 
             params string[] includeProperties);
 
         /// <summary>

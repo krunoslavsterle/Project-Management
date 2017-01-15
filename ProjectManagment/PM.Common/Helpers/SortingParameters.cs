@@ -1,25 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace PM.Common.Helpers
+namespace PM.Common
 {
-    public class SortingParameters
+    /// <summary>
+    /// Sorting parameters class.
+    /// </summary>
+    /// <seealso cref="PM.Common.ISortingParameters" />
+    public class SortingParameters : ISortingParameters
     {
-        public string OrderBy { get; set; }
+        #region Properties
 
-        public bool IsDescendingSortOrder { get; set; }
+        /// <summary>
+        /// Gets the sort pairs.
+        /// </summary>
+        public IList<ISortingPair> Sorters { get; private set; }
 
+        #endregion Properties
+
+        #region Constructors
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SortingParameters"/> class.
+        /// </summary>
         public SortingParameters()
         {
+            this.Sorters = new List<ISortingPair>();
         }
 
-        public SortingParameters(string orderBy, bool isDescendingSortOrder)
+        #endregion Constructors
+
+        #region Methods
+
+        /// <summary>
+        /// Adds a new sorting pair.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="isAscending">if set to <c>true</c> [is ascending].</param>
+        public void Add(string orderBy, bool isAscending)
         {
-            this.OrderBy = orderBy;
-            this.IsDescendingSortOrder = IsDescendingSortOrder;
+            Sorters.Add(new SortingPair(orderBy, isAscending));
         }
+
+        /// <summary>
+        /// Adds a new sorting pair.
+        /// </summary>
+        /// <param name="sortingPair">The sorting pair.</param>
+        public void Add(ISortingPair sortingPair)
+        {
+            Sorters.Add(sortingPair);
+        }
+
+        #endregion Methods
     }
 }

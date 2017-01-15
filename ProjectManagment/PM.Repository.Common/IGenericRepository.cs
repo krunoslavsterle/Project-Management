@@ -22,7 +22,7 @@ namespace PM.Repository.Common
         /// <returns>List of all <see cref="TEntity"/>.</returns>
         IEnumerable<TEntity> GetAll(
             IPagingParameters pagingParameters,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties);
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace PM.Repository.Common
         /// <returns>List of all <see cref="TEntity"/> asynchronous.</returns>
         Task<IEnumerable<TEntity>> GetAllAsync(
             IPagingParameters pagingParameters,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties);
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace PM.Repository.Common
         IEnumerable<TEntity> Get(
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties);
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace PM.Repository.Common
         Task<IEnumerable<TEntity>> GetAsync(
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties);
 
         /// <summary>

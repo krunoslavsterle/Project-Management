@@ -46,10 +46,9 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models.</returns>
-        public virtual IEnumerable<IProjectPoco> GetAll(string orderBy = null, params string[] includeProperties)
+        public virtual IEnumerable<IProjectPoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT ORDERED BY
-            var entities = genericRepository.GetAll(null, null, includeProperties);
+            var entities = genericRepository.GetAll(null, orderBy, includeProperties);
             return mapper.Map<IEnumerable<IProjectPoco>>(entities);
         }
 
@@ -59,10 +58,9 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models asynchronously.</returns>
-        public virtual async Task<IEnumerable<IProjectPoco>> GetAllAsync(string orderBy = null, params string[] includeProperties)
+        public virtual async Task<IEnumerable<IProjectPoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT ORDERED BY
-            var entities = await genericRepository.GetAllAsync(null, null, includeProperties);
+            var entities = await genericRepository.GetAllAsync(null, orderBy, includeProperties);
             return mapper.Map<IEnumerable<IProjectPoco>>(entities);
         }
 
@@ -73,10 +71,10 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of all <see cref="IProjectPoco"/> models.</returns>
-        public virtual IPagedList<IProjectPoco> GetAllPaged(IPagingParameters pagingParameters, string orderBy = null, params string[] includeProperties)
+        public virtual IPagedList<IProjectPoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             int count = genericRepository.GetCount();
-            var entities = genericRepository.GetAll(pagingParameters, null, includeProperties);
+            var entities = genericRepository.GetAll(pagingParameters, orderBy, includeProperties);
 
             return new StaticPagedList<IProjectPoco>(mapper.Map<IEnumerable<IProjectPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
@@ -88,10 +86,10 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of all <see cref="IProjectPoco"/> models asynchronously.</returns>
-        public virtual async Task<IPagedList<IProjectPoco>> GetAllPagedAsync(IPagingParameters pagingParameters, string orderBy = null, params string[] includeProperties)
+        public virtual async Task<IPagedList<IProjectPoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             int count = await genericRepository.GetCountAsync();
-            var entities = await genericRepository.GetAllAsync(pagingParameters, null, includeProperties);
+            var entities = await genericRepository.GetAllAsync(pagingParameters, orderBy, includeProperties);
 
             return new StaticPagedList<IProjectPoco>(mapper.Map<IEnumerable<IProjectPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
@@ -129,11 +127,10 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models.</returns>
-        public virtual IEnumerable<IProjectPoco> Get(ProjectFilter filter = null, string orderBy = null, params string[] includeProperties)
+        public virtual IEnumerable<IProjectPoco> Get(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            // TODO: IMPLEMENT ORDERED BY
-            var entities = genericRepository.Get(null, null, null, includeProperties);
+            var entities = genericRepository.Get(null, null, orderBy, includeProperties);
             return mapper.Map<IEnumerable<IProjectPoco>>(entities);
         }
 
@@ -144,11 +141,10 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models asynchronous.</returns>
-        public virtual async Task<IEnumerable<IProjectPoco>> GetAsync(ProjectFilter filter = null, string orderBy = null, params string[] includeProperties)
+        public virtual async Task<IEnumerable<IProjectPoco>> GetAsync(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            // TODO: IMPLEMENT ORDERED BY
-            var entities = await genericRepository.GetAsync(null, null, null, includeProperties);
+            var entities = await genericRepository.GetAsync(null, null, orderBy, includeProperties);
             return mapper.Map<IEnumerable<IProjectPoco>>(entities);
         }
         
@@ -160,12 +156,11 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of <see cref="IProjectPoco"/> models.</returns>
-        public virtual IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, ProjectFilter filter = null, string orderBy = null, params string[] includeProperties)
+        public virtual IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            // TODO: IMPLEMENT ORDERED BY
             var count = genericRepository.GetCount();
-            var entities = genericRepository.Get(pagingParameters, null, null, includeProperties);
+            var entities = genericRepository.Get(pagingParameters, null, orderBy, includeProperties);
 
             return new StaticPagedList<IProjectPoco>(mapper.Map<IEnumerable<IProjectPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
@@ -178,12 +173,11 @@ namespace PM.Repository
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of <see cref="IProjectPoco"/> models asynchronous.</returns>
-        public virtual async Task<IPagedList<IProjectPoco>> GetPagedAsync(IPagingParameters pagingParameters, ProjectFilter filter = null, string orderBy = null, params string[] includeProperties)
+        public virtual async Task<IPagedList<IProjectPoco>> GetPagedAsync(IPagingParameters pagingParameters, ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            // TODO: IMPLEMENT ORDERED BY
             var count = await genericRepository.GetCountAsync();
-            var entities = await genericRepository.GetAsync(pagingParameters, null, null, includeProperties);
+            var entities = await genericRepository.GetAsync(pagingParameters, null, orderBy, includeProperties);
 
             return new StaticPagedList<IProjectPoco>(mapper.Map<IEnumerable<IProjectPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }

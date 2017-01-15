@@ -1,6 +1,7 @@
 ﻿using PM.Repository.Common;
 using System;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PM.DAL;
@@ -46,23 +47,24 @@ namespace PM.Repository
         /// <summary>
         /// Gets the <see cref="TEntity"/> queryable.
         /// </summary>
+        /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter.</param>
         /// <param name="orderBy">The order by.</param>
-        /// <param name="includeProperties">The include properties.</param>
-        /// <param name="skip">The skip.</param>
-        /// <param name="take">The take.</param>
+        /// <param name="includeProperties">The include properties.</param>       
         /// <returns>A query.</returns>
         protected virtual IQueryable<TEntity> GetQueryable(
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             IQueryable<TEntity> query = context.Set<TEntity>();
 
+            // Filtering.
             if (filter != null)
                 query = query.Where(filter);
 
+            // Include properties.
             if (includeProperties != null && includeProperties.Length > 0)
             {
                 foreach(var item in includeProperties)
@@ -71,9 +73,19 @@ namespace PM.Repository
                 }
             }
             
-            if (orderBy != null)
-                query = orderBy(query);
+            // Order by.
+            if (orderBy != null && orderBy.Sorters.Count > 0)
+            {
+                foreach(var item in orderBy.Sorters)
+                {
+                    if (item.IsAscending)
+                        query = query.OrderBy(item.OrderBy);
+                    else
+                        query = query.OrderBy(item.OrderBy + "descending");
+                }
+            }
 
+            // Paging.
             if (pagingParameters != null)
             {
                 query = query.Skip(pagingParameters.Skip);
@@ -92,7 +104,7 @@ namespace PM.Repository
         /// <returns>List of all <see cref="TEntity"/>.</returns>
         public virtual IEnumerable<TEntity> GetAll(
             IPagingParameters pagingParameters,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             return GetQueryable(pagingParameters, null, orderBy, includeProperties).ToList();
@@ -107,7 +119,7 @@ namespace PM.Repository
         /// <returns>List of all <see cref="TEntity"/> asynchronous.</returns>
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             IPagingParameters pagingParameters,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             return await GetQueryable(pagingParameters, null, orderBy, includeProperties).ToListAsync();
@@ -146,7 +158,7 @@ namespace PM.Repository
         public virtual IEnumerable<TEntity> Get(
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             return GetQueryable(pagingParameters, filter, orderBy, includeProperties).ToList();
@@ -163,7 +175,7 @@ namespace PM.Repository
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
             IPagingParameters pagingParameters,
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             return await GetQueryable(pagingParameters, filter, orderBy, includeProperties).ToListAsync();
@@ -315,6 +327,8 @@ namespace PM.Repository
             var exceptionMessage = string.Concat(e.Message, " The validation errors are: ", fullErrorMessage);
             throw new DbEntityValidationException(exceptionMessage, e.EntityValidationErrors);
         }
+
+
 
         #endregion Methods
     }
