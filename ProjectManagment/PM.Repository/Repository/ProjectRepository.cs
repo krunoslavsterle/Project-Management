@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using PM.DAL;
 using PM.Model.Common;
 using PM.Common;
 using PM.Repository.Common;
-using System;
-using System.Collections.Generic;
 using PM.Common.Filters;
-using System.Linq;
 using PagedList;
 
 namespace PM.Repository
@@ -116,7 +116,7 @@ namespace PM.Repository
         public virtual IProjectPoco GetOne(ProjectFilter filter, params string[] includeProperties)
         {
             // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            var entity = genericRepository.GetOne(null, includeProperties);
+            var entity = genericRepository.GetOne(p => p.User.UserName == "" && p.Name == "", includeProperties);
             return mapper.Map<IProjectPoco>(entity);
         }
         
