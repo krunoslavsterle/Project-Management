@@ -10,7 +10,7 @@ namespace PM.Repository
     /// User repository contract.
     /// </summary>
     /// <seealso cref="PM.Repository.Common.IRepository{PM.DAL.Entities.User}" />
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<User, IUserPoco>
     {
         /// <summary>
         /// Finds <see cref="IUser"/> the by user name asynchronous.

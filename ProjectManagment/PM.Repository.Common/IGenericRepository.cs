@@ -11,7 +11,9 @@ namespace PM.Repository.Common
     /// <summary>
     /// Generic repository contract.
     /// </summary>
-    public interface IGenericRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity, TModel> 
+        where TEntity : class
+        where TModel : class
     {
         /// <summary>
         /// Get the list of all <see cref="TEntity"/>.
@@ -40,30 +42,30 @@ namespace PM.Repository.Common
         /// <summary>
         /// Gets the one <see cref="TEntity"/> asynchronously.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity"/> asynchronously.</returns>
-        Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties);
+        Task<TEntity> GetOneAsync(Expression<Func<TModel, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the one <see cref="TEntity"/>.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity" />.</returns>
-        TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties);
+        TEntity GetOne(Expression<Func<TModel, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of <see cref="TEntity"/>.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="TEntity"/>.</returns>
         IEnumerable<TEntity> Get(
             IPagingParameters pagingParameters,
-            Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TModel, bool>> filter = null,
             ISortingParameters orderBy = null,
             params string[] includeProperties);
 
@@ -71,13 +73,13 @@ namespace PM.Repository.Common
         /// Gets the list of <see cref="TEntity"/> asynchronous.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="TEntity"/> asynchronous.</returns>
         Task<IEnumerable<TEntity>> GetAsync(
             IPagingParameters pagingParameters,
-            Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TModel, bool>> filter = null,
             ISortingParameters orderBy = null,
             params string[] includeProperties);
 
@@ -98,30 +100,30 @@ namespace PM.Repository.Common
         /// <summary>
         /// Gets the <see cref="TEntity"/> count.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>The <see cref="TEntity"/> count.</returns>
-        int GetCount(Expression<Func<TEntity, bool>> filter = null);
+        int GetCount(Expression<Func<TModel, bool>> filter = null);
 
         /// <summary>
         /// Gets the <see cref="TEntity"/> count asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>The <see cref="TEntity"/> count asynchronous.</returns>
-        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<int> GetCountAsync(Expression<Func<TModel, bool>> filter = null);
 
         /// <summary>
         /// Checks if sequence in filter contains entities.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        bool GetIsExists(Expression<Func<TEntity, bool>> filter = null);
+        bool GetIsExists(Expression<Func<TModel, bool>> filter = null);
 
         /// <summary>
         /// Checks if sequence in filter contains entities asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        Task<bool> GetIsExistsAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<bool> GetIsExistsAsync(Expression<Func<TModel, bool>> filter = null);
 
         /// <summary>
         /// Inserts the specified <see cref="TEntity"/> entity.

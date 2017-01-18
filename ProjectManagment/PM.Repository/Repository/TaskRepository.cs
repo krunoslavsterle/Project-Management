@@ -15,7 +15,7 @@ namespace PM.Repository
     /// Task repository class.
     /// </summary>
     /// <seealso cref="PM.Repository.Repository{PM.DAL.Task}" />
-    public class TaskRepository : GenericRepository<DAL.Task>, ITaskRepository
+    public class TaskRepository : GenericRepository<DAL.Task, ITaskPoco>, ITaskRepository
     {
         #region Constructors
 

@@ -14,7 +14,7 @@ namespace PM.Repository
         public override void Load()
         {
             Bind<PMDatabaseEntities>().ToSelf().InRequestScope();
-            Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
+            Bind(typeof(IGenericRepository<,>)).To(typeof(GenericRepository<,>));
             Bind<Profile>().To<MapperProfile>().InTransientScope();
 
             Bind(typeof(IProjectRepository)).To(typeof(ProjectRepository));

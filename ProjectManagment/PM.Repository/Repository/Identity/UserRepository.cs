@@ -1,14 +1,13 @@
 ﻿using PM.DAL;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Threading.Tasks;
 using PM.Model.Common;
 using PM.Common;
 using System;
 
 namespace PM.Repository
 {
-    internal class UserRepository : GenericRepository<User>, IUserRepository
+    internal class UserRepository : GenericRepository<User, IUserPoco>, IUserRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository"/> class.

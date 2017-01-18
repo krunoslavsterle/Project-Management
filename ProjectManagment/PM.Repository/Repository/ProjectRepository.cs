@@ -6,8 +6,8 @@ using PM.DAL;
 using PM.Model.Common;
 using PM.Common;
 using PM.Repository.Common;
-using PM.Common.Filters;
 using PagedList;
+using System.Linq.Expressions;
 
 namespace PM.Repository
 {
@@ -18,7 +18,7 @@ namespace PM.Repository
     {
         #region Fields
 
-        private readonly IGenericRepository<Project> genericRepository;
+        private readonly IGenericRepository<Project, IProjectPoco> genericRepository;
         private readonly IMapper mapper;
 
         #endregion Fields
@@ -30,7 +30,7 @@ namespace PM.Repository
         /// </summary>
         /// <param name="genericRepository">The generic repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public ProjectRepository(IGenericRepository<Project> genericRepository, IMapper mapper) 
+        public ProjectRepository(IGenericRepository<Project, IProjectPoco> genericRepository, IMapper mapper) 
         {
             this.genericRepository = genericRepository;
             this.mapper = mapper;
@@ -97,54 +97,50 @@ namespace PM.Repository
         /// <summary>
         /// Gets the one <see cref="IProjectPoco"/> model asynchronously.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="IProjectPoco"/> asynchronously.</returns>
-        public virtual async Task<IProjectPoco> GetOneAsync(ProjectFilter filter, params string[] includeProperties)
+        public virtual async Task<IProjectPoco> GetOneAsync(Expression<Func<IProjectPoco, bool>> filter = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            var entity = await genericRepository.GetOneAsync(null, includeProperties);
+            var entity = await genericRepository.GetOneAsync(filter, includeProperties);
             return mapper.Map<IProjectPoco>(entity);
         }
 
         /// <summary>
         /// Gets the one <see cref="IProjectPoco"/> model.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        public virtual IProjectPoco GetOne(ProjectFilter filter, params string[] includeProperties)
+        public virtual IProjectPoco GetOne(Expression<Func<IProjectPoco, bool>> filter = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            var entity = genericRepository.GetOne(p => p.User.UserName == "" && p.Name == "", includeProperties);
+            var entity = genericRepository.GetOne(filter, includeProperties);
             return mapper.Map<IProjectPoco>(entity);
         }
         
         /// <summary>
         /// Gets the list of <see cref="IProjectPoco"/> models.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models.</returns>
-        public virtual IEnumerable<IProjectPoco> Get(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        public virtual IEnumerable<IProjectPoco> Get(Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            var entities = genericRepository.Get(null, null, orderBy, includeProperties);
+            var entities = genericRepository.Get(null, filter, orderBy, includeProperties);
             return mapper.Map<IEnumerable<IProjectPoco>>(entities);
         }
 
         /// <summary>
         /// Gets the list of <see cref="IProjectPoco"/> models asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models asynchronous.</returns>
-        public virtual async Task<IEnumerable<IProjectPoco>> GetAsync(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        public virtual async Task<IEnumerable<IProjectPoco>> GetAsync(Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
-            var entities = await genericRepository.GetAsync(null, null, orderBy, includeProperties);
+            var entities = await genericRepository.GetAsync(null, filter, orderBy, includeProperties);
             return mapper.Map<IEnumerable<IProjectPoco>>(entities);
         }
         
@@ -152,15 +148,14 @@ namespace PM.Repository
         /// Gets the paged list of <see cref="IProjectPoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of <see cref="IProjectPoco"/> models.</returns>
-        public virtual IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        public virtual IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
             var count = genericRepository.GetCount();
-            var entities = genericRepository.Get(pagingParameters, null, orderBy, includeProperties);
+            var entities = genericRepository.Get(pagingParameters, filter, orderBy, includeProperties);
 
             return new StaticPagedList<IProjectPoco>(mapper.Map<IEnumerable<IProjectPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
@@ -169,15 +164,14 @@ namespace PM.Repository
         /// Gets the paged list of <see cref="IProjectPoco"/> models asynchronous.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of <see cref="IProjectPoco"/> models asynchronous.</returns>
-        public virtual async Task<IPagedList<IProjectPoco>> GetPagedAsync(IPagingParameters pagingParameters, ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        public virtual async Task<IPagedList<IProjectPoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            // TODO: IMPLEMENT FILTER - TRY TO IMPLEMENT GENERIC METHOD IN FILTER CLASS, IT WOULD SIMPLIFIED SNIPPET
             var count = await genericRepository.GetCountAsync();
-            var entities = await genericRepository.GetAsync(pagingParameters, null, orderBy, includeProperties);
+            var entities = await genericRepository.GetAsync(pagingParameters, filter, orderBy, includeProperties);
 
             return new StaticPagedList<IProjectPoco>(mapper.Map<IEnumerable<IProjectPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
@@ -207,45 +201,41 @@ namespace PM.Repository
         /// <summary>
         /// Gets the <see cref="IProjectPoco"/> count.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns><see cref="IProjectPoco"/> count.</returns>
-        public virtual int GetCount(ProjectFilter filter = null)
+        public virtual int GetCount(Expression<Func<IProjectPoco, bool>> filter = null)
         {
-            // TODO: IMPLEMENT FILTERING.
-            return genericRepository.GetCount(null);
+            return genericRepository.GetCount(filter);
         }
 
         /// <summary>
         /// Gets the <see cref="IProjectPoco"/> count asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns><see cref="IProjectPoco"/> count asynchronous.</returns>
-        public virtual Task<int> GetCountAsync(ProjectFilter filter = null)
+        public virtual Task<int> GetCountAsync(Expression<Func<IProjectPoco, bool>> filter = null)
         {
-            // TODO: IMPLEMENT FILTERING.
-            return genericRepository.GetCountAsync(null);
+            return genericRepository.GetCountAsync(filter);
         }
 
         /// <summary>
         /// Checks if sequence in filter contains entities.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual bool GetIsExists(ProjectFilter filter = null)
+        public virtual bool GetIsExists(Expression<Func<IProjectPoco, bool>> filter = null)
         {
-            // TODO: IMPLEMENT FILTERING.
-            return genericRepository.GetIsExists(null);
+            return genericRepository.GetIsExists(filter);
         }
 
         /// <summary>
         /// Checks if sequence in filter contains entities asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual Task<bool> GetIsExistsAsync(ProjectFilter filter = null)
+        public virtual Task<bool> GetIsExistsAsync(Expression<Func<IProjectPoco, bool>> filter = null)
         {
-            // TODO: IMPLEMENT FILTERING.
-            return genericRepository.GetIsExistsAsync(null);
+            return genericRepository.GetIsExistsAsync(filter);
         }
 
         /// <summary>

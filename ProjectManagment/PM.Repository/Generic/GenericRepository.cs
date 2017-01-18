@@ -9,6 +9,7 @@ using System.Data.Entity;
 using PM.Common;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using DynamicExpression.Core;
 
 namespace PM.Repository
 {
@@ -16,7 +17,9 @@ namespace PM.Repository
     /// Generic repository class. Implemented based on Generic Repository from Chris Pratt: <see cref="http://cpratt.co/truly-generic-repository/"/>
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity, TModel> : IGenericRepository<TEntity, TModel> 
+        where TEntity : class
+        where TModel : class
     {
         #region Fields
 
@@ -48,21 +51,21 @@ namespace PM.Repository
         /// Gets the <see cref="TEntity"/> queryable.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>       
         /// <returns>A query.</returns>
         protected virtual IQueryable<TEntity> GetQueryable(
             IPagingParameters pagingParameters,
-            Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TModel, bool>> filter = null,
             ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             IQueryable<TEntity> query = context.Set<TEntity>();
 
-            // Filtering.
+            // Filtering using Dynamic Linq.
             if (filter != null)
-                query = query.Where(filter);
+                query = query.Where(DynamicExpressionHandler.GetDynamicQueryString(filter.Body));
 
             // Include properties.
             if (includeProperties != null && includeProperties.Length > 0)
@@ -128,10 +131,10 @@ namespace PM.Repository
         /// <summary>
         /// Gets the one <see cref="TEntity"/> asynchronously.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity"/> asynchronously.</returns>
-        public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties)
+        public virtual async Task<TEntity> GetOneAsync(Expression<Func<TModel, bool>> filter = null, params string[] includeProperties)
         {
             return await GetQueryable(null, filter, null, includeProperties).SingleOrDefaultAsync();
         }
@@ -139,10 +142,10 @@ namespace PM.Repository
         /// <summary>
         /// Gets the one <see cref="TEntity"/>.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="TEntity" />.</returns>
-        public virtual TEntity GetOne(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties)
+        public virtual TEntity GetOne(Expression<Func<TModel, bool>> filter = null, params string[] includeProperties)
         {
             return GetQueryable(null, filter, null, includeProperties).SingleOrDefault();
         }
@@ -151,13 +154,13 @@ namespace PM.Repository
         /// Gets the list of <see cref="TEntity"/>.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="TEntity"/>.</returns>
         public virtual IEnumerable<TEntity> Get(
             IPagingParameters pagingParameters,
-            Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TModel, bool>> filter = null,
             ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
@@ -168,13 +171,13 @@ namespace PM.Repository
         /// Gets the list of <see cref="TEntity"/> asynchronous.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="TEntity"/> asynchronous.</returns>
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
             IPagingParameters pagingParameters,
-            Expression<Func<TEntity, bool>> filter = null,
+            Expression<Func<TModel, bool>> filter = null,
             ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
@@ -204,9 +207,9 @@ namespace PM.Repository
         /// <summary>
         /// Gets the <see cref="TEntity"/> count.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>The <see cref="TEntity"/> count.</returns>
-        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
+        public virtual int GetCount(Expression<Func<TModel, bool>> filter = null)
         {
             return GetQueryable(null, filter).Count();
         }
@@ -214,9 +217,9 @@ namespace PM.Repository
         /// <summary>
         /// Gets the <see cref="TEntity"/> count asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>The <see cref="TEntity"/> count asynchronous.</returns>
-        public virtual Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
+        public virtual Task<int> GetCountAsync(Expression<Func<TModel, bool>> filter = null)
         {
             return GetQueryable(null, filter).CountAsync();
         }
@@ -224,9 +227,9 @@ namespace PM.Repository
         /// <summary>
         /// Checks if sequence in filter contains entities.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual bool GetIsExists(Expression<Func<TEntity, bool>> filter = null)
+        public virtual bool GetIsExists(Expression<Func<TModel, bool>> filter = null)
         {
             return GetQueryable(null, filter).Any();
         }
@@ -234,9 +237,9 @@ namespace PM.Repository
         /// <summary>
         /// Checks if sequence in filter contains entities asynchronous.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual Task<bool> GetIsExistsAsync(Expression<Func<TEntity, bool>> filter = null)
+        public virtual Task<bool> GetIsExistsAsync(Expression<Func<TModel, bool>> filter = null)
         {
             return GetQueryable(null, filter).AnyAsync();
         }

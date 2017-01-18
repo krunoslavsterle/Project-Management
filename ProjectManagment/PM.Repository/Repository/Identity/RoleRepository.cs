@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace PM.Repository.Identity
 {
-    internal class RoleRepository : GenericRepository<Role>, IRoleRepository
+    internal class RoleRepository : GenericRepository<Role, IRolePoco>, IRoleRepository
     {       
         internal RoleRepository(PMDatabaseEntities context, IMapper mapper)
             : base(context, mapper)

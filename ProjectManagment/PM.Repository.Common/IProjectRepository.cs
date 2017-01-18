@@ -4,6 +4,7 @@ using PM.Common.Filters;
 using PM.Model.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace PM.Repository.Common
 {
@@ -52,7 +53,7 @@ namespace PM.Repository.Common
         /// <param name="filter">The filter.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>One <see cref="IProjectPoco"/> asynchronously.</returns>
-        System.Threading.Tasks.Task<IProjectPoco> GetOneAsync(ProjectFilter filter, params string[] includeProperties);
+        System.Threading.Tasks.Task<IProjectPoco> GetOneAsync(Expression<Func<IProjectPoco, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the one <see cref="IProjectPoco"/> model.
@@ -60,7 +61,7 @@ namespace PM.Repository.Common
         /// <param name="filter">The filter.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        IProjectPoco GetOne(ProjectFilter filter, params string[] includeProperties);
+        IProjectPoco GetOne(Expression<Func<IProjectPoco, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of <see cref="IProjectPoco"/> models.
@@ -69,7 +70,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models.</returns>
-        IEnumerable<IProjectPoco> Get(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+        IEnumerable<IProjectPoco> Get(Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of <see cref="IProjectPoco"/> models asynchronous.
@@ -78,7 +79,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IProjectPoco"/> models asynchronous.</returns>
-        System.Threading.Tasks.Task<IEnumerable<IProjectPoco>> GetAsync(ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+        System.Threading.Tasks.Task<IEnumerable<IProjectPoco>> GetAsync(Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the paged list of <see cref="IProjectPoco"/> models.
@@ -88,7 +89,7 @@ namespace PM.Repository.Common
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>Paged list of <see cref="IProjectPoco"/> models.</returns>
-        IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, ProjectFilter filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+        IPagedList<IProjectPoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<IProjectPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the paged list of <see cref="IProjectPoco"/> models asynchronous.
@@ -100,7 +101,7 @@ namespace PM.Repository.Common
         /// <returns>Paged list of <see cref="IProjectPoco"/> models asynchronous.</returns>
         System.Threading.Tasks.Task<IPagedList<IProjectPoco>> GetPagedAsync(
             IPagingParameters pagingParameters, 
-            ProjectFilter filter = null, 
+            Expression<Func<IProjectPoco, bool>> filter = null, 
             ISortingParameters orderBy = null, 
             params string[] includeProperties);
 
@@ -123,28 +124,28 @@ namespace PM.Repository.Common
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns><see cref="IProjectPoco"/> count.</returns>
-        int GetCount(ProjectFilter filter = null);
+        int GetCount(Expression<Func<IProjectPoco, bool>> filter = null);
 
         /// <summary>
         /// Gets the <see cref="IProjectPoco"/> count asynchronous.
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns><see cref="IProjectPoco"/> count asynchronous.</returns>
-        System.Threading.Tasks.Task<int> GetCountAsync(ProjectFilter filter = null);
+        System.Threading.Tasks.Task<int> GetCountAsync(Expression<Func<IProjectPoco, bool>> filter = null);
 
         /// <summary>
         /// Checks if sequence in filter contains entities.
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        bool GetIsExists(ProjectFilter filter = null);
+        bool GetIsExists(Expression<Func<IProjectPoco, bool>> filter = null);
 
         /// <summary>
         /// Checks if sequence in filter contains entities asynchronous.
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        System.Threading.Tasks.Task<bool> GetIsExistsAsync(ProjectFilter filter = null);
+        System.Threading.Tasks.Task<bool> GetIsExistsAsync(Expression<Func<IProjectPoco, bool>> filter = null);
 
         /// <summary>
         /// Inserts the specified <see cref="IProjectPoco"/> model into the database.

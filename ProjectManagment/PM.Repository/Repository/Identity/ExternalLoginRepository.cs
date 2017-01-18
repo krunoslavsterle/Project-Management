@@ -7,7 +7,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace PM.Repository.Identity
 {
-    internal class ExternalLoginRepository : GenericRepository<ExternalLogin>, IExternalLoginRepository
+    internal class ExternalLoginRepository : GenericRepository<ExternalLogin, IExternalLoginPoco>, IExternalLoginRepository
     {
         #region Constructors
 
