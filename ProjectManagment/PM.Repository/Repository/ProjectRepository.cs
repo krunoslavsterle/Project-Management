@@ -247,7 +247,7 @@ namespace PM.Repository
             genericRepository.Insert(mapper.Map<Project>(model));
             genericRepository.Save();
         }
-
+        
         /// <summary>
         /// Inserts the list of <see cref="IProjectPoco"/> models into the database.
         /// </summary>
@@ -446,8 +446,6 @@ namespace PM.Repository
         {
             return genericRepository.SaveAsync();
         }
-
-        // TODO: IMPLEMENT PAGED METHODS.
 
         #endregion Methods
     }
