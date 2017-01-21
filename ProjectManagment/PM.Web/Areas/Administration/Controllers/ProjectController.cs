@@ -50,7 +50,7 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var domainList = await projectService.FindAsync(new ProjectFilter() { OwnerId = UserId });
+            var domainList = await projectService.GetProjectsAsync(p => p.OwnerId == UserId);
             var vm = Mapper.Map<IList<ProjectViewModel>>(domainList);
 
             return View("Projects", vm);
@@ -80,10 +80,17 @@ namespace PM.Web.Areas.Administration.Controllers
             if (ModelState.IsValid)
             {
                 vm.OwnerId = this.UserId;
-                bool isAdded = await this.projectService.AddAsync(Mapper.Map<IProjectPoco>(vm));
 
-                if (isAdded)
-                    return RedirectToAction("Projects");
+                try
+                {
+                    await this.projectService.InsertProjectAsync(Mapper.Map<IProjectPoco>(vm));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                
+                return RedirectToAction("Projects");
             }
 
             return View("NewProject", vm);

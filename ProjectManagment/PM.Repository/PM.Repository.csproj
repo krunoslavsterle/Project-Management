@@ -34,9 +34,9 @@
       <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DynamicExpression, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DynamicExpression, Version=1.0.2.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ExternalReferences\DynamicExpression.dll</HintPath>
+      <HintPath>..\..\..\..\Console\DynamicExpressionHandler\DynamicExpressionHandler\DynamicExpressionHandler\bin\Debug\DynamicExpression.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DIModule.cs" />
+    <Compile Include="Repository\Identity\UserRepository.cs" />
     <Compile Include="Repository\Identity\RoleRepository.cs" />
     <Compile Include="Mapping\MapperProfile.cs" />
     <Compile Include="Repository\ProjectRepository.cs" />
@@ -83,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Compile Include="Repository\Identity\UserRepository.cs" />
     <Compile Include="Repository\Identity\ExternalLoginRepository.cs" />
     <None Include="packages.config" />
   </ItemGroup>

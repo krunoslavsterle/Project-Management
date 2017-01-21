@@ -19,6 +19,9 @@ namespace PM.Repository
 
             Bind(typeof(IProjectRepository)).To(typeof(ProjectRepository));
             Bind(typeof(ITaskRepository)).To(typeof(TaskRepository));
+            Bind(typeof(IUserRepository)).To(typeof(UserRepository));
+            Bind(typeof(IRoleRepository)).To(typeof(RoleRepository));
+            Bind(typeof(IExternalLoginRepository)).To(typeof(ExternalLoginRepository));
         }
     }
 }
