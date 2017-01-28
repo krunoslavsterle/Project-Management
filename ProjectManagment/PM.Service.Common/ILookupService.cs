@@ -13,5 +13,11 @@ namespace PM.Service.Common
         /// </summary>
         /// <returns>List of all <see cref="ITaskPriorityPoco"/> models.</returns>
         IEnumerable<ITaskPriorityPoco> GetAllTaskPriority();
+
+        /// <summary>
+        /// Gets a list of all <see cref="ITaskStatusPoco"/> models.
+        /// </summary>
+        /// <returns>List of all <see cref="ITaskStatusPoco"/> models.</returns>
+        IEnumerable<ITaskStatusPoco> GetAllTaskStatus();
     }
 }

@@ -215,12 +215,11 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Scripts\bootstrap\bootstrap-inputmask.min.js" />
-    <Content Include="Scripts\bootstrap\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\core.js" />
-    <Content Include="Scripts\jquery\jquery-1.8.3.min.js" />
-    <Content Include="Scripts\jquery\jquery.js" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
     <Content Include="Scripts\metisMenu.js" />
     <Content Include="Scripts\screenfull.js" />
     <Content Include="Web.config">

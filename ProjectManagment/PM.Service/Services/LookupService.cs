@@ -15,18 +15,30 @@ namespace PM.Service
         #region Fields
 
         private const string TASK_PRIORITY_CACHE_KEY = "TASK_PRIORITY";
+        private const string TASK_STATUS_CACHE_KEY = "TASK_STATUS";
 
         private readonly ICacheProvider cacheProvider;
         private readonly ITaskPriorityRepository taskPriorityRepository;
+        private readonly ITaskStatusRepository taskStatusRepository;
 
         #endregion Fields
 
         #region Constructors
 
-        public LookupService(ICacheProvider cacheProvider, ITaskPriorityRepository taskPriorityRepository)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupService"/> class.
+        /// </summary>
+        /// <param name="cacheProvider">The cache provider.</param>
+        /// <param name="taskPriorityRepository">The task priority repository.</param>
+        /// <param name="taskStatusRepository">The task status repository.</param>
+        public LookupService(
+            ICacheProvider cacheProvider, 
+            ITaskPriorityRepository taskPriorityRepository, 
+            ITaskStatusRepository taskStatusRepository)
         {
             this.cacheProvider = cacheProvider;
             this.taskPriorityRepository = taskPriorityRepository;
+            this.taskStatusRepository = taskStatusRepository;
         }
 
         #endregion Constructors
@@ -34,7 +46,7 @@ namespace PM.Service
         #region Methods
 
         /// <summary>
-        /// Gets list of all <see cref="ITaskPriorityPoco"/> models.
+        /// Gets a list of all <see cref="ITaskPriorityPoco"/> models.
         /// </summary>
         /// <returns>List of all <see cref="ITaskPriorityPoco"/> models.</returns>
         public IEnumerable<ITaskPriorityPoco> GetAllTaskPriority()
@@ -46,6 +58,20 @@ namespace PM.Service
             DateTimeOffset.MaxValue);
             
         }
+
+        /// <summary>
+        /// Gets a list of all <see cref="ITaskStatusPoco"/> models.
+        /// </summary>
+        /// <returns>List of all <see cref="ITaskStatusPoco"/> models.</returns>
+        public IEnumerable<ITaskStatusPoco> GetAllTaskStatus()
+        {
+            return this.cacheProvider.GetOrAdd<IEnumerable<ITaskStatusPoco>>(TASK_STATUS_CACHE_KEY, (string key) =>
+            {
+                return taskStatusRepository.GetAll();
+            },
+            DateTimeOffset.MaxValue);
+        }
+
         
         #endregion Methods
     }

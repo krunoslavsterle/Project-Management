@@ -56,10 +56,17 @@ namespace PM.Web.Areas.Administration.Controllers
 
             Guid projectId = ShortGuid.Decode(pId);
             var tasks = await taskService.GetTasksAsync(p => p.ProjectId == projectId);
+
             var priorities = lookupService.GetAllTaskPriority();
-            var vm = new TaskViewModel();
-            vm.ProjectId = projectId;
-            vm.Tasks = tasks;
+            var statuses = lookupService.GetAllTaskStatus();
+
+            var vm = new TaskViewModel()
+            {
+                TaskPriorityList = priorities.ToDictionary(i => i.Id, n => n.Name),
+                TaskStatusList = statuses.ToDictionary(i => i.Id, n => n.Name),
+                ProjectId = projectId,
+                Tasks = tasks
+            };
 
             //var project = await ProjectService.GetProjectAsync(projectId);
             //ViewBag.ProjectName = project.Name;

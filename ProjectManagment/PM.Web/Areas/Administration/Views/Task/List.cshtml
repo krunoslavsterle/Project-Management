@@ -51,9 +51,12 @@
                        {
                         <tr>
                             <td>@item.Title</td>
-                            <td>@item.StatusId</td>
+                            <td>@Model.TaskStatusList.First(p => p.Key == item.StatusId).Value</td>
                             <td>
-                                <div id="task-priority" class="normal-priority" title="@item.PriorityId"></div>
+                                @{ 
+                                    var priorityClass = String.Format("{0}-priority", Model.TaskPriorityList.First(p => p.Key == item.PriorityId).Value.ToLower());
+                                }
+                                <div id="task-priority" class="@priorityClass" title="@Model.TaskPriorityList.First(p => p.Key == item.PriorityId).Value"></div>
                             </td>
                             <td>@item.AssignedToUserId</td>
                             <td>@item.DateCreated</td>
@@ -61,30 +64,6 @@
                         </tr>
                        }
                        
-
-                       @*<tr>
-                           <td>Second Task</td>
-                           <td>In Progress</td>
-                           <td>
-                               <div id="task-priority" class="high-priority" title="High Priority"></div>
-                           </td>
-                           <td>Ksterle</td>
-                           <td>22/11/2016</td>
-                           <td>none</td>
-                       </tr>
-
-                       <tr>
-                           <td>First Task</td>
-                           <td>New</td>
-                           <td>
-                               <div id="task-priority" class="low-priority" title="Low Priority"></div>
-                           </td>
-                           <td>Ksterle</td>
-                           <td>21/12/2016</td>
-                           <td>1/1/2017</td>
-                       </tr>*@
-
-
                    </tbody>
                </table>
 

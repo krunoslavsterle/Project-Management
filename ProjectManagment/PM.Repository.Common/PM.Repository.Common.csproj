@@ -50,6 +50,7 @@
     <Compile Include="Identity\IRoleRepository.cs" />
     <Compile Include="ITaskPriorityRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
+    <Compile Include="ITaskStatusRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

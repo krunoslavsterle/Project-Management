@@ -12,5 +12,9 @@ namespace PM.Web.Areas.Administration.Models
         public Guid ProjectId { get; set; }
 
         public IEnumerable<ITaskPoco> Tasks { get; set; }
+
+        public Dictionary<Guid, string> TaskPriorityList { get; set; }
+
+        public Dictionary<Guid, string> TaskStatusList { get; set; }
     }
 }

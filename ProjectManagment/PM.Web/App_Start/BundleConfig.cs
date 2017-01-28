@@ -6,22 +6,10 @@ namespace PM.Web.App_Start
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap/js").Include(
-                "~/Scripts/bootstrap/bootstrap.min.js"
-                ));
-
-            //bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
-            //    "~/Scripts/app.js", 
-            //    "~/Scripts/core.js", 
-            //    "~/Scripts/metisMenu.js", 
-            //    "~/Scripts/screenfull.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jquery/js").Include(
-                "~/Scripts/jquery/jquery.js"
-                
-                ));
-
-
+            bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
+                "~/Scripts/bootstrap/bootstrap.js",
+                "~/Scripts/jquery/jquery-{version}.js"));
+            
             bundles.Add(new StyleBundle("~/Content/landing-page/css").Include(
                 "~/Content/landing.css"));
 
@@ -31,7 +19,6 @@ namespace PM.Web.App_Start
 
             bundles.Add(new StyleBundle("~/Content/site-style/css").Include(
                 "~/Content/site.css" ));
-
         }
             
     }
