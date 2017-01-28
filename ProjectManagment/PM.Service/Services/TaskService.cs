@@ -80,6 +80,12 @@ namespace PM.Service
         /// <returns>Task.</returns>
         public Task InsertTaskAsync(ITaskPoco model)
         {
+            if (model.Id == Guid.Empty)
+                model.Id = Guid.NewGuid();
+
+            model.DateUpdated = DateTime.UtcNow;
+            model.DateCreated = DateTime.UtcNow;
+
             return taskRepository.InsertAsync(model);
         }
 

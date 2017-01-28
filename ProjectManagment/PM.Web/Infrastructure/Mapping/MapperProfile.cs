@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PM.Model.Common;
+using PM.Web.Administration.Models;
 using PM.Web.Areas.Administration.Models;
 using PM.Web.Identity;
 using System;
@@ -34,6 +35,12 @@ namespace PM.Web
             CreateMap<IProjectPoco, ProjectViewModel>().ReverseMap();
 
             #endregion Project models
+
+            #region Task models
+
+            CreateMap<ITaskPoco, CreateTaskViewModel>().ReverseMap();
+
+            #endregion Task models
         }
     }
 }

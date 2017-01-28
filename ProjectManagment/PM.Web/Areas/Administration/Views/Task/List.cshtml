@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-6">
             <div class="bar-right-content pull-right">
-                <a href="@Url.Action("NewProject", "Project", new { area = "Administration" })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
+                <a href="@Url.Action("New", "Task", new { area = "Administration", pId = PM.Common.ShortGuid.Encode(Model.ProjectId) })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
             </div>
         </div>
     </div>
@@ -44,6 +44,7 @@
                            <td><h4>Assignee</h4></td>
                            <td><h4>Created</h4></td>
                            <td><h4>Due Date</h4></td>
+                           <td><h4>Actions</h4></td>
                        </tr>
                    </thead>
                    <tbody>
@@ -58,9 +59,10 @@
                                 }
                                 <div id="task-priority" class="@priorityClass" title="@Model.TaskPriorityList.First(p => p.Key == item.PriorityId).Value"></div>
                             </td>
-                            <td>@item.AssignedToUserId</td>
-                            <td>@item.DateCreated</td>
+                            <td>@item.AssignedToUser.UserName</td>
+                            <td>@item.DateCreated.ToShortDateString()</td>
                             <td>@item.DueDate</td>
+                            <td><a>Open</a></td>
                         </tr>
                        }
                        

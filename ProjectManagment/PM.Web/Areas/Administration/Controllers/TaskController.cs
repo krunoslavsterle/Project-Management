@@ -1,5 +1,7 @@
 ﻿using PM.Common;
+using PM.Model.Common;
 using PM.Service.Common;
+using PM.Web.Administration.Models;
 using PM.Web.Areas.Administration.Models;
 using PM.Web.Controllers;
 using System;
@@ -21,6 +23,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
         private readonly ITaskService taskService;
         private readonly ILookupService lookupService;
+        private readonly IIdentityService identityService;
 
         #endregion Fields
 
@@ -31,11 +34,12 @@ namespace PM.Web.Areas.Administration.Controllers
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="taskService">The task service.</param>
-        public TaskController(IMapper mapper, ITaskService taskService, ILookupService lookupService) 
+        public TaskController(IMapper mapper, ITaskService taskService, ILookupService lookupService, IIdentityService identityService) 
             : base(mapper)
         {
             this.taskService = taskService;
             this.lookupService = lookupService;
+            this.identityService = identityService;
         }
 
         #endregion Constructors
@@ -55,8 +59,8 @@ namespace PM.Web.Areas.Administration.Controllers
                 throw new Exception("The parameter [pId] is null or empty.");
 
             Guid projectId = ShortGuid.Decode(pId);
-            var tasks = await taskService.GetTasksAsync(p => p.ProjectId == projectId);
 
+            var tasks = await taskService.GetTasksAsync(p => p.ProjectId == projectId, null, "AssignedToUser");
             var priorities = lookupService.GetAllTaskPriority();
             var statuses = lookupService.GetAllTaskStatus();
 
@@ -76,20 +80,49 @@ namespace PM.Web.Areas.Administration.Controllers
             return View("List", vm);
         }
 
-        //[HttpGet]
-        //[ActionName("New")]
-        //public async Task<ActionResult> NewAsync(Guid projectId)
-        //{
-        //    var project = await ProjectService.GetProjectAsync(projectId);
-        //    var vm = new CreateTaskViewModel();
-        //    vm.ProjectId = projectId;
-        //    vm.OwnerId = UserId;
+        [HttpGet]
+        [ActionName("New")]
+        public async Task<ActionResult> NewAsync(string pId)
+        {
+            if (String.IsNullOrEmpty(pId))
+                throw new Exception("The parameter [pId] is null or empty.");
 
-        //    ViewBag.ProjectName = project.Name;
-        //    ViewBag.ProjectId = project.Id;
+            Guid projectId = ShortGuid.Decode(pId);
+            var priorities = lookupService.GetAllTaskPriority();
+            var statuses = lookupService.GetAllTaskStatus();
 
-        //    return View("NewTask", vm);
-        //}
+            var vm = new CreateTaskViewModel();
+            vm.CreatedByUserId = UserId;
+            vm.PriorityList = new SelectList(priorities, "Id", "Name", vm.PriorityId);
+            vm.StatusList = new SelectList(statuses, "Id", "Name", vm.StatusId);
+            vm.ProjectId = projectId;
+
+            //ViewBag.ProjectName = project.Name;
+            //ViewBag.ProjectId = project.Id;
+
+            return View("NewTask", vm);
+        }
+
+        [HttpPost]
+        [ActionName("New")]
+        public async Task<ActionResult> NewAsync(CreateTaskViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                vm.AssignedToUserId = UserId; // temp solution.
+                var domain = Mapper.Map<ITaskPoco>(vm);
+                try
+                {
+                    await taskService.InsertTaskAsync(domain);
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction("List", new { pId = ShortGuid.Encode(vm.ProjectId) });
+        }
 
         #endregion Methods
     }

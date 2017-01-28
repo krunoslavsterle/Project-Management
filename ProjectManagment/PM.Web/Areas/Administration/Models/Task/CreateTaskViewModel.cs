@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
-namespace PM.Web.Areas.Administration.Models
+namespace PM.Web.Administration.Models
 {
     /// <summary>
     /// Create task view model.
@@ -13,7 +14,7 @@ namespace PM.Web.Areas.Administration.Models
         /// </summary>
         /// <value>The name.</value>
         [Required]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
@@ -21,6 +22,24 @@ namespace PM.Web.Areas.Administration.Models
         /// <value>The description.</value>
         [Required]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status identifier.
+        /// </summary>
+        /// <value>
+        /// The status identifier.
+        /// </value>
+        [Required]
+        public Guid StatusId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the priority identifier.
+        /// </summary>
+        /// <value>
+        /// The priority identifier.
+        /// </value>
+        [Required]
+        public Guid PriorityId { get; set; }
         
         /// <summary>
         /// Gets or sets the assigned user identifier.
@@ -28,8 +47,7 @@ namespace PM.Web.Areas.Administration.Models
         /// <value>
         /// The assigned user identifier.
         /// </value>
-        [Required]
-        public Guid AssignedUserId { get; set; }
+        public Guid AssignedToUserId { get; set; }
 
         /// <summary>
         /// Gets or sets the project id.
@@ -37,13 +55,28 @@ namespace PM.Web.Areas.Administration.Models
         /// <value>
         /// The project id.
         /// </value>
-        [Required]
         public Guid ProjectId { get; set; }
 
         /// <summary>
         /// Gets or sets the owner id.
         /// </summary>
         /// <value>The owner id.</value>
-        public Guid OwnerId { get; set; }
+        public Guid CreatedByUserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status list.
+        /// </summary>
+        /// <value>
+        /// The status list.
+        /// </value>
+        public SelectList StatusList { get; set; }
+
+        /// <summary>
+        /// Gets or sets the priority list.
+        /// </summary>
+        /// <value>
+        /// The priority list.
+        /// </value>
+        public SelectList PriorityList { get; set; }
     }
 }

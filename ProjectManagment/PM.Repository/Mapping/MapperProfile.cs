@@ -39,7 +39,13 @@ namespace PM.Repository
 
             CreateMap<TaskPoco, ITaskPoco>().ReverseMap();
             CreateMap<Task, ITaskPoco>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(ent => ent.AssignedToUser, model => model.Ignore())
+                .ForMember(ent => ent.CreatedByUser, model => model.Ignore())
+                .ForMember(ent => ent.Project, model => model.Ignore())
+                .ForMember(ent => ent.TaskPriority, model => model.Ignore())
+                .ForMember(ent => ent.TaskStatus, model => model.Ignore());
+
 
             CreateMap<TaskStatusPoco, ITaskStatusPoco>().ReverseMap();
             CreateMap<TaskStatu, ITaskStatusPoco>()

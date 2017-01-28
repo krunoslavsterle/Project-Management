@@ -1,39 +1,85 @@
-﻿@model CreateTaskViewModel
+﻿@model PM.Web.Administration.Models.CreateTaskViewModel
 
 @{
     ViewBag.Title = "NewTask";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
 }
 
-<h3><i class="fa fa-angle-right"></i> New Task</h3>
+<header class="head">
+    <div class="search-bar">
+        <form class="main-search" action="">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Live Search ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm text-muted" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="main-bar row">
+        <div class="col-md-6">
+            <h3><i class="fa fa-dashboard"></i>&nbsp; Project Name</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="bar-right-content pull-right">
+                <a href="@Url.Action("NewProject", "Project", new { area = "Administration" })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
+            </div>
+        </div>
+    </div>
+</header>
 
-<!-- BASIC FORM ELELEMNTS -->
-<div class="row mt">
-    <div class="col-lg-12">
-        <div class="form-panel">
-            <h4 class="mb"><i class="fa fa-angle-right"></i> Task Details</h4>
+@Html.Partial("_LeftMenuBar", @Model.ProjectId)
 
-            @using (Html.BeginForm("NewTask", "Task", FormMethod.Post, new { @class = "form-horizontal style-form" }))
+<div class="right-content">
+    <div class="main-outer">
+        <div class="main-inner">
+
+            @using (Html.BeginForm("New", "Task", new { area = "Administration" }, FormMethod.Post, new { @class= "" }))
             {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(vm => vm.CreatedByUserId)
                 @Html.HiddenFor(vm => vm.ProjectId)
 
                 <div class="form-group">
-                    @Html.LabelFor(vm => vm.Name, "Name", new { @class = "col-sm-2 col-sm-2 control-label" })
-                    <div class="col-sm-10">
-                        @Html.TextBoxFor(vm => vm.Name, new { @class = "form-control" })
-                    </div>
+                    @Html.LabelFor(vm => vm.Title, "Title", new { @class = "control-label" })
+                    @Html.TextBoxFor(vm => vm.Title, new { @class = "form-control" })
                 </div>
+                
+                <br />
 
                 <div class="form-group">
-                    @Html.LabelFor(vm => vm.Description, "Description", new { @class = "col-sm-2 col-sm-2 control-label" })
-                    <div class="col-sm-10">
-                        @Html.TextBoxFor(vm => vm.Description, new { @class = "form-control" })
-                    </div>
+                    @Html.LabelFor(vm => vm.Description, "Description", new { @class = "control-label" })
+                    @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", rows="8" })
+                </div>
+                <br />
+
+                <div class="col-md-4 form-group">
+                    @Html.LabelFor(vm => vm.PriorityId, "Priority", new { @class = "control-label" })
+                    @Html.DropDownListFor(vm => vm.PriorityId, Model.PriorityList, new { @class="form-control" })
                 </div>
 
-                <button type="submit" class="btn btn-theme">Create</button>
-                @Html.ActionLink("Cancel", "Projects", "Project", new { area = "Administration" }, new { @class = "btn btn-warning" })
+                <div class="col-md-4 form-group">
+                    @Html.LabelFor(vm => vm.StatusId, "Status", new { @class = "control-label" })
+                    @Html.DropDownListFor(vm => vm.StatusId, Model.StatusList, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4 form-group">
+                    @Html.LabelFor(vm => vm.AssignedToUserId, "Assigne To", new { @class = "control-label" })
+                    <select class="form-control">
+                        <option>Priority 1</option>
+                        <option>Priority 2</option>
+                    </select>
+                </div>
+
+                <br />
+
+
+                <button id="save" class="btn btn-success">Save</button>
+                <button id="cancel" class="btn btn-info">Cancel</button>
             }
+
 
         </div>
     </div>
