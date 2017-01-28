@@ -1,4 +1,6 @@
-﻿<div class="sidemenu-left">
+﻿@model Guid
+
+<div class="sidemenu-left">
     <div class="user-wrapper bg-dark">
         <a class="user-link" href="">
             <img class="media-object img-thumbnail user-img" alt="User Picture" src="~/Content/img/user.gif">
@@ -16,29 +18,34 @@
         </div>
     </div>
 
-    <!-- #menu -->
-    <ul id="menu" class="">
-        <li class="nav-divider"></li>
-        <li class="">
-            <a href="@Url.Action("Timeline", "Project", new { area="Administration"})">
-                <i class="fa fa-dashboard"></i><span class="link-title" aria-hidden="true">&nbsp;Timeline</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="@Url.Action("List", "Task", new { area="Administration"})">
-                <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Tasks</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="dashboard.html">
-                <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Calendar</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="dashboard.html">
-                <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Team</span>
-            </a>
-        </li>
-    </ul>
+    @if (Model != Guid.Empty)
+    {
+         <!-- #menu -->
+        <ul id="menu" class="">
+            <li class="nav-divider"></li>
+            <li class="">
+                <a href="@Url.Action("Timeline", "Project", new { area="Administration"})">
+                    <i class="fa fa-dashboard"></i><span class="link-title" aria-hidden="true">&nbsp;Timeline</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="@Url.Action("List", "Task", new { area="Administration", pId = PM.Common.ShortGuid.Encode(Model) })">
+                    <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Tasks</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="dashboard.html">
+                    <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Calendar</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="dashboard.html">
+                    <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Team</span>
+                </a>
+            </li>
+        </ul>
+    }
+
+   
 </div>
 

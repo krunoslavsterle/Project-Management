@@ -18,6 +18,8 @@ namespace PM.DAL
         public PMDatabaseEntities()
             : base("name=PMDatabaseEntities")
         {
+    		this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.LazyLoadingEnabled = true;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

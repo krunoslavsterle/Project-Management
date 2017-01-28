@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using PM.Common.Cache;
 
 namespace PM.Common
 {
@@ -11,6 +12,7 @@ namespace PM.Common
         {
             Bind<IMapper>().To<Mapper>().InSingletonScope();
             Bind<IPagingParameters>().To<PagingParameters>();
+            Bind<ICacheProvider>().To<MemoryCacheProvider>().InSingletonScope();
         }
     }
 }

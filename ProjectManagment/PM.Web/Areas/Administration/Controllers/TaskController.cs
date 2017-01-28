@@ -17,32 +17,28 @@ namespace PM.Web.Areas.Administration.Controllers
     /// <seealso cref="PM.Web.Controllers.BaseController" />
     public class TaskController : BaseController
     {
+        #region Fields
+
+        private readonly ITaskService taskService;
+        private readonly ILookupService lookupService;
+
+        #endregion Fields
+
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskController"/> class.
         /// </summary>
         /// <param name="mapper">The mapper.</param>
-        /// <param name="projectService">The project service.</param>
-        public TaskController(IMapper mapper, IProjectService projectService) 
+        /// <param name="taskService">The task service.</param>
+        public TaskController(IMapper mapper, ITaskService taskService, ILookupService lookupService) 
             : base(mapper)
         {
-            this.ProjectService = projectService;
+            this.taskService = taskService;
+            this.lookupService = lookupService;
         }
 
         #endregion Constructors
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the project service.
-        /// </summary>
-        /// <value>
-        /// The project service.
-        /// </value>
-        protected IProjectService ProjectService { get; private set; }
-
-        #endregion Properties
 
         #region Methods
 
@@ -53,29 +49,40 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("List")]
-        public async Task<ActionResult> ListAsync()
+        public async Task<ActionResult> ListAsync(string pId)
         {
+            if (String.IsNullOrEmpty(pId))
+                throw new Exception("The parameter [pId] is null or empty.");
+
+            Guid projectId = ShortGuid.Decode(pId);
+            var tasks = await taskService.GetTasksAsync(p => p.ProjectId == projectId);
+            var priorities = lookupService.GetAllTaskPriority();
+            var vm = new TaskViewModel();
+            vm.ProjectId = projectId;
+            vm.Tasks = tasks;
+
             //var project = await ProjectService.GetProjectAsync(projectId);
             //ViewBag.ProjectName = project.Name;
             //ViewBag.ProjectId = project.Id;
 
-            return View("List");
+            // TODO: IMPLEMENT USING VIEW MODELS.
+            return View("List", vm);
         }
 
-        [HttpGet]
-        [ActionName("New")]
-        public async Task<ActionResult> NewAsync(Guid projectId)
-        {
-            var project = await ProjectService.GetProjectAsync(projectId);
-            var vm = new CreateTaskViewModel();
-            vm.ProjectId = projectId;
-            vm.OwnerId = UserId;
+        //[HttpGet]
+        //[ActionName("New")]
+        //public async Task<ActionResult> NewAsync(Guid projectId)
+        //{
+        //    var project = await ProjectService.GetProjectAsync(projectId);
+        //    var vm = new CreateTaskViewModel();
+        //    vm.ProjectId = projectId;
+        //    vm.OwnerId = UserId;
 
-            ViewBag.ProjectName = project.Name;
-            ViewBag.ProjectId = project.Id;
+        //    ViewBag.ProjectName = project.Name;
+        //    ViewBag.ProjectId = project.Id;
 
-            return View("NewTask", vm);
-        }
+        //    return View("NewTask", vm);
+        //}
 
         #endregion Methods
     }

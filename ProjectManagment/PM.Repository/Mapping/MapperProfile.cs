@@ -37,6 +37,18 @@ namespace PM.Repository
                 .ReverseMap()
                 .ForMember(ent => ent.User, e => e.Ignore());
 
+            CreateMap<TaskPoco, ITaskPoco>().ReverseMap();
+            CreateMap<Task, ITaskPoco>()
+                .ReverseMap();
+
+            CreateMap<TaskStatusPoco, ITaskStatusPoco>().ReverseMap();
+            CreateMap<TaskStatu, ITaskStatusPoco>()
+                .ReverseMap();
+
+            CreateMap<TaskPriorityPoco, ITaskPriorityPoco>().ReverseMap();
+            CreateMap<TaskPriority, ITaskPriorityPoco>()
+                .ReverseMap();
+
             #endregion Project models
         }
     }

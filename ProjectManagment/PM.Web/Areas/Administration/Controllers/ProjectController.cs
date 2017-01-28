@@ -103,11 +103,17 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("Project")]
-        public async Task<ViewResult> ProjectAsync(Guid projectId)
+        public async Task<ViewResult> ProjectAsync(string pId)
         {
+            if (String.IsNullOrEmpty(pId))
+                throw new Exception("The parameter [pId] is null or empty.");
+
+            Guid projectId = ShortGuid.Decode(pId);                  
             var project = await projectService.GetProjectAsync(projectId);
 
             ViewBag.Title = project.Name;
+            ViewBag.ProjectId = projectId;
+
             return View("Project");
         }
 

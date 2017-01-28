@@ -29,7 +29,7 @@
     </div>
 </header>
 
-@Html.Partial("_LeftMenuBar")
+@Html.Partial("_LeftMenuBar", Guid.Empty)
 
 <div class="right-content">   
     <div class="main-outer">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                        
-                        <a href="@Url.Action("Project", "Project", new { area = "Administration", projectId = project.Id })">
+                        <a href="@Url.Action("Project", "Project", new { area = "Administration", pId = PM.Common.ShortGuid.Encode(project.Id) })">
                             <div class="footer">
                                 OPEN
                             </div>

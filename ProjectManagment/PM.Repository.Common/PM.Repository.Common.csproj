@@ -48,6 +48,7 @@
     <Compile Include="IProjectRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="Identity\IRoleRepository.cs" />
+    <Compile Include="ITaskPriorityRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

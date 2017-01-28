@@ -10,6 +10,7 @@ namespace PM.Service
             Bind<IIdentityService>().To<IdentityService>();
             Bind<IProjectService>().To<ProjectService>();
             Bind<ITaskService>().To<TaskService>();
+            Bind<ILookupService>().To<LookupService>().InSingletonScope();
         }
     }
 }

@@ -61,7 +61,8 @@ namespace PM.Repository
             ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
-            IQueryable<TEntity> query = context.Set<TEntity>();
+            // AsNoTracking - disable loading of all navigation properties automatically. 
+            IQueryable<TEntity> query = context.Set<TEntity>().AsNoTracking(); 
 
             // Filtering using Dynamic Linq.
             if (filter != null)
