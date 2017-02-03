@@ -62,7 +62,7 @@
                             <td>@item.AssignedToUser.UserName</td>
                             <td>@item.DateCreated.ToShortDateString()</td>
                             <td>@item.DueDate</td>
-                            <td><a>Open</a></td>
+                            <td>@Html.ActionLink("Open", "Edit", "Task",  new { area="Administration", tId = PM.Common.ShortGuid.Encode(item.Id) }, null)</td>
                         </tr>
                        }
                        

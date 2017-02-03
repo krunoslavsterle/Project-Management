@@ -80,6 +80,11 @@ namespace PM.Web.Areas.Administration.Controllers
             return View("List", vm);
         }
 
+        /// <summary>
+        /// NewAsync GET action.
+        /// </summary>
+        /// <param name="pId">The product short guid.</param>
+        /// <exception cref="System.Exception">The parameter [pId] is null or empty.</exception>
         [HttpGet]
         [ActionName("New")]
         public async Task<ActionResult> NewAsync(string pId)
@@ -100,9 +105,13 @@ namespace PM.Web.Areas.Administration.Controllers
             //ViewBag.ProjectName = project.Name;
             //ViewBag.ProjectId = project.Id;
 
-            return View("NewTask", vm);
+            return View("New", vm);
         }
 
+        /// <summary>
+        /// NewAsync POST action.
+        /// </summary>
+        /// <param name="vm">The view model.</param>
         [HttpPost]
         [ActionName("New")]
         public async Task<ActionResult> NewAsync(CreateTaskViewModel vm)
@@ -117,12 +126,54 @@ namespace PM.Web.Areas.Administration.Controllers
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
 
             return RedirectToAction("List", new { pId = ShortGuid.Encode(vm.ProjectId) });
         }
+
+        [HttpGet]
+        [ActionName("Edit")]
+        public async Task<ActionResult> EditAsync(string tId)
+        {
+            if (String.IsNullOrEmpty(tId))
+                throw new Exception("The parameter [tId] is null or empty.");
+
+            var priorities = lookupService.GetAllTaskPriority();
+            var statuses = lookupService.GetAllTaskStatus();
+
+            var task = await taskService.GetTaskAsync(ShortGuid.Decode(tId));
+            var vm = Mapper.Map<EditTaskViewModel>(task);
+            vm.PriorityList = new SelectList(priorities, "Id", "Name", vm.PriorityId);
+            vm.StatusList = new SelectList(statuses, "Id", "Name", vm.StatusId);
+
+            return View("Edit", vm);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public async Task<ActionResult> EditAsync(EditTaskViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var domain = await taskService.GetTaskAsync(vm.Id);
+                Mapper.Map<EditTaskViewModel, ITaskPoco>(vm, domain);
+                domain.DateUpdated = DateTime.UtcNow;
+
+                try
+                {
+                    await taskService.UpdateTaskAsync(domain);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return RedirectToAction("Edit", "Task", new { area = "Administration", tId = ShortGuid.Encode(vm.Id) });
+        }
+
 
         #endregion Methods
     }

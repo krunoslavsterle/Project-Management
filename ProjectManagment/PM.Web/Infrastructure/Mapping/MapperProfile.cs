@@ -39,6 +39,7 @@ namespace PM.Web
             #region Task models
 
             CreateMap<ITaskPoco, CreateTaskViewModel>().ReverseMap();
+            CreateMap<ITaskPoco, EditTaskViewModel>().ReverseMap();
 
             #endregion Task models
         }

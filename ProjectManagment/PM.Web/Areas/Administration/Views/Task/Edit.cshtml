@@ -1,7 +1,7 @@
-﻿@model PM.Web.Administration.Models.CreateTaskViewModel
+﻿@model PM.Web.Administration.Models.EditTaskViewModel
 
 @{
-    ViewBag.Title = "NewTask";
+    ViewBag.Title = "Edit Task";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,11 +22,6 @@
         <div class="col-md-6">
             <h3><i class="fa fa-dashboard"></i>&nbsp; Project Name</h3>
         </div>
-        <div class="col-md-6">
-            <div class="bar-right-content pull-right">
-                <a href="@Url.Action("NewProject", "Project", new { area = "Administration" })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
-            </div>
-        </div>
     </div>
 </header>
 
@@ -36,28 +31,30 @@
     <div class="main-outer">
         <div class="main-inner">
 
-            @using (Html.BeginForm("New", "Task", new { area = "Administration" }, FormMethod.Post, new { @class= "" }))
+            @using (Html.BeginForm("Edit", "Task", new { area = "Administration" }, FormMethod.Post, new { @class = "" }))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(vm => vm.Id)
                 @Html.HiddenFor(vm => vm.CreatedByUserId)
+                @Html.HiddenFor(vm => vm.AssignedToUserId)
                 @Html.HiddenFor(vm => vm.ProjectId)
 
                 <div class="form-group">
                     @Html.LabelFor(vm => vm.Title, "Title", new { @class = "control-label" })
                     @Html.TextBoxFor(vm => vm.Title, new { @class = "form-control" })
                 </div>
-                
+
                 <br />
 
                 <div class="form-group">
                     @Html.LabelFor(vm => vm.Description, "Description", new { @class = "control-label" })
-                    @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", rows="8" })
+                    @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", rows = "8" })
                 </div>
                 <br />
 
                 <div class="col-md-4 form-group">
                     @Html.LabelFor(vm => vm.PriorityId, "Priority", new { @class = "control-label" })
-                    @Html.DropDownListFor(vm => vm.PriorityId, Model.PriorityList, new { @class="form-control" })
+                    @Html.DropDownListFor(vm => vm.PriorityId, Model.PriorityList, new { @class = "form-control" })
                 </div>
 
                 <div class="col-md-4 form-group">

@@ -1,15 +1,24 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace PM.Web.Administration.Models
 {
     /// <summary>
-    /// Create task view model.
+    /// Edit Task view model.
     /// </summary>
-    public class CreateTaskViewModel
+    public class EditTaskViewModel
     {
         #region Model Properties
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        [Required]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
