@@ -19,7 +19,6 @@ namespace PM.DAL
             : base("name=PMDatabaseEntities")
         {
     		this.Configuration.ProxyCreationEnabled = false;
-            this.Configuration.LazyLoadingEnabled = true;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -27,14 +26,15 @@ namespace PM.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Claim> Claims { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<ExternalLogin> ExternalLogins { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TaskPriority> TaskPriorities { get; set; }
-        public virtual DbSet<TaskStatu> TaskStatus { get; set; }
+        public virtual DbSet<TaskStatus> TaskStatus1 { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
     }
 }

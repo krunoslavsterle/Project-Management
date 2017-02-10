@@ -50,7 +50,7 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var domainList = await projectService.GetProjectsAsync(p => p.OwnerId == UserId);
+            var domainList = await projectService.GetProjectsAsync();
             var vm = Mapper.Map<IList<ProjectViewModel>>(domainList);
 
             return View("Projects", vm);

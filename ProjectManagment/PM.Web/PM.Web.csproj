@@ -234,11 +234,13 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\ProjectController.cs" />
     <Compile Include="Areas\Administration\Controllers\TaskController.cs" />
+    <Compile Include="Areas\Administration\Controllers\UserController.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\CreateTaskViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\EditTaskViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\TaskViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\User\IndexUserViewModel.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
@@ -277,6 +279,7 @@
     <Content Include="Areas\Administration\Views\Project\Timeline.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_LeftMenuBar.cshtml" />
     <Content Include="Areas\Administration\Views\Task\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

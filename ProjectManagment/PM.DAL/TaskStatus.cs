@@ -12,29 +12,23 @@ namespace PM.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Project
+    public partial class TaskStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Project()
+        public TaskStatus()
         {
             this.Tasks = new HashSet<Task>();
-            this.ProjectUsers = new HashSet<ProjectUser>();
         }
     
         public System.Guid Id { get; set; }
-        public System.Guid CompanyId { get; set; }
+        public string Abrv { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateUpdated { get; set; }
         public byte[] TimeStamp { get; set; }
-        public System.Guid ProjectLeaderId { get; set; }
     
-        public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> Tasks { get; set; }
-        public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectUser> ProjectUsers { get; set; }
     }
 }

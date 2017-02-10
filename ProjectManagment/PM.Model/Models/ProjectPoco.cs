@@ -18,10 +18,12 @@ namespace PM.Model
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the owner id.
+        /// Gets or sets the company identifier.
         /// </summary>
-        /// <value>The owner id.</value>
-        public Guid OwnerId { get; set; }
+        /// <value>
+        /// The company identifier.
+        /// </value>
+        public Guid CompanyId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -60,12 +62,12 @@ namespace PM.Model
         public virtual ICollection<ITaskPoco> Tasks { get; set; }
 
         /// <summary>
-        /// Gets or sets the user.
+        /// Gets or sets the company.
         /// </summary>
         /// <value>
-        /// The user.
+        /// The company.
         /// </value>
-        public virtual IUserPoco User { get; set; }
+        public virtual ICompanyPoco Company { get; set; }
 
         #endregion Navigation Properties
     }

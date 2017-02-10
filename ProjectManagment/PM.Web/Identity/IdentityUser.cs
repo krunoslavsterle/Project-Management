@@ -32,7 +32,15 @@ namespace PM.Web.Identity
         /// Unique key for the user
         /// </summary>
         public Guid Id { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the company identifier.
+        /// </summary>
+        /// <value>
+        /// The company identifier.
+        /// </value>
+        public Guid CompanyId { get; set; }
+
         /// <summary>
         /// Unique username
         /// </summary>

@@ -1,72 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace PM.Model.Common
 {
     /// <summary>
-    /// Project contract.
+    /// ProjectUser poco contract.
     /// </summary>
-    public interface IProjectPoco
+    public interface IProjectUserPoco
     {
         #region Properties
 
         /// <summary>
-        /// Gets or sets the id.
+        /// Gets or sets the identifier.
         /// </summary>
-        /// <value>The id.</value>
+        /// <value>
+        /// The identifier.
+        /// </value>
         Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the company identifier.
+        /// Gets or sets the project identifier.
         /// </summary>
         /// <value>
-        /// The company identifier.
+        /// The project identifier.
         /// </value>
-        Guid CompanyId { get; set; }
+        Guid ProjectId { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the user identifier.
         /// </summary>
-        /// <value>The name.</value>
-        string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        string Description { get; set; }
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the date created.
         /// </summary>
-        /// <value>The date created.</value>
+        /// <value>
+        /// The date created.
+        /// </value>
         DateTime DateCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the date updated.
         /// </summary>
-        /// <value>The date updated.</value>
+        /// <value>
+        /// The date updated.
+        /// </value>
         DateTime DateUpdated { get; set; }
-        
+
         #endregion Properties
 
         #region Navigation Properties
 
         /// <summary>
-        /// Gets or sets the tasks.
+        /// Gets or sets the project.
         /// </summary>
         /// <value>
-        /// The tasks.
+        /// The project.
         /// </value>
-        ICollection<ITaskPoco> Tasks { get; set; }
+        IProjectPoco Project { get; set; }
 
         /// <summary>
-        /// Gets or sets the company.
+        /// Gets or sets the user.
         /// </summary>
         /// <value>
-        /// The company.
+        /// The user.
         /// </value>
-        ICompanyPoco Company { get; set; }
+        IUserPoco User { get; set; }
 
         #endregion Navigation Properties
     }

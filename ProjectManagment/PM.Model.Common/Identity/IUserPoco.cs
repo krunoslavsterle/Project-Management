@@ -19,6 +19,14 @@ namespace PM.Model.Common
         Guid UserId { get; set; }
 
         /// <summary>
+        /// Gets or sets the company identifier.
+        /// </summary>
+        /// <value>
+        /// The company identifier.
+        /// </value>
+        Guid CompanyId { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the user.
         /// </summary>
         /// <value>

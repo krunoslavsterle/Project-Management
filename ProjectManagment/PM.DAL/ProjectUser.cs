@@ -12,11 +12,16 @@ namespace PM.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    public partial class ProjectUser
     {
-        public string MigrationId { get; set; }
-        public string ContextKey { get; set; }
-        public byte[] Model { get; set; }
-        public string ProductVersion { get; set; }
+        public System.Guid Id { get; set; }
+        public System.Guid ProjectId { get; set; }
+        public System.Guid UserId { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public System.DateTime DateUpdated { get; set; }
+        public byte[] TimeStamp { get; set; }
+    
+        public virtual Project Project { get; set; }
+        public virtual User User { get; set; }
     }
 }

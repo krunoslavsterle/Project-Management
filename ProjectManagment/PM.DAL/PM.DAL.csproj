@@ -54,7 +54,7 @@
     <Compile Include="Claim.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="C__MigrationHistory.cs">
+    <Compile Include="Company.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExternalLogin.cs">
@@ -78,6 +78,9 @@
     <Compile Include="Project.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectUser.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
@@ -88,7 +91,7 @@
     <Compile Include="TaskPriority.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TaskStatu.cs">
+    <Compile Include="TaskStatus.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">

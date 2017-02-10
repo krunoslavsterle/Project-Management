@@ -48,7 +48,7 @@ namespace PM.Repository
 
 
             CreateMap<TaskStatusPoco, ITaskStatusPoco>().ReverseMap();
-            CreateMap<TaskStatu, ITaskStatusPoco>()
+            CreateMap<TaskStatus, ITaskStatusPoco>()
                 .ReverseMap();
 
             CreateMap<TaskPriorityPoco, ITaskPriorityPoco>().ReverseMap();

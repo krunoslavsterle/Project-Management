@@ -18,7 +18,7 @@ namespace PM.Repository
     {
         #region Fields
 
-        private readonly IGenericRepository<TaskStatu, ITaskStatusPoco> genericRepository;
+        private readonly IGenericRepository<DAL.TaskStatus, ITaskStatusPoco> genericRepository;
         private readonly IMapper mapper;
 
         #endregion Fields
@@ -30,7 +30,7 @@ namespace PM.Repository
         /// </summary>
         /// <param name="genericRepository">The generic repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public TaskStatusRepository(IGenericRepository<TaskStatu, ITaskStatusPoco> genericRepository, IMapper mapper)
+        public TaskStatusRepository(IGenericRepository<DAL.TaskStatus, ITaskStatusPoco> genericRepository, IMapper mapper)
         {
             this.genericRepository = genericRepository;
             this.mapper = mapper;
@@ -244,7 +244,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual void Insert(ITaskStatusPoco model)
         {
-            genericRepository.Insert(mapper.Map<TaskStatu>(model));
+            genericRepository.Insert(mapper.Map<DAL.TaskStatus>(model));
             genericRepository.Save();
         }
 
@@ -254,7 +254,7 @@ namespace PM.Repository
         /// <param name="models">The list of models.</param>
         public virtual void Insert(IList<ITaskStatusPoco> models)
         {
-            var entities = mapper.Map<List<TaskStatu>>(models);
+            var entities = mapper.Map<List<DAL.TaskStatus>>(models);
             entities.ForEach(p => genericRepository.Insert(p));
             genericRepository.Save();
         }
@@ -265,7 +265,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual System.Threading.Tasks.Task InsertAsync(ITaskStatusPoco model)
         {
-            genericRepository.Insert(mapper.Map<TaskStatu>(model));
+            genericRepository.Insert(mapper.Map<DAL.TaskStatus>(model));
             return genericRepository.SaveAsync();
         }
 
@@ -275,7 +275,7 @@ namespace PM.Repository
         /// <param name="models">The list of models.</param>
         public virtual System.Threading.Tasks.Task InsertAsync(IList<ITaskStatusPoco> models)
         {
-            var entities = mapper.Map<List<TaskStatu>>(models);
+            var entities = mapper.Map<List<DAL.TaskStatus>>(models);
             entities.ForEach(p => genericRepository.Insert(p));
             return genericRepository.SaveAsync();
         }
@@ -286,7 +286,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual void Update(ITaskStatusPoco model)
         {
-            genericRepository.Update(mapper.Map<TaskStatu>(model));
+            genericRepository.Update(mapper.Map<DAL.TaskStatus>(model));
             genericRepository.Save();
         }
 
@@ -296,7 +296,7 @@ namespace PM.Repository
         /// <param name="model">The list of models.</param>
         public virtual void Update(IList<ITaskStatusPoco> models)
         {
-            var entities = mapper.Map<List<TaskStatu>>(models);
+            var entities = mapper.Map<List<DAL.TaskStatus>>(models);
             entities.ForEach(p => genericRepository.Update(p));
             genericRepository.Save();
         }
@@ -307,7 +307,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual System.Threading.Tasks.Task UpdateAsync(ITaskStatusPoco model)
         {
-            genericRepository.Update(mapper.Map<TaskStatu>(model));
+            genericRepository.Update(mapper.Map<DAL.TaskStatus>(model));
             return genericRepository.SaveAsync();
         }
 
@@ -317,7 +317,7 @@ namespace PM.Repository
         /// <param name="model">The list of models.</param>
         public virtual System.Threading.Tasks.Task UpdateAsync(IList<ITaskStatusPoco> models)
         {
-            var entities = mapper.Map<List<TaskStatu>>(models);
+            var entities = mapper.Map<List<DAL.TaskStatus>>(models);
             entities.ForEach(p => genericRepository.Update(p));
             return genericRepository.SaveAsync();
         }
@@ -368,7 +368,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual void Delete(ITaskStatusPoco model)
         {
-            genericRepository.Delete(mapper.Map<TaskStatu>(model));
+            genericRepository.Delete(mapper.Map<DAL.TaskStatus>(model));
             genericRepository.Save();
         }
 
@@ -378,7 +378,7 @@ namespace PM.Repository
         /// <param name="models">The list of models.</param>
         public virtual void Delete(IList<ITaskStatusPoco> models)
         {
-            var entities = mapper.Map<List<TaskStatu>>(models);
+            var entities = mapper.Map<List<DAL.TaskStatus>>(models);
             entities.ForEach(p => genericRepository.Delete(p));
             genericRepository.Save();
         }
@@ -389,7 +389,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual System.Threading.Tasks.Task DeleteAsync(ITaskStatusPoco model)
         {
-            genericRepository.Delete(mapper.Map<TaskStatu>(model));
+            genericRepository.Delete(mapper.Map<DAL.TaskStatus>(model));
             return genericRepository.SaveAsync();
         }
 
@@ -399,7 +399,7 @@ namespace PM.Repository
         /// <param name="models">The list of models.</param>
         public virtual System.Threading.Tasks.Task DeleteAsync(IList<ITaskStatusPoco> models)
         {
-            var entities = mapper.Map<List<TaskStatu>>(models);
+            var entities = mapper.Map<List<DAL.TaskStatus>>(models);
             entities.ForEach(p => genericRepository.Delete(p));
             return genericRepository.SaveAsync();
         }
@@ -410,7 +410,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual void AddForInset(ITaskStatusPoco model)
         {
-            genericRepository.Insert(mapper.Map<TaskStatu>(model));
+            genericRepository.Insert(mapper.Map<DAL.TaskStatus>(model));
         }
 
         /// <summary>
@@ -419,7 +419,7 @@ namespace PM.Repository
         /// <param name="model">The model.</param>
         public virtual void AddForUpdate(ITaskStatusPoco model)
         {
-            genericRepository.Update(mapper.Map<TaskStatu>(model));
+            genericRepository.Update(mapper.Map<DAL.TaskStatus>(model));
         }
 
         /// <summary>

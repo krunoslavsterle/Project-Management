@@ -31,6 +31,6 @@ namespace PM.DAL
         public virtual User AssignedToUser { get; set; }
         public virtual User CreatedByUser { get; set; }
         public virtual TaskPriority TaskPriority { get; set; }
-        public virtual TaskStatu TaskStatus { get; set; }
+        public virtual TaskStatus TaskStatus { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model PM.Web.Administration.Models.IndexUserViewModel
+@{
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Users";
+}
+
+<header class="head">
+    <div class="search-bar">
+        <form class="main-search" action="">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Live Search ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm text-muted" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="main-bar row">
+        <div class="col-md-6">
+            <h3><i class="fa fa-dashboard"></i>&nbsp; Dashboard</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="bar-right-content pull-right">
+                <a href="@Url.Action("NewProject", "Project", new { area = "Administration" })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+@Html.Partial("_LeftMenuBar", Guid.Empty)
+
+<div class="right-content">
+    <div class="main-outer">
+        <div class="main-inner">
+
+
+
+        </div>
+    </div>
+</div>
