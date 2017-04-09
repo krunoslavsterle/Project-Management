@@ -7,7 +7,7 @@ namespace PM.Model
     /// <summary>
     /// Project model.
     /// </summary>
-    public class ProjectPoco
+    public class ProjectPoco : IProjectPoco
     {
         #region Properties
 
@@ -24,6 +24,14 @@ namespace PM.Model
         /// The company identifier.
         /// </value>
         public Guid CompanyId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project leader.
+        /// </summary>
+        /// <value>
+        /// The project leader.
+        /// </value>
+        public Guid ProjectLeaderId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -68,6 +76,14 @@ namespace PM.Model
         /// The company.
         /// </value>
         public virtual ICompanyPoco Company { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project leader.
+        /// </summary>
+        /// <value>
+        /// The project leader.
+        /// </value>
+        public virtual IUserPoco ProjectLeader { get; set; }
 
         #endregion Navigation Properties
     }

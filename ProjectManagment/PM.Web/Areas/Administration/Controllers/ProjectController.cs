@@ -22,6 +22,7 @@ namespace PM.Web.Areas.Administration.Controllers
         #region Fields
 
         private readonly IProjectService projectService;
+        private readonly IIdentityService identityService;
 
         #endregion Fields
 
@@ -32,10 +33,12 @@ namespace PM.Web.Areas.Administration.Controllers
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="projectService">The project service.</param>
-        public ProjectController(IMapper mapper, IProjectService projectService)
+        /// <param name="identityService">The identity service.</param>
+        public ProjectController(IMapper mapper, IProjectService projectService, IIdentityService identityService)
             : base(mapper)
         {
             this.projectService = projectService;
+            this.identityService = identityService;
         }
 
         #endregion Constructors
@@ -79,11 +82,15 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                vm.OwnerId = this.UserId;
+                var user = await identityService.GetUserById(UserId);
+                var domainProject = projectService.CreateProject();
+                Mapper.Map<CreateProjectViewModel, IProjectPoco>(vm, domainProject);
+                domainProject.ProjectLeaderId = user.UserId;
+                domainProject.CompanyId = user.CompanyId;
 
                 try
                 {
-                    await this.projectService.InsertProjectAsync(Mapper.Map<IProjectPoco>(vm));
+                    await this.projectService.InsertProjectAsync(domainProject);
                 }
                 catch (Exception ex)
                 {
@@ -92,7 +99,6 @@ namespace PM.Web.Areas.Administration.Controllers
                 
                 return RedirectToAction("Projects");
             }
-
             return View("NewProject", vm);
         }
 

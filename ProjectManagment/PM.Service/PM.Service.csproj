@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DIModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\IdentityService.cs" />
     <Compile Include="Services\LookupService.cs" />
     <Compile Include="Services\ProjectService.cs" />

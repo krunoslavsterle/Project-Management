@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PM.Common.Cache
 {
@@ -92,6 +93,19 @@ namespace PM.Common.Cache
         /// default value for the optional parameter is null.
         /// </param>
         T GetOrAdd<T>(string key, Func<string, T> valueFactory, DateTimeOffset absoluteExpiration, string regionName = null);
+
+        /// <summary>
+        /// Inserts a cache entry into the cache async, by using a key, an object for the cache entry, an absolute expiration value, and an optional region to add the cache into.
+        /// </summary>
+        /// <returns>If a cache entry with the same key exists, the specified cache entry's value; otherwise, null.</returns>
+        /// <param name="key">A unique identifier for the cache entry.</param>
+        /// <param name="valueFactory">The function used to generate a value for the key.</param>
+        /// <param name="absoluteExpiration">The fixed date and time at which the cache entry will expire.</param>
+        /// <param name="regionName">
+        /// Optional. A named region in the cache to which the cache entry can be added, if regions are implemented. The
+        /// default value for the optional parameter is null.
+        /// </param>
+        Task<T> GetOrAddAsync<T>(string key, Func<string, T> valueFactory, DateTimeOffset absoluteExpiration, string regionName = null);
 
         /// <summary>
         /// Gets a set of cache entries that correspond to the specified keys.

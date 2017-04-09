@@ -4,6 +4,7 @@ using PM.Model.Common;
 using PM.Service.Common;
 using PM.Common.Cache;
 using System;
+using PM.Repository;
 
 namespace PM.Service
 {
@@ -16,10 +17,12 @@ namespace PM.Service
 
         private const string TASK_PRIORITY_CACHE_KEY = "TASK_PRIORITY";
         private const string TASK_STATUS_CACHE_KEY = "TASK_STATUS";
+        private const string ROLE_CACHE_KEY = "ROLES";
 
         private readonly ICacheProvider cacheProvider;
         private readonly ITaskPriorityRepository taskPriorityRepository;
         private readonly ITaskStatusRepository taskStatusRepository;
+        private readonly IRoleRepository roleRepository;
 
         #endregion Fields
 
@@ -31,14 +34,17 @@ namespace PM.Service
         /// <param name="cacheProvider">The cache provider.</param>
         /// <param name="taskPriorityRepository">The task priority repository.</param>
         /// <param name="taskStatusRepository">The task status repository.</param>
+        /// <param name="roleRepository">The role repository.</param>
         public LookupService(
             ICacheProvider cacheProvider, 
             ITaskPriorityRepository taskPriorityRepository, 
-            ITaskStatusRepository taskStatusRepository)
+            ITaskStatusRepository taskStatusRepository,
+            IRoleRepository roleRepository)
         {
             this.cacheProvider = cacheProvider;
             this.taskPriorityRepository = taskPriorityRepository;
             this.taskStatusRepository = taskStatusRepository;
+            this.roleRepository = roleRepository;
         }
 
         #endregion Constructors
@@ -69,6 +75,19 @@ namespace PM.Service
             {
                 return taskStatusRepository.GetAll();
             },
+            DateTimeOffset.MaxValue);
+        }
+
+        /// <summary>
+        /// Gets a list of all <see cref="IRolePoco"/> models.
+        /// </summary>
+        /// <returns>List of all <see cref="IRolePoco"/> models.</returns>
+        public virtual IEnumerable<IRolePoco> GetAllRoles()
+        {
+            return this.cacheProvider.GetOrAdd<IEnumerable<IRolePoco>>(ROLE_CACHE_KEY, (string key) =>
+            {
+                return roleRepository.GetAll();
+            }, 
             DateTimeOffset.MaxValue);
         }
 

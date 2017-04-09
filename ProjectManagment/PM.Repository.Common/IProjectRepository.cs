@@ -1,6 +1,5 @@
 ﻿using PagedList;
 using PM.Common;
-using PM.Common.Filters;
 using PM.Model.Common;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,12 @@ namespace PM.Repository.Common
     /// </summary>
     public interface IProjectRepository
     {
+        /// <summary>
+        /// Creates the project.
+        /// </summary>
+        /// <returns></returns>
+        IProjectPoco CreateProject();
+
         /// <summary>
         /// Gets a list of all <see cref="IProjectPoco"/> models.
         /// </summary>

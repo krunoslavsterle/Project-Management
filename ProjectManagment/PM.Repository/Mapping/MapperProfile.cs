@@ -17,7 +17,9 @@ namespace PM.Repository
             #region Identity models
 
             CreateMap<UserPoco, IUserPoco>().ReverseMap();
-            CreateMap<User, IUserPoco>().ReverseMap();
+            CreateMap<User, IUserPoco>()
+                .ReverseMap()
+                .ForMember(ent => ent.Company, model => model.Ignore());
 
             CreateMap<RolePoco, IRolePoco>().ReverseMap();
             CreateMap<Role, IRolePoco>().ReverseMap();
@@ -35,7 +37,8 @@ namespace PM.Repository
             CreateMap<ProjectPoco, IProjectPoco>().ReverseMap();
             CreateMap<Project, IProjectPoco>()
                 .ReverseMap()
-                .ForMember(ent => ent.User, e => e.Ignore());
+                .ForMember(ent => ent.Company, e => e.Ignore())
+                .ForMember(ent => ent.ProjectLeader, e => e.Ignore());
 
             CreateMap<TaskPoco, ITaskPoco>().ReverseMap();
             CreateMap<Task, ITaskPoco>()
@@ -53,6 +56,10 @@ namespace PM.Repository
 
             CreateMap<TaskPriorityPoco, ITaskPriorityPoco>().ReverseMap();
             CreateMap<TaskPriority, ITaskPriorityPoco>()
+                .ReverseMap();
+
+            CreateMap<CompanyPoco, ICompanyPoco>().ReverseMap();
+            CreateMap<Company, ICompanyPoco>()
                 .ReverseMap();
 
             #endregion Project models

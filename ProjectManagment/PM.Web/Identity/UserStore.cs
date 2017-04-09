@@ -258,6 +258,7 @@ namespace PM.Web.Identity
         #endregion
 
         #region IUserPocoPasswordStore<IdentityUser, Guid> Members
+
         public Task<string> GetPasswordHashAsync(IdentityUser user)
         {
             if (user == null)
@@ -277,6 +278,7 @@ namespace PM.Web.Identity
             user.PasswordHash = passwordHash;
             return Task.FromResult(0);
         }
+
         #endregion
 
         #region IUserPocoSecurityStampStore<IdentityUser, Guid> Members

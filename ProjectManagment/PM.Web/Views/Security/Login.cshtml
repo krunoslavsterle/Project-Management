@@ -3,40 +3,42 @@
 @Styles.Render("~/Content/bootstrap/css")
 @Styles.Render("~/Content/site-style/css")
 
-<body class="login">
-    <div class="form-signin">
-        <div class="text-center">
-            <img src="~/Content/img/logo.png" alt="Metis Logo">
+<body>
+
+    <!-- PAGE -->
+    <div class="col-md-3 col-centered">
+        <div class="widget">
+             <div class="block-login">
+                 <div class="login-header">
+                    <h3>Sign In to PM</h3>
+                 </div>
+               
+                 <div class="login-body">
+                     @using (Html.BeginForm("Register", "Security", FormMethod.Post, new { }))
+                     {
+                         @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control top", placeholder = "Username", required = "Username is required", type = "text" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", required = "Password is required", type = "password" })
+                        </div>
+
+                        <br />
+                        <div class="form-group">
+                            <input id="rememberMe" type="checkbox">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-block btn-success">Login</button>
+
+                        <br />
+                        <span>Don't have an account? @Html.ActionLink("Sign Up", "Register", null, new { @class = "" })</span>
+                     }
+                </div>
+            </div>
         </div>
-        <hr />
-
-        @using (Html.BeginForm("Login", "Security", FormMethod.Post, new { }))
-        {
-            @Html.AntiForgeryToken()
-            <p class="text-muted text-center">
-                Enter your username and password
-            </p>
-
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control top", placeholder = "username", required = "", type="text" })
-            @Html.TextBoxFor(m => m.Password, new { @class = "form-control bottom", placeholder = "password", required = "", type="password" })
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Remember Me
-                </label>
-            </div>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-
-            <hr>
-
-            <div class="text-center">
-                <ul class="list-inline">
-                    <li><a class="text-muted" href="#forgot">Forgot Password</a></li>
-                    <li>@Html.ActionLink("Signup", "Register", null, new { @class = "text-muted" })</li>
-                </ul>
-            </div>
-        }
-
     </div>
 </body>

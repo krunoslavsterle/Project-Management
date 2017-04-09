@@ -37,6 +37,15 @@ namespace PM.Service
         #region Methods
 
         /// <summary>
+        /// Creates the project.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IProjectPoco CreateProject()
+        {
+            return projectRepository.CreateProject();
+        }
+
+        /// <summary>
         /// Gets the <see cref="IProject"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>

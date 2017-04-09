@@ -98,6 +98,14 @@ namespace PM.Model.Common
         /// </value>
         ICollection<IRolePoco> Roles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the company.
+        /// </summary>
+        /// <value>
+        /// The company.
+        /// </value>
+        ICompanyPoco Company { get; set; }
+
         #endregion Properties
     }
 }

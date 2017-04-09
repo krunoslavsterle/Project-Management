@@ -39,7 +39,7 @@ namespace PM.Repository
         #endregion Constructors
 
         #region Methods
-
+        
         /// <summary>
         /// Creates <see cref="IExternalLoginPoco"/> the asynchronous.
         /// </summary>

@@ -25,6 +25,14 @@ namespace PM.Model.Common
         Guid CompanyId { get; set; }
 
         /// <summary>
+        /// Gets or sets the project leader.
+        /// </summary>
+        /// <value>
+        /// The project leader.
+        /// </value>
+        Guid ProjectLeaderId { get; set; }
+
+        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
@@ -67,6 +75,14 @@ namespace PM.Model.Common
         /// The company.
         /// </value>
         ICompanyPoco Company { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project leader.
+        /// </summary>
+        /// <value>
+        /// The project leader.
+        /// </value>
+        IUserPoco ProjectLeader { get; set; }
 
         #endregion Navigation Properties
     }

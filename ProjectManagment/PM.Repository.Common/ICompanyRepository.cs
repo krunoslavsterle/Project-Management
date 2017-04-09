@@ -9,195 +9,195 @@ using System.Threading.Tasks;
 namespace PM.Repository
 {
     /// <summary>
-    /// Role repository contract.
+    /// Company repository contract.
     /// </summary>
-    public interface IRoleRepository
+    public interface ICompanyRepository
     {
         /// <summary>
-        /// Creates a instance of the <see cref="IRolePoco"/> class.
+        /// Creates a new <see cref="ICompanyPoco"/> in memory instance.
         /// </summary>
-        /// <returns>Instance of the <see cref="IRolePoco"/> class.</returns>
-        IRolePoco CreateRole();
+        /// <returns>A new <see cref="ICompanyPoco"/> in memory instance.</returns>
+        ICompanyPoco Create();
 
         /// <summary>
-        /// Gets a list of all <see cref="IRolePoco"/> models.
-        /// </summary>
-        /// <param name="orderBy">The order by.</param>
-        /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models.</returns>
-        IEnumerable<IRolePoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties);
-
-        /// <summary>
-        /// Gets a list of all <see cref="IRolePoco"/> models asynchronously.
+        /// Gets a list of all <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models asynchronously.</returns>
-        Task<IEnumerable<IRolePoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties);
+        /// <returns>List of <see cref="ICompanyPoco"/> models.</returns>
+        IEnumerable<ICompanyPoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets a paged list of all <see cref="IRolePoco"/> models.
+        /// Gets a list of all <see cref="ICompanyPoco"/> models asynchronously.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="ICompanyPoco"/> models asynchronously.</returns>
+        Task<IEnumerable<ICompanyPoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties);
+
+        /// <summary>
+        /// Gets a paged list of all <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of all <see cref="IRolePoco"/> models.</returns>
-        IPagedList<IRolePoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties);
+        /// <returns>Paged list of all <see cref="ICompanyPoco"/> models.</returns>
+        IPagedList<ICompanyPoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets a paged list of all <see cref="IRolePoco"/> models asynchronously.
+        /// Gets a paged list of all <see cref="ICompanyPoco"/> models asynchronously.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of all <see cref="IRolePoco"/> models asynchronously.</returns>
-        Task<IPagedList<IRolePoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties);
+        /// <returns>Paged list of all <see cref="ICompanyPoco"/> models asynchronously.</returns>
+        Task<IPagedList<ICompanyPoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets the one <see cref="IRolePoco"/> model asynchronously.
+        /// Gets the one <see cref="ICompanyPoco"/> model asynchronously.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>One <see cref="IRolePoco"/> asynchronously.</returns>
-        Task<IRolePoco> GetOneAsync(Expression<Func<IRolePoco, bool>> filter = null, params string[] includeProperties);
+        /// <returns>One <see cref="ICompanyPoco"/> asynchronously.</returns>
+        Task<ICompanyPoco> GetOneAsync(Expression<Func<ICompanyPoco, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets the one <see cref="IRolePoco"/> model.
+        /// Gets the one <see cref="ICompanyPoco"/> model.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        IRolePoco GetOne(Expression<Func<IRolePoco, bool>> filter = null, params string[] includeProperties);
+        ICompanyPoco GetOne(Expression<Func<ICompanyPoco, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets the list of <see cref="IRolePoco"/> models.
+        /// Gets the list of <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models.</returns>
-        IEnumerable<IRolePoco> Get(Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+        /// <returns>List of <see cref="ICompanyPoco"/> models.</returns>
+        IEnumerable<ICompanyPoco> Get(Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets the list of <see cref="IRolePoco"/> models asynchronous.
+        /// Gets the list of <see cref="ICompanyPoco"/> models asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models asynchronous.</returns>
-        Task<IEnumerable<IRolePoco>> GetAsync(Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+        /// <returns>List of <see cref="ICompanyPoco"/> models asynchronous.</returns>
+        Task<IEnumerable<ICompanyPoco>> GetAsync(Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets the paged list of <see cref="IRolePoco"/> models.
+        /// Gets the paged list of <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of <see cref="IRolePoco"/> models.</returns>
-        IPagedList<IRolePoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null,
+        /// <returns>Paged list of <see cref="ICompanyPoco"/> models.</returns>
+        IPagedList<ICompanyPoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null,
             params string[] includeProperties);
 
         /// <summary>
-        /// Gets the paged list of <see cref="IRolePoco"/> models asynchronous.
+        /// Gets the paged list of <see cref="ICompanyPoco"/> models asynchronous.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of <see cref="IRolePoco"/> models asynchronous.</returns>
-        Task<IPagedList<IRolePoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IRolePoco, bool>> filter = null,
+        /// <returns>Paged list of <see cref="ICompanyPoco"/> models asynchronous.</returns>
+        Task<IPagedList<ICompanyPoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<ICompanyPoco, bool>> filter = null,
             ISortingParameters orderBy = null, params string[] includeProperties);
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> model by identifier.
+        /// Gets the <see cref="ICompanyPoco"/> model by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IRolePoco"/>.</returns>
-        IRolePoco GetById(Guid id);
+        /// <returns><see cref="ICompanyPoco"/>.</returns>
+        ICompanyPoco GetById(Guid id);
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> model by identifier asynchronous.
+        /// Gets the <see cref="ICompanyPoco"/> model by identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IRolePoco"/>.</returns>
-        Task<IRolePoco> GetByIdAsync(Guid id);
+        /// <returns><see cref="ICompanyPoco"/>.</returns>
+        Task<ICompanyPoco> GetByIdAsync(Guid id);
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> count.
+        /// Gets the <see cref="ICompanyPoco"/> count.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
-        /// <returns><see cref="IRolePoco"/> count.</returns>
-        int GetCount(Expression<Func<IRolePoco, bool>> filter = null);
+        /// <returns><see cref="ICompanyPoco"/> count.</returns>
+        int GetCount(Expression<Func<ICompanyPoco, bool>> filter = null);
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> count asynchronous.
+        /// Gets the <see cref="ICompanyPoco"/> count asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
-        /// <returns><see cref="IRolePoco"/> count asynchronous.</returns>
-        Task<int> GetCountAsync(Expression<Func<IRolePoco, bool>> filter = null);
+        /// <returns><see cref="ICompanyPoco"/> count asynchronous.</returns>
+        Task<int> GetCountAsync(Expression<Func<ICompanyPoco, bool>> filter = null);
 
         /// <summary>
         /// Checks if sequence in filter contains entities.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        bool GetIsExists(Expression<Func<IRolePoco, bool>> filter = null);
+        bool GetIsExists(Expression<Func<ICompanyPoco, bool>> filter = null);
 
         /// <summary>
         /// Checks if sequence in filter contains entities asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        Task<bool> GetIsExistsAsync(Expression<Func<IRolePoco, bool>> filter = null);
+        Task<bool> GetIsExistsAsync(Expression<Func<ICompanyPoco, bool>> filter = null);
 
         /// <summary>
-        /// Inserts the specified <see cref="IRolePoco"/> model into the database.
+        /// Inserts the specified <see cref="ICompanyPoco"/> model into the database.
         /// </summary>
         /// <param name="model">The model.</param>
-        void Insert(IRolePoco model);
+        void Insert(ICompanyPoco model);
 
         /// <summary>
-        /// Inserts the list of <see cref="IRolePoco"/> models into the database.
+        /// Inserts the list of <see cref="ICompanyPoco"/> models into the database.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        void Insert(IList<IRolePoco> models);
+        void Insert(IList<ICompanyPoco> models);
 
         /// <summary>
-        /// Inserts the specified <see cref="IRolePoco"/> model into the database asynchronous.
+        /// Inserts the specified <see cref="ICompanyPoco"/> model into the database asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        System.Threading.Tasks.Task InsertAsync(IRolePoco model);
+        System.Threading.Tasks.Task InsertAsync(ICompanyPoco model);
 
         /// <summary>
-        /// Inserts the list of <see cref="IRolePoco"/> models into the database asynchronous.
+        /// Inserts the list of <see cref="ICompanyPoco"/> models into the database asynchronous.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        System.Threading.Tasks.Task InsertAsync(IList<IRolePoco> models);
+        System.Threading.Tasks.Task InsertAsync(IList<ICompanyPoco> models);
 
         /// <summary>
-        /// Updates the specified <see cref="IRolePoco"/> model.
+        /// Updates the specified <see cref="ICompanyPoco"/> model.
         /// </summary>
         /// <param name="model">The model.</param>
-        void Update(IRolePoco model);
+        void Update(ICompanyPoco model);
 
         /// <summary>
-        /// Updates the list of <see cref="IRolePoco"/> models.
+        /// Updates the list of <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="model">The list of models.</param>
-        void Update(IList<IRolePoco> models);
+        void Update(IList<ICompanyPoco> models);
 
         /// <summary>
-        /// Updates the specified <see cref="IRolePoco"/> model asynchronous.
+        /// Updates the specified <see cref="ICompanyPoco"/> model asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        System.Threading.Tasks.Task UpdateAsync(IRolePoco model);
+        System.Threading.Tasks.Task UpdateAsync(ICompanyPoco model);
 
         /// <summary>
-        /// Updates the list of <see cref="IRolePoco"/> models asynchronous.
+        /// Updates the list of <see cref="ICompanyPoco"/> models asynchronous.
         /// </summary>
         /// <param name="model">The list of models.</param>
-        System.Threading.Tasks.Task UpdateAsync(IList<IRolePoco> models);
+        System.Threading.Tasks.Task UpdateAsync(IList<ICompanyPoco> models);
 
         /// <summary>
         /// Deletes model by id.
@@ -224,46 +224,46 @@ namespace PM.Repository
         System.Threading.Tasks.Task DeleteAsync(IList<Guid> ids);
 
         /// <summary>
-        /// Deletes the specified <see cref="IRolePoco"/> model.
+        /// Deletes the specified <see cref="ICompanyPoco"/> model.
         /// </summary>
         /// <param name="model">The model.</param>
-        void Delete(IRolePoco model);
+        void Delete(ICompanyPoco model);
 
         /// <summary>
         /// Deletes the list of models.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        void Delete(IList<IRolePoco> models);
+        void Delete(IList<ICompanyPoco> models);
 
         /// <summary>
-        /// Deletes the specified <see cref="IRolePoco"/> model asynchronous.
+        /// Deletes the specified <see cref="ICompanyPoco"/> model asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        System.Threading.Tasks.Task DeleteAsync(IRolePoco model);
+        System.Threading.Tasks.Task DeleteAsync(ICompanyPoco model);
 
         /// <summary>
         /// Deletes the list of models.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        System.Threading.Tasks.Task DeleteAsync(IList<IRolePoco> models);
+        System.Threading.Tasks.Task DeleteAsync(IList<ICompanyPoco> models);
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for insert. This will not call Save() method.
+        /// Adds <see cref="ICompanyPoco"/> model for insert. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        void AddForInset(IRolePoco model);
+        void AddForInset(ICompanyPoco model);
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for update. This will not call Save() method.
+        /// Adds <see cref="ICompanyPoco"/> model for update. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        void AddForUpdate(IRolePoco model);
+        void AddForUpdate(ICompanyPoco model);
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for delete. This will not call Save() method.
+        /// Adds <see cref="ICompanyPoco"/> model for delete. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        void AddForDelete(IRolePoco model);
+        void AddForDelete(ICompanyPoco model);
 
         /// <summary>
         /// Saves the context changes.

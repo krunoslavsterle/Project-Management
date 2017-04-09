@@ -42,6 +42,21 @@ namespace PM.Repository
         #region Methods
 
         /// <summary>
+        /// Creates the instance of the <see cref="IUserPoco"/> class.
+        /// </summary>
+        /// <returns>The instance of the <see cref="IUserPoco"/> class.</returns>
+        public virtual IUserPoco CreateUser()
+        {
+            IUserPoco user = new UserPoco()
+            {
+                UserId = Guid.NewGuid(),
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
+            };
+            return user;
+        }
+        
+        /// <summary>
         /// Creates the claim asynchronous.
         /// </summary>
         /// <returns><see cref="IClaim"/>.</returns>
@@ -194,7 +209,7 @@ namespace PM.Repository
         /// <returns><see cref="IUserPoco"/>.</returns>
         public virtual IUserPoco GetById(Guid id)
         {
-            var entity = genericRepository.GetById(id);
+            var entity = genericRepository.GetOne(p => p.UserId == id);
             return mapper.Map<IUserPoco>(entity);
         }
 
@@ -205,7 +220,7 @@ namespace PM.Repository
         /// <returns><see cref="IUserPoco"/>.</returns>
         public virtual async Task<IUserPoco> GetByIdAsync(Guid id)
         {
-            var entity = await genericRepository.GetByIdAsync(id);
+            var entity = await genericRepository.GetOneAsync(p => p.UserId == id);
             return mapper.Map<IUserPoco>(entity);
         }
 

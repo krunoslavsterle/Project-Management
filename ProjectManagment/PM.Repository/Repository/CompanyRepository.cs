@@ -1,25 +1,25 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using PagedList;
+﻿using PagedList;
+using PM.Common;
+using PM.DAL;
+using PM.Model;
 using PM.Model.Common;
 using PM.Repository.Common;
-using PM.DAL;
-using PM.Common;
-using PM.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace PM.Repository
 {
     /// <summary>
-    /// Role repository.
+    /// Company repository.
     /// </summary>
-    public class RoleRepository : IRoleRepository
+    public class CompanyRepository : ICompanyRepository
     {
         #region Fields
 
-        private readonly IGenericRepository<Role, IRolePoco> genericRepository;
+        private readonly IGenericRepository<Company, ICompanyPoco> genericRepository;
         private readonly IMapper mapper;
 
         #endregion Fields
@@ -27,11 +27,11 @@ namespace PM.Repository
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoleRepository"/> class.
+        /// Initializes a new instance of the <see cref="CompanyRepository"/> class.
         /// </summary>
         /// <param name="genericRepository">The generic repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public RoleRepository(IGenericRepository<Role, IRolePoco> genericRepository, IMapper mapper)
+        public CompanyRepository(IGenericRepository<Company, ICompanyPoco> genericRepository, IMapper mapper)
         {
             this.genericRepository = genericRepository;
             this.mapper = mapper;
@@ -42,188 +42,192 @@ namespace PM.Repository
         #region Methods
 
         /// <summary>
-        /// Creates a instance of the <see cref="IRolePoco"/> class.
+        /// Creates a new <see cref="ICompanyPoco"/> in memory instance.
         /// </summary>
-        /// <returns>Instance of the <see cref="IRolePoco"/> class.</returns>
-        public virtual IRolePoco CreateRole()
+        /// <returns>A new <see cref="ICompanyPoco"/> in memory instance.</returns>
+        public virtual ICompanyPoco Create()
         {
-            return new RolePoco();
+            var company = new CompanyPoco()
+            {
+                Id = Guid.NewGuid()
+            };
+            return company;
         }
 
         /// <summary>
-        /// Gets a list of all <see cref="IRolePoco"/> models.
+        /// Gets a list of all <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models.</returns>
-        public virtual IEnumerable<IRolePoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="ICompanyPoco"/> models.</returns>
+        public virtual IEnumerable<ICompanyPoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = genericRepository.GetAll(null, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<ICompanyPoco>>(entities);
         }
 
         /// <summary>
-        /// Gets a list of all <see cref="IRolePoco"/> models asynchronously.
+        /// Gets a list of all <see cref="ICompanyPoco"/> models asynchronously.
         /// </summary>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models asynchronously.</returns>
-        public virtual async Task<IEnumerable<IRolePoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="ICompanyPoco"/> models asynchronously.</returns>
+        public virtual async Task<IEnumerable<ICompanyPoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = await genericRepository.GetAllAsync(null, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<ICompanyPoco>>(entities);
         }
 
         /// <summary>
-        /// Gets a paged list of all <see cref="IRolePoco"/> models.
+        /// Gets a paged list of all <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of all <see cref="IRolePoco"/> models.</returns>
-        public virtual IPagedList<IRolePoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of all <see cref="ICompanyPoco"/> models.</returns>
+        public virtual IPagedList<ICompanyPoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             int count = genericRepository.GetCount();
             var entities = genericRepository.GetAll(pagingParameters, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<ICompanyPoco>(mapper.Map<IEnumerable<ICompanyPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets a paged list of all <see cref="IRolePoco"/> models asynchronously.
+        /// Gets a paged list of all <see cref="ICompanyPoco"/> models asynchronously.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of all <see cref="IRolePoco"/> models asynchronously.</returns>
-        public virtual async Task<IPagedList<IRolePoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of all <see cref="ICompanyPoco"/> models asynchronously.</returns>
+        public virtual async Task<IPagedList<ICompanyPoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             int count = await genericRepository.GetCountAsync();
             var entities = await genericRepository.GetAllAsync(pagingParameters, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<ICompanyPoco>(mapper.Map<IEnumerable<ICompanyPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets the one <see cref="IRolePoco"/> model asynchronously.
+        /// Gets the one <see cref="ICompanyPoco"/> model asynchronously.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>One <see cref="IRolePoco"/> asynchronously.</returns>
-        public virtual async Task<IRolePoco> GetOneAsync(Expression<Func<IRolePoco, bool>> filter = null, params string[] includeProperties)
+        /// <returns>One <see cref="ICompanyPoco"/> asynchronously.</returns>
+        public virtual async Task<ICompanyPoco> GetOneAsync(Expression<Func<ICompanyPoco, bool>> filter = null, params string[] includeProperties)
         {
             var entity = await genericRepository.GetOneAsync(filter, includeProperties);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<ICompanyPoco>(entity);
         }
 
         /// <summary>
-        /// Gets the one <see cref="IRolePoco"/> model.
+        /// Gets the one <see cref="ICompanyPoco"/> model.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        public virtual IRolePoco GetOne(Expression<Func<IRolePoco, bool>> filter = null, params string[] includeProperties)
+        public virtual ICompanyPoco GetOne(Expression<Func<ICompanyPoco, bool>> filter = null, params string[] includeProperties)
         {
             var entity = genericRepository.GetOne(filter, includeProperties);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<ICompanyPoco>(entity);
         }
 
         /// <summary>
-        /// Gets the list of <see cref="IRolePoco"/> models.
+        /// Gets the list of <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models.</returns>
-        public virtual IEnumerable<IRolePoco> Get(Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="ICompanyPoco"/> models.</returns>
+        public virtual IEnumerable<ICompanyPoco> Get(Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = genericRepository.Get(null, filter, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<ICompanyPoco>>(entities);
         }
 
         /// <summary>
-        /// Gets the list of <see cref="IRolePoco"/> models asynchronous.
+        /// Gets the list of <see cref="ICompanyPoco"/> models asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models asynchronous.</returns>
-        public virtual async Task<IEnumerable<IRolePoco>> GetAsync(Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="ICompanyPoco"/> models asynchronous.</returns>
+        public virtual async Task<IEnumerable<ICompanyPoco>> GetAsync(Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = await genericRepository.GetAsync(null, filter, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<ICompanyPoco>>(entities);
         }
 
         /// <summary>
-        /// Gets the paged list of <see cref="IRolePoco"/> models.
+        /// Gets the paged list of <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of <see cref="IRolePoco"/> models.</returns>
-        public virtual IPagedList<IRolePoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of <see cref="ICompanyPoco"/> models.</returns>
+        public virtual IPagedList<ICompanyPoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var count = genericRepository.GetCount();
             var entities = genericRepository.Get(pagingParameters, filter, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<ICompanyPoco>(mapper.Map<IEnumerable<ICompanyPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets the paged list of <see cref="IRolePoco"/> models asynchronous.
+        /// Gets the paged list of <see cref="ICompanyPoco"/> models asynchronous.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of <see cref="IRolePoco"/> models asynchronous.</returns>
-        public virtual async Task<IPagedList<IRolePoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of <see cref="ICompanyPoco"/> models asynchronous.</returns>
+        public virtual async Task<IPagedList<ICompanyPoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<ICompanyPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var count = await genericRepository.GetCountAsync();
             var entities = await genericRepository.GetAsync(pagingParameters, filter, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<ICompanyPoco>(mapper.Map<IEnumerable<ICompanyPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> model by identifier.
+        /// Gets the <see cref="ICompanyPoco"/> model by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IRolePoco"/>.</returns>
-        public virtual IRolePoco GetById(Guid id)
+        /// <returns><see cref="ICompanyPoco"/>.</returns>
+        public virtual ICompanyPoco GetById(Guid id)
         {
             var entity = genericRepository.GetById(id);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<ICompanyPoco>(entity);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> model by identifier asynchronous.
+        /// Gets the <see cref="ICompanyPoco"/> model by identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IRolePoco"/>.</returns>
-        public virtual async Task<IRolePoco> GetByIdAsync(Guid id)
+        /// <returns><see cref="ICompanyPoco"/>.</returns>
+        public virtual async Task<ICompanyPoco> GetByIdAsync(Guid id)
         {
             var entity = await genericRepository.GetByIdAsync(id);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<ICompanyPoco>(entity);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> count.
+        /// Gets the <see cref="ICompanyPoco"/> count.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
-        /// <returns><see cref="IRolePoco"/> count.</returns>
-        public virtual int GetCount(Expression<Func<IRolePoco, bool>> filter = null)
+        /// <returns><see cref="ICompanyPoco"/> count.</returns>
+        public virtual int GetCount(Expression<Func<ICompanyPoco, bool>> filter = null)
         {
             return genericRepository.GetCount(filter);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> count asynchronous.
+        /// Gets the <see cref="ICompanyPoco"/> count asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
-        /// <returns><see cref="IRolePoco"/> count asynchronous.</returns>
-        public virtual Task<int> GetCountAsync(Expression<Func<IRolePoco, bool>> filter = null)
+        /// <returns><see cref="ICompanyPoco"/> count asynchronous.</returns>
+        public virtual Task<int> GetCountAsync(Expression<Func<ICompanyPoco, bool>> filter = null)
         {
             return genericRepository.GetCountAsync(filter);
         }
@@ -233,7 +237,7 @@ namespace PM.Repository
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual bool GetIsExists(Expression<Func<IRolePoco, bool>> filter = null)
+        public virtual bool GetIsExists(Expression<Func<ICompanyPoco, bool>> filter = null)
         {
             return genericRepository.GetIsExists(filter);
         }
@@ -243,91 +247,91 @@ namespace PM.Repository
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual Task<bool> GetIsExistsAsync(Expression<Func<IRolePoco, bool>> filter = null)
+        public virtual Task<bool> GetIsExistsAsync(Expression<Func<ICompanyPoco, bool>> filter = null)
         {
             return genericRepository.GetIsExistsAsync(filter);
         }
 
         /// <summary>
-        /// Inserts the specified <see cref="IRolePoco"/> model into the database.
+        /// Inserts the specified <see cref="ICompanyPoco"/> model into the database.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void Insert(IRolePoco model)
+        public virtual void Insert(ICompanyPoco model)
         {
-            genericRepository.Insert(mapper.Map<Role>(model));
+            genericRepository.Insert(mapper.Map<Company>(model));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Inserts the list of <see cref="IRolePoco"/> models into the database.
+        /// Inserts the list of <see cref="ICompanyPoco"/> models into the database.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual void Insert(IList<IRolePoco> models)
+        public virtual void Insert(IList<ICompanyPoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<Company>>(models);
             entities.ForEach(p => genericRepository.Insert(p));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Inserts the specified <see cref="IRolePoco"/> model into the database asynchronous.
+        /// Inserts the specified <see cref="ICompanyPoco"/> model into the database asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual System.Threading.Tasks.Task InsertAsync(IRolePoco model)
+        public virtual System.Threading.Tasks.Task InsertAsync(ICompanyPoco model)
         {
-            genericRepository.Insert(mapper.Map<Role>(model));
+            genericRepository.Insert(mapper.Map<Company>(model));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Inserts the list of <see cref="IRolePoco"/> models into the database asynchronous.
+        /// Inserts the list of <see cref="ICompanyPoco"/> models into the database asynchronous.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual System.Threading.Tasks.Task InsertAsync(IList<IRolePoco> models)
+        public virtual System.Threading.Tasks.Task InsertAsync(IList<ICompanyPoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<Company>>(models);
             entities.ForEach(p => genericRepository.Insert(p));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Updates the specified <see cref="IRolePoco"/> model.
+        /// Updates the specified <see cref="ICompanyPoco"/> model.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void Update(IRolePoco model)
+        public virtual void Update(ICompanyPoco model)
         {
-            genericRepository.Update(mapper.Map<Role>(model));
+            genericRepository.Update(mapper.Map<Company>(model));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Updates the list of <see cref="IRolePoco"/> models.
+        /// Updates the list of <see cref="ICompanyPoco"/> models.
         /// </summary>
         /// <param name="model">The list of models.</param>
-        public virtual void Update(IList<IRolePoco> models)
+        public virtual void Update(IList<ICompanyPoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<Company>>(models);
             entities.ForEach(p => genericRepository.Update(p));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Updates the specified <see cref="IRolePoco"/> model asynchronous.
+        /// Updates the specified <see cref="ICompanyPoco"/> model asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual System.Threading.Tasks.Task UpdateAsync(IRolePoco model)
+        public virtual System.Threading.Tasks.Task UpdateAsync(ICompanyPoco model)
         {
-            genericRepository.Update(mapper.Map<Role>(model));
+            genericRepository.Update(mapper.Map<Company>(model));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Updates the list of <see cref="IRolePoco"/> models asynchronous.
+        /// Updates the list of <see cref="ICompanyPoco"/> models asynchronous.
         /// </summary>
         /// <param name="model">The list of models.</param>
-        public virtual System.Threading.Tasks.Task UpdateAsync(IList<IRolePoco> models)
+        public virtual System.Threading.Tasks.Task UpdateAsync(IList<ICompanyPoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<Company>>(models);
             entities.ForEach(p => genericRepository.Update(p));
             return genericRepository.SaveAsync();
         }
@@ -373,12 +377,12 @@ namespace PM.Repository
         }
 
         /// <summary>
-        /// Deletes the specified <see cref="IRolePoco"/> model.
+        /// Deletes the specified <see cref="ICompanyPoco"/> model.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void Delete(IRolePoco model)
+        public virtual void Delete(ICompanyPoco model)
         {
-            genericRepository.Delete(mapper.Map<Role>(model));
+            genericRepository.Delete(mapper.Map<Company>(model));
             genericRepository.Save();
         }
 
@@ -386,20 +390,20 @@ namespace PM.Repository
         /// Deletes the list of models.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual void Delete(IList<IRolePoco> models)
+        public virtual void Delete(IList<ICompanyPoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<Company>>(models);
             entities.ForEach(p => genericRepository.Delete(p));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Deletes the specified <see cref="IRolePoco"/> model asynchronous.
+        /// Deletes the specified <see cref="ICompanyPoco"/> model asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual System.Threading.Tasks.Task DeleteAsync(IRolePoco model)
+        public virtual System.Threading.Tasks.Task DeleteAsync(ICompanyPoco model)
         {
-            genericRepository.Delete(mapper.Map<Role>(model));
+            genericRepository.Delete(mapper.Map<Company>(model));
             return genericRepository.SaveAsync();
         }
 
@@ -407,36 +411,36 @@ namespace PM.Repository
         /// Deletes the list of models.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual System.Threading.Tasks.Task DeleteAsync(IList<IRolePoco> models)
+        public virtual System.Threading.Tasks.Task DeleteAsync(IList<ICompanyPoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<Company>>(models);
             entities.ForEach(p => genericRepository.Delete(p));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for insert. This will not call Save() method.
+        /// Adds <see cref="ICompanyPoco"/> model for insert. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void AddForInset(IRolePoco model)
+        public virtual void AddForInset(ICompanyPoco model)
         {
-            genericRepository.Insert(mapper.Map<Role>(model));
+            genericRepository.Insert(mapper.Map<Company>(model));
         }
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for update. This will not call Save() method.
+        /// Adds <see cref="ICompanyPoco"/> model for update. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void AddForUpdate(IRolePoco model)
+        public virtual void AddForUpdate(ICompanyPoco model)
         {
-            genericRepository.Update(mapper.Map<Role>(model));
+            genericRepository.Update(mapper.Map<Company>(model));
         }
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for delete. This will not call Save() method.
+        /// Adds <see cref="ICompanyPoco"/> model for delete. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void AddForDelete(IRolePoco model)
+        public virtual void AddForDelete(ICompanyPoco model)
         {
             genericRepository.Delete(model);
         }

@@ -7,7 +7,7 @@ namespace PM.Model
     /// <summary>
     /// Task status poco class.
     /// </summary>
-    public class TaskStatusPoco
+    public class TaskStatusPoco : ITaskStatusPoco
     {
         #region Properties
 

@@ -14,6 +14,12 @@ namespace PM.Repository.Common
     public interface IUserRepository
     {
         /// <summary>
+        /// Creates the instance of the <see cref="IUserPoco"/> class.
+        /// </summary>
+        /// <returns>The instance of the <see cref="IUserPoco"/> class.</returns>
+        IUserPoco CreateUser();
+
+        /// <summary>
         /// Creates the claim asynchronous.
         /// </summary>
         /// <returns><see cref="IClaim"/>.</returns>

@@ -1,0 +1,69 @@
+﻿@model PM.Web.Administration.Models.CreateUserViewModel
+
+@{
+    ViewBag.Title = "New User";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+<header class="head">
+    <div class="search-bar">
+        <form class="main-search" action="">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Live Search ...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary btn-sm text-muted" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="main-bar row">
+        <div class="col-md-6">
+            <h3><i class="fa fa-dashboard"></i>&nbsp; Project Name</h3>
+        </div>
+    </div>
+</header>
+
+@*@Html.Partial("_LeftMenuBar", @Model.ProjectId)*@
+
+<div class="right-content">
+    <div class="main-outer">
+        <div class="main-inner">
+
+            @using (Html.BeginForm("New", "User", new { area = "Administration" }, FormMethod.Post, new { @class = "" }))
+            {
+                @Html.AntiForgeryToken()
+          
+                <div class="form-group">
+                    @Html.LabelFor(vm => vm.UserName, "Username", new { @class = "control-label" })
+                    @Html.TextBoxFor(vm => vm.UserName, new { @class = "form-control" })
+                </div>
+                <br />
+
+                <div class="form-group">
+                    @Html.LabelFor(vm => vm.Email, "Email", new { @class = "control-label" })
+                    @Html.TextBoxFor(vm => vm.Email, new { @class = "form-control" })
+                </div>
+
+                
+
+                <div class="col-md-4 form-group">
+                    
+                    <select class="form-control">
+                        <option>Role 1</option>
+                        <option>Role 2</option>
+                    </select>
+                </div>
+
+                <br />
+
+
+                <button id="save" class="btn btn-success">Save</button>
+                <button id="cancel" class="btn btn-info">Cancel</button>
+            }
+
+
+        </div>
+    </div>
+</div>

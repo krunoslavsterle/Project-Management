@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DIModule.cs" />
+    <Compile Include="Repository\CompanyRepository.cs" />
     <Compile Include="Repository\Identity\UserRepository.cs" />
     <Compile Include="Repository\Identity\RoleRepository.cs" />
     <Compile Include="Mapping\MapperProfile.cs" />

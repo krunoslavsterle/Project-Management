@@ -27,14 +27,6 @@ namespace PM.Model
         /// </value>
         public string Name { get; set; }
         
-        /// <summary>
-        /// Gets or sets the users.
-        /// </summary>
-        /// <value>
-        /// The users.
-        /// </value>
-        public ICollection<IUserPoco> Users { get; set; }
-
         #endregion Properies
     }
 }

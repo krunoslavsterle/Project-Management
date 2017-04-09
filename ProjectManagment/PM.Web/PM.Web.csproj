@@ -199,29 +199,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\img\intro-bg.jpg" />
     <Content Include="Content\img\ipad.png" />
-    <Content Include="Content\img\logo.png" />
-    <Content Include="Content\img\metis-tile.png" />
     <Content Include="Content\img\ui-zac.jpg" />
     <Content Include="Content\img\user.gif" />
     <Content Include="Content\landing.css" />
-    <Content Include="Content\main.css" />
-    <Content Include="Content\metisMenu.css" />
     <Content Include="Content\site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\core.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\metisMenu.js" />
-    <Content Include="Scripts\screenfull.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -240,6 +231,7 @@
     <Compile Include="Areas\Administration\Models\Task\CreateTaskViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\EditTaskViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\TaskViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\User\CreateUserViewModel.cs" />
     <Compile Include="Areas\Administration\Models\User\IndexUserViewModel.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -250,6 +242,7 @@
     </Compile>
     <Compile Include="Identity\IdentityRole.cs" />
     <Compile Include="Identity\IdentityUser.cs" />
+    <Compile Include="Identity\IIdentityUser.cs" />
     <Compile Include="Identity\RoleStore.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Infrastructure\Mapping\MapperProfile.cs" />
@@ -280,6 +273,7 @@
     <Content Include="Areas\Administration\Views\Shared\_LeftMenuBar.cshtml" />
     <Content Include="Areas\Administration\Views\Task\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\User\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\User\New.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

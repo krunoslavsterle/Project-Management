@@ -4,31 +4,56 @@
 @Styles.Render("~/Content/site-style/css")
 
 
-<body class="login">
-    <div class="form-signin">
-        <div class="text-center">
-            <img src="~/Content/img/logo.png" alt="Metis Logo">
-        </div>
-        <hr />
+<body>
+    <!-- PAGE -->
+    <div class="col-md-3 col-centered">
+        <div class="widget">
+            <div class="block-login">
 
-        @using (Html.BeginForm("Register", "Security", FormMethod.Post, new { }))
-        {
-            @Html.AntiForgeryToken()
-           
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control top", placeholder = "username", required = "", type="text" })
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control middle", required = "", placeholder = "mail@domain.com", type="email" })
-            @Html.TextBoxFor(m => m.Password, new { @class = "form-control middle", placeholder = "password", required = "", type="password" })
-            @Html.TextBoxFor(m => m.RepatePassword, new { @class = "form-control bottom", required = "", placeholder = "re-password", type="password" })
+                <div class="login-header">
+                    <h3>Register to PM</h3>
+                </div>
 
-            <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
-            <hr>
-            <div class="text-center">
-                <ul class="list-inline">
-                    <li><a class="text-muted" href="#forgot">Forgot Password</a></li>
-                    <li>@Html.ActionLink("Login", "Login", null, new { @class = "text-muted" })</li>
-                </ul>
+                <div class="login-body">
+                    
+                    @using (Html.BeginForm("Register", "Security", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username", required = "", type = "text" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", required = "", placeholder = "Email", type = "email" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", placeholder = "Company Name", required = "", type = "text" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", required = "", type = "password" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.RepatePassword, new { @class = "form-control", required = "", placeholder = "Confirm Password", type = "password" })
+                        </div>
+
+                        <br />
+                        <div class="form-group">
+                            <input id="rememberMe" type="checkbox">
+                            <label for="rememberMe">I accept Terms and Conditions</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-block btn-success">Register</button>
+
+                        <br />
+                        <span>Already have account? @Html.ActionLink("Login", "Login", null, new { @class = "" })</span>
+                    }
+
+                </div>
             </div>
-        }
-
+        </div>
     </div>
 </body>

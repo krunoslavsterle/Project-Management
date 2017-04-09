@@ -19,5 +19,11 @@ namespace PM.Service.Common
         /// </summary>
         /// <returns>List of all <see cref="ITaskStatusPoco"/> models.</returns>
         IEnumerable<ITaskStatusPoco> GetAllTaskStatus();
+
+        /// <summary>
+        /// Gets a list of all <see cref="IRolePoco"/> models.
+        /// </summary>
+        /// <returns>List of all <see cref="IRolePoco"/> models.</returns>
+        IEnumerable<IRolePoco> GetAllRoles();
     }
 }

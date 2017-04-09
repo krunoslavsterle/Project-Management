@@ -7,7 +7,7 @@ namespace PM.Model
     /// <summary>
     /// Task priority poco class.
     /// </summary>
-    public class TaskPriorityPoco
+    public class TaskPriorityPoco : ITaskPriorityPoco
     {
         #region Properties
 

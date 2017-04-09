@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using PM.Model.Common;
 using System;
 
 namespace PM.Web.Identity
@@ -8,7 +9,7 @@ namespace PM.Web.Identity
     /// Identity user extended class.
     /// </summary>
     /// <seealso cref="Microsoft.AspNet.Identity.IUser{System.Guid}" />
-    public class IdentityUser : IUser<Guid>
+    public class IdentityUser : IIdentityUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentityUser"/> class.
@@ -69,5 +70,13 @@ namespace PM.Web.Identity
         /// The email.
         /// </value>
         public virtual string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the company.
+        /// </summary>
+        /// <value>
+        /// The company.
+        /// </value>
+        public virtual ICompanyPoco Company { get; set; }
     }
 }

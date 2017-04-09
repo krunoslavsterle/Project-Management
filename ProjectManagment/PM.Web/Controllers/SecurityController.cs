@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
 using PM.Web.Identity;
+using PM.Service.Common;
 
 namespace PM.Web.Controllers
 {
@@ -17,14 +18,16 @@ namespace PM.Web.Controllers
         #region Fields
 
         private readonly UserManager<IdentityUser, Guid> _userManager;
+        private readonly ICompanyService companyService;
 
         #endregion Fields
 
         #region Constructors
 
-        public SecurityController(UserManager<IdentityUser, Guid> userManager)
+        public SecurityController(UserManager<IdentityUser, Guid> userManager, ICompanyService companyService)
         {
             _userManager = userManager;
+            this.companyService = companyService;
         }
 
         #endregion Constructors
@@ -122,10 +125,17 @@ namespace PM.Web.Controllers
             // TODO: Implement loger.
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser() { UserName = model.UserName, Email = model.Email };
+                var company = companyService.Create();
+                company.Name = model.CompanyName;
+                company.DateCreated = DateTime.UtcNow;
+                company.DateUpdated = DateTime.UtcNow;
+
+                var user = new IdentityUser() { UserName = model.UserName, Email = model.Email, Company = company, CompanyId = company.Id };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Need to invalidate Company model - circular reference for AutoMapper.
+                    user.Company = null;
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

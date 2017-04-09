@@ -1,14 +1,32 @@
 ﻿using PM.Model.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PM.Service.Common
 {
     public interface IIdentityService
     {
+        /// <summary>
+        /// Creates the instance of the <see cref="IUserPoco"/> class.
+        /// </summary>
+        /// <returns>The instance of the <see cref="IUserPoco"/> class.</returns>
+        IUserPoco CreateUser();
+
+        // <summary>
+        /// Creates a instance of the <see cref="IRolePoco"/> class.
+        /// </summary>
+        /// <returns>Instance of the <see cref="IRolePoco"/> class.</returns>
+        IRolePoco CreateRole();
+
+        /// <summary>
+        /// Gets the users by company identifier.
+        /// </summary>
+        /// <param name="companyId">The company identifier.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="IUserPoco"/>.</returns>
+        Task<IEnumerable<IUserPoco>> GetUsersByCompanyId(Guid companyId, params string[] includeProperties);
+
         /// <summary>
         /// Adds the user asynchronous.
         /// </summary>

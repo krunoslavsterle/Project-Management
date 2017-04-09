@@ -485,7 +485,7 @@
           <NavigationProperty Name="Company" Relationship="PMDatabaseModel.FK_Project_Company" FromRole="Project" ToRole="Company" />
           <NavigationProperty Name="Tasks" Relationship="PMDatabaseModel.FK_Task_Project" FromRole="Project" ToRole="Task" />
           <Property Name="ProjectLeaderId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_Project_User" FromRole="Project" ToRole="User" />
+          <NavigationProperty Name="ProjectLeader" Relationship="PMDatabaseModel.FK_Project_User" FromRole="Project" ToRole="User" />
           <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="Project" ToRole="ProjectUser" />
         </EntityType>
         <EntityType Name="Role">
@@ -494,7 +494,6 @@
           </Key>
           <Property Name="RoleId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="PMDatabaseModel.UserRole" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Task">
           <Key>

@@ -1,4 +1,5 @@
-﻿using PM.Model.Common;
+﻿using PM.Common.Cache;
+using PM.Model.Common;
 using PM.Repository;
 using PM.Repository.Common;
 using PM.Service.Common;
@@ -17,25 +18,30 @@ namespace PM.Service
     {
         #region Fields
 
+        private const string IDENTITY_USER_CACHE_KEY = "IDENTITY_USER_";
+
         private readonly IUserRepository userRepository;
         private readonly IRoleRepository roleRepository;
         private readonly IExternalLoginRepository externalLoginRepository;
+        private readonly ICacheProvider cacheProvider;
 
         #endregion Fields
 
         #region Constructors
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentityService"/> class.
         /// </summary>
         /// <param name="userRepository">The user repository.</param>
         /// <param name="roleRepository">The role repository.</param>
         /// <param name="externalLoginRepository">The external login repository.</param>
-        public IdentityService(IUserRepository userRepository, IRoleRepository roleRepository, IExternalLoginRepository externalLoginRepository)
+        /// <param name="cacheProvider">The cache provider.</param>
+        public IdentityService(IUserRepository userRepository, IRoleRepository roleRepository, IExternalLoginRepository externalLoginRepository, ICacheProvider cacheProvider)
         {
             this.userRepository = userRepository;
             this.externalLoginRepository = externalLoginRepository;
             this.roleRepository = roleRepository;
+            this.cacheProvider = cacheProvider;
         }
 
         #endregion Constructors
@@ -43,6 +49,26 @@ namespace PM.Service
         #region Methods
 
         #region User methods
+
+        /// <summary>
+        /// Creates the instance of the <see cref="IUserPoco"/> class.
+        /// </summary>
+        /// <returns>The instance of the <see cref="IUserPoco"/> class.</returns>
+        public virtual IUserPoco CreateUser()
+        {
+            return userRepository.CreateUser();
+        }
+
+        /// <summary>
+        /// Gets the users by company identifier.
+        /// </summary>
+        /// <param name="companyId">The company identifier.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="IUserPoco"/>.</returns>
+        public virtual Task<IEnumerable<IUserPoco>> GetUsersByCompanyId(Guid companyId, params string[] includeProperties)
+        {
+            return userRepository.GetAsync(p => p.CompanyId == companyId, null, includeProperties);
+        }
 
         /// <summary>
         /// Inserts the <see cref="IUserPoco"/> asynchronous.
@@ -71,7 +97,12 @@ namespace PM.Service
         /// <returns><see cref="IUserPoco"/>.</returns>
         public Task<IUserPoco> GetUserById(Guid id)
         {
-            return userRepository.GetByIdAsync(id);
+            String userKey = IDENTITY_USER_CACHE_KEY + id.ToString();
+            return this.cacheProvider.GetOrAddAsync<IUserPoco>(userKey, (string key) =>
+            {
+                return userRepository.GetById(id);
+            },
+            DateTimeOffset.MaxValue);
         }
 
         /// <summary>
@@ -134,7 +165,16 @@ namespace PM.Service
         #endregion External login methods
 
         #region Role methods
-        
+
+        /// <summary>
+        /// Creates a instance of the <see cref="IRolePoco"/> class.
+        /// </summary>
+        /// <returns>Instance of the <see cref="IRolePoco"/> class.</returns>
+        public virtual IRolePoco CreateRole()
+        {
+            return roleRepository.CreateRole();
+        }
+
         /// <summary>
         /// Adds the <see cref="IRolePoco"/> asynchronous.
         /// </summary>
@@ -193,7 +233,7 @@ namespace PM.Service
         {
             return TryExecuteTaskAsync(roleRepository.UpdateAsync(model));
         }
-        
+                
         #endregion Role methods
 
         private async Task<bool> TryExecuteTaskAsync(System.Threading.Tasks.Task task)

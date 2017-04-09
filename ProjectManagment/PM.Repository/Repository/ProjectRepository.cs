@@ -8,6 +8,7 @@ using PM.Common;
 using PM.Repository.Common;
 using PagedList;
 using System.Linq.Expressions;
+using PM.Model;
 
 namespace PM.Repository
 {
@@ -39,6 +40,21 @@ namespace PM.Repository
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Creates the project.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IProjectPoco CreateProject()
+        {
+            IProjectPoco project = new ProjectPoco()
+            {
+                Id = Guid.NewGuid(),
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
+            };
+            return project;
+        }
         
         /// <summary>
         /// Gets a list of all <see cref="IProjectPoco"/> models.

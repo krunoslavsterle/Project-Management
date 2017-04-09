@@ -11,6 +11,9 @@ namespace PM.Web.Models
         public string UserName { get; set; }
 
         [Required]
+        public string CompanyName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -26,6 +29,5 @@ namespace PM.Web.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password does not match.")]
         public string RepatePassword { get; set; }
-        
     }
 }

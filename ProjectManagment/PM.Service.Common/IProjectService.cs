@@ -14,6 +14,12 @@ namespace PM.Service.Common
     public interface IProjectService
     {
         /// <summary>
+        /// Creates the project.
+        /// </summary>
+        /// <returns></returns>
+        IProjectPoco CreateProject();
+
+        /// <summary>
         /// Gets the <see cref="IProject"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
