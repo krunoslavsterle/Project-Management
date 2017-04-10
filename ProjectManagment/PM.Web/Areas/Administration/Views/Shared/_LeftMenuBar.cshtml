@@ -1,51 +1,37 @@
-﻿@model Guid
+﻿@using PM.Web.Infrastructure.HtmlHelpers
 
-<div class="sidemenu-left">
-    <div class="user-wrapper bg-dark">
-        <a class="user-link" href="">
-            <img class="media-object img-thumbnail user-img" alt="User Picture" src="~/Content/img/user.gif">
-        </a>
+<!-- SIDE MENU -->
+<div class="site-menubar">
+    <div class="site-menubar-body">
+        <ul class="nav-menu">
+            <li>
+                @Html.MenuItemLink("Home", "Index", "Dashboard", null, "glyphicon glyphicon-home")
+            </li>
+            <li>
+                @Html.MenuItemLink("Projects", "Projects", "Project", null, "glyphicon glyphicon-th-large")
+            </li>
 
-        <div class="media-body">
-            <h5 class="media-heading">@User.Identity.Name</h5>
-            <ul class="list-unstyled user-info">
-                <li><a href="">Administrator</a></li>
-                <li>
-                    Last Access : <br>
-                    <small><i class="fa fa-calendar"></i>&nbsp;16 Mar 16:32</small>
-                </li>
-            </ul>
-        </div>
-    </div>
+            <li>
+                <a href="team.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a>
+            </li>
 
-    @if (Model != Guid.Empty)
-    {
-         <!-- #menu -->
-        <ul id="menu" class="">
-            <li class="nav-divider"></li>
-            <li class="">
-                <a href="@Url.Action("Timeline", "Project", new { area="Administration"})">
-                    <i class="fa fa-dashboard"></i><span class="link-title" aria-hidden="true">&nbsp;Timeline</span>
-                </a>
+            <hr />
+
+            <li>
+                <a class="" href="team.html"><i class="glyphicon glyphicon-stats"></i><span>Overview</span></a>
             </li>
-            <li class="">
-                <a href="@Url.Action("List", "Task", new { area="Administration", pId = PM.Common.ShortGuid.Encode(Model) })">
-                    <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Tasks</span>
-                </a>
+
+            <li>
+                <a href="timeline.html"><i class="glyphicon glyphicon-time"></i><span>Timeline</span></a>
             </li>
-            <li class="">
-                <a href="dashboard.html">
-                    <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Calendar</span>
-                </a>
+
+            <li>
+                <a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i><span>Tasks</span></a>
             </li>
-            <li class="">
-                <a href="dashboard.html">
-                    <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Team</span>
-                </a>
+
+            <li>
+                <a href="team.html"><i class="glyphicon glyphicon-user"></i><span>Team</span></a>
             </li>
         </ul>
-    }
-
-   
+    </div>
 </div>
-

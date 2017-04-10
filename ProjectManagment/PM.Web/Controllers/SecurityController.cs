@@ -17,16 +17,21 @@ namespace PM.Web.Controllers
     {
         #region Fields
 
-        private readonly UserManager<IdentityUser, Guid> _userManager;
+        private readonly UserManager<IdentityUser, Guid> userManager;
         private readonly ICompanyService companyService;
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecurityController"/> class.
+        /// </summary>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="companyService">The company service.</param>
         public SecurityController(UserManager<IdentityUser, Guid> userManager, ICompanyService companyService)
         {
-            _userManager = userManager;
+            this.userManager = userManager;
             this.companyService = companyService;
         }
 
@@ -73,7 +78,7 @@ namespace PM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindAsync(model.UserName, model.Password);
+                var user = await userManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, true);
@@ -131,7 +136,7 @@ namespace PM.Web.Controllers
                 company.DateUpdated = DateTime.UtcNow;
 
                 var user = new IdentityUser() { UserName = model.UserName, Email = model.Email, Company = company, CompanyId = company.Id };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // Need to invalidate Company model - circular reference for AutoMapper.
@@ -151,7 +156,7 @@ namespace PM.Web.Controllers
         private async Task SignInAsync(IdentityUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 

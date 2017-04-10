@@ -17,7 +17,7 @@ namespace PM.Web.Areas.Administration
             context.MapRoute(
                 "Administration_dashboard",
                 "Administration/Dashboard",
-                new { controller = "Project", action = "Projects"}
+                new { controller = "Dashboard", action = "Index"}
             );
 
             context.MapRoute(

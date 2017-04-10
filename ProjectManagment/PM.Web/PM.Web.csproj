@@ -208,6 +208,7 @@
     <Content Include="Content\landing.css" />
     <Content Include="Content\site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -223,9 +224,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Administration\Controllers\ProjectController.cs" />
     <Compile Include="Areas\Administration\Controllers\TaskController.cs" />
     <Compile Include="Areas\Administration\Controllers\UserController.cs" />
+    <Compile Include="Areas\Administration\Models\Dashboard\DashboardViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\CreateTaskViewModel.cs" />
@@ -245,6 +248,8 @@
     <Compile Include="Identity\IIdentityUser.cs" />
     <Compile Include="Identity\RoleStore.cs" />
     <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Infrastructure\HtmlHelpers\HtmlHelpers.cs" />
+    <Compile Include="Infrastructure\HtmlHelpers\MenuItemLink.cs" />
     <Compile Include="Infrastructure\Mapping\MapperProfile.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
@@ -274,6 +279,11 @@
     <Content Include="Areas\Administration\Views\Task\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\User\Index.cshtml" />
     <Content Include="Areas\Administration\Views\User\New.cshtml" />
+    <Content Include="Areas\Administration\Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

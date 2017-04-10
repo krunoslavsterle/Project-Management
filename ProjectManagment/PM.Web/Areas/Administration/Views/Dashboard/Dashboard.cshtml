@@ -1,0 +1,213 @@
+﻿@{
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+
+<!-- LEFT MENU -->
+@Html.Partial("_LeftMenuBar", Guid.Empty)
+
+<!-- PAGE -->
+<div class="page">
+
+    <div class="page-content-header">
+
+        <span class="breadcrumbs">
+            <span>Home</span>
+        </span>
+
+        <div class="header-content-right">
+            <!--Add btn here-->
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- Profile widget -->
+        <div class="col-md-3">
+            <div class="widget">
+                <div class="block block-profile">
+                    <img class="img-avatar" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="">
+                    <h3>Denise Watson</h3>
+                </div>
+
+                <div class="block block-profile-role">
+                    <h3>Web Developer</h3>
+                </div>
+                <div class="block block-profile-footer">
+                    <div class="row text-center">
+                        <div class="col-xs-6">
+                            <!--<i class="glyphicon glyphicon-briefcase"></i>-->
+                            <h3>
+                                25<h3>
+                                    <h5>Projects</h5>
+                        </div>
+                        <div class="col-xs-6">
+                            <!--<i class="glyphicon glyphicon-tag"></i>-->
+                            <h3>
+                                176<h3>
+                                    <h5>Tasks</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="widget profile-activity">
+                <ul class="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
+
+                    <li class="active" role="presentation">
+                        <a data-toggle="tab" href="#activities" aria-expanded="true">Activities</a>
+                    </li>
+
+                    <li role="presentation">
+                        <a data-toggle="tab" href="#tasks" aria-expanded="false">Tasks</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="activities" role="tabpanel">
+
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-tag activity-icon color-general"></i>John Doe has updated your role.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        11:45
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-flag activity-icon color-info"></i>You have completed task #4567.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        Yesterday
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-bell activity-icon color-warning"></i>John Doe has updated the status of a task: #236 to: in progress.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        Yesterday
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-flash activity-icon color-alert"></i>John Doe has sent a new message to you.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        Friday
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-flash activity-icon color-alert"></i>John Doe has assigned task #546 to you.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        Monday
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-flag activity-icon color-info"></i>You have completed task #4679.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        Monday
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <i class="glyphicon glyphicon-flag activity-icon color-info"></i>You have completed task #4699.
+                                    </div>
+                                    <div class="col-xs-2">
+                                        Last Week
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="tab-pane" id="tasks" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-striped list-group-tasks">
+                                <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Project</td>
+                                        <td>Status</td>
+                                        <td>Due Date</td>
+                                        <td>Actions</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Implement caching</td>
+                                        <td>My First Project</td>
+                                        <td>New</td>
+                                        <td>23/7/2017</td>
+                                        <td><a href="javascript:void(0)">View</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Implement ddl on Profile page</td>
+                                        <td>Project 1</td>
+                                        <td>In Progress</td>
+                                        <td>23/7/2017</td>
+                                        <td><a href="javascript:void(0)">View</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Code optimization</td>
+                                        <td>Project 1</td>
+                                        <td>In Progress</td>
+                                        <td>23/7/2017</td>
+                                        <td><a href="javascript:void(0)">View</a></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Implement ddl on Profile page</td>
+                                        <td>Project 1</td>
+                                        <td>In Progress</td>
+                                        <td>23/7/2017</td>
+                                        <td><a href="javascript:void(0)">View</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
