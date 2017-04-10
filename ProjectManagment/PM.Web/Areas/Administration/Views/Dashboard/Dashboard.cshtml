@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DashboardViewModel
+
+@{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Dashboard";
 }
@@ -26,26 +28,24 @@
         <div class="col-md-3">
             <div class="widget">
                 <div class="block block-profile">
-                    <img class="img-avatar" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(1).jpg" alt="">
-                    <h3>Denise Watson</h3>
+                    <img class="img-avatar" src="http://i.pravatar.cc/300" alt="">
+                    <h3>@Model.UserName</h3>
                 </div>
 
                 <div class="block block-profile-role">
-                    <h3>Web Developer</h3>
+                    <h3>@Model.UserTitle</h3>
                 </div>
                 <div class="block block-profile-footer">
                     <div class="row text-center">
                         <div class="col-xs-6">
                             <!--<i class="glyphicon glyphicon-briefcase"></i>-->
-                            <h3>
-                                25<h3>
-                                    <h5>Projects</h5>
+                            <h3>@Model.NumOfProjects</h3>
+                            <h5>Projects</h5>
                         </div>
                         <div class="col-xs-6">
                             <!--<i class="glyphicon glyphicon-tag"></i>-->
-                            <h3>
-                                176<h3>
-                                    <h5>Tasks</h5>
+                            <h3>@Model.NumOfTasks</h3>
+                            <h5>Tasks</h5>
                         </div>
                     </div>
                 </div>
