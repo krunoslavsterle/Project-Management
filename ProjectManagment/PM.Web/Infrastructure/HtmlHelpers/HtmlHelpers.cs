@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PM.Common.Enums;
+using System;
 using System.Web.Mvc;
 
 namespace PM.Web.Infrastructure.HtmlHelpers
@@ -35,6 +36,54 @@ namespace PM.Web.Infrastructure.HtmlHelpers
             var linkHref = urlHelper.Action(action, controller, routeValues);
             var htmlStr = String.Format("<a class='{0}' href='{1}'><i class='{2}'></i><span>{3}</span></a>", linkClass, linkHref, iconClass, text);
 
+            return new MvcHtmlString(htmlStr);
+        }
+
+        /// <summary>
+        /// Creates the dashboard activity icon based on activityType and activityMagnitude.
+        /// </summary>
+        /// <param name="helper">The helper.</param>
+        /// <param name="activityType">Type of the activity.</param>
+        /// <param name="magnitude">The activity magnitude.</param>
+        /// <returns>Dashboard activity icon.</returns>
+        public static MvcHtmlString DashboardActivity(this HtmlHelper helper, ActivityType activityType, ActivityMagnitude magnitude)
+        {
+            string baseCss = "activity-icon glyphicon";
+            // TODO: - DashboardActivity - USE STRING BUILDER.
+            switch (activityType)
+            {
+                case ActivityType.System:
+                    baseCss += " "; // TODO - DashboardActivity HTML HELPER.
+                    break;
+                case ActivityType.Profile:
+                    baseCss += " glyphicon-tag"; // TODO - DashboardActivity HTML HELPER.
+                    break;
+                case ActivityType.Project:
+                    baseCss += " glyphicon-flag";
+                    break;
+                case ActivityType.Task:
+                    baseCss += " glyphicon-flash";
+                    break;
+                default:
+                    break;
+            }
+
+            switch (magnitude)
+            {
+                case ActivityMagnitude.Low:
+                    baseCss += " color-general";
+                    break;
+                case ActivityMagnitude.Medium:
+                    baseCss += " color-warning";
+                    break;
+                case ActivityMagnitude.High:
+                    baseCss += " color-alert";
+                    break;
+                default:
+                    break;
+            }
+
+            string htmlStr = String.Format("<i class='{0}'></i>", baseCss);
             return new MvcHtmlString(htmlStr);
         }
     }

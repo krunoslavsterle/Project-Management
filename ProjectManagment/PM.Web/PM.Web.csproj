@@ -228,6 +228,7 @@
     <Compile Include="Areas\Administration\Controllers\ProjectController.cs" />
     <Compile Include="Areas\Administration\Controllers\TaskController.cs" />
     <Compile Include="Areas\Administration\Controllers\UserController.cs" />
+    <Compile Include="Areas\Administration\Models\Dashboard\DashboardActivityDTO.cs" />
     <Compile Include="Areas\Administration\Models\Dashboard\DashboardViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
@@ -249,7 +250,6 @@
     <Compile Include="Identity\RoleStore.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelpers.cs" />
-    <Compile Include="Infrastructure\HtmlHelpers\MenuItemLink.cs" />
     <Compile Include="Infrastructure\Mapping\MapperProfile.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />

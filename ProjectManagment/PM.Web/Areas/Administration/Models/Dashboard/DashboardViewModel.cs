@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PM.Web.Areas.Administration.Models
 {
@@ -17,6 +13,7 @@ namespace PM.Web.Areas.Administration.Models
         public int NumOfTasks { get; set; }
 
         // List of activities
+        public IEnumerable<DashboardActivityDTO> Activities { get; set; }
 
         // List of tasks
 

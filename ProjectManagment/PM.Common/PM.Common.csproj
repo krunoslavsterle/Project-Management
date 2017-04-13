@@ -52,6 +52,8 @@
     <Compile Include="Cache\ICacheProvider.cs" />
     <Compile Include="Cache\MemoryCacheProvider.cs" />
     <Compile Include="DIModule.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Filters\ProjectFilter.cs" />
     <Compile Include="Filters\TaskFilter.cs" />
     <Compile Include="Helpers\IPagingParameters.cs" />
@@ -68,9 +70,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)*.dll" "$(SolutionDir)PM.Web\bin\"

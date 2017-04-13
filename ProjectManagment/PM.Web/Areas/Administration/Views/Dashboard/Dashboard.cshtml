@@ -1,5 +1,8 @@
 ﻿@model DashboardViewModel
 
+@using PM.Web.Infrastructure.HtmlHelpers
+@using PM.Common.Extensions
+
 @{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Dashboard";
@@ -69,86 +72,23 @@
                     <div class="tab-pane active" id="activities" role="tabpanel">
 
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="row">
+                            
+                            @foreach (var activity in Model.Activities)
+                            {
+                                <li class="list-group-item">
+                                    <div class="row">
 
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-tag activity-icon color-general"></i>John Doe has updated your role.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        11:45
-                                    </div>
+                                        <div class="col-xs-10">
+                                            @Html.DashboardActivity(activity.ActivityType, activity.Magnitude) @activity.ActivityText
+                                        </div>
+                                        <div class="col-xs-2">
+                                            @activity.DateCreated.ToPrettyDateTimeString()
+                                        </div>
 
-                                </div>
-                            </li>
+                                    </div>
+                                </li>
+                            }
 
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-flag activity-icon color-info"></i>You have completed task #4567.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        Yesterday
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-bell activity-icon color-warning"></i>John Doe has updated the status of a task: #236 to: in progress.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        Yesterday
-                                    </div>
-
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-flash activity-icon color-alert"></i>John Doe has sent a new message to you.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        Friday
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-flash activity-icon color-alert"></i>John Doe has assigned task #546 to you.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        Monday
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-flag activity-icon color-info"></i>You have completed task #4679.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        Monday
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        <i class="glyphicon glyphicon-flag activity-icon color-info"></i>You have completed task #4699.
-                                    </div>
-                                    <div class="col-xs-2">
-                                        Last Week
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
 
                     </div>
