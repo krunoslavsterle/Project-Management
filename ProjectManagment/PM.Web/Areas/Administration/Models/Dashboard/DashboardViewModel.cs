@@ -12,10 +12,7 @@ namespace PM.Web.Areas.Administration.Models
         public int NumOfProjects { get; set; }
         public int NumOfTasks { get; set; }
 
-        // List of activities
         public IEnumerable<DashboardActivityDTO> Activities { get; set; }
-
-        // List of tasks
-
+        public IEnumerable<DashboardTaskDTO> Tasks { get; set; }
     }
 }

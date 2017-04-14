@@ -59,13 +59,33 @@ namespace PM.Web.Areas.Administration.Controllers
                 DateCreated = DateTime.UtcNow.AddDays(-3)
             });
 
+            IList<DashboardTaskDTO> tasks = new List<DashboardTaskDTO>();
+            tasks.Add(new DashboardTaskDTO()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Implement Caching in Service",
+                Project = "KSterle Home",
+                Status = "New",
+                DueDate = DateTime.Now
+            });
+
+            tasks.Add(new DashboardTaskDTO()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Implement factory pattern for DI",
+                Project = "PM project",
+                Status = "In Progress",
+                DueDate = DateTime.Now
+            });
+            
             var dashboard = new DashboardViewModel()
             {
                 UserName = "Denise Watson",
                 UserTitle = "Web Developer",
                 NumOfProjects = 23,
                 NumOfTasks = 121,
-                Activities = activities
+                Activities = activities,
+                Tasks = tasks
             };
 
             return Task.FromResult(dashboard);

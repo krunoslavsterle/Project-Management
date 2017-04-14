@@ -106,42 +106,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Implement caching</td>
-                                        <td>My First Project</td>
-                                        <td>New</td>
-                                        <td>23/7/2017</td>
-                                        <td><a href="javascript:void(0)">View</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Implement ddl on Profile page</td>
-                                        <td>Project 1</td>
-                                        <td>In Progress</td>
-                                        <td>23/7/2017</td>
-                                        <td><a href="javascript:void(0)">View</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Code optimization</td>
-                                        <td>Project 1</td>
-                                        <td>In Progress</td>
-                                        <td>23/7/2017</td>
-                                        <td><a href="javascript:void(0)">View</a></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Implement ddl on Profile page</td>
-                                        <td>Project 1</td>
-                                        <td>In Progress</td>
-                                        <td>23/7/2017</td>
-                                        <td><a href="javascript:void(0)">View</a></td>
-                                    </tr>
+                                    @foreach (var task in Model.Tasks)
+                                    {
+                                        <tr>
+                                            <td>@task.Name</td>
+                                            <td>@task.Project</td>
+                                            <td>@task.Status</td>
+                                            <td>@task.DueDate.ToShortDateString()</td>
+                                            <td><a href="javascript:void(0)">View</a></td>
+                                        </tr>
+                                    }
+                                
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
 
                 </div>
             </div>

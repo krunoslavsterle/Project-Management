@@ -51,8 +51,8 @@
                     <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
                         <li>
                             <div class="button-group">
-                                <button class="btn btn-sm btn-default btn-image" type="button">
-                                    <img src="http://i.pravatar.cc/150" class="">
+                                <button id="user-popup" data-title="Ksterle" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-popover-content="#user-popover" class="btn btn-sm btn-default btn-image" type="button">
+                                    <img src="http://i.pravatar.cc/150">
                                     <span class="caret"></span>
                                 </button>
                             </div>
@@ -70,11 +70,35 @@
     <div class="main-container">
         @RenderBody()       
     </div>
+
+    <div id="user-popover" class="hidden">
+        <div class="popover-heading">Ksterle</div>
+        <div class="popover-body">
+            @using (Html.BeginForm("SignOut", "Security", new { area = "" }, FormMethod.Post, null))
+            {
+                <button type="submit" class="btn btn-sm btn-warning">Logout</button>
+            }
+        </div>
+    </div>  
         
     <!-- js placed at the end of the document so the pages load faster -->
     @Scripts.Render("~/bundles/core/js")
 
 </body>
 </html>
+
+<script>
+    $("[data-toggle=popover]").popover({
+        html: true,
+        content: function () {
+            var content = $(this).attr("data-popover-content");
+            return $(content).children(".popover-body").html();
+        },
+        title: function () {
+            var title = $(this).attr("data-popover-content");
+            return $(title).children(".popover-heading").html();
+        }
+    });
+</script>
 
 
