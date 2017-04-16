@@ -210,9 +210,15 @@ html {
 .img-avatar {
     display: inline-block !important;
     border-radius: 50%;
+    vertical-align: middle;
+}
+.img-sm {
+    width: 35px;
+    height: 35px;
+}
+.img-lg {
     width: 96px;
     height: 96px;
-    vertical-align: middle;
 }
 .block-profile-role {
     text-align: center;
@@ -232,6 +238,23 @@ html {
     font-size: 25px;
     padding-bottom: 15px;
     padding-top: 15px;
+}
+
+.profile-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: #5a7391;
+}
+
+.profile-link:focus, 
+.profile-link:hover {
+    font-size: 16px;
+    font-weight: 600;
+    color: #62a8ea;
+    text-decoration: none;
+}
+.profile-late {
+    color: #ed6b75;
 }
 
 .block-header {
@@ -269,6 +292,19 @@ html {
     margin: auto;
     vertical-align: middle;
     margin-top: 30px;
+}
+.block-team {
+    padding-bottom: 0;
+}
+.block-team ul {
+    list-style: none;
+    padding: 0;
+}
+.block-team>ul>li {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 3px;    
 }
 
 

@@ -1,4 +1,6 @@
-﻿@using PM.Web.Infrastructure.HtmlHelpers
+﻿@model Guid
+
+@using PM.Web.Infrastructure.HtmlHelpers
 
 <!-- SIDE MENU -->
 <div class="site-menubar">
@@ -15,23 +17,27 @@
                 <a href="team.html"><i class="glyphicon glyphicon-user"></i><span>Users</span></a>
             </li>
 
-            <hr />
+            @if (Model != Guid.Empty)
+            {
+                <hr />
 
-            <li>
-                <a class="" href="team.html"><i class="glyphicon glyphicon-stats"></i><span>Overview</span></a>
-            </li>
+                <li>
+                    <a class="" href="team.html"><i class="glyphicon glyphicon-stats"></i><span>Overview</span></a>
+                </li>
 
-            <li>
-                <a href="timeline.html"><i class="glyphicon glyphicon-time"></i><span>Timeline</span></a>
-            </li>
+                <li>
+                    <a href="timeline.html"><i class="glyphicon glyphicon-time"></i><span>Timeline</span></a>
+                </li>
 
-            <li>
-                <a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i><span>Tasks</span></a>
-            </li>
+                <li>
+                    <a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i><span>Tasks</span></a>
+                </li>
 
-            <li>
-                <a href="team.html"><i class="glyphicon glyphicon-user"></i><span>Team</span></a>
-            </li>
+                <li>
+                    <a href="team.html"><i class="glyphicon glyphicon-user"></i><span>Team</span></a>
+                </li>
+            }
+            
         </ul>
     </div>
 </div>

@@ -14,6 +14,7 @@ namespace PM.Web.Areas.Administration.Controllers
     /// Dashboard controller.
     /// </summary>
     /// <seealso cref="PM.Web.Controllers.BaseController" />
+    [Authorize]
     public class DashboardController : BaseController
     {
         #region Constructors
@@ -28,6 +29,10 @@ namespace PM.Web.Areas.Administration.Controllers
 
         #region Actions
 
+        /// <summary>
+        /// Index GET action.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ActionName("Index")]
         public async Task<ActionResult> IndexAsync()

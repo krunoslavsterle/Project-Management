@@ -43,7 +43,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
         #endregion Constructors
 
-        #region Methods
+        #region Actions
 
         /// <summary>
         /// Projects async GET action.
@@ -53,10 +53,10 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var domainList = await projectService.GetProjectsAsync();
-            var vm = Mapper.Map<IList<ProjectViewModel>>(domainList);
+            //var domainList = await projectService.GetProjectsAsync();
+            //var vm = Mapper.Map<IList<ProjectViewModel>>(domainList);
 
-            return View("Projects", vm);
+            return View("Projects");
         }
 
         /// <summary>
@@ -136,6 +136,6 @@ namespace PM.Web.Areas.Administration.Controllers
             return View("Timeline");
         }
 
-        #endregion Methods
+        #endregion Actions
     }
 }
