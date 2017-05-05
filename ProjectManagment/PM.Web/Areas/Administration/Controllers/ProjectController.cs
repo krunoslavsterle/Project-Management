@@ -1,14 +1,12 @@
 ﻿using PM.Common;
-using PM.Common.Filters;
 using PM.Model.Common;
 using PM.Service.Common;
-using PM.Web.Areas.Administration.Models;
 using PM.Web.Controllers;
 using System;
-using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using PM.Web.Administration.Project;
+using System.Net;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -58,18 +56,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
             return View("Projects");
         }
-
-        /// <summary>
-        /// New project async GET action.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [ActionName("NewProject")]
-        public Task<ViewResult> NewProjectAsync()
-        {
-            return Task.FromResult(View());
-        }
-
+        
         /// <summary>
         /// New project async POST action.
         /// </summary>
@@ -77,8 +64,8 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ActionName("NewProject")]
-        public async Task<ActionResult> NewProjectAsync(CreateProjectViewModel vm)
+        [ActionName("CreateProject")]
+        public async Task<ActionResult> CreateProjectAsync(CreateProjectViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -94,12 +81,17 @@ namespace PM.Web.Areas.Administration.Controllers
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return Json(new { success = false, responseText = "There was an error" }, JsonRequestBehavior.AllowGet);
                 }
-                
-                return RedirectToAction("Projects");
+
+                Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(new { success = true, responseText = "Project is added successfuly." }, JsonRequestBehavior.AllowGet);
             }
-            return View("NewProject", vm);
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            vm.Description = "test";
+            return PartialView("_NewProjectModal", vm);
         }
 
         /// <summary>

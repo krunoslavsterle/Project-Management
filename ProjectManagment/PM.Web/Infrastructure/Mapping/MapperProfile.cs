@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PM.Model.Common;
 using PM.Web.Administration.Models;
-using PM.Web.Areas.Administration.Models;
+using PM.Web.Administration.Project;
 using PM.Web.Identity;
 using System;
 

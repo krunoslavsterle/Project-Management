@@ -1,0 +1,54 @@
+﻿@model PM.Web.Administration.Project.CreateProjectViewModel
+
+@using (Ajax.BeginForm("CreateProject", "Project", new { area = "Administration" },
+    new AjaxOptions()
+    {
+        HttpMethod = "POST",        
+        OnBegin = "console.log('begin');",
+        OnSuccess = "console.log('success');",
+        OnFailure = "console.log('failur');",
+        OnComplete = "console.log('complete');",
+        UpdateTargetId = "new-prosdfdfject"
+    }, null))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal fade" id="new-project-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <!-- MODAL HEADER -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Project</h4>
+                </div>
+
+                <!-- MODAL BODY -->
+                <div class="modal-body">
+                    <div class="create-task">
+
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.Name, "Title")
+                            @Html.TextBoxFor(p => p.Name, new { @class= "form-control", placeholder= "Enter project title" })
+                            @Html.ValidationMessageFor(p => p.Name)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.Name, "Description")
+                            @Html.TextBoxFor(p => p.Description, new { @class = "form-control", placeholder = "Enter project description" })
+                            @Html.ValidationMessageFor(p => p.Description)
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Create Task</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PM.Web.Areas.Administration.Models
+namespace PM.Web.Administration.Project
 {
     /// <summary>
     /// Project view model.

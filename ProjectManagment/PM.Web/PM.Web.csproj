@@ -212,6 +212,16 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
     <Content Include="Web.config">
@@ -232,6 +242,7 @@
     <Compile Include="Areas\Administration\Models\Dashboard\DashboardTaskDTO.cs" />
     <Compile Include="Areas\Administration\Models\Dashboard\DashboardViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\Project\ProjectPreviewViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\CreateTaskViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\EditTaskViewModel.cs" />
@@ -267,7 +278,7 @@
     <Content Include="Areas\Administration\Views\web.config" />
     <Content Include="Areas\Administration\Views\Project\Projects.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Administration\Views\Project\NewProject.cshtml" />
+    <Content Include="Areas\Administration\Views\Project\_NewProjectModal.cshtml" />
     <Content Include="Areas\Administration\Views\Project\Project.cshtml" />
     <Content Include="Areas\Administration\Views\Task\List.cshtml" />
     <Content Include="Areas\Administration\Views\Task\New.cshtml" />

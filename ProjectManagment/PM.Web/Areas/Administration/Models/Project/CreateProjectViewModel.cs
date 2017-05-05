@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PM.Web.Areas.Administration.Models
-{
+namespace PM.Web.Administration.Project
+{ 
     /// <summary>
     /// Create project view model.
     /// </summary>

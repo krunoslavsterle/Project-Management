@@ -8,7 +8,10 @@ namespace PM.Web.App_Start
         {
             bundles.Add(new ScriptBundle("~/bundles/core/js").Include(
                 "~/Scripts/bootstrap/bootstrap.js",
-                "~/Scripts/jquery/jquery-{version}.js"));
+                "~/Scripts/jquery/jquery-{version}.js",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js"));
             
             bundles.Add(new StyleBundle("~/Content/landing-page/css").Include(
                 "~/Content/landing.css"));
