@@ -27,12 +27,13 @@ namespace PM.Web
                 .ReverseMap()
                 .ForMember(d => d.RoleId, opt => opt.MapFrom(v => v.Id));
 
-            #endregion Identity models
+            #endregion Identity models  
 
             #region Project models
 
             CreateMap<IProjectPoco, CreateProjectViewModel>().ReverseMap();
             CreateMap<IProjectPoco, ProjectViewModel>().ReverseMap();
+            CreateMap<IProjectPoco, ProjectPreviewViewModel>().ReverseMap();
 
             #endregion Project models
 

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using PM.Web.Administration.Project;
 using System.Net;
+using System.Collections.Generic;
+using PM.Web.Infrastructure;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -51,10 +53,12 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            //var domainList = await projectService.GetProjectsAsync();
-            //var vm = Mapper.Map<IList<ProjectViewModel>>(domainList);
+            var domainList = await projectService.GetProjectsAsync();
+            var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
+            var vm = new ProjectsViewModel();
+            vm.Projects = vmProjects;
 
-            return View("Projects");
+            return View("Projects", vm);
         }
         
         /// <summary>
@@ -78,15 +82,17 @@ namespace PM.Web.Areas.Administration.Controllers
                 try
                 {
                     await this.projectService.InsertProjectAsync(domainProject);
+                    var domainList = await projectService.GetProjectsAsync();
+                    var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return Json(new { success = true, responseText = "Project is added successfuly.", html = this.RenderView("_ProjectsList", vmProjects) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
                     Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     return Json(new { success = false, responseText = "There was an error" }, JsonRequestBehavior.AllowGet);
                 }
-
-                Response.StatusCode = (int)HttpStatusCode.OK;
-                return Json(new { success = true, responseText = "Project is added successfuly." }, JsonRequestBehavior.AllowGet);
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;

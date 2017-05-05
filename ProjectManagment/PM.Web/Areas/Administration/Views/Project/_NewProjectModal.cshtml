@@ -4,11 +4,9 @@
     new AjaxOptions()
     {
         HttpMethod = "POST",        
-        OnBegin = "console.log('begin');",
-        OnSuccess = "console.log('success');",
-        OnFailure = "console.log('failur');",
-        OnComplete = "console.log('complete');",
-        UpdateTargetId = "new-prosdfdfject"
+        OnSuccess = "onSuccess(data);",
+        OnFailure = "onError(data)",
+        LoadingElementId = "loader"
     }, null))
 {
     @Html.AntiForgeryToken()
@@ -52,3 +50,23 @@
         </div>
     </div>
 }
+
+<script>
+
+    function onSuccess(data) {
+        
+        $('#new-project-modal').modal('hide');
+        Message.successDefault(data.responseText);
+
+        // Check if returned html variable contains value.
+        if (data.html) {
+            $('#projects-list').html(data.html);
+        }
+    }
+
+    function onError(data) {
+
+        Message.errorDefault(data.responseText);
+    }
+
+</script>

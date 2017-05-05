@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PM.Web.Administration.Project.ProjectPreviewViewModel>
+
+@if (Model != null)
+{
+    foreach (var project in Model)
+    {
+        <div class="col-md-3">
+            <div class="widget">
+                <div class="block block-project">
+                    <a href="javascript:void(0);" class="profile-link"><h3>@project.Name</h3></a>
+                </div>
+                <div class="block block-team text-center">
+                    <ul>
+                        <li>
+                            <img class="img-avatar img-sm" src="http://i.pravatar.cc/300" alt="">
+                        </li>
+                        <li>
+                            <img class="img-avatar img-sm" src="http://i.pravatar.cc/300" alt="">
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="block block-profile-footer">
+                    <div class="row text-center">
+                        <div class="col-xs-4">
+                            <a href="javascript:void(0);" class="profile-link">
+                                <h3>@project.TaskCount</h3>
+                                <h5>Tasks</h5>
+                            </a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="javascript:void(0);" class="profile-link">
+                                <h3>@project.CompletedTaskCount</h3>
+                                <h5>Completed</h5>
+                            </a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="javascript:void(0);" class="profile-link profile-late">
+                                <h3>@project.LateTaskCount</h3>
+                                <h5>Late</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Project list is 'null'</p>
+}

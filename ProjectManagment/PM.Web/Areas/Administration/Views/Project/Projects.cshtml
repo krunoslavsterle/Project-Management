@@ -1,4 +1,5 @@
-﻿
+﻿@model PM.Web.Administration.Project.ProjectsViewModel
+
 @{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Projects";
@@ -9,7 +10,7 @@
 
 <!-- ADD NEW PROJECT MODAL -->
 <div id="new-project">
-    @Html.Partial("_NewProjectModal")
+    @Html.Partial("_NewProjectModal", new PM.Web.Administration.Project.CreateProjectViewModel())
 </div>
 
 <!-- PAGE -->
@@ -27,50 +28,9 @@
         </div>
     </div>
 
-    <div class="page-content">
-
-        <div class="col-md-3">
-            <div class="widget">
-                <div class="block block-project">
-                    <a href="javascript:void(0);" class="profile-link"><h3>Ksterle - Project1</h3></a>
-                </div>
-                <div class="block block-team text-center">
-                    <ul>
-                        <li>
-                            <img class="img-avatar img-sm" src="http://i.pravatar.cc/300" alt="">
-                        </li>
-                        <li>
-                            <img class="img-avatar img-sm" src="http://i.pravatar.cc/300" alt="">
-                        </li>
-                       
-                    </ul>
-                </div>
-
-                <div class="block block-profile-footer">
-                    <div class="row text-center">
-                        <div class="col-xs-4">
-                            <a href="javascript:void(0);" class="profile-link">
-                                <h3>254</h3>
-                                <h5>Tasks</h5>
-                            </a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="javascript:void(0);" class="profile-link">
-                                <h3>176</h3>
-                                <h5>Completed</h5>
-                            </a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="javascript:void(0);" class="profile-link profile-late">
-                                <h3>16</h3>
-                                <h5>Late</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div id="projects-list" class="page-content">
+        @Html.Partial("_ProjectsList", Model.Projects)
     </div>
+
 </div>
                 

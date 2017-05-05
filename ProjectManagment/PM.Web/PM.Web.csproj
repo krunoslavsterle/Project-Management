@@ -205,6 +205,8 @@
     <Content Include="Content\img\ipad.png" />
     <Content Include="Content\img\ui-zac.jpg" />
     <Content Include="Content\img\user.gif" />
+    <Content Include="Content\iziToast.css" />
+    <Content Include="Content\iziToast.min.css" />
     <Content Include="Content\landing.css" />
     <Content Include="Content\site.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -212,7 +214,10 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Areas\Administration\Views\Project\_ProjectsList.cshtml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\iziToast.js" />
+    <Content Include="Scripts\iziToast.min.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -224,6 +229,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -243,6 +249,7 @@
     <Compile Include="Areas\Administration\Models\Dashboard\DashboardViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectPreviewViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\Project\ProjectsViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\CreateTaskViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Task\EditTaskViewModel.cs" />
@@ -261,6 +268,7 @@
     <Compile Include="Identity\IIdentityUser.cs" />
     <Compile Include="Identity\RoleStore.cs" />
     <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Infrastructure\Extensions\ControllerExtensions.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="Infrastructure\Mapping\MapperProfile.cs" />
     <Compile Include="Models\LoginViewModel.cs" />

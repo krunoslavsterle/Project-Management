@@ -11,7 +11,9 @@ namespace PM.Web.App_Start
                 "~/Scripts/jquery/jquery-{version}.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.validate.js",
-                "~/Scripts/jquery.validate.unobtrusive.js"));
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/iziToast.js",
+                "~/Scripts/site.js"));
             
             bundles.Add(new StyleBundle("~/Content/landing-page/css").Include(
                 "~/Content/landing.css"));
@@ -21,7 +23,8 @@ namespace PM.Web.App_Start
                 "~/Content/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/site-style/css").Include(
-                "~/Content/site.css" ));
+                "~/Content/site.css",
+                "~/Content/iziToast.css"));
         }
             
     }
