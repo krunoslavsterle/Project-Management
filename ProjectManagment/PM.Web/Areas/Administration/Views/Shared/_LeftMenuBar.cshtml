@@ -22,7 +22,7 @@
                 <hr />
 
                 <li>
-                    <a class="" href="team.html"><i class="glyphicon glyphicon-stats"></i><span>Overview</span></a>
+                    @Html.MenuItemLink("Overview", "Overview", "Project", new { pId = PM.Common.ShortGuid.Encode(Model) }, "glyphicon glyphicon-stats")
                 </li>
 
                 <li>

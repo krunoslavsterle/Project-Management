@@ -14,7 +14,10 @@ namespace PM.Web.App_Start
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/iziToast.js",
                 "~/Scripts/site.js"));
-            
+
+            bundles.Add(new ScriptBundle("~/bundles/chart/js").Include(
+                "~/Scripts/Chart.js"));
+
             bundles.Add(new StyleBundle("~/Content/landing-page/css").Include(
                 "~/Content/landing.css"));
 
@@ -25,7 +28,6 @@ namespace PM.Web.App_Start
             bundles.Add(new StyleBundle("~/Content/site-style/css").Include(
                 "~/Content/site.css",
                 "~/Content/iziToast.css"));
-        }
-            
+        }            
     }
 }

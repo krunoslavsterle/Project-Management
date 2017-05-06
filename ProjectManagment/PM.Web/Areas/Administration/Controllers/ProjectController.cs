@@ -106,19 +106,26 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="projectId">The project identifier.</param>
         /// <returns></returns>
         [HttpGet]
-        [ActionName("Project")]
-        public async Task<ViewResult> ProjectAsync(string pId)
+        [ActionName("Overview")]
+        public async Task<ViewResult> OverviewAsync(string pId)
         {
             if (String.IsNullOrEmpty(pId))
                 throw new Exception("The parameter [pId] is null or empty.");
 
             Guid projectId = ShortGuid.Decode(pId);                  
             var project = await projectService.GetProjectAsync(projectId);
+            var vmProject = Mapper.Map<ProjectPreviewViewModel>(project);
+
+            var vm = new OverviewViewModel();
+            vm.Project = vmProject;
+            vm.Project.TaskCount = 10;
+            vm.Project.LateTaskCount = 2;
+            vm.Project.CompletedTaskCount = 4;
 
             ViewBag.Title = project.Name;
             ViewBag.ProjectId = projectId;
 
-            return View("Project");
+            return View("Overview", vm);
         }
 
         /// <summary>

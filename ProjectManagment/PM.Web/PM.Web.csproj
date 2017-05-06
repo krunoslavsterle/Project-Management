@@ -216,6 +216,8 @@
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Areas\Administration\Views\Project\_ProjectsList.cshtml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\iziToast.js" />
     <Content Include="Scripts\iziToast.min.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
@@ -248,6 +250,7 @@
     <Compile Include="Areas\Administration\Models\Dashboard\DashboardTaskDTO.cs" />
     <Compile Include="Areas\Administration\Models\Dashboard\DashboardViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\CreateProjectViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\Project\OverviewViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectPreviewViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectsViewModel.cs" />
     <Compile Include="Areas\Administration\Models\Project\ProjectViewModel.cs" />
@@ -287,7 +290,7 @@
     <Content Include="Areas\Administration\Views\Project\Projects.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Project\_NewProjectModal.cshtml" />
-    <Content Include="Areas\Administration\Views\Project\Project.cshtml" />
+    <Content Include="Areas\Administration\Views\Project\Overview.cshtml" />
     <Content Include="Areas\Administration\Views\Task\List.cshtml" />
     <Content Include="Areas\Administration\Views\Task\New.cshtml" />
     <Content Include="fonts\fontawesome-webfont.eot" />

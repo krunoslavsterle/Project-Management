@@ -16,7 +16,7 @@
             <div class="modal-content">
 
                 <!-- MODAL HEADER -->
-                <div class="modal-header">
+                <div class="modal-header modal-header-success">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add New Project</h4>
                 </div>
@@ -54,19 +54,22 @@
 <script>
 
     function onSuccess(data) {
-        
+
+        $('#@Html.IdFor(p => p.Name)').val('');
+        $('#@Html.IdFor(p => p.Description)').val('');
+
         $('#new-project-modal').modal('hide');
-        Message.successDefault(data.responseText);
+            Message.successDefault(data.responseText);
 
-        // Check if returned html variable contains value.
-        if (data.html) {
+            // Check if returned html variable contains value.
+            if (data.html) {
             $('#projects-list').html(data.html);
+            }
         }
-    }
 
-    function onError(data) {
+        function onError(data) {
 
-        Message.errorDefault(data.responseText);
-    }
+            Message.errorDefault(data.responseText);
+        }
 
 </script>
