@@ -19,11 +19,11 @@ namespace PM.DAL
         {
             this.Claims = new HashSet<Claim>();
             this.ExternalLogins = new HashSet<ExternalLogin>();
+            this.LeaderForProjects = new HashSet<Project>();
+            this.Projects = new HashSet<ProjectUser>();
             this.AssignedTasks = new HashSet<Task>();
             this.CreatedTasks = new HashSet<Task>();
-            this.Roles = new HashSet<Role>();
-            this.Projects = new HashSet<Project>();
-            this.ProjectUsers = new HashSet<ProjectUser>();
+            this.Roles = new HashSet<UserRole>();
         }
     
         public System.Guid UserId { get; set; }
@@ -39,14 +39,14 @@ namespace PM.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExternalLogin> ExternalLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> LeaderForProjects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectUser> Projects { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> AssignedTasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> CreatedTasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Projects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectUser> ProjectUsers { get; set; }
+        public virtual ICollection<UserRole> Roles { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace PM.Service
 
         private readonly IUserRepository userRepository;
         private readonly IRoleRepository roleRepository;
+        private readonly IUserRoleRepository userRoleRepository;
         private readonly IExternalLoginRepository externalLoginRepository;
         private readonly ICacheProvider cacheProvider;
 
@@ -36,11 +37,12 @@ namespace PM.Service
         /// <param name="roleRepository">The role repository.</param>
         /// <param name="externalLoginRepository">The external login repository.</param>
         /// <param name="cacheProvider">The cache provider.</param>
-        public IdentityService(IUserRepository userRepository, IRoleRepository roleRepository, IExternalLoginRepository externalLoginRepository, ICacheProvider cacheProvider)
+        public IdentityService(IUserRepository userRepository, IRoleRepository roleRepository, IExternalLoginRepository externalLoginRepository, IUserRoleRepository userRoleRepository, ICacheProvider cacheProvider)
         {
             this.userRepository = userRepository;
             this.externalLoginRepository = externalLoginRepository;
             this.roleRepository = roleRepository;
+            this.userRoleRepository = userRoleRepository;
             this.cacheProvider = cacheProvider;
         }
 
@@ -103,6 +105,11 @@ namespace PM.Service
                 return userRepository.GetById(id);
             },
             DateTimeOffset.MaxValue);
+        }
+
+        public Task<IUserPoco> GetOneUser(Guid id, params string[] includeProperties)
+        {
+            return userRepository.GetOneAsync(p => p.UserId == id, includeProperties);
         }
 
         /// <summary>
@@ -235,6 +242,16 @@ namespace PM.Service
         }
                 
         #endregion Role methods
+
+        public virtual Task InsertUserRole(IUserRolePoco userRole)
+        {
+            return userRoleRepository.InsertAsync(userRole);
+        }
+
+        public virtual IUserRolePoco CreateUserRole()
+        {
+            return roleRepository.CreateUserRole();
+        }
 
         private async Task<bool> TryExecuteTaskAsync(System.Threading.Tasks.Task task)
         {

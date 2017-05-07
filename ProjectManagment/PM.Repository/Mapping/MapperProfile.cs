@@ -22,13 +22,25 @@ namespace PM.Repository
                 .ForMember(ent => ent.Company, model => model.Ignore());
 
             CreateMap<RolePoco, IRolePoco>().ReverseMap();
-            CreateMap<Role, IRolePoco>().ReverseMap();
+            CreateMap<Role, IRolePoco>()
+                .ReverseMap()
+                .ForMember(ent => ent.UserRoles, model => model.Ignore());
 
             CreateMap<ExternalLogin, IExternalLoginPoco>().ReverseMap();
             CreateMap<ExternalLoginPoco, IExternalLoginPoco>().ReverseMap();
 
             CreateMap<Claim, IClaimPoco>().ReverseMap();
             CreateMap<ClaimPoco, IClaimPoco>().ReverseMap();
+
+            CreateMap<PM.Model.UserRolePoco, PM.Model.Common.IUserRolePoco>().ReverseMap();
+            CreateMap<DAL.UserRole, IUserRolePoco>()
+                .ForMember(ent => ent.Role, model => model.Ignore())
+                .ForMember(ent => ent.User, model => model.Ignore())
+                .ReverseMap()
+                .ForMember(ent => ent.Role, model => model.Ignore())
+                .ForMember(ent => ent.User, model => model.Ignore()); 
+
+
 
             #endregion Identity models
 

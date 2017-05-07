@@ -49,6 +49,7 @@
     <Compile Include="Identity\ExternalLoginPoco.cs" />
     <Compile Include="Identity\RolePoco.cs" />
     <Compile Include="Identity\UserPoco.cs" />
+    <Compile Include="Identity\UserRolePoco.cs" />
     <Compile Include="Models\CompanyPoco.cs" />
     <Compile Include="Models\ProjectPoco.cs" />
     <Compile Include="Models\ProjectUserPoco.cs" />

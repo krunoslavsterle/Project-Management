@@ -5,21 +5,20 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using PagedList;
 using PM.Model.Common;
-using PM.Repository.Common;
 using PM.DAL;
+using PM.Repository.Common;
 using PM.Common;
-using PM.Model;
 
 namespace PM.Repository
 {
     /// <summary>
-    /// Role repository.
+    /// UserRole repository.
     /// </summary>
-    public class RoleRepository : IRoleRepository
+    public class UserRoleRepository : IUserRoleRepository
     {
         #region Fields
 
-        private readonly IGenericRepository<Role, IRolePoco> genericRepository;
+        private readonly IGenericRepository<UserRole, IUserRolePoco> genericRepository;
         private readonly IMapper mapper;
 
         #endregion Fields
@@ -27,11 +26,11 @@ namespace PM.Repository
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoleRepository"/> class.
+        /// Initializes a new instance of the <see cref="UserRoleRepository"/> class.
         /// </summary>
         /// <param name="genericRepository">The generic repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public RoleRepository(IGenericRepository<Role, IRolePoco> genericRepository, IMapper mapper)
+        public UserRoleRepository(IGenericRepository<UserRole, IUserRolePoco> genericRepository, IMapper mapper)
         {
             this.genericRepository = genericRepository;
             this.mapper = mapper;
@@ -42,196 +41,179 @@ namespace PM.Repository
         #region Methods
 
         /// <summary>
-        /// Creates a instance of the <see cref="IRolePoco"/> class.
-        /// </summary>
-        /// <returns>Instance of the <see cref="IRolePoco"/> class.</returns>
-        public virtual IRolePoco CreateRole()
-        {
-            return new RolePoco();
-        }
-
-        public virtual IUserRolePoco CreateUserRole()
-        {
-            var userRole = new UserRolePoco();
-            userRole.Id = Guid.NewGuid();
-
-            return userRole;
-        }
-
-        /// <summary>
-        /// Gets a list of all <see cref="IRolePoco"/> models.
+        /// Gets a list of all <see cref="IUserRolePoco"/> models.
         /// </summary>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models.</returns>
-        public virtual IEnumerable<IRolePoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="IUserRolePoco"/> models.</returns>
+        public virtual IEnumerable<IUserRolePoco> GetAll(ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = genericRepository.GetAll(null, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<IUserRolePoco>>(entities);
         }
 
         /// <summary>
-        /// Gets a list of all <see cref="IRolePoco"/> models asynchronously.
+        /// Gets a list of all <see cref="IUserRolePoco"/> models asynchronously.
         /// </summary>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models asynchronously.</returns>
-        public virtual async Task<IEnumerable<IRolePoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="IUserRolePoco"/> models asynchronously.</returns>
+        public virtual async Task<IEnumerable<IUserRolePoco>> GetAllAsync(ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = await genericRepository.GetAllAsync(null, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<IUserRolePoco>>(entities);
         }
 
         /// <summary>
-        /// Gets a paged list of all <see cref="IRolePoco"/> models.
+        /// Gets a paged list of all <see cref="IUserRolePoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of all <see cref="IRolePoco"/> models.</returns>
-        public virtual IPagedList<IRolePoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of all <see cref="IUserRolePoco"/> models.</returns>
+        public virtual IPagedList<IUserRolePoco> GetAllPaged(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             int count = genericRepository.GetCount();
             var entities = genericRepository.GetAll(pagingParameters, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<IUserRolePoco>(mapper.Map<IEnumerable<IUserRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets a paged list of all <see cref="IRolePoco"/> models asynchronously.
+        /// Gets a paged list of all <see cref="IUserRolePoco"/> models asynchronously.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of all <see cref="IRolePoco"/> models asynchronously.</returns>
-        public virtual async Task<IPagedList<IRolePoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of all <see cref="IUserRolePoco"/> models asynchronously.</returns>
+        public virtual async Task<IPagedList<IUserRolePoco>> GetAllPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             int count = await genericRepository.GetCountAsync();
             var entities = await genericRepository.GetAllAsync(pagingParameters, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<IUserRolePoco>(mapper.Map<IEnumerable<IUserRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets the one <see cref="IRolePoco"/> model asynchronously.
+        /// Gets the one <see cref="IUserRolePoco"/> model asynchronously.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>One <see cref="IRolePoco"/> asynchronously.</returns>
-        public virtual async Task<IRolePoco> GetOneAsync(Expression<Func<IRolePoco, bool>> filter = null, params string[] includeProperties)
+        /// <returns>One <see cref="IUserRolePoco"/> asynchronously.</returns>
+        public virtual async Task<IUserRolePoco> GetOneAsync(Expression<Func<IUserRolePoco, bool>> filter = null, params string[] includeProperties)
         {
             var entity = await genericRepository.GetOneAsync(filter, includeProperties);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<IUserRolePoco>(entity);
         }
 
         /// <summary>
-        /// Gets the one <see cref="IRolePoco"/> model.
+        /// Gets the one <see cref="IUserRolePoco"/> model.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns></returns>
-        public virtual IRolePoco GetOne(Expression<Func<IRolePoco, bool>> filter = null, params string[] includeProperties)
+        public virtual IUserRolePoco GetOne(Expression<Func<IUserRolePoco, bool>> filter = null, params string[] includeProperties)
         {
             var entity = genericRepository.GetOne(filter, includeProperties);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<IUserRolePoco>(entity);
         }
 
         /// <summary>
-        /// Gets the list of <see cref="IRolePoco"/> models.
+        /// Gets the list of <see cref="IUserRolePoco"/> models.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models.</returns>
-        public virtual IEnumerable<IRolePoco> Get(Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="IUserRolePoco"/> models.</returns>
+        public virtual IEnumerable<IUserRolePoco> Get(Expression<Func<IUserRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = genericRepository.Get(null, filter, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<IUserRolePoco>>(entities);
         }
 
         /// <summary>
-        /// Gets the list of <see cref="IRolePoco"/> models asynchronous.
+        /// Gets the list of <see cref="IUserRolePoco"/> models asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>List of <see cref="IRolePoco"/> models asynchronous.</returns>
-        public virtual async Task<IEnumerable<IRolePoco>> GetAsync(Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>List of <see cref="IUserRolePoco"/> models asynchronous.</returns>
+        public virtual async Task<IEnumerable<IUserRolePoco>> GetAsync(Expression<Func<IUserRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var entities = await genericRepository.GetAsync(null, filter, orderBy, includeProperties);
-            return mapper.Map<IEnumerable<IRolePoco>>(entities);
+            return mapper.Map<IEnumerable<IUserRolePoco>>(entities);
         }
 
         /// <summary>
-        /// Gets the paged list of <see cref="IRolePoco"/> models.
+        /// Gets the paged list of <see cref="IUserRolePoco"/> models.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of <see cref="IRolePoco"/> models.</returns>
-        public virtual IPagedList<IRolePoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of <see cref="IUserRolePoco"/> models.</returns>
+        public virtual IPagedList<IUserRolePoco> GetPaged(IPagingParameters pagingParameters, Expression<Func<IUserRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var count = genericRepository.GetCount();
             var entities = genericRepository.Get(pagingParameters, filter, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<IUserRolePoco>(mapper.Map<IEnumerable<IUserRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets the paged list of <see cref="IRolePoco"/> models asynchronous.
+        /// Gets the paged list of <see cref="IUserRolePoco"/> models asynchronous.
         /// </summary>
         /// <param name="pagingParameters">The paging parameters.</param>
         /// <param name="filter">The filter expression.</param>
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
-        /// <returns>Paged list of <see cref="IRolePoco"/> models asynchronous.</returns>
-        public virtual async Task<IPagedList<IRolePoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        /// <returns>Paged list of <see cref="IUserRolePoco"/> models asynchronous.</returns>
+        public virtual async Task<IPagedList<IUserRolePoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IUserRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
             var count = await genericRepository.GetCountAsync();
             var entities = await genericRepository.GetAsync(pagingParameters, filter, orderBy, includeProperties);
 
-            return new StaticPagedList<IRolePoco>(mapper.Map<IEnumerable<IRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
+            return new StaticPagedList<IUserRolePoco>(mapper.Map<IEnumerable<IUserRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> model by identifier.
+        /// Gets the <see cref="IUserRolePoco"/> model by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IRolePoco"/>.</returns>
-        public virtual IRolePoco GetById(Guid id)
+        /// <returns><see cref="IUserRolePoco"/>.</returns>
+        public virtual IUserRolePoco GetById(Guid id)
         {
             var entity = genericRepository.GetById(id);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<IUserRolePoco>(entity);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> model by identifier asynchronous.
+        /// Gets the <see cref="IUserRolePoco"/> model by identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns><see cref="IRolePoco"/>.</returns>
-        public virtual async Task<IRolePoco> GetByIdAsync(Guid id)
+        /// <returns><see cref="IUserRolePoco"/>.</returns>
+        public virtual async Task<IUserRolePoco> GetByIdAsync(Guid id)
         {
             var entity = await genericRepository.GetByIdAsync(id);
-            return mapper.Map<IRolePoco>(entity);
+            return mapper.Map<IUserRolePoco>(entity);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> count.
+        /// Gets the <see cref="IUserRolePoco"/> count.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
-        /// <returns><see cref="IRolePoco"/> count.</returns>
-        public virtual int GetCount(Expression<Func<IRolePoco, bool>> filter = null)
+        /// <returns><see cref="IUserRolePoco"/> count.</returns>
+        public virtual int GetCount(Expression<Func<IUserRolePoco, bool>> filter = null)
         {
             return genericRepository.GetCount(filter);
         }
 
         /// <summary>
-        /// Gets the <see cref="IRolePoco"/> count asynchronous.
+        /// Gets the <see cref="IUserRolePoco"/> count asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>
-        /// <returns><see cref="IRolePoco"/> count asynchronous.</returns>
-        public virtual Task<int> GetCountAsync(Expression<Func<IRolePoco, bool>> filter = null)
+        /// <returns><see cref="IUserRolePoco"/> count asynchronous.</returns>
+        public virtual Task<int> GetCountAsync(Expression<Func<IUserRolePoco, bool>> filter = null)
         {
             return genericRepository.GetCountAsync(filter);
         }
@@ -241,7 +223,7 @@ namespace PM.Repository
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual bool GetIsExists(Expression<Func<IRolePoco, bool>> filter = null)
+        public virtual bool GetIsExists(Expression<Func<IUserRolePoco, bool>> filter = null)
         {
             return genericRepository.GetIsExists(filter);
         }
@@ -251,91 +233,91 @@ namespace PM.Repository
         /// </summary>
         /// <param name="filter">The filter expression.</param>
         /// <returns>True if sequence contains at least one entity.</returns>
-        public virtual Task<bool> GetIsExistsAsync(Expression<Func<IRolePoco, bool>> filter = null)
+        public virtual Task<bool> GetIsExistsAsync(Expression<Func<IUserRolePoco, bool>> filter = null)
         {
             return genericRepository.GetIsExistsAsync(filter);
         }
 
         /// <summary>
-        /// Inserts the specified <see cref="IRolePoco"/> model into the database.
+        /// Inserts the specified <see cref="IUserRolePoco"/> model into the database.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void Insert(IRolePoco model)
+        public virtual void Insert(IUserRolePoco model)
         {
-            genericRepository.Insert(mapper.Map<Role>(model));
+            genericRepository.Insert(mapper.Map<UserRole>(model));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Inserts the list of <see cref="IRolePoco"/> models into the database.
+        /// Inserts the list of <see cref="IUserRolePoco"/> models into the database.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual void Insert(IList<IRolePoco> models)
+        public virtual void Insert(IList<IUserRolePoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<UserRole>>(models);
             entities.ForEach(p => genericRepository.Insert(p));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Inserts the specified <see cref="IRolePoco"/> model into the database asynchronous.
+        /// Inserts the specified <see cref="IUserRolePoco"/> model into the database asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual System.Threading.Tasks.Task InsertAsync(IRolePoco model)
+        public virtual System.Threading.Tasks.Task InsertAsync(IUserRolePoco model)
         {
-            genericRepository.Insert(mapper.Map<Role>(model));
+            genericRepository.Insert(mapper.Map<UserRole>(model));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Inserts the list of <see cref="IRolePoco"/> models into the database asynchronous.
+        /// Inserts the list of <see cref="IUserRolePoco"/> models into the database asynchronous.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual System.Threading.Tasks.Task InsertAsync(IList<IRolePoco> models)
+        public virtual System.Threading.Tasks.Task InsertAsync(IList<IUserRolePoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<UserRole>>(models);
             entities.ForEach(p => genericRepository.Insert(p));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Updates the specified <see cref="IRolePoco"/> model.
+        /// Updates the specified <see cref="IUserRolePoco"/> model.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void Update(IRolePoco model)
+        public virtual void Update(IUserRolePoco model)
         {
-            genericRepository.Update(mapper.Map<Role>(model));
+            genericRepository.Update(mapper.Map<UserRole>(model));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Updates the list of <see cref="IRolePoco"/> models.
+        /// Updates the list of <see cref="IUserRolePoco"/> models.
         /// </summary>
         /// <param name="model">The list of models.</param>
-        public virtual void Update(IList<IRolePoco> models)
+        public virtual void Update(IList<IUserRolePoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<UserRole>>(models);
             entities.ForEach(p => genericRepository.Update(p));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Updates the specified <see cref="IRolePoco"/> model asynchronous.
+        /// Updates the specified <see cref="IUserRolePoco"/> model asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual System.Threading.Tasks.Task UpdateAsync(IRolePoco model)
+        public virtual System.Threading.Tasks.Task UpdateAsync(IUserRolePoco model)
         {
-            genericRepository.Update(mapper.Map<Role>(model));
+            genericRepository.Update(mapper.Map<UserRole>(model));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Updates the list of <see cref="IRolePoco"/> models asynchronous.
+        /// Updates the list of <see cref="IUserRolePoco"/> models asynchronous.
         /// </summary>
         /// <param name="model">The list of models.</param>
-        public virtual System.Threading.Tasks.Task UpdateAsync(IList<IRolePoco> models)
+        public virtual System.Threading.Tasks.Task UpdateAsync(IList<IUserRolePoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<UserRole>>(models);
             entities.ForEach(p => genericRepository.Update(p));
             return genericRepository.SaveAsync();
         }
@@ -381,12 +363,12 @@ namespace PM.Repository
         }
 
         /// <summary>
-        /// Deletes the specified <see cref="IRolePoco"/> model.
+        /// Deletes the specified <see cref="IUserRolePoco"/> model.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void Delete(IRolePoco model)
+        public virtual void Delete(IUserRolePoco model)
         {
-            genericRepository.Delete(mapper.Map<Role>(model));
+            genericRepository.Delete(mapper.Map<UserRole>(model));
             genericRepository.Save();
         }
 
@@ -394,20 +376,20 @@ namespace PM.Repository
         /// Deletes the list of models.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual void Delete(IList<IRolePoco> models)
+        public virtual void Delete(IList<IUserRolePoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<UserRole>>(models);
             entities.ForEach(p => genericRepository.Delete(p));
             genericRepository.Save();
         }
 
         /// <summary>
-        /// Deletes the specified <see cref="IRolePoco"/> model asynchronous.
+        /// Deletes the specified <see cref="IUserRolePoco"/> model asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual System.Threading.Tasks.Task DeleteAsync(IRolePoco model)
+        public virtual System.Threading.Tasks.Task DeleteAsync(IUserRolePoco model)
         {
-            genericRepository.Delete(mapper.Map<Role>(model));
+            genericRepository.Delete(mapper.Map<UserRole>(model));
             return genericRepository.SaveAsync();
         }
 
@@ -415,36 +397,36 @@ namespace PM.Repository
         /// Deletes the list of models.
         /// </summary>
         /// <param name="models">The list of models.</param>
-        public virtual System.Threading.Tasks.Task DeleteAsync(IList<IRolePoco> models)
+        public virtual System.Threading.Tasks.Task DeleteAsync(IList<IUserRolePoco> models)
         {
-            var entities = mapper.Map<List<Role>>(models);
+            var entities = mapper.Map<List<UserRole>>(models);
             entities.ForEach(p => genericRepository.Delete(p));
             return genericRepository.SaveAsync();
         }
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for insert. This will not call Save() method.
+        /// Adds <see cref="IUserRolePoco"/> model for insert. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void AddForInset(IRolePoco model)
+        public virtual void AddForInset(IUserRolePoco model)
         {
-            genericRepository.Insert(mapper.Map<Role>(model));
+            genericRepository.Insert(mapper.Map<UserRole>(model));
         }
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for update. This will not call Save() method.
+        /// Adds <see cref="IUserRolePoco"/> model for update. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void AddForUpdate(IRolePoco model)
+        public virtual void AddForUpdate(IUserRolePoco model)
         {
-            genericRepository.Update(mapper.Map<Role>(model));
+            genericRepository.Update(mapper.Map<UserRole>(model));
         }
 
         /// <summary>
-        /// Adds <see cref="IRolePoco"/> model for delete. This will not call Save() method.
+        /// Adds <see cref="IUserRolePoco"/> model for delete. This will not call Save() method.
         /// </summary>
         /// <param name="model">The model.</param>
-        public virtual void AddForDelete(IRolePoco model)
+        public virtual void AddForDelete(IUserRolePoco model)
         {
             genericRepository.Delete(model);
         }

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ICompanyRepository.cs" />
     <Compile Include="Identity\IExternalLoginRepository.cs" />
+    <Compile Include="Identity\IUserRoleRepository.cs" />
     <Compile Include="IProjectRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="Identity\IRoleRepository.cs" />

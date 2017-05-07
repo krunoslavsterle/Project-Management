@@ -122,5 +122,11 @@ namespace PM.Service.Common
         /// <param name="model">The model.</param>
         /// <returns>True if updated.</returns>
         Task<bool> UpdateRoleAsync(IRolePoco model);
+
+        Task<IUserPoco> GetOneUser(Guid id, params string[] includeProperties);
+
+        IUserRolePoco CreateUserRole();
+
+        Task InsertUserRole(IUserRolePoco userRole);
     }
 }

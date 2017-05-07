@@ -34,7 +34,8 @@ namespace PM.DAL
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TaskPriority> TaskPriorities { get; set; }
         public virtual DbSet<TaskStatus> TaskStatus1 { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }

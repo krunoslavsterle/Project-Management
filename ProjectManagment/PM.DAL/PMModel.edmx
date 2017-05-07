@@ -119,9 +119,9 @@
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
@@ -383,33 +383,12 @@
           <EntitySet Name="Tasks" EntityType="PMDatabaseModel.Task" />
           <EntitySet Name="TaskPriorities" EntityType="PMDatabaseModel.TaskPriority" />
           <EntitySet Name="TaskStatus1" EntityType="PMDatabaseModel.TaskStatus" />
-          <EntitySet Name="Users" EntityType="PMDatabaseModel.User" />
-          <AssociationSet Name="FK_dbo_Claim_dbo_User_UserId" Association="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Claim" EntitySet="Claims" />
-          </AssociationSet>
           <AssociationSet Name="FK_Project_Company" Association="PMDatabaseModel.FK_Project_Company">
             <End Role="Company" EntitySet="Companies" />
             <End Role="Project" EntitySet="Projects" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Company" Association="PMDatabaseModel.FK_User_Company">
-            <End Role="Company" EntitySet="Companies" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_ExternalLogin_dbo_User_UserId" Association="PMDatabaseModel.FK_dbo_ExternalLogin_dbo_User_UserId">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ExternalLogin" EntitySet="ExternalLogins" />
-          </AssociationSet>
           <AssociationSet Name="FK_Task_Project" Association="PMDatabaseModel.FK_Task_Project">
             <End Role="Project" EntitySet="Projects" />
-            <End Role="Task" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Task_AssignedToUser" Association="PMDatabaseModel.FK_Task_AssignedToUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Task" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Task_CreatedByUser" Association="PMDatabaseModel.FK_Task_CreatedByUser">
-            <End Role="User" EntitySet="Users" />
             <End Role="Task" EntitySet="Tasks" />
           </AssociationSet>
           <AssociationSet Name="FK_Task_TaskPriority" Association="PMDatabaseModel.FK_Task_TaskPriority">
@@ -420,22 +399,48 @@
             <End Role="TaskStatu" EntitySet="TaskStatus1" />
             <End Role="Task" EntitySet="Tasks" />
           </AssociationSet>
-          <AssociationSet Name="UserRole" Association="PMDatabaseModel.UserRole">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Project_User" Association="PMDatabaseModel.FK_Project_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Project" EntitySet="Projects" />
-          </AssociationSet>
           <EntitySet Name="ProjectUsers" EntityType="PMDatabaseModel.ProjectUser" />
           <AssociationSet Name="FK_ProjectUser_Project" Association="PMDatabaseModel.FK_ProjectUser_Project">
             <End Role="Project" EntitySet="Projects" />
             <End Role="ProjectUser" EntitySet="ProjectUsers" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="PMDatabaseModel.User" />
+          <EntitySet Name="UserRoles" EntityType="PMDatabaseModel.UserRole" />
+          <AssociationSet Name="FK_dbo_Claim_dbo_User_UserId" Association="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Claim" EntitySet="Claims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Company" Association="PMDatabaseModel.FK_User_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ExternalLogin_dbo_User_UserId" Association="PMDatabaseModel.FK_dbo_ExternalLogin_dbo_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ExternalLogin" EntitySet="ExternalLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_User" Association="PMDatabaseModel.FK_Project_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProjectUser_User" Association="PMDatabaseModel.FK_ProjectUser_User">
             <End Role="User" EntitySet="Users" />
             <End Role="ProjectUser" EntitySet="ProjectUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserRole_dbo_Role_RoleId" Association="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_AssignedToUser" Association="PMDatabaseModel.FK_Task_AssignedToUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_CreatedByUser" Association="PMDatabaseModel.FK_Task_CreatedByUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserRole_dbo_User_UserId" Association="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Claim">
@@ -485,8 +490,8 @@
           <NavigationProperty Name="Company" Relationship="PMDatabaseModel.FK_Project_Company" FromRole="Project" ToRole="Company" />
           <NavigationProperty Name="Tasks" Relationship="PMDatabaseModel.FK_Task_Project" FromRole="Project" ToRole="Task" />
           <Property Name="ProjectLeaderId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="ProjectLeader" Relationship="PMDatabaseModel.FK_Project_User" FromRole="Project" ToRole="User" />
           <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="Project" ToRole="ProjectUser" />
+          <NavigationProperty Name="ProjectLeader" Relationship="PMDatabaseModel.FK_Project_User" FromRole="Project" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -494,6 +499,7 @@
           </Key>
           <Property Name="RoleId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -512,10 +518,10 @@
           <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Project" Relationship="PMDatabaseModel.FK_Task_Project" FromRole="Task" ToRole="Project" />
-          <NavigationProperty Name="AssignedToUser" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="Task" ToRole="User" />
-          <NavigationProperty Name="CreatedByUser" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="Task" ToRole="User" />
           <NavigationProperty Name="TaskPriority" Relationship="PMDatabaseModel.FK_Task_TaskPriority" FromRole="Task" ToRole="TaskPriority" />
           <NavigationProperty Name="TaskStatus" Relationship="PMDatabaseModel.FK_Task_TaskStatus" FromRole="Task" ToRole="TaskStatu" />
+          <NavigationProperty Name="AssignedToUser" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="Task" ToRole="User" />
+          <NavigationProperty Name="CreatedByUser" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="Task" ToRole="User" />
         </EntityType>
         <EntityType Name="TaskPriority">
           <Key>
@@ -543,6 +549,79 @@
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Tasks" Relationship="PMDatabaseModel.FK_Task_TaskStatus" FromRole="TaskStatu" ToRole="Task" />
         </EntityType>
+        <Association Name="FK_Project_Company">
+          <End Type="PMDatabaseModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Project">
+          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_TaskPriority">
+          <End Type="PMDatabaseModel.TaskPriority" Role="TaskPriority" Multiplicity="1" />
+          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskPriority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_TaskStatus">
+          <End Type="PMDatabaseModel.TaskStatus" Role="TaskStatu" Multiplicity="1" />
+          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProjectUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProjectId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Project" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="ProjectUser" ToRole="Project" />
+          <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="ProjectUser" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ProjectUser_Project">
+          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectUser">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -556,11 +635,21 @@
           <NavigationProperty Name="Claims" Relationship="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId" FromRole="User" ToRole="Claim" />
           <NavigationProperty Name="Company" Relationship="PMDatabaseModel.FK_User_Company" FromRole="User" ToRole="Company" />
           <NavigationProperty Name="ExternalLogins" Relationship="PMDatabaseModel.FK_dbo_ExternalLogin_dbo_User_UserId" FromRole="User" ToRole="ExternalLogin" />
+          <NavigationProperty Name="LeaderForProjects" Relationship="PMDatabaseModel.FK_Project_User" FromRole="User" ToRole="Project" />
+          <NavigationProperty Name="Projects" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="User" ToRole="ProjectUser" />
           <NavigationProperty Name="AssignedTasks" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="User" ToRole="Task" />
           <NavigationProperty Name="CreatedTasks" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="User" ToRole="Task" />
-          <NavigationProperty Name="Roles" Relationship="PMDatabaseModel.UserRole" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="Projects" Relationship="PMDatabaseModel.FK_Project_User" FromRole="User" ToRole="Project" />
-          <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="User" ToRole="ProjectUser" />
+          <NavigationProperty Name="Roles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" FromRole="UserRole" ToRole="User" />
         </EntityType>
         <Association Name="FK_dbo_Claim_dbo_User_UserId">
           <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1">
@@ -573,18 +662,6 @@
             </Principal>
             <Dependent Role="Claim">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Project_Company">
-          <End Type="PMDatabaseModel.Company" Role="Company" Multiplicity="1" />
-          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Project">
-              <PropertyRef Name="CompanyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -614,15 +691,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Task_Project">
-          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="1" />
-          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
+        <Association Name="FK_Project_User">
+          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Project">
-              <PropertyRef Name="Id" />
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Task">
-              <PropertyRef Name="ProjectId" />
+            <Dependent Role="Project">
+              <PropertyRef Name="ProjectLeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectUser_User">
+          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ProjectUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserRole_dbo_Role_RoleId">
+          <End Type="PMDatabaseModel.Role" Role="Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PMDatabaseModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -650,79 +753,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Task_TaskPriority">
-          <End Type="PMDatabaseModel.TaskPriority" Role="TaskPriority" Multiplicity="1" />
-          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskPriority">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Task">
-              <PropertyRef Name="PriorityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Task_TaskStatus">
-          <End Type="PMDatabaseModel.TaskStatus" Role="TaskStatu" Multiplicity="1" />
-          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Task">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="UserRole">
-          <End Type="PMDatabaseModel.Role" Role="Role" Multiplicity="*" />
-          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Project_User">
-          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="*" />
+        <Association Name="FK_dbo_UserRole_dbo_User_UserId">
+          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PMDatabaseModel.UserRole" Role="UserRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Project">
-              <PropertyRef Name="ProjectLeaderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ProjectUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProjectId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Project" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="ProjectUser" ToRole="Project" />
-          <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="ProjectUser" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_ProjectUser_Project">
-          <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="1" />
-          <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Project">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectUser">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectUser_User">
-          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="ProjectUser">
+            <Dependent Role="UserRole">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -829,6 +869,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProjectUsers">
+            <EntityTypeMapping TypeName="PMDatabaseModel.ProjectUser">
+              <MappingFragment StoreEntitySet="ProjectUser">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PMDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -841,22 +893,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="UserRole" TypeName="PMDatabaseModel.UserRole" StoreEntitySet="UserRole">
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="Role">
-              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="ProjectUsers">
-            <EntityTypeMapping TypeName="PMDatabaseModel.ProjectUser">
-              <MappingFragment StoreEntitySet="ProjectUser">
-                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="PMDatabaseModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

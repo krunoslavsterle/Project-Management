@@ -97,6 +97,9 @@
     <Compile Include="User.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserRole.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

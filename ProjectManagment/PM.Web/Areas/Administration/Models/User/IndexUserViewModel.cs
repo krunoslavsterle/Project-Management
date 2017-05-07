@@ -5,6 +5,6 @@ namespace PM.Web.Administration.User
 {
     public class IndexUserViewModel
     {
-        public IEnumerable<IUserPoco> Users { get; set; }
+        public IEnumerable<UserPreviewViewModel> Users { get; set; }
     }
 }

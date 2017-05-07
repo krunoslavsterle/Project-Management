@@ -209,8 +209,12 @@ namespace PM.Web.Identity
             if (r == null)
                 throw new ArgumentException("roleName does not correspond to a Role entity.", "roleName");
 
-            u.Roles.Add(r);
-            await identityService.UpdateUserAsync(u);
+            var userRole = identityService.CreateUserRole();
+            userRole.Id = Guid.NewGuid();
+            userRole.RoleId = r.RoleId;
+            userRole.UserId = user.Id;
+
+            await identityService.InsertUserRole(userRole);
         }
 
         public async Task<IList<string>> GetRolesAsync(IdentityUser user)
@@ -222,7 +226,8 @@ namespace PM.Web.Identity
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            return u.Roles.Select(x => x.Name).ToList();
+            //return u.Roles.Select(x => x.Name).ToList();
+            return null;
         }
 
         public async Task<bool> IsInRoleAsync(IdentityUser user, string roleName)
@@ -236,7 +241,9 @@ namespace PM.Web.Identity
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            return u.Roles.Any(x => x.Name == roleName);
+            //return u.Roles.Any(x => x.Name == roleName);
+
+            return false;
         }
 
         public async Task RemoveFromRoleAsync(IdentityUser user, string roleName)
@@ -250,8 +257,8 @@ namespace PM.Web.Identity
             if (u == null)
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
 
-            var r = u.Roles.FirstOrDefault(x => x.Name == roleName);
-            u.Roles.Remove(r);
+            //var r = u.Roles.FirstOrDefault(x => x.Name == roleName);
+            //u.Roles.Remove(r);
 
             await identityService.UpdateUserAsync(u);
         }

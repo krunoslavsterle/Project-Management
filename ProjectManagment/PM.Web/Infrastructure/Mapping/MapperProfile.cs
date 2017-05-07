@@ -2,6 +2,7 @@
 using PM.Model.Common;
 using PM.Web.Administration.Models;
 using PM.Web.Administration.Project;
+using PM.Web.Administration.User;
 using PM.Web.Identity;
 using System;
 
@@ -28,6 +29,8 @@ namespace PM.Web
                 .ForMember(d => d.RoleId, opt => opt.MapFrom(v => v.Id));
 
             #endregion Identity models  
+
+            CreateMap<IUserPoco, UserPreviewViewModel>().ReverseMap();
 
             #region Project models
 

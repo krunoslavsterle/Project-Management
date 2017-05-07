@@ -1,7 +1,5 @@
 ﻿using PM.Common;
-using PM.Model.Common;
 using PM.Service.Common;
-using PM.Web.Administration.Models;
 using PM.Web.Controllers;
 using System;
 using System.Threading.Tasks;
@@ -12,26 +10,50 @@ using PM.Web.Identity;
 using PM.Web.Administration.User;
 using System.Net;
 using PM.Web.Infrastructure;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
+    /// <summary>
+    /// User controller.
+    /// </summary>
     public class UserController : BaseController
     {
+        #region Fields
+
         private readonly IIdentityService identityService;
         private readonly ILookupService lookupService;
+        private readonly IProjectService projectService;
         private readonly UserManager<IdentityUser, Guid> userManager;
-        private readonly UserStore userStore;
 
-        public UserController(IMapper mapper, IIdentityService identityService, ILookupService lookupService, UserManager<IdentityUser, Guid> userManager, UserStore userStore) 
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        /// <param name="identityService">The identity service.</param>
+        /// <param name="lookupService">The lookup service.</param>
+        /// <param name="userManager">The user manager.</param>
+        public UserController(IMapper mapper, IIdentityService identityService, ILookupService lookupService, UserManager<IdentityUser, Guid> userManager)
             : base(mapper)
         {
             this.identityService = identityService;
             this.lookupService = lookupService;
             this.userManager = userManager;
-            this.userStore = userStore;
         }
-        
-        // GET: Administration/User
+
+        #endregion Constructors
+
+        #region Actions
+
+        /// <summary>
+        /// Index GET action.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ActionName("Index")]
         public async Task<ActionResult> IndexAsync()
@@ -42,18 +64,15 @@ namespace PM.Web.Areas.Administration.Controllers
 
             // List of users
             var vm = new IndexUserViewModel();
-            vm.Users = users;
+            vm.Users = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
             return View("Index", vm);
         }
-
-        [HttpGet]
-        [ActionName("New")]
-        public async Task<ActionResult> NewAsync()
-        {
-            var vm = new CreateUserViewModel();
-            return View("New", vm);
-        }
-
+        
+        /// <summary>
+        /// Create POST action.
+        /// </summary>
+        /// <param name="vm">The view model.</param>
+        /// <returns></returns>
         [HttpPost]
         [ActionName("Create")]
         public async Task<ActionResult> CreateAsync(CreateUserViewModel vm)
@@ -71,26 +90,20 @@ namespace PM.Web.Areas.Administration.Controllers
                     Email = vm.Email
                 };
 
-                var iRole = new IdentityRole(role.Name, role.RoleId);
-                domain.Roles.Add(iRole);
-
-                var password = GenerateTempPassword(7);
-
                 try
                 {
-                    var newUser = await userManager.CreateAsync(domain, password);
+                    var newUser = await userManager.CreateAsync(domain, GenerateTempPassword(7));
                     if (newUser.Succeeded)
                     {
-                        var nUser = await userStore.FindByIdAsync(domain.Id);
-                        //await userStore.AddToRoleAsync(nUser, "User");
+                        await InsertUserToRole(domain.Id, role.RoleId);
+
+                        // TODO: PUT THIS IN THE BASE CONTROLLER.
+                        var users = await identityService.GetUsersByCompanyId(user.CompanyId, "Roles");
+                        var usersVm = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
+
+                        Response.StatusCode = (int)HttpStatusCode.OK;
+                        return Json(new { success = true, responseText = "User is created successfuly.", html = this.RenderView("_UsersList", usersVm) }, JsonRequestBehavior.AllowGet);
                     }
-
-                    //await userManager.AddToRoleAsync(domain.Id, "User");
-                    //await userStore.AddToRoleAsync(domain, "User");
-
-
-                    Response.StatusCode = (int)HttpStatusCode.OK;
-                    return Json(new { success = true, responseText = "User is created successfuly.", html = this.RenderView("_NewUserModal", vm) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -103,6 +116,19 @@ namespace PM.Web.Areas.Administration.Controllers
             return PartialView("_NewUserModal", vm);
         }
 
+        #endregion Actions
+
+        #region Methods
+
+        private Task InsertUserToRole(Guid userId, Guid roleId)
+        {
+            var userRole = identityService.CreateUserRole();
+            userRole.RoleId = roleId;
+            userRole.UserId = userId;
+
+            return identityService.InsertUserRole(userRole);
+        }
+
         private string GenerateTempPassword(int length)
         {
             Random random = new Random();
@@ -111,5 +137,7 @@ namespace PM.Web.Areas.Administration.Controllers
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        #endregion 
     }
 }

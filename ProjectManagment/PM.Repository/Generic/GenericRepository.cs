@@ -10,6 +10,7 @@ using PM.Common;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using DynamicExpression.Core;
+using System.Data.Entity.Migrations;
 
 namespace PM.Repository
 {
@@ -261,8 +262,12 @@ namespace PM.Repository
         /// <param name="modifiedBy">The modified by.</param>
         public virtual void Update(TEntity entity)
         {
-            context.Set<TEntity>().Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
+            //context.Users.Local.Clear();
+            //context.Set<TEntity>().Attach(entity);
+            context.Set<TEntity>().AddOrUpdate<TEntity>(entity);
+            
+            //context.User.Local.First().Roles.Add(new Role() { Name = "User", RoleId = new Guid("1D71081D-B7A1-4457-8552-B4EF15AAB01D") });
+            //context.Entry(entity).State = EntityState.Modified;
         }
 
         /// <summary>

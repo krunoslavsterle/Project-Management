@@ -96,7 +96,7 @@ namespace PM.Model.Common
         /// <value>
         /// The roles.
         /// </value>
-        ICollection<IRolePoco> Roles { get; set; }
+        ICollection<IUserRolePoco> Roles { get; set; }
 
         /// <summary>
         /// Gets or sets the company.

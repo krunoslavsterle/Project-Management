@@ -1,0 +1,20 @@
+﻿@model IEnumerable<PM.Web.Administration.User.UserPreviewViewModel>
+
+@foreach (var user in Model)
+{
+    <div class="col-md-4">
+        <div class="widget">
+            <div class="block">
+                <img class="img-avatar img-lg pull-left" src="http://i.pravatar.cc/300" alt="">
+                <div style="padding-left: 150px;">
+                    <h4>@user.UserName</h4>
+                    <p>Project Manager</p>
+                    <p>@user.Email</p>
+                </div>
+
+                <br />
+                <a>projects</a>
+            </div>
+        </div>
+    </div>
+}

@@ -28,9 +28,9 @@ namespace PM.DAL
         public byte[] TimeStamp { get; set; }
     
         public virtual Project Project { get; set; }
-        public virtual User AssignedToUser { get; set; }
-        public virtual User CreatedByUser { get; set; }
         public virtual TaskPriority TaskPriority { get; set; }
         public virtual TaskStatus TaskStatus { get; set; }
+        public virtual User AssignedToUser { get; set; }
+        public virtual User CreatedByUser { get; set; }
     }
 }

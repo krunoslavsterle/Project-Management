@@ -78,6 +78,7 @@
     <Compile Include="Repository\Identity\UserRepository.cs" />
     <Compile Include="Repository\Identity\RoleRepository.cs" />
     <Compile Include="Mapping\MapperProfile.cs" />
+    <Compile Include="Repository\Identity\UserRoleRepository.cs" />
     <Compile Include="Repository\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Generic\GenericRepository.cs" />
