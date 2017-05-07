@@ -49,15 +49,7 @@ namespace PM.Repository
         {
             return new RolePoco();
         }
-
-        public virtual IUserRolePoco CreateUserRole()
-        {
-            var userRole = new UserRolePoco();
-            userRole.Id = Guid.NewGuid();
-
-            return userRole;
-        }
-
+        
         /// <summary>
         /// Gets a list of all <see cref="IRolePoco"/> models.
         /// </summary>

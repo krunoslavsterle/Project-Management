@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
 using Microsoft.AspNet.Identity;
-using PM.Web.Identity;
 using PM.Web.Administration.User;
 using System.Net;
 using PM.Web.Infrastructure;
 using System.Collections;
 using System.Collections.Generic;
+using PM.Model.Common;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -22,10 +22,9 @@ namespace PM.Web.Areas.Administration.Controllers
     {
         #region Fields
 
-        private readonly IIdentityService identityService;
         private readonly ILookupService lookupService;
-        private readonly IProjectService projectService;
-        private readonly UserManager<IdentityUser, Guid> userManager;
+        private readonly IPMUserStore userStore;
+        private readonly UserManager<IUserPoco, Guid> userManager;
 
         #endregion Fields
 
@@ -38,12 +37,12 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="identityService">The identity service.</param>
         /// <param name="lookupService">The lookup service.</param>
         /// <param name="userManager">The user manager.</param>
-        public UserController(IMapper mapper, IIdentityService identityService, ILookupService lookupService, UserManager<IdentityUser, Guid> userManager)
+        public UserController(IMapper mapper, IPMUserStore userStore, ILookupService lookupService)
             : base(mapper)
         {
-            this.identityService = identityService;
             this.lookupService = lookupService;
-            this.userManager = userManager;
+            this.userStore = userStore;
+            this.userManager = new UserManager<IUserPoco, Guid>(userStore);
         }
 
         #endregion Constructors
@@ -59,12 +58,12 @@ namespace PM.Web.Areas.Administration.Controllers
         public async Task<ActionResult> IndexAsync()
         {
             // TODO: PUT THIS IN THE BASE CONTROLLER.
-            var user = await identityService.GetUserById(UserId);
-            var users = await identityService.GetUsersByCompanyId(user.CompanyId, "Roles");
+            //var user = await identityService.GetUserById(UserId);
+            //var users = await identityService.GetUsersByCompanyId(user.CompanyId, "Roles");
 
             // List of users
             var vm = new IndexUserViewModel();
-            vm.Users = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
+            //vm.Users = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
             return View("Index", vm);
         }
         
@@ -79,26 +78,22 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var role = lookupService.GetAllRoles().First(p => p.Name == "User");
-                var user = await identityService.GetUserById(UserId);
+                var user = await userManager.FindByIdAsync(UserId);
 
-                var domain = new IdentityUser()
-                {
-                    Id = Guid.NewGuid(),
-                    CompanyId = user.CompanyId,
-                    UserName = vm.UserName,
-                    Email = vm.Email
-                };
-
+                var newUser = userStore.CreateUser();
+                newUser.CompanyId = user.CompanyId;
+                newUser.UserName = vm.UserName;
+                newUser.Email = vm.Email;
+                
                 try
                 {
-                    var newUser = await userManager.CreateAsync(domain, GenerateTempPassword(7));
-                    if (newUser.Succeeded)
+                    var created = await userManager.CreateAsync(newUser, GenerateTempPassword(7));
+                    if (created.Succeeded)
                     {
-                        await InsertUserToRole(domain.Id, role.RoleId);
+                        await userManager.AddToRoleAsync(newUser.Id, "User");
 
                         // TODO: PUT THIS IN THE BASE CONTROLLER.
-                        var users = await identityService.GetUsersByCompanyId(user.CompanyId, "Roles");
+                        var users = await userStore.GetUsersByCompanyIdAsync(user.CompanyId, "Roles");
                         var usersVm = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
 
                         Response.StatusCode = (int)HttpStatusCode.OK;
@@ -119,16 +114,7 @@ namespace PM.Web.Areas.Administration.Controllers
         #endregion Actions
 
         #region Methods
-
-        private Task InsertUserToRole(Guid userId, Guid roleId)
-        {
-            var userRole = identityService.CreateUserRole();
-            userRole.RoleId = roleId;
-            userRole.UserId = userId;
-
-            return identityService.InsertUserRole(userRole);
-        }
-
+        
         private string GenerateTempPassword(int length)
         {
             Random random = new Random();

@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -45,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICompanyService.cs" />
-    <Compile Include="IIdentityService.cs" />
+    <Compile Include="Identity\IPMUserStore.cs" />
     <Compile Include="ILookupService.cs" />
     <Compile Include="IProjectService.cs" />
     <Compile Include="ITaskService.cs" />

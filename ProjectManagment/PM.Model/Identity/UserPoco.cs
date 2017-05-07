@@ -17,7 +17,7 @@ namespace PM.Model
         /// <value>
         /// The user identifier.
         /// </value>
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the company identifier.

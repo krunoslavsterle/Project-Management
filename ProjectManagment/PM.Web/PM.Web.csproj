@@ -269,11 +269,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\IdentityRole.cs" />
-    <Compile Include="Identity\IdentityUser.cs" />
-    <Compile Include="Identity\IIdentityUser.cs" />
-    <Compile Include="Identity\RoleStore.cs" />
-    <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Infrastructure\Extensions\ControllerExtensions.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelpers.cs" />
     <Compile Include="Infrastructure\Mapping\MapperProfile.cs" />

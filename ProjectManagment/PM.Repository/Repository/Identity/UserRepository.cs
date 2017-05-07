@@ -49,7 +49,7 @@ namespace PM.Repository
         {
             IUserPoco user = new UserPoco()
             {
-                UserId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 DateCreated = DateTime.UtcNow,
                 DateUpdated = DateTime.UtcNow
             };
@@ -129,7 +129,7 @@ namespace PM.Repository
         public virtual async Task<IUserPoco> GetOneAsync(Expression<Func<IUserPoco, bool>> filter = null, params string[] includeProperties)
         {
             var entity = await genericRepository.GetOneAsync(filter, includeProperties);
-            return mapper.Map<IUserPoco>(entity);
+            return mapper.Map<IUserPoco>(entity); 
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace PM.Repository
         /// <returns><see cref="IUserPoco"/>.</returns>
         public virtual IUserPoco GetById(Guid id)
         {
-            var entity = genericRepository.GetOne(p => p.UserId == id);
+            var entity = genericRepository.GetOne(p => p.Id == id);
             return mapper.Map<IUserPoco>(entity);
         }
 
@@ -220,7 +220,7 @@ namespace PM.Repository
         /// <returns><see cref="IUserPoco"/>.</returns>
         public virtual async Task<IUserPoco> GetByIdAsync(Guid id)
         {
-            var entity = await genericRepository.GetOneAsync(p => p.UserId == id);
+            var entity = await genericRepository.GetOneAsync(p => p.Id == id);
             return mapper.Map<IUserPoco>(entity);
         }
 

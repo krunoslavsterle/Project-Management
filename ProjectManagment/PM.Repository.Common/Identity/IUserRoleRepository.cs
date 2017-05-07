@@ -14,6 +14,12 @@ namespace PM.Repository
     public interface IUserRoleRepository
     {
         /// <summary>
+        /// Creates the user role.
+        /// </summary>
+        /// <returns><see cref="IUserRolePoco"/>.</returns>
+        IUserRolePoco CreateUserRole();
+
+        /// <summary>
         /// Gets a list of all <see cref="IUserRolePoco"/> models.
         /// </summary>
         /// <param name="orderBy">The order by.</param>

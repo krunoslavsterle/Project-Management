@@ -34,14 +34,11 @@ namespace PM.Repository
 
             CreateMap<PM.Model.UserRolePoco, PM.Model.Common.IUserRolePoco>().ReverseMap();
             CreateMap<DAL.UserRole, IUserRolePoco>()
-                .ForMember(ent => ent.Role, model => model.Ignore())
                 .ForMember(ent => ent.User, model => model.Ignore())
                 .ReverseMap()
                 .ForMember(ent => ent.Role, model => model.Ignore())
                 .ForMember(ent => ent.User, model => model.Ignore()); 
-
-
-
+            
             #endregion Identity models
 
             #region Project models

@@ -23,7 +23,6 @@ namespace PM.Web.Areas.Administration.Controllers
 
         private readonly ITaskService taskService;
         private readonly ILookupService lookupService;
-        private readonly IIdentityService identityService;
 
         #endregion Fields
 
@@ -34,12 +33,11 @@ namespace PM.Web.Areas.Administration.Controllers
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="taskService">The task service.</param>
-        public TaskController(IMapper mapper, ITaskService taskService, ILookupService lookupService, IIdentityService identityService) 
+        public TaskController(IMapper mapper, ITaskService taskService, ILookupService lookupService) 
             : base(mapper)
         {
             this.taskService = taskService;
             this.lookupService = lookupService;
-            this.identityService = identityService;
         }
 
         #endregion Constructors

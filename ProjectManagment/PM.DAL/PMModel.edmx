@@ -108,9 +108,9 @@
         </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CompanyId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar" MaxLength="4000" />
@@ -132,7 +132,7 @@
           <End Role="Claim" Type="Self.Claim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Claim">
               <PropertyRef Name="UserId" />
@@ -146,7 +146,7 @@
           <End Role="ExternalLogin" Type="Self.ExternalLogin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ExternalLogin">
               <PropertyRef Name="UserId" />
@@ -174,7 +174,7 @@
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
               <PropertyRef Name="UserId" />
@@ -198,7 +198,7 @@
           <End Role="Project" Type="Self.Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="ProjectLeaderId" />
@@ -222,7 +222,7 @@
           <End Role="ProjectUser" Type="Self.ProjectUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectUser">
               <PropertyRef Name="UserId" />
@@ -234,7 +234,7 @@
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Task">
               <PropertyRef Name="AssignedToUserId" />
@@ -246,7 +246,7 @@
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Task">
               <PropertyRef Name="CreatedByUserId" />
@@ -379,7 +379,6 @@
           <EntitySet Name="Companies" EntityType="PMDatabaseModel.Company" />
           <EntitySet Name="ExternalLogins" EntityType="PMDatabaseModel.ExternalLogin" />
           <EntitySet Name="Projects" EntityType="PMDatabaseModel.Project" />
-          <EntitySet Name="Roles" EntityType="PMDatabaseModel.Role" />
           <EntitySet Name="Tasks" EntityType="PMDatabaseModel.Task" />
           <EntitySet Name="TaskPriorities" EntityType="PMDatabaseModel.TaskPriority" />
           <EntitySet Name="TaskStatus1" EntityType="PMDatabaseModel.TaskStatus" />
@@ -404,6 +403,7 @@
             <End Role="Project" EntitySet="Projects" />
             <End Role="ProjectUser" EntitySet="ProjectUsers" />
           </AssociationSet>
+          <EntitySet Name="Roles" EntityType="PMDatabaseModel.Role" />
           <EntitySet Name="Users" EntityType="PMDatabaseModel.User" />
           <EntitySet Name="UserRoles" EntityType="PMDatabaseModel.UserRole" />
           <AssociationSet Name="FK_dbo_Claim_dbo_User_UserId" Association="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId">
@@ -442,7 +442,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Claim">
           <Key>
             <PropertyRef Name="ClaimId" />
@@ -452,7 +452,7 @@
           <Property Name="ClaimType" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId" FromRole="Claim" ToRole="User" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Company">
           <Key>
             <PropertyRef Name="Id" />
@@ -475,7 +475,7 @@
           <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_dbo_ExternalLogin_dbo_User_UserId" FromRole="ExternalLogin" ToRole="User" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="Id" />
@@ -492,15 +492,7 @@
           <Property Name="ProjectLeaderId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="Project" ToRole="ProjectUser" />
           <NavigationProperty Name="ProjectLeader" Relationship="PMDatabaseModel.FK_Project_User" FromRole="Project" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserRoles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId" FromRole="Role" ToRole="UserRole" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Task">
           <Key>
             <PropertyRef Name="Id" />
@@ -522,7 +514,7 @@
           <NavigationProperty Name="TaskStatus" Relationship="PMDatabaseModel.FK_Task_TaskStatus" FromRole="Task" ToRole="TaskStatu" />
           <NavigationProperty Name="AssignedToUser" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="Task" ToRole="User" />
           <NavigationProperty Name="CreatedByUser" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="Task" ToRole="User" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="TaskPriority">
           <Key>
             <PropertyRef Name="Id" />
@@ -609,7 +601,7 @@
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Project" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="ProjectUser" ToRole="Project" />
           <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="ProjectUser" ToRole="User" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_ProjectUser_Project">
           <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="1" />
           <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
@@ -622,11 +614,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="CompanyId" Type="Guid" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="PasswordHash" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
@@ -635,11 +635,11 @@
           <NavigationProperty Name="Claims" Relationship="PMDatabaseModel.FK_dbo_Claim_dbo_User_UserId" FromRole="User" ToRole="Claim" />
           <NavigationProperty Name="Company" Relationship="PMDatabaseModel.FK_User_Company" FromRole="User" ToRole="Company" />
           <NavigationProperty Name="ExternalLogins" Relationship="PMDatabaseModel.FK_dbo_ExternalLogin_dbo_User_UserId" FromRole="User" ToRole="ExternalLogin" />
-          <NavigationProperty Name="LeaderForProjects" Relationship="PMDatabaseModel.FK_Project_User" FromRole="User" ToRole="Project" />
-          <NavigationProperty Name="Projects" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="User" ToRole="ProjectUser" />
-          <NavigationProperty Name="AssignedTasks" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="User" ToRole="Task" />
-          <NavigationProperty Name="CreatedTasks" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="User" ToRole="Task" />
-          <NavigationProperty Name="Roles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="Projects" Relationship="PMDatabaseModel.FK_Project_User" FromRole="User" ToRole="Project" />
+          <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="User" ToRole="ProjectUser" />
+          <NavigationProperty Name="TasksAssigned" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="User" ToRole="Task" />
+          <NavigationProperty Name="TasksCreated" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="User" ToRole="Task" />
+          <NavigationProperty Name="UserRoles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -658,7 +658,7 @@
           <End Type="PMDatabaseModel.Claim" Role="Claim" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Claim">
               <PropertyRef Name="UserId" />
@@ -684,7 +684,7 @@
           <End Type="PMDatabaseModel.ExternalLogin" Role="ExternalLogin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ExternalLogin">
               <PropertyRef Name="UserId" />
@@ -696,7 +696,7 @@
           <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="ProjectLeaderId" />
@@ -708,7 +708,7 @@
           <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectUser">
               <PropertyRef Name="UserId" />
@@ -734,7 +734,7 @@
           <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Task">
               <PropertyRef Name="AssignedToUserId" />
@@ -746,7 +746,7 @@
           <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Task">
               <PropertyRef Name="CreatedByUserId" />
@@ -760,7 +760,7 @@
           <End Type="PMDatabaseModel.UserRole" Role="UserRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
               <PropertyRef Name="UserId" />
@@ -814,14 +814,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="PMDatabaseModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -881,6 +873,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="PMDatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PMDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -889,7 +889,7 @@
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

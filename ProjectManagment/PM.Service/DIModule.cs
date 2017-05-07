@@ -7,7 +7,7 @@ namespace PM.Service
     {
         public override void Load()
         {
-            Bind<IIdentityService>().To<IdentityService>();
+            Bind<IPMUserStore>().To<PMUserStore>();
             Bind<IProjectService>().To<ProjectService>();
             Bind<ITaskService>().To<TaskService>();
             Bind<ICompanyService>().To<CompanyService>();

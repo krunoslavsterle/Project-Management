@@ -5,8 +5,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
-using PM.Web.Identity;
 using PM.Service.Common;
+using PM.Model.Common;
 
 namespace PM.Web.Controllers
 {
@@ -17,22 +17,24 @@ namespace PM.Web.Controllers
     {
         #region Fields
 
-        private readonly UserManager<IdentityUser, Guid> userManager;
+        private readonly IPMUserStore userStore;
+        private readonly UserManager<IUserPoco, Guid> userManager;
         private readonly ICompanyService companyService;
 
         #endregion Fields
 
         #region Constructors
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="SecurityController"/> class.
         /// </summary>
-        /// <param name="userManager">The user manager.</param>
+        /// <param name="userStore">The user store.</param>
         /// <param name="companyService">The company service.</param>
-        public SecurityController(UserManager<IdentityUser, Guid> userManager, ICompanyService companyService)
+        public SecurityController(IPMUserStore userStore, ICompanyService companyService)
         {
-            this.userManager = userManager;
             this.companyService = companyService;
+            this.userStore = userStore;
+            this.userManager = new UserManager<IUserPoco, Guid>(userStore);
         }
 
         #endregion Constructors
@@ -78,6 +80,7 @@ namespace PM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var test = await userStore.FindByIdAsync(new Guid("E8AB9AF0-DA85-4E91-B65E-5744B01F8235"));
                 var user = await userManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
@@ -135,7 +138,12 @@ namespace PM.Web.Controllers
                 company.DateCreated = DateTime.UtcNow;
                 company.DateUpdated = DateTime.UtcNow;
 
-                var user = new IdentityUser() { UserName = model.UserName, Email = model.Email, Company = company, CompanyId = company.Id };
+                var user = userStore.CreateUser();
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Company = company;
+                user.CompanyId = company.Id;
+
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -153,8 +161,8 @@ namespace PM.Web.Controllers
             return View(model);
         }
 
-        private async Task SignInAsync(IdentityUser user, bool isPersistent)
-        {
+        private async Task SignInAsync(IUserPoco user, bool isPersistent)
+        { 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);

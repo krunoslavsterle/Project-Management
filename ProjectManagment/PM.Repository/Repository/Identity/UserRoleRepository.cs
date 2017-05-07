@@ -8,6 +8,7 @@ using PM.Model.Common;
 using PM.DAL;
 using PM.Repository.Common;
 using PM.Common;
+using PM.Model;
 
 namespace PM.Repository
 {
@@ -39,6 +40,18 @@ namespace PM.Repository
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Creates the user role.
+        /// </summary>
+        /// <returns><see cref="IUserRolePoco"/>.</returns>
+        public virtual IUserRolePoco CreateUserRole()
+        {
+            var userRole = new UserRolePoco();
+            userRole.Id = Guid.NewGuid();
+
+            return userRole;
+        }
 
         /// <summary>
         /// Gets a list of all <see cref="IUserRolePoco"/> models.

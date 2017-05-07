@@ -22,7 +22,7 @@ namespace PM.Web.Areas.Administration.Controllers
         #region Fields
 
         private readonly IProjectService projectService;
-        private readonly IIdentityService identityService;
+        private readonly IPMUserStore userStore;
 
         #endregion Fields
 
@@ -34,11 +34,11 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="mapper">The mapper.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="identityService">The identity service.</param>
-        public ProjectController(IMapper mapper, IProjectService projectService, IIdentityService identityService)
+        public ProjectController(IMapper mapper, IProjectService projectService, IPMUserStore userStore)
             : base(mapper)
         {
             this.projectService = projectService;
-            this.identityService = identityService;
+            this.userStore = userStore;
         }
 
         #endregion Constructors
@@ -73,10 +73,10 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await identityService.GetUserById(UserId);
+                var user = await userStore.FindByIdAsync(UserId);
                 var domainProject = projectService.CreateProject();
                 Mapper.Map<CreateProjectViewModel, IProjectPoco>(vm, domainProject);
-                domainProject.ProjectLeaderId = user.UserId;
+                domainProject.ProjectLeaderId = user.Id;
                 domainProject.CompanyId = user.CompanyId;
 
                 try

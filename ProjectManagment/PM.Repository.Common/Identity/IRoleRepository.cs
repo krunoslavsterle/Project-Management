@@ -18,9 +18,7 @@ namespace PM.Repository
         /// </summary>
         /// <returns>Instance of the <see cref="IRolePoco"/> class.</returns>
         IRolePoco CreateRole();
-
-        IUserRolePoco CreateUserRole();
-
+        
         /// <summary>
         /// Gets a list of all <see cref="IRolePoco"/> models.
         /// </summary>

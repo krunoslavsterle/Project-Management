@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace PM.Model.Common
@@ -6,17 +7,11 @@ namespace PM.Model.Common
     /// <summary>
     /// User domain model contract.
     /// </summary>
-    public interface IUserPoco
+    public interface IUserPoco : IUser<Guid>
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        /// <value>
-        /// The user identifier.
-        /// </value>
-        Guid UserId { get; set; }
+        
+        new Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the company identifier.
@@ -25,15 +20,7 @@ namespace PM.Model.Common
         /// The company identifier.
         /// </value>
         Guid CompanyId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the user.
-        /// </summary>
-        /// <value>
-        /// The name of the user.
-        /// </value>
-        string UserName { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the password hash.
         /// </summary>

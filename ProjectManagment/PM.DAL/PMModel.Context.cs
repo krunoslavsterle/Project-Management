@@ -30,11 +30,11 @@ namespace PM.DAL
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<ExternalLogin> ExternalLogins { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TaskPriority> TaskPriorities { get; set; }
         public virtual DbSet<TaskStatus> TaskStatus1 { get; set; }
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
     }
