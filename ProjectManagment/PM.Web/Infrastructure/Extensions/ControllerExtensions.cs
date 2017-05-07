@@ -3,19 +3,34 @@ using System.Web.Mvc;
 
 namespace PM.Web.Infrastructure
 {
+    /// <summary>
+    /// Controller extensions class.
+    /// </summary>
     public static class ControllerExtensions
     {
+        /// <summary>
+        /// Renders the specific view.
+        /// </summary>
+        /// <param name="controller">The controller.</param>
+        /// <param name="viewName">Name of the view.</param>
+        /// <param name="model">The view model.</param>
+        /// <returns>Rendered HTML string for specified view.</returns>
         public static string RenderView(this Controller controller, string viewName, object model)
         {
             return RenderView(controller, viewName, new ViewDataDictionary(model));
         }
 
+        /// <summary>
+        /// Renders the specific view.
+        /// </summary>
+        /// <param name="controller">The controller.</param>
+        /// <param name="viewName">Name of the view.</param>
+        /// <param name="viewData">The view data.</param>
+        /// <returns>Rendered HTML string for specified view.</returns>
         public static string RenderView(this Controller controller, string viewName, ViewDataDictionary viewData)
         {
             var controllerContext = controller.ControllerContext;
-
             var viewResult = ViewEngines.Engines.FindView(controllerContext, viewName, null);
-
             StringWriter stringWriter;
 
             using (stringWriter = new StringWriter())

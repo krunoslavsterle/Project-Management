@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
+using System.Net;
 
 namespace PM.Web.Controllers
 {
@@ -83,5 +84,16 @@ namespace PM.Web.Controllers
         }
 
         #endregion Properties
+
+        /// <summary>
+        /// Sets the response status code and description for error handling.
+        /// </summary>
+        /// <param name="statusCode">The status code.</param>
+        /// <param name="description">The description.</param>
+        public void SetErrorResponse(HttpStatusCode statusCode, string description)
+        {
+            Response.StatusCode = (int)statusCode;
+            Response.StatusDescription = description;
+        }
     }
 }

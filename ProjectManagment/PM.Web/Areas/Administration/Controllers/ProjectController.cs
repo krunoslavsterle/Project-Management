@@ -90,13 +90,12 @@ namespace PM.Web.Areas.Administration.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    return Json(new { success = false, responseText = "There was an error" }, JsonRequestBehavior.AllowGet);
+                    SetErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
                 }
             }
+            else
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            vm.Description = "test";
             return PartialView("_NewProjectModal", vm);
         }
 

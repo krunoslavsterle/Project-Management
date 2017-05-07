@@ -1,63 +1,49 @@
-﻿@model PM.Web.Administration.Models.IndexUserViewModel
+﻿@model PM.Web.Administration.User.IndexUserViewModel
 @{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Users";
 }
 
-<header class="head">
-    <div class="search-bar">
-        <form class="main-search" action="">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Live Search ...">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm text-muted" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-    </div>
-    <div class="main-bar row">
-        <div class="col-md-6">
-            <h3><i class="fa fa-dashboard"></i>&nbsp; Dashboard</h3>
-        </div>
-        <div class="col-md-6">
-            <div class="bar-right-content pull-right">
-                <a href="@Url.Action("New", "User", new { area = "Administration" })"><h3><i class="fa fa-plus-square"></i>&nbsp; Add</h3></a>
-            </div>
-        </div>
-    </div>
-</header>
-
 @Html.Partial("_LeftMenuBar", Guid.Empty)
 
-<div class="right-content">
-    <div class="main-outer">
-        <div class="main-inner">
+@Html.Partial("_NewUserModal", new PM.Web.Administration.User.CreateUserViewModel())
 
-            <table id="table-tasks" class="table table-striped">
-                <thead>
-                    <tr>
-                        <td><h4>User Name</h4></td>
-                        <td><h4>Role</h4></td>
-                        <td><h4>Date Created</h4></td>
-                        <td><h4>Actions</h4></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Users)
-                    {
-                        <tr>
-                            <td>@item.UserName</td>
-                            <td>@item.Roles.FirstOrDefault().Name</td>
-                            <td>@item.DateCreated</td>
-                            <td><a>Action</a></td>
-                        </tr>
-                    }
+<!-- PAGE -->
+<div class="page">
 
-                </tbody>
-            </table>
+    <div class="page-content-header">
 
+        <span class="breadcrumbs">
+            <a href="index.html">Home</a> /
+            <span>Users</span>
+        </span>
+
+        <div class="header-content-right">
+            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#new-user-modal" data-backdrop="static">Add New</button>
         </div>
     </div>
+
+    <div class="page-content">
+
+        @foreach (var user in Model.Users)
+        {
+            <div class="col-md-4">
+                <div class="widget">
+                    <div class="block">
+                        <img class="img-avatar img-lg pull-left" src="http://i.pravatar.cc/300" alt="">
+                        <div style="padding-left: 150px;">
+                            <h4>@user.UserName</h4>
+                            <p>Project Manager</p>
+                            <p>@user.Email</p>
+                        </div>
+                 
+                        <br />
+                        <a>projects</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div> 
+
 </div>

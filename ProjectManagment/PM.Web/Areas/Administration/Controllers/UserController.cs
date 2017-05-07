@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using PM.Web.Identity;
+using PM.Web.Administration.User;
+using System.Net;
+using PM.Web.Infrastructure;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -17,16 +20,17 @@ namespace PM.Web.Areas.Administration.Controllers
         private readonly IIdentityService identityService;
         private readonly ILookupService lookupService;
         private readonly UserManager<IdentityUser, Guid> userManager;
+        private readonly UserStore userStore;
 
-        public UserController(IMapper mapper, IIdentityService identityService, ILookupService lookupService, UserManager<IdentityUser, Guid> userManager) 
+        public UserController(IMapper mapper, IIdentityService identityService, ILookupService lookupService, UserManager<IdentityUser, Guid> userManager, UserStore userStore) 
             : base(mapper)
         {
             this.identityService = identityService;
             this.lookupService = lookupService;
             this.userManager = userManager;
+            this.userStore = userStore;
         }
-
-
+        
         // GET: Administration/User
         [HttpGet]
         [ActionName("Index")]
@@ -51,8 +55,8 @@ namespace PM.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        [ActionName("New")]
-        public async Task<ActionResult> NewAsync(CreateUserViewModel vm)
+        [ActionName("Create")]
+        public async Task<ActionResult> CreateAsync(CreateUserViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -66,23 +70,37 @@ namespace PM.Web.Areas.Administration.Controllers
                     UserName = vm.UserName,
                     Email = vm.Email
                 };
-                
+
+                var iRole = new IdentityRole(role.Name, role.RoleId);
+                domain.Roles.Add(iRole);
+
                 var password = GenerateTempPassword(7);
 
                 try
                 {
                     var newUser = await userManager.CreateAsync(domain, password);
-                    await userManager.AddToRoleAsync(domain.Id, "User");
+                    if (newUser.Succeeded)
+                    {
+                        var nUser = await userStore.FindByIdAsync(domain.Id);
+                        //await userStore.AddToRoleAsync(nUser, "User");
+                    }
+
+                    //await userManager.AddToRoleAsync(domain.Id, "User");
+                    //await userStore.AddToRoleAsync(domain, "User");
+
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return Json(new { success = true, responseText = "User is created successfuly.", html = this.RenderView("_NewUserModal", vm) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    SetErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
                 }
-
-                return RedirectToAction("Index");
             }
+            else
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-            return View("New", vm);
+            return PartialView("_NewUserModal", vm);
         }
 
         private string GenerateTempPassword(int length)
