@@ -32,6 +32,9 @@ namespace PM.DAL
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
         public string Email { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public System.DateTime DateUpdated { get; set; }
+        public byte[] TimeStamp { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Claim> Claims { get; set; }

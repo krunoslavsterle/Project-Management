@@ -22,6 +22,9 @@ namespace PM.DAL
     
         public System.Guid RoleId { get; set; }
         public string Name { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public System.DateTime DateUpdated { get; set; }
+        public byte[] TimeStamp { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }

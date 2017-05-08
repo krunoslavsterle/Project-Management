@@ -9,9 +9,9 @@ using Microsoft.AspNet.Identity;
 using PM.Web.Administration.User;
 using System.Net;
 using PM.Web.Infrastructure;
-using System.Collections;
 using System.Collections.Generic;
 using PM.Model.Common;
+using PM.Common.Extensions;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -57,13 +57,12 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Index")]
         public async Task<ActionResult> IndexAsync()
         {
-            // TODO: PUT THIS IN THE BASE CONTROLLER.
-            //var user = await identityService.GetUserById(UserId);
-            //var users = await identityService.GetUsersByCompanyId(user.CompanyId, "Roles");
+            var user = await userManager.FindByIdAsync(UserId);
+            var users = await userStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
 
             // List of users
             var vm = new IndexUserViewModel();
-            //vm.Users = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
+            vm.Users = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
             return View("Index", vm);
         }
         
@@ -93,7 +92,7 @@ namespace PM.Web.Areas.Administration.Controllers
                         await userManager.AddToRoleAsync(newUser.Id, "User");
 
                         // TODO: PUT THIS IN THE BASE CONTROLLER.
-                        var users = await userStore.GetUsersByCompanyIdAsync(user.CompanyId, "Roles");
+                        var users = await userStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
                         var usersVm = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
 
                         Response.StatusCode = (int)HttpStatusCode.OK;

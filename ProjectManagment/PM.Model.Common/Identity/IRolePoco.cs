@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace PM.Model.Common
 {
@@ -25,7 +24,23 @@ namespace PM.Model.Common
         /// The name.
         /// </value>
         string Name { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the date created.
+        /// </summary>
+        /// <value>
+        /// The date created.
+        /// </value>
+        DateTime DateCreated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date updated.
+        /// </summary>
+        /// <value>
+        /// The date updated.
+        /// </value>
+        DateTime DateUpdated { get; set; }
+
         #endregion Properies
     }
 }

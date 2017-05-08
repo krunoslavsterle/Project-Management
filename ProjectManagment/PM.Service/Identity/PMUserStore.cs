@@ -124,6 +124,7 @@ namespace PM.Service
             if (user == null)
                 throw new ArgumentNullException("user");
 
+            user.DateUpdated = DateTime.UtcNow;
             return userRepository.UpdateAsync(user);
         }
 

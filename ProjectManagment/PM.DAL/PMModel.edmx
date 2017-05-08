@@ -64,6 +64,9 @@
           </Key>
           <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -116,6 +119,9 @@
           <Property Name="PasswordHash" Type="nvarchar" MaxLength="4000" />
           <Property Name="SecurityStamp" Type="nvarchar" MaxLength="4000" />
           <Property Name="Email" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -124,6 +130,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Claim_dbo_User_UserId">
           <End Role="User" Type="Self.User" Multiplicity="1">
@@ -621,6 +628,9 @@
           <Property Name="RoleId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserRoles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId" FromRole="Role" ToRole="UserRole" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -640,6 +650,9 @@
           <NavigationProperty Name="TasksAssigned" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="User" ToRole="Task" />
           <NavigationProperty Name="TasksCreated" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="User" ToRole="Task" />
           <NavigationProperty Name="UserRoles" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" FromRole="User" ToRole="UserRole" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -650,6 +663,7 @@
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_Role_RoleId" FromRole="UserRole" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" FromRole="UserRole" ToRole="User" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_Claim_dbo_User_UserId">
           <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1">
@@ -876,6 +890,9 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="PMDatabaseModel.Role">
               <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
@@ -884,6 +901,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PMDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -896,6 +916,7 @@
           <EntitySetMapping Name="UserRoles">
             <EntityTypeMapping TypeName="PMDatabaseModel.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

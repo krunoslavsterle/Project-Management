@@ -53,7 +53,9 @@
     <Compile Include="Cache\MemoryCacheProvider.cs" />
     <Compile Include="DIModule.cs" />
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Extensions\ClassExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Filters\ProjectFilter.cs" />
     <Compile Include="Filters\TaskFilter.cs" />
     <Compile Include="Helpers\IPagingParameters.cs" />

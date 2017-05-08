@@ -17,6 +17,7 @@ namespace PM.DAL
         public System.Guid Id { get; set; }
         public System.Guid RoleId { get; set; }
         public System.Guid UserId { get; set; }
+        public System.DateTime DateCreated { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual User User { get; set; }
