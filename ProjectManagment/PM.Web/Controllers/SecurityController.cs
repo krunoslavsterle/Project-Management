@@ -7,6 +7,9 @@ using Microsoft.Owin.Security;
 using System;
 using PM.Service.Common;
 using PM.Model.Common;
+using PM.Common;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace PM.Web.Controllers
 {
@@ -17,6 +20,7 @@ namespace PM.Web.Controllers
     {
         #region Fields
 
+        private readonly IMapper mapper;
         private readonly IPMUserStore userStore;
         private readonly UserManager<IUserPoco, Guid> userManager;
         private readonly ICompanyService companyService;
@@ -30,11 +34,15 @@ namespace PM.Web.Controllers
         /// </summary>
         /// <param name="userStore">The user store.</param>
         /// <param name="companyService">The company service.</param>
-        public SecurityController(IPMUserStore userStore, ICompanyService companyService)
+        public SecurityController(IPMUserStore userStore, ICompanyService companyService, IMapper mapper)
         {
             this.companyService = companyService;
             this.userStore = userStore;
+            this.mapper = mapper;
             this.userManager = new UserManager<IUserPoco, Guid>(userStore);
+
+            var provider = new DpapiDataProtectionProvider("ProjectManagment");
+            this.userManager.UserTokenProvider = new DataProtectorTokenProvider<IUserPoco, Guid>(provider.Create("EmailConfirmation"));
         }
 
         #endregion Constructors
@@ -160,7 +168,52 @@ namespace PM.Web.Controllers
 
             return View(model);
         }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        [ActionName("ActivateAccount")]
+        public async Task<ActionResult> ActivateAccountAsync(Guid userId, string code)
+        {
+            if (userId == null)
+                throw new ArgumentNullException("userId");
 
+            if (String.IsNullOrEmpty(code))
+                throw new ArgumentNullException("code");
+            
+            var result = await userManager.ConfirmEmailAsync(userId, code);
+            if (result.Succeeded)
+            {
+                var userDomain = await userManager.FindByIdAsync(userId);
+                var vm = mapper.Map<RegisterViewModel>(userDomain);
+                vm.CompanyName = "Test Company";
+                return View("Activate", vm);
+            }
+
+            throw new Exception("The provided code is not valid for your user");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [ActionName("ActivateAccount")]
+        public async Task<ActionResult> ActivateAccountAsync(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userDomain = await userManager.FindByNameAsync(model.UserName);
+
+                var provider = new DpapiDataProtectionProvider("ProjectManagment");
+                this.userManager.UserTokenProvider = new DataProtectorTokenProvider<IUserPoco, Guid>(provider.Create("PasswordReset"));
+
+                await userManager.ResetPasswordAsync(userDomain.Id, this.userManager.GeneratePasswordResetToken(userDomain.Id), model.Password);
+
+                await SignInAsync(userDomain, isPersistent: false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("Activate");
+        }
+        
         private async Task SignInAsync(IUserPoco user, bool isPersistent)
         { 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);

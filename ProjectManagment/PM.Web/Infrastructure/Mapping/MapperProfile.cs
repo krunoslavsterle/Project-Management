@@ -3,6 +3,7 @@ using PM.Model.Common;
 using PM.Web.Administration.Models;
 using PM.Web.Administration.Project;
 using PM.Web.Administration.User;
+using PM.Web.Models;
 using System;
 
 namespace PM.Web
@@ -21,6 +22,7 @@ namespace PM.Web
             #endregion Identity models  
 
             CreateMap<IUserPoco, UserPreviewViewModel>().ReverseMap();
+            CreateMap<IUserPoco, RegisterViewModel>().ReverseMap();
 
             #region Project models
 

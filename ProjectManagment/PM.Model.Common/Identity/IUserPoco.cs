@@ -38,12 +38,28 @@ namespace PM.Model.Common
         string SecurityStamp { get; set; }
 
         /// <summary>
+        /// Gets or sets the password reset token.
+        /// </summary>
+        /// <value>
+        /// The password reset token.
+        /// </value>
+        string PasswordResetToken { get; set; }
+
+        /// <summary>
         /// Gets or sets the email.
         /// </summary>
         /// <value>
         /// The email.
         /// </value>
         string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether email is confirmed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [email confirmed]; otherwise, <c>false</c>.
+        /// </value>
+        bool EmailConfirmed { get; set; }
 
         /// <summary>
         /// Gets or sets the date created.

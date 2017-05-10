@@ -49,6 +49,7 @@ namespace PM.Repository
         {
             var userRole = new UserRolePoco();
             userRole.Id = Guid.NewGuid();
+            userRole.DateCreated = DateTime.UtcNow;
 
             return userRole;
         }

@@ -10,7 +10,11 @@ namespace PM.Service.Common
     /// PM User Store contract.
     /// </summary>
     /// <seealso cref="Microsoft.AspNet.Identity.IUserStore{PM.Model.Common.IUserPoco, System.Guid}" />
-    public interface IPMUserStore : IUserStore<IUserPoco, Guid>, IUserRoleStore<IUserPoco, Guid>, IUserPasswordStore<IUserPoco, Guid>, IUserSecurityStampStore<IUserPoco, Guid>
+    public interface IPMUserStore : IUserStore<IUserPoco, Guid>, 
+                                    IUserRoleStore<IUserPoco, Guid>, 
+                                    IUserPasswordStore<IUserPoco, Guid>, 
+                                    IUserSecurityStampStore<IUserPoco, Guid>, 
+                                    IUserEmailStore<IUserPoco, Guid>
     {
         /// <summary>
         /// Creates the user asynchronous.

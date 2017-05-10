@@ -50,7 +50,15 @@ namespace PM.Model
         /// The security stamp.
         /// </value>
         public string SecurityStamp { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the password reset token.
+        /// </summary>
+        /// <value>
+        /// The password reset token.
+        /// </value>
+        public string PasswordResetToken { get; set; }
+
         /// <summary>
         /// Gets or sets the date created.
         /// </summary>
@@ -74,7 +82,15 @@ namespace PM.Model
         /// The email.
         /// </value>
         public string Email { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets a value indicating whether email is confirmed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [email confirmed]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EmailConfirmed { get; set; }
+
         /// <summary>
         /// Gets or sets the claims.
         /// </summary>

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Cache\ICacheProvider.cs" />
     <Compile Include="Cache\MemoryCacheProvider.cs" />
+    <Compile Include="Clients\EmailClient.cs" />
     <Compile Include="DIModule.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions\ClassExtensions.cs" />

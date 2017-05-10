@@ -118,7 +118,9 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar" MaxLength="4000" />
           <Property Name="SecurityStamp" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PasswordResetToken" Type="nvarchar" MaxLength="4000" />
           <Property Name="Email" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -653,6 +655,8 @@
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PasswordResetToken" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -901,6 +905,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="PMDatabaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordResetToken" ColumnName="PasswordResetToken" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />

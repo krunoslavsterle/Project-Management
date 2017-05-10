@@ -35,6 +35,8 @@ namespace PM.DAL
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateUpdated { get; set; }
         public byte[] TimeStamp { get; set; }
+        public string PasswordResetToken { get; set; }
+        public bool EmailConfirmed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Claim> Claims { get; set; }

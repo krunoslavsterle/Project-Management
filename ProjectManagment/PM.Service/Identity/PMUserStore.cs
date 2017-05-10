@@ -287,6 +287,84 @@ namespace PM.Service
             return Task.FromResult<string>(user.SecurityStamp);
         }
         
+        #region IUserEmailStore
+
+        /// <summary>
+        /// Set the user email.
+        /// </summary>
+        /// <param name="user">User.</param>
+        /// <param name="email">Email</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="System.ArgumentNullException">user or email</exception>
+        public Task SetEmailAsync(IUserPoco user, string email)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            if (String.IsNullOrEmpty(email))
+                throw new ArgumentNullException("email");
+
+            user.Email = email;
+            return UpdateAsync(user);
+        }
+
+        /// <summary>
+        /// Get the user email.
+        /// </summary>
+        /// <param name="user">User.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="System.ArgumentNullException">user.</exception>
+        public Task<string> GetEmailAsync(IUserPoco user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            return Task.FromResult(user.Email);
+        }
+
+        /// <summary>
+        /// Returns true if the user email is confirmed.
+        /// </summary>
+        /// <param name="user">User.</param>
+        /// <returns>True if the user email is confirmed.</returns>
+        /// <exception cref="System.ArgumentNullException">user.</exception>
+        public Task<bool> GetEmailConfirmedAsync(IUserPoco user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            return Task.FromResult(user.EmailConfirmed);
+        }
+
+        /// <summary>
+        /// Sets whether the user email is confirmed.
+        /// </summary>
+        /// <param name="user">User.</param>
+        /// <param name="confirmed">Confirmed flag.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="System.ArgumentNullException">user.</exception>
+        public Task SetEmailConfirmedAsync(IUserPoco user, bool confirmed)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            user.EmailConfirmed = confirmed;
+            return UpdateAsync(user);
+        }
+
+        /// <summary>
+        /// Returns the user associated with this email.
+        /// </summary>
+        /// <param name="email">User email address.</param>
+        /// <returns>The user associated with this email..</returns>
+        /// <exception cref="System.ArgumentNullException">email.</exception>
+        public Task<IUserPoco> FindByEmailAsync(string email)
+        {
+            return userRepository.GetOneAsync(p => p.Email == email);
+        }
+
+        #endregion IUserEmailStore
+
         #endregion Methods
 
         #region IDisposable Support
@@ -325,7 +403,6 @@ namespace PM.Service
         }
 
         
-
 
         #endregion
 
