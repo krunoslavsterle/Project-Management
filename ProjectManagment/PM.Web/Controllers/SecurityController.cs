@@ -62,7 +62,7 @@ namespace PM.Web.Controllers
 
         #endregion Properties
 
-        #region Methods
+        #region Actions
 
         /// <summary>
         /// Login async GET action.
@@ -103,7 +103,7 @@ namespace PM.Web.Controllers
 
             return View(model);
         }
-        
+
         /// <summary>
         /// Sign out async GET action.
         /// </summary>
@@ -117,14 +117,13 @@ namespace PM.Web.Controllers
         }
 
         /// <summary>
-        /// Register async GET action.
+        /// Register GET action.
         /// </summary>
         /// <returns>View.</returns>
         [HttpGet]
-        [ActionName("Register")]
-        public Task<ViewResult> RegisterAsync()
+        public ViewResult Register()
         {
-            return Task.FromResult(View());
+            return View("Register");
         }
 
         /// <summary>
@@ -168,7 +167,12 @@ namespace PM.Web.Controllers
 
             return View(model);
         }
-        
+
+        /// <summary>
+        /// ActivateAccount GET action.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="code">The code.</param>
         [HttpGet]
         [AllowAnonymous]
         [ActionName("ActivateAccount")]
@@ -179,7 +183,7 @@ namespace PM.Web.Controllers
 
             if (String.IsNullOrEmpty(code))
                 throw new ArgumentNullException("code");
-            
+
             var result = await userManager.ConfirmEmailAsync(userId, code);
             if (result.Succeeded)
             {
@@ -192,6 +196,11 @@ namespace PM.Web.Controllers
             throw new Exception("The provided code is not valid for your user");
         }
 
+        /// <summary>
+        /// ActivateAccount POST action.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -213,7 +222,11 @@ namespace PM.Web.Controllers
 
             return View("Activate");
         }
-        
+
+        #endregion Actions
+
+        #region Methods
+
         private async Task SignInAsync(IUserPoco user, bool isPersistent)
         { 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
@@ -222,6 +235,5 @@ namespace PM.Web.Controllers
         }
 
         #endregion Methods
-
     }
 }

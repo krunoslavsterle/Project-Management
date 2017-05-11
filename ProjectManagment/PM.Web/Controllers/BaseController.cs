@@ -85,6 +85,8 @@ namespace PM.Web.Controllers
 
         #endregion Properties
 
+        #region Methods
+
         /// <summary>
         /// Sets the response status code and description for error handling.
         /// </summary>
@@ -95,5 +97,7 @@ namespace PM.Web.Controllers
             Response.StatusCode = (int)statusCode;
             Response.StatusDescription = description;
         }
+
+        #endregion Methods
     }
 }

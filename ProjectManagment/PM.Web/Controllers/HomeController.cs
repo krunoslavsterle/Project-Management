@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace PM.Web.Controllers
 {
@@ -9,14 +8,13 @@ namespace PM.Web.Controllers
     public class HomeController : Controller
     {
         /// <summary>
-        /// Index async GET action.
+        /// Index GET action.
         /// </summary>
         /// <returns>View.</returns>
-        [ActionName("Index")]
         [HttpGet]
-        public Task<ViewResult> IndexAsync()
+        public ActionResult Index()
         {
-            return Task.FromResult(View("Index"));
+            return View("Index");
         }        
     }
 }
