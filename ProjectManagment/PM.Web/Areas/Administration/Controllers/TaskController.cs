@@ -5,11 +5,13 @@ using PM.Web.Administration.Models;
 using PM.Web.Areas.Administration.Models;
 using PM.Web.Controllers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using PM.Common.Extensions;
+using PM.Web.Administration.Task;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -23,6 +25,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
         private readonly ITaskService taskService;
         private readonly ILookupService lookupService;
+        private readonly IProjectService projectService;
 
         #endregion Fields
 
@@ -33,10 +36,11 @@ namespace PM.Web.Areas.Administration.Controllers
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="taskService">The task service.</param>
-        public TaskController(IMapper mapper, ITaskService taskService, ILookupService lookupService) 
+        public TaskController(IMapper mapper, ITaskService taskService, IProjectService projectService, ILookupService lookupService) 
             : base(mapper)
         {
             this.taskService = taskService;
+            this.projectService = projectService;
             this.lookupService = lookupService;
         }
 
@@ -57,24 +61,24 @@ namespace PM.Web.Areas.Administration.Controllers
                 throw new Exception("The parameter [pId] is null or empty.");
 
             Guid projectId = ShortGuid.Decode(pId);
+            var project = await projectService.GetProjectAsync(projectId, 
+                this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))), 
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks)));
 
-            var tasks = await taskService.GetTasksAsync(p => p.ProjectId == projectId, null, "AssignedToUser");
             var priorities = lookupService.GetAllTaskPriority();
             var statuses = lookupService.GetAllTaskStatus();
+            var projectUsers = project.ProjectUsers.Select(p => p.User);
 
-            var vm = new TaskViewModel()
+            var vm = new ListViewModel()
             {
-                TaskPriorityList = priorities.ToDictionary(i => i.Id, n => n.Name),
-                TaskStatusList = statuses.ToDictionary(i => i.Id, n => n.Name),
+                ProjectName = project.Name,
                 ProjectId = projectId,
-                Tasks = tasks
+                Tasks = Mapper.Map<IEnumerable<TaskDTO>>(project.Tasks),
+                TaskPriorityList = priorities.ToDictionary(p => p.Id, d => d.Name),
+                TaskStatusList = statuses.ToDictionary(p => p.Id, d => d.Name),
+                ProjectUsersList = projectUsers.ToDictionary(p => p.Id, d => d.UserName)
             };
-
-            //var project = await ProjectService.GetProjectAsync(projectId);
-            //ViewBag.ProjectName = project.Name;
-            //ViewBag.ProjectId = project.Id;
-
-            // TODO: IMPLEMENT USING VIEW MODELS.
+            
             return View("List", vm);
         }
 

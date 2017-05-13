@@ -26,5 +26,25 @@ namespace PM.Common.Extensions
             // longer than yesterday.
             return String.Format("{0} days ago", (int)dateNow.Subtract(date).TotalDays);
         }
+
+        /// <summary>
+        /// Returns formated datetime string. Performs null check and returns value.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="nullReturn">The null return.</param>
+        /// <returns>Formated datetime string. Performs null check and returns value.</returns>
+        public static string ToNullableDateTimeString(this DateTime? date, string format = "dd/MM/yyyy", string nullReturn = "")
+        {
+            if (date.HasValue)
+            {
+                if (string.IsNullOrEmpty(format))
+                    return date.Value.ToShortDateString();
+                else
+                    return date.Value.ToString(format);
+            }
+
+            return String.IsNullOrEmpty(nullReturn) ? "" : nullReturn;
+        }
     }
 }

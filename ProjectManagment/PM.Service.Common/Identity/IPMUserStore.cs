@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
+using PM.Common;
 using PM.Model.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PM.Service.Common
@@ -29,5 +31,14 @@ namespace PM.Service.Common
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IUserPoco"/>.</returns>
         Task<IEnumerable<IUserPoco>> GetUsersByCompanyIdAsync(Guid companyId, params string[] includeProperties);
+
+        /// <summary>
+        /// Gets the users asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="IUserPoco"/>.</returns>
+        Task<IEnumerable<IUserPoco>> GetUsersAsync(Expression<Func<IUserPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
     }
 }

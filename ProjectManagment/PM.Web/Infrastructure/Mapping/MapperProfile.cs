@@ -2,6 +2,7 @@
 using PM.Model.Common;
 using PM.Web.Administration.Models;
 using PM.Web.Administration.Project;
+using PM.Web.Administration.Task;
 using PM.Web.Administration.User;
 using PM.Web.Models;
 using System;
@@ -36,6 +37,7 @@ namespace PM.Web
 
             CreateMap<ITaskPoco, CreateTaskViewModel>().ReverseMap();
             CreateMap<ITaskPoco, EditTaskViewModel>().ReverseMap();
+            CreateMap<ITaskPoco, TaskDTO>().ReverseMap();
 
             #endregion Task models
         }

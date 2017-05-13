@@ -26,6 +26,7 @@ namespace PM.DAL
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateUpdated { get; set; }
         public byte[] TimeStamp { get; set; }
+        public byte Progress { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual TaskPriority TaskPriority { get; set; }

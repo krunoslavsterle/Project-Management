@@ -1,7 +1,7 @@
 ﻿using PM.Model.Common;
 using System;
 
-namespace PM.Model.Models
+namespace PM.Model
 {
     /// <summary>
     /// ProjectUser poco model.

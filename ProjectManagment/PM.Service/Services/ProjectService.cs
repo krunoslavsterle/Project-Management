@@ -49,10 +49,11 @@ namespace PM.Service
         /// Gets the <see cref="IProject"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="includeProperties">The include properties.</param>
         /// <returns><see cref="IProjectPoco"/> model.</returns>
-        public Task<IProjectPoco> GetProjectAsync(Guid id)
+        public Task<IProjectPoco> GetProjectAsync(Guid id, params string[] includeProperties)
         {
-            return projectRepository.GetOneAsync(p => p.Id == id);
+            return projectRepository.GetOneAsync(p => p.Id == id, includeProperties);
         }
 
         /// <summary>

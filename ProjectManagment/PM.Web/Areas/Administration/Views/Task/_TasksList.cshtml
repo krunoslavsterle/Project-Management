@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PM.Web.Administration.Task.TaskDTO>
+@using PM.Common.Extensions
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="widget">
+
+        <div class="table-tasks">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="table-tasks-title-head">Title</th>
+                        <th class="table-tasks-progress-head text-center">Progress</th>
+                        <th class="table-tasks-priority-head text-center">Priority</th>
+                        <th class="table-tasks-duedate-head">Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td class="table-tasks-title-body">
+                                <a href="task-edit.html">
+                                    <span>@task.Title</span>
+                                </a>
+                                <div style="padding-left: 10px;">
+                                    <span class="table-tasks-additional color-success">@task.AssignedToUsername</span>
+                                    <span class="table-tasks-additional color-success"><i class="glyphicon glyphicon-allign-middle glyphicon-comment"></i> @task.CommentsCount</span>
+                                    <span class="table-tasks-additional color-warning"><i class="glyphicon glyphicon-allign-middle glyphicon-time"></i></span>
+                                </div>
+                            </td>
+
+                            <td class="text-center">
+                                <div class="progress">
+                                    <div class="progress-bar warning" style="width: @(task.Progress)%;">
+                                        <span class="sr-only">@(task.Progress)% Complete</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="table-tasks-priority-body priority-high"><i class="glyphicon glyphicon-allign-middle glyphicon-exclamation-sign"></i></span>
+                            </td>
+                            <td>
+                                <span class="table-tasks-duedate-body"><i class="glyphicon glyphicon-allign-middle glyphicon-time"></i> @task.DueDate.ToNullableDateTimeString()</span>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>    
+}

@@ -81,6 +81,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DueDate" Type="datetime" />
+          <Property Name="Progress" Type="tinyint" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -383,7 +384,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PMDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="PMDatabaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PMDatabaseEntities" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="Claims" EntityType="PMDatabaseModel.Claim" />
           <EntitySet Name="Companies" EntityType="PMDatabaseModel.Company" />
           <EntitySet Name="ExternalLogins" EntityType="PMDatabaseModel.ExternalLogin" />
@@ -523,6 +524,7 @@
           <NavigationProperty Name="TaskStatus" Relationship="PMDatabaseModel.FK_Task_TaskStatus" FromRole="Task" ToRole="TaskStatu" />
           <NavigationProperty Name="AssignedToUser" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="Task" ToRole="User" />
           <NavigationProperty Name="CreatedByUser" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="Task" ToRole="User" />
+          <Property Name="Progress" Type="Byte" Nullable="false" />
           </EntityType>
         <EntityType Name="TaskPriority">
           <Key>
@@ -838,6 +840,7 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="PMDatabaseModel.Task">
               <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />

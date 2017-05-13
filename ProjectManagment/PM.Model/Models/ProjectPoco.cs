@@ -85,6 +85,14 @@ namespace PM.Model
         /// </value>
         public virtual IUserPoco ProjectLeader { get; set; }
 
+        /// <summary>
+        /// Gets or sets the project users.
+        /// </summary>
+        /// <value>
+        /// The project users.
+        /// </value>
+        public virtual ICollection<IProjectUserPoco> ProjectUsers { get; set; }
+
         #endregion Navigation Properties
     }
 }

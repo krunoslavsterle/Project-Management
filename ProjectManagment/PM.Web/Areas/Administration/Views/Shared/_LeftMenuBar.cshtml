@@ -30,7 +30,7 @@
                 </li>
 
                 <li>
-                    <a href="tasks.html"><i class="glyphicon glyphicon-tasks"></i><span>Tasks</span></a>
+                    @Html.MenuItemLink("Tasks", "List", "Task", new { pId = PM.Common.ShortGuid.Encode(Model) }, "glyphicon glyphicon-tasks")
                 </li>
 
                 <li>

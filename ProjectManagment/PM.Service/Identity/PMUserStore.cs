@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using PM.Repository;
+using System.Linq.Expressions;
 
 namespace PM.Service
 {
@@ -112,6 +113,18 @@ namespace PM.Service
         public Task<IEnumerable<IUserPoco>> GetUsersByCompanyIdAsync(Guid companyId, params string[] includeProperties)
         {
             return userRepository.GetAsync(p => p.CompanyId == companyId, null, includeProperties);
+        }
+
+        /// <summary>
+        /// Gets the users asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="IUserPoco"/>.</returns>
+        public Task<IEnumerable<IUserPoco>> GetUsersAsync(Expression<Func<IUserPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        {
+            return userRepository.GetAsync(filter, orderBy, includeProperties);
         }
 
         /// <summary>

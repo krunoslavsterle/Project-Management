@@ -84,6 +84,14 @@ namespace PM.Model.Common
         /// </value>
         IUserPoco ProjectLeader { get; set; }
 
+        /// <summary>
+        /// Gets or sets the project users.
+        /// </summary>
+        /// <value>
+        /// The project users.
+        /// </value>
+        ICollection<IProjectUserPoco> ProjectUsers { get; set; }
+
         #endregion Navigation Properties
     }
 }
