@@ -37,7 +37,9 @@ namespace PM.Web
 
             CreateMap<ITaskPoco, CreateTaskViewModel>().ReverseMap();
             CreateMap<ITaskPoco, EditTaskViewModel>().ReverseMap();
-            CreateMap<ITaskPoco, TaskDTO>().ReverseMap();
+            CreateMap<ITaskPoco, TaskDTO>()
+                .ForMember(vm => vm.AssignedToUsername, d => d.MapFrom(poco => poco.AssignedToUser.UserName))
+                .ReverseMap();
 
             #endregion Task models
         }

@@ -46,5 +46,27 @@ namespace PM.Common.Extensions
 
             return String.IsNullOrEmpty(nullReturn) ? "" : nullReturn;
         }
+
+        /// <summary>
+        /// Returns a specified label based on due date expireing. 
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <param name="warningDays">Days before due date to recive warning.</param>
+        /// <param name="warningLabel">The warning label.</param>
+        /// <param name="expireLabel">The expire label.</param>
+        /// <returns>The specified label based on due date expireing. </returns>
+        public static string ToDueDateWarningString(this DateTime? date, int warningDays = 2, string warningLabel = "warning", string expireLabel = "alert")
+        {
+            if (date.HasValue)
+            {
+                if (date.Value <= DateTime.UtcNow)
+                    return expireLabel ?? "alert";
+
+                if (date.Value.AddDays(warningDays) >= DateTime.UtcNow)
+                    return warningLabel ?? "warning";
+            }
+
+            return null;
+        }
     }
 }

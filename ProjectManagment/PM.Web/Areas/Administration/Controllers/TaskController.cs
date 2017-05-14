@@ -63,7 +63,7 @@ namespace PM.Web.Areas.Administration.Controllers
             Guid projectId = ShortGuid.Decode(pId);
             var project = await projectService.GetProjectAsync(projectId, 
                 this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))), 
-                this.ToNavPropertyString(nameof(IProjectPoco.Tasks)));
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))));
 
             var priorities = lookupService.GetAllTaskPriority();
             var statuses = lookupService.GetAllTaskStatus();

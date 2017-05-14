@@ -1,7 +1,7 @@
-﻿@model IEnumerable<PM.Web.Administration.Task.TaskDTO>
+﻿@model PM.Web.Administration.Task.ListViewModel
 @using PM.Common.Extensions
 
-@if (Model != null && Model.Count() > 0)
+@if (Model.Tasks != null && Model.Tasks.Count() > 0)
 {
     <div class="widget">
 
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var task in Model)
+                    @foreach (var task in Model.Tasks)
                     {
                         <tr>
                             <td class="table-tasks-title-body">
@@ -27,7 +27,14 @@
                                 <div style="padding-left: 10px;">
                                     <span class="table-tasks-additional color-success">@task.AssignedToUsername</span>
                                     <span class="table-tasks-additional color-success"><i class="glyphicon glyphicon-allign-middle glyphicon-comment"></i> @task.CommentsCount</span>
-                                    <span class="table-tasks-additional color-warning"><i class="glyphicon glyphicon-allign-middle glyphicon-time"></i></span>
+                                   
+                                    @{ 
+                                        var dueDateLabel = task.DueDate.ToDueDateWarningString(2, "warning", "alert");
+                                    }
+                                    @if (!String.IsNullOrEmpty(dueDateLabel))
+                                    {
+                                        <span class="table-tasks-additional color-@dueDateLabel"><i class="glyphicon glyphicon-allign-middle glyphicon-time"></i></span>
+                                    }
                                 </div>
                             </td>
 
@@ -39,9 +46,13 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                <span class="table-tasks-priority-body priority-high"><i class="glyphicon glyphicon-allign-middle glyphicon-exclamation-sign"></i></span>
+                                @{ 
+                                    var priority = Model.TaskPriorityList.First(p => p.Key == task.PriorityId).Value.ToLower();
+                                }
+                                <span class="table-tasks-priority-body priority-@priority"><i class="glyphicon glyphicon-allign-middle glyphicon-exclamation-sign"></i></span>
                             </td>
                             <td>
+
                                 <span class="table-tasks-duedate-body"><i class="glyphicon glyphicon-allign-middle glyphicon-time"></i> @task.DueDate.ToNullableDateTimeString()</span>
                             </td>
                         </tr>

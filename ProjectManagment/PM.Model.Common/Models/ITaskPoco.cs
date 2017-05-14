@@ -79,6 +79,14 @@ namespace PM.Model.Common
         DateTime? DueDate { get; set; }
 
         /// <summary>
+        /// Gets or sets the progress.
+        /// </summary>
+        /// <value>
+        /// The progress.
+        /// </value>
+        byte Progress { get; set; }
+
+        /// <summary>
         /// Gets or sets the date created.
         /// </summary>
         /// <value>

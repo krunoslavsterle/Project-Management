@@ -83,6 +83,14 @@ namespace PM.Model
         public DateTime? DueDate { get; set; }
 
         /// <summary>
+        /// Gets or sets the progress.
+        /// </summary>
+        /// <value>
+        /// The progress.
+        /// </value>
+        public byte Progress { get; set; }
+
+        /// <summary>
         /// Gets or sets the date created.
         /// </summary>
         /// <value>

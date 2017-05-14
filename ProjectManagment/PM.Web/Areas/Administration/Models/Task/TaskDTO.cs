@@ -11,7 +11,7 @@ namespace PM.Web.Administration.Task
         public string Title { get; set; }
         public string AssignedToUsername { get; set; }
 
-        public int Progress { get; set; }
+        public byte Progress { get; set; }
         public int CommentsCount { get; set; }
 
         public DateTime? DueDate { get; set; }
