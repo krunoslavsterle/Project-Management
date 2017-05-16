@@ -68,8 +68,8 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [ActionName("CreateProject")]
-        public async Task<ActionResult> CreateProjectAsync(CreateProjectViewModel vm)
+        [ActionName("Create")]
+        public async Task<ActionResult> CreateAsync(CreateProjectViewModel vm)
         {
             if (ModelState.IsValid)
             {

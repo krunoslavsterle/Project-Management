@@ -7,6 +7,7 @@ using PagedList;
 using PM.Model.Common;
 using PM.Common;
 using PM.Repository.Common;
+using PM.Model;
 
 namespace PM.Repository
 {
@@ -38,6 +39,22 @@ namespace PM.Repository
         #endregion Constructors
 
         #region Methods
+
+        /// <summary>
+        /// Creates new in-memory istance of <see cref="ITaskPoco"/> class.
+        /// </summary>
+        /// <returns>New in-memory istance of <see cref="ITaskPoco"/> class.</returns>
+        public virtual ITaskPoco Create()
+        {
+            var model = new TaskPoco()
+            {
+                Id = Guid.NewGuid(),
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
+            };
+
+            return model;
+        }
         
         /// <summary>
         /// Gets a list of all <see cref="ITaskPoco"/> models.

@@ -17,6 +17,12 @@ namespace PM.Repository.Common
         #region Methods
 
         /// <summary>
+        /// Creates new in-memory istance of <see cref="ITaskPoco"/> class.
+        /// </summary>
+        /// <returns>New in-memory istance of <see cref="ITaskPoco"/> class.</returns>
+        ITaskPoco Create();
+
+        /// <summary>
         /// Gets a list of all <see cref="ITaskPoco"/> models.
         /// </summary>
         /// <param name="orderBy">The order by.</param>

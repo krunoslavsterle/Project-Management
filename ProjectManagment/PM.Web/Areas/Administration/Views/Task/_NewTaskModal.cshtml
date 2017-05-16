@@ -1,0 +1,114 @@
+﻿@model PM.Web.Administration.Task.CreateTaskViewModel
+
+@using (Ajax.BeginForm("Create", "Task", new { area = "Administration" },
+    new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnSuccess = "onSuccess(data);",
+        OnFailure = "onError",
+        LoadingElementId = "loader"
+    }, null))
+{
+    @Html.AntiForgeryToken()
+    
+    @Html.HiddenFor(vm => vm.ProjectId)
+
+    <div class="modal fade" id="new-task-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <!-- MODAL HEADER -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add New Task</h4>
+                </div>
+
+                <!-- MODAL BODY -->
+                <div class="modal-body">
+                    <div class="create-task">
+
+                        <div class="form-group">
+                            @Html.LabelFor(vm => vm.Title, "Title")
+                            @Html.TextBoxFor(vm => vm.Title, new { @class = "form-control", placeholder = "Enter task title" })
+                            @Html.ValidationMessageFor(p => p.Title)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(vm => vm.Description, "Description")
+                            @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", placeholder = "Enter task description", rows = 4 })
+                            @Html.ValidationMessageFor(p => p.Description)
+                        </div>
+
+                        <!-- DROPDOWNS -->
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(vm => vm.AssignedToUserId, "Assigne to")
+                                    @Html.DropDownListFor(vm => vm.AssignedToUserId, new SelectList(ViewBag.ProjectUsers, "Key", "Value"), new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(vm => vm.PriorityId, "Priority")
+                                    @Html.DropDownListFor(vm => vm.PriorityId, new SelectList(ViewBag.PriorityList, "Key", "Value"), new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(vm => vm.DueDate, "Dou Date")
+                                    @Html.TextBoxFor(vm => vm.DueDate, new { @class = "form-control", data_toggle = "datepicker", placeholder = "mm/dd/yyyy" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Create Task</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+
+    function onSuccess(data) {
+        if (data) {
+            if (data.success === true) {
+
+                $('#@Html.IdFor(p => p.Title)').val('');
+                $('#@Html.IdFor(p => p.Description)').val('');
+
+                $('#new-task-modal').modal('hide');
+                Message.successDefault(data.responseText);
+
+                // Check if returned html variable contains value.
+                if (data.html) {
+                    $('#tasks-list').html(data.html);
+                }
+
+            } else {
+                Message.errorDefault(data.responseText);
+            }
+        } else {
+            console.log('There is no data returned form the server.');
+            Message.errorDefault('Something went wrong, please contact the administrator');
+        }
+    }
+
+    function onError(ajaxContext) {
+
+        Message.errorDefault(ajaxContext.statusText);
+    }
+
+
+</script>
+

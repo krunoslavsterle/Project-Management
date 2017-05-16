@@ -2,7 +2,6 @@
 using PM.Model.Common;
 using PM.Service.Common;
 using PM.Web.Administration.Models;
-using PM.Web.Areas.Administration.Models;
 using PM.Web.Controllers;
 using System;
 using System.Linq;
@@ -10,8 +9,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using PM.Common.Extensions;
 using PM.Web.Administration.Task;
-using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using PM.Web.Infrastructure;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -45,8 +45,8 @@ namespace PM.Web.Areas.Administration.Controllers
         }
 
         #endregion Constructors
-
-        #region Methods
+        
+        #region Actions
 
         /// <summary>
         /// Task list GET action.
@@ -60,79 +60,53 @@ namespace PM.Web.Areas.Administration.Controllers
             if (String.IsNullOrEmpty(pId))
                 throw new Exception("The parameter [pId] is null or empty.");
 
-            Guid projectId = ShortGuid.Decode(pId);
-            var project = await projectService.GetProjectAsync(projectId, 
-                this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))), 
-                this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))));
-
-            var priorities = lookupService.GetAllTaskPriority();
-            var statuses = lookupService.GetAllTaskStatus();
-            var projectUsers = project.ProjectUsers.Select(p => p.User);
-
+            var project = await PrepareListActionData(ShortGuid.Decode(pId));
             var vm = new ListViewModel()
             {
                 ProjectName = project.Name,
-                ProjectId = projectId,
-                Tasks = Mapper.Map<IEnumerable<TaskDTO>>(project.Tasks),
-                TaskPriorityList = priorities.ToDictionary(p => p.Id, d => d.Name),
-                TaskStatusList = statuses.ToDictionary(p => p.Id, d => d.Name),
-                ProjectUsersList = projectUsers.ToDictionary(p => p.Id, d => d.UserName)
+                ProjectId = project.Id,
+                Tasks = Mapper.Map<IEnumerable<TaskDTO>>(project.Tasks)
             };
-            
+
             return View("List", vm);
         }
 
         /// <summary>
-        /// NewAsync GET action.
+        /// New project async POST action.
         /// </summary>
-        /// <param name="pId">The product short guid.</param>
-        /// <exception cref="System.Exception">The parameter [pId] is null or empty.</exception>
-        [HttpGet]
-        [ActionName("New")]
-        public async Task<ActionResult> NewAsync(string pId)
-        {
-            if (String.IsNullOrEmpty(pId))
-                throw new Exception("The parameter [pId] is null or empty.");
-
-            Guid projectId = ShortGuid.Decode(pId);
-            var priorities = lookupService.GetAllTaskPriority();
-            var statuses = lookupService.GetAllTaskStatus();
-
-            var vm = new CreateTaskViewModel();
-            vm.CreatedByUserId = UserId;
-            vm.PriorityList = new SelectList(priorities, "Id", "Name", vm.PriorityId);
-            vm.StatusList = new SelectList(statuses, "Id", "Name", vm.StatusId);
-            vm.ProjectId = projectId;
-
-            //ViewBag.ProjectName = project.Name;
-            //ViewBag.ProjectId = project.Id;
-
-            return View("New", vm);
-        }
-
-        /// <summary>
-        /// NewAsync POST action.
-        /// </summary>
-        /// <param name="vm">The view model.</param>
+        /// <param name="vm">The vm.</param>
+        /// <returns></returns>
         [HttpPost]
-        [ActionName("New")]
-        public async Task<ActionResult> NewAsync(CreateTaskViewModel vm)
+        [ValidateAntiForgeryToken]
+        [ActionName("Create")]
+        public async Task<ActionResult> CreateAsync(CreateTaskViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                vm.AssignedToUserId = UserId; // temp solution.
-                var domain = Mapper.Map<ITaskPoco>(vm);
+                var domainTask = taskService.Create();
+                Mapper.Map<CreateTaskViewModel, ITaskPoco>(vm, domainTask);
+                domainTask.CreatedByUserId = UserId;
+                domainTask.StatusId = lookupService.GetAllTaskStatus().First(p => p.Abrv == "NEW").Id;
+
                 try
                 {
-                    await taskService.InsertTaskAsync(domain);
+                    await this.taskService.InsertTaskAsync(domainTask);
+
+                    var project = await PrepareListActionData(vm.ProjectId);
+                    var tasksList = Mapper.Map<IEnumerable<TaskDTO>>(project.Tasks);
+
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return Json(new { success = true, responseText = "Task is added successfuly.", html = this.RenderView("_TasksList", tasksList, ViewData) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    SetErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
                 }
             }
+            else
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-            return RedirectToAction("List", new { pId = ShortGuid.Encode(vm.ProjectId) });
+            return PartialView("_NewTaskModal", vm);
         }
 
         [HttpGet]
@@ -176,6 +150,24 @@ namespace PM.Web.Areas.Administration.Controllers
             return RedirectToAction("Edit", "Task", new { area = "Administration", tId = ShortGuid.Encode(vm.Id) });
         }
 
+        #endregion Actions
+
+        #region Methods
+
+        private async Task<IProjectPoco> PrepareListActionData(Guid projectId)
+        {
+            var project = await projectService.GetProjectAsync(projectId,
+                this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))),
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))));
+
+            // Set dropdown collections.
+            var projectUsers = project.ProjectUsers.Select(p => p.User);
+            ViewBag.ProjectUsers = projectUsers.ToDictionary(p => p.Id, d => d.UserName);
+            ViewBag.PriorityList = lookupService.GetAllTaskPriority().ToDictionary(p => p.Id, d => d.Name);
+            ViewBag.StatusList = lookupService.GetAllTaskStatus().ToDictionary(p => p.Id, d => d.Name);
+
+            return project;
+        }
 
         #endregion Methods
     }

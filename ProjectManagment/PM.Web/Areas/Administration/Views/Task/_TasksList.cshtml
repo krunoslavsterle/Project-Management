@@ -1,7 +1,7 @@
-﻿@model PM.Web.Administration.Task.ListViewModel
+﻿@model IEnumerable<PM.Web.Administration.Task.TaskDTO>
 @using PM.Common.Extensions
 
-@if (Model.Tasks != null && Model.Tasks.Count() > 0)
+@if (Model != null && Model.Count() > 0)
 {
     <div class="widget">
 
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var task in Model.Tasks)
+                    @foreach (var task in Model)
                     {
                         <tr>
                             <td class="table-tasks-title-body">
@@ -29,6 +29,7 @@
                                     <span class="table-tasks-additional color-success"><i class="glyphicon glyphicon-allign-middle glyphicon-comment"></i> @task.CommentsCount</span>
                                    
                                     @{ 
+                                        // Get part of the CSS class used for due date warning icon.
                                         var dueDateLabel = task.DueDate.ToDueDateWarningString(2, "warning", "alert");
                                     }
                                     @if (!String.IsNullOrEmpty(dueDateLabel))
@@ -47,12 +48,12 @@
                             </td>
                             <td class="text-center">
                                 @{ 
-                                    var priority = Model.TaskPriorityList.First(p => p.Key == task.PriorityId).Value.ToLower();
+                                    // Priority name is part of the css class and can be used to style the priority icon.
+                                    var priority = ((IDictionary<Guid, string>)ViewBag.PriorityList).First(p => p.Key == task.PriorityId).Value.ToLower();
                                 }
                                 <span class="table-tasks-priority-body priority-@priority"><i class="glyphicon glyphicon-allign-middle glyphicon-exclamation-sign"></i></span>
                             </td>
                             <td>
-
                                 <span class="table-tasks-duedate-body"><i class="glyphicon glyphicon-allign-middle glyphicon-time"></i> @task.DueDate.ToNullableDateTimeString()</span>
                             </td>
                         </tr>

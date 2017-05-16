@@ -14,6 +14,12 @@ namespace PM.Service.Common
     public interface ITaskService
     {
         /// <summary>
+        /// Creates new in-memory istance of <see cref="ITaskPoco"/> class.
+        /// </summary>
+        /// <returns>New in-memory istance of <see cref="ITaskPoco"/> class.</returns>
+        ITaskPoco Create();
+
+        /// <summary>
         /// Gets the <see cref="ITaskPoco"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>

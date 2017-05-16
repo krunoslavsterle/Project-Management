@@ -14,10 +14,19 @@ namespace PM.Web.Infrastructure
         /// <param name="controller">The controller.</param>
         /// <param name="viewName">Name of the view.</param>
         /// <param name="model">The view model.</param>
+        /// <param name="viewData">The view data.</param>
         /// <returns>Rendered HTML string for specified view.</returns>
-        public static string RenderView(this Controller controller, string viewName, object model)
+        public static string RenderView(this Controller controller, string viewName, object model, ViewDataDictionary viewData = null)
         {
-            return RenderView(controller, viewName, new ViewDataDictionary(model));
+            var viewModelData = new ViewDataDictionary(model);
+
+            if (viewData != null)
+            {
+                foreach (var entry in viewData)
+                    viewModelData.Add(entry.Key, entry.Value);
+            }
+
+            return RenderView(controller, viewName, viewModelData);
         }
 
         /// <summary>

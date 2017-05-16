@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace PM.Web.Administration.Models
+namespace PM.Web.Administration.Task
 {
     /// <summary>
     /// Create task view model.
@@ -24,6 +23,14 @@ namespace PM.Web.Administration.Models
         /// <value>The description.</value>
         [Required]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the due date.
+        /// </summary>
+        /// <value>
+        /// The due date.
+        /// </value>
+        public DateTime? DueDate { get; set; }
 
         /// <summary>
         /// Gets or sets the status identifier.
@@ -66,25 +73,6 @@ namespace PM.Web.Administration.Models
         public Guid CreatedByUserId { get; set; }
 
         #endregion Model Properties
-
-        #region View Properties
-
-        /// <summary>
-        /// Gets or sets the status list.
-        /// </summary>
-        /// <value>
-        /// The status list.
-        /// </value>
-        public SelectList StatusList { get; set; }
-
-        /// <summary>
-        /// Gets or sets the priority list.
-        /// </summary>
-        /// <value>
-        /// The priority list.
-        /// </value>
-        public SelectList PriorityList { get; set; }
-
-        #endregion View Properties
+        
     }
 }

@@ -37,6 +37,15 @@ namespace PM.Service
         #region Methods
 
         /// <summary>
+        /// Creates new in-memory istance of <see cref="ITaskPoco"/> class.
+        /// </summary>
+        /// <returns>New in-memory istance of <see cref="ITaskPoco"/> class.</returns>
+        public ITaskPoco Create()
+        {
+            return taskRepository.Create();
+        }
+
+        /// <summary>
         /// Gets the <see cref="ITaskPoco"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
