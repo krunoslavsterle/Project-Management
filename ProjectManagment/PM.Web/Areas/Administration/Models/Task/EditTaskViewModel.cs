@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace PM.Web.Administration.Models
+namespace PM.Web.Administration.Task
 {
     /// <summary>
     /// Edit Task view model.

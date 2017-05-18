@@ -21,7 +21,7 @@
                     {
                         <tr>
                             <td class="table-tasks-title-body">
-                                <a href="task-edit.html">
+                                <a href="@Url.Action("Edit", "Task", new { area = "Administration", tId = PM.Common.ShortGuid.Encode(task.Id) })">
                                     <span>@task.Title</span>
                                 </a>
                                 <div style="padding-left: 10px;">

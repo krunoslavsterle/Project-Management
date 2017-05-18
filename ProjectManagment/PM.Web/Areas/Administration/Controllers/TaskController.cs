@@ -1,7 +1,6 @@
 ﻿using PM.Common;
 using PM.Model.Common;
 using PM.Service.Common;
-using PM.Web.Administration.Models;
 using PM.Web.Controllers;
 using System;
 using System.Linq;
@@ -116,15 +115,15 @@ namespace PM.Web.Areas.Administration.Controllers
             if (String.IsNullOrEmpty(tId))
                 throw new Exception("The parameter [tId] is null or empty.");
 
-            var priorities = lookupService.GetAllTaskPriority();
-            var statuses = lookupService.GetAllTaskStatus();
+           // var priorities = lookupService.GetAllTaskPriority();
+            //var statuses = lookupService.GetAllTaskStatus();
 
-            var task = await taskService.GetTaskAsync(ShortGuid.Decode(tId));
-            var vm = Mapper.Map<EditTaskViewModel>(task);
-            vm.PriorityList = new SelectList(priorities, "Id", "Name", vm.PriorityId);
-            vm.StatusList = new SelectList(statuses, "Id", "Name", vm.StatusId);
+            //var task = await taskService.GetTaskAsync(ShortGuid.Decode(tId));
+            //var vm = Mapper.Map<EditTaskViewModel>(task);
+            //vm.PriorityList = new SelectList(priorities, "Id", "Name", vm.PriorityId);
+            //vm.StatusList = new SelectList(statuses, "Id", "Name", vm.StatusId);
 
-            return View("Edit", vm);
+            return View("Edit");
         }
 
         [HttpPost]

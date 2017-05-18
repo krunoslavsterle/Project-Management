@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using PM.Model.Common;
-using PM.Web.Administration.Models;
 using PM.Web.Administration.Project;
 using PM.Web.Administration.Task;
 using PM.Web.Administration.User;

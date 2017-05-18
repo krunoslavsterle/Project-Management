@@ -1,83 +1,178 @@
-﻿@model PM.Web.Administration.Models.EditTaskViewModel
-
+﻿
 @{
-    ViewBag.Title = "Edit Task";
+    ViewBag.Title = "Task";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
 }
 
-<header class="head">
-    <div class="search-bar">
-        <form class="main-search" action="">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Live Search ...">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary btn-sm text-muted" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
+<!-- LEFT MENU -->
+@Html.Partial("_LeftMenuBar", Guid.Empty)
+
+<!-- PAGE -->
+<div class="page">
+
+    <div class="page-content-header">
+        <span class="breadcrumbs">
+            <a href="index.html">Home</a> /
+            <a href="project.html">Ksterle - Project1</a> /
+            <a href="tasks.html">Tasks</a> /
+            <span>Edit</span>
+        </span>
+    </div>
+
+    <div class="page-content">
+
+        <!-- TASK LIST -->
+        <div class="col-md-9">
+            <div class="widget">
+
+                <div class="create-task">
+
+                    <div class="form-group">
+                        <label for="task-title" class="">Title</label>
+                        <input type="text" id="task-title" class="form-control" placeholder="Enter task title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea rows="4" id="task-description" class="form-control" placeholder="Enter task description"></textarea>
+                    </div>
+
+                    <!-- DROPDOWNS -->
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="task-assignee">Assigne to</label>
+                                <select id="task-assignee" class="form-control">
+                                    <option>ksterle</option>
+                                    <option>jdoe</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="task-priority">Priority</label>
+                                <select id="task-priority" class="form-control">
+                                    <option>Low</option>
+                                    <option>Normal</option>
+                                    <option>High</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="task-doudate">Dou Date</label>
+                                <input id="task-doudate" class="form-control" data-toggle="datepicker" placeholder="mm/dd/yyyy">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </form>
-    </div>
-    <div class="main-bar row">
-        <div class="col-md-6">
-            <h3><i class="fa fa-dashboard"></i>&nbsp; Project Name</h3>
         </div>
-    </div>
-</header>
 
-@Html.Partial("_LeftMenuBar", @Model.ProjectId)
+        <!-- Filtering widget -->
+        <div class="col-md-3">
+            <div class="widget">
+                <div class="tasks-filter">
 
-<div class="right-content">
-    <div class="main-outer">
-        <div class="main-inner">
+                    <p>Status</p>
+                    <button class="btn btn-info">In Progress</button>
+                    <buttn class="btn btn-info">Resolved</buttn>
 
-            @using (Html.BeginForm("Edit", "Task", new { area = "Administration" }, FormMethod.Post, new { @class = "" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.HiddenFor(vm => vm.Id)
-                @Html.HiddenFor(vm => vm.CreatedByUserId)
-                @Html.HiddenFor(vm => vm.AssignedToUserId)
-                @Html.HiddenFor(vm => vm.ProjectId)
-
-                <div class="form-group">
-                    @Html.LabelFor(vm => vm.Title, "Title", new { @class = "control-label" })
-                    @Html.TextBoxFor(vm => vm.Title, new { @class = "form-control" })
                 </div>
+            </div>
+        </div>
 
-                <br />
+        <div class="col-lg-12">
+            <h4>Comments</h4>
 
-                <div class="form-group">
-                    @Html.LabelFor(vm => vm.Description, "Description", new { @class = "control-label" })
-                    @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", rows = "8" })
-                </div>
-                <br />
+            <ul class="task-comments">
 
-                <div class="col-md-4 form-group">
-                    @Html.LabelFor(vm => vm.PriorityId, "Priority", new { @class = "control-label" })
-                    @Html.DropDownListFor(vm => vm.PriorityId, Model.PriorityList, new { @class = "form-control" })
-                </div>
+                <li>
+                    <div class="widget">
+                        <div class="task-comment">
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
 
-                <div class="col-md-4 form-group">
-                    @Html.LabelFor(vm => vm.StatusId, "Status", new { @class = "control-label" })
-                    @Html.DropDownListFor(vm => vm.StatusId, Model.StatusList, new { @class = "form-control" })
-                </div>
+                <li>
+                    <div class="widget">
+                        <div class="task-comment">
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
 
-                <div class="col-md-4 form-group">
-                    @Html.LabelFor(vm => vm.AssignedToUserId, "Assigne To", new { @class = "control-label" })
-                    <select class="form-control">
-                        <option>Priority 1</option>
-                        <option>Priority 2</option>
-                    </select>
-                </div>
+                <li>
+                    <div class="widget">
+                        <div class="task-comment">
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
 
-                <br />
+                <li>
+                    <div class="widget">
+                        <div class="task-comment">
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
 
+                <li>
+                    <div class="widget">
+                        <div id="summernote"></div>
+                    </div>
+                    <button class="btn btn-md btn-success">Add Comment</button>
+                </li>
 
-                <button id="save" class="btn btn-success">Save</button>
-                <button id="cancel" class="btn btn-info">Cancel</button>
-            }
-
-
+            </ul>
         </div>
     </div>
 </div>
+
+@section Scripts 
+{
+    @Scripts.Render("~/bundles/task-edit/js")
+
+    <script>
+
+        var elem = '<a href="google.com">Edit Profile.</a>'+
+        '<a href="google.com">Logout.</a>';
+
+        $('#meddelanden').popover({animation:true, content:elem, html:true});
+
+        $('[data-toggle="datepicker"]').datepicker({
+                autoHide: true,
+                startDate: new Date()
+            });
+
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 100,                 // set editor height
+            });
+        });
+
+    </script>
+}
+
+@section Style
+{
+    @Styles.Render("~/Content/task-edit/css")
+}
