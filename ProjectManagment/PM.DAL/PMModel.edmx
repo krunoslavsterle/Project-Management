@@ -94,6 +94,7 @@
           <Property Name="Abrv" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -106,6 +107,7 @@
           <Property Name="Abrv" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -538,6 +540,7 @@
           <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Tasks" Relationship="PMDatabaseModel.FK_Task_TaskPriority" FromRole="TaskPriority" ToRole="Task" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskStatus">
           <Key>
@@ -551,6 +554,7 @@
           <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Tasks" Relationship="PMDatabaseModel.FK_Task_TaskStatus" FromRole="TaskStatu" ToRole="Task" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Project_Company">
           <End Type="PMDatabaseModel.Company" Role="Company" Multiplicity="1" />
@@ -859,6 +863,7 @@
           <EntitySetMapping Name="TaskPriorities">
             <EntityTypeMapping TypeName="PMDatabaseModel.TaskPriority">
               <MappingFragment StoreEntitySet="TaskPriority">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -872,6 +877,7 @@
           <EntitySetMapping Name="TaskStatus1">
             <EntityTypeMapping TypeName="PMDatabaseModel.TaskStatus">
               <MappingFragment StoreEntitySet="TaskStatus">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />

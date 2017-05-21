@@ -4,8 +4,8 @@
     new AjaxOptions()
     {
         HttpMethod = "POST",        
-        OnSuccess = "onSuccess(data);",
-        OnFailure = "onError",
+        OnSuccess = "Ajax.onSuccess(data, 'projects-list', true);",
+        OnFailure = "Ajax.onError",
         LoadingElementId = "loader"
     }, null))
 {
@@ -50,38 +50,3 @@
         </div>
     </div>
 }
-
-<script>
-
-    function onSuccess(data) {
-        console.log(data);
-        if (data) {
-            if (data.success === true) {
-
-                $('#@Html.IdFor(p => p.Name)').val('');
-                $('#@Html.IdFor(p => p.Description)').val('');
-
-                $('#new-project-modal').modal('hide');
-                Message.successDefault(data.responseText);
-
-                // Check if returned html variable contains value.
-                if (data.html) {
-                    $('#projects-list').html(data.html);
-                }
-
-            } else {
-                Message.errorDefault(data.responseText);
-            }
-        } else {
-            console.log('There is no data returned form the server.');
-            Message.errorDefault('Something went wrong, please contact the administrator');
-        }        
-    }
-
-    function onError(ajaxContext) {
-
-        Message.errorDefault(ajaxContext.statusText);
-    }
-
-
-</script>

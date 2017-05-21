@@ -44,3 +44,39 @@
         });
     }
 };
+
+var Ajax = {
+
+    onSuccess: function (data, elId, invalidateInputs) {
+
+        if (data) {
+            if (data.success === true) {
+
+                Message.successDefault(data.responseText);
+
+                if (invalidateInputs) {
+                    $('input[type=text]').val('');
+                    $('textarea').val('');
+                }
+
+                $("[id$='-modal']").modal('hide');
+
+                // Check if returned html variable contains value.
+                if (data.html && elId) {
+                    $('#' + elId).html(data.html);
+                }
+
+            } else {
+                Message.errorDefault(data.responseText);
+            }
+        } else {
+            console.log('There is no data returned form the server.');
+            Message.errorDefault('Something went wrong, please contact the administrator');
+        }
+    },
+
+    onError: function (ajaxContext) {
+
+        Message.errorDefault(ajaxContext.statusText);
+    }
+};

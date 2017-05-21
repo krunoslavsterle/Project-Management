@@ -43,6 +43,14 @@ namespace PM.Model.Common
         string Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
+        /// <value>
+        /// The sort order.
+        /// </value>
+        int SortOrder { get; set; }
+
+        /// <summary>
         /// Gets or sets the date created.
         /// </summary>
         /// <value>

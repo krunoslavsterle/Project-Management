@@ -1,7 +1,5 @@
 ﻿@model PM.Web.Administration.Task.EditTaskViewModel
 
-@using PM.Common.Extensions
-
 @{
     ViewBag.Title = "Task";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
@@ -23,96 +21,10 @@
     </div>
 
     <div class="page-content">
-
-        @using (Ajax.BeginForm("Edit", "Task", new { area = "Administration" },
-                new AjaxOptions()
-                {
-                    HttpMethod = "POST",
-                    OnSuccess = "onSuccess(data);",
-                    OnFailure = "onError",
-                    LoadingElementId = "loader"
-                }, new { id = "edit-form" }))
-        {
-
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(vm => vm.Id)
-            @Html.HiddenFor(vm => vm.CreatedByUserId)
-            @Html.HiddenFor(vm => vm.ProjectId)
-            @Html.HiddenFor(vm => vm.StatusId)
-            @Html.HiddenFor(vm => vm.DateCreated)
-            @Html.HiddenFor(vm => vm.DateUpdated)
-
-            <!-- TASK LIST -->
-            <div class="col-md-9">
-                <div class="widget">
-                    <div class="create-task">
-
-                        <div class="form-group">
-                            @Html.LabelFor(vm => vm.Title, "Title")
-                            @Html.TextBoxFor(vm => vm.Title, new { @class = "form-control", placeholder = "Enter task title" })
-                            @Html.ValidationMessageFor(p => p.Title)
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(vm => vm.Description, "Description")
-                            @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", placeholder = "Enter task description", rows = 4 })
-                            @Html.ValidationMessageFor(p => p.Description)
-                        </div>
-
-                        <!-- DROPDOWNS -->
-                        <div class="row">
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    @Html.LabelFor(vm => vm.AssignedToUserId, "Assigne to")
-                                    @Html.DropDownListFor(vm => vm.AssignedToUserId, new SelectList(ViewBag.ProjectUsers, "Key", "Value"), new { @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    @Html.LabelFor(vm => vm.PriorityId, "Priority")
-                                    @Html.DropDownListFor(vm => vm.PriorityId, new SelectList(ViewBag.PriorityList, "Key", "Value"), new { @class = "form-control" })
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    @Html.LabelFor(vm => vm.DueDate, "Dou Date")
-                                    @Html.TextBoxFor(vm => vm.DueDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "dd/mm/yyyy" })
-                                    @Html.ValidationMessageFor(p => p.DueDate)
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Filtering widget -->
-            <div class="col-md-3">
-                <div class="widget">
-                    <div class="tasks-filter">
-
-                        <h3>Details</h3>
-                        <br/>
-
-                        <h4>Status: @ViewBag.StatusList[Model.StatusId]</h4>
-                        <h4>Created by: @ViewBag.ProjectUsers[Model.CreatedByUserId]</h4>
-                        <h4>Created: @Model.DateCreated.ToPrettyDateTimeString()</h4>
-                        <h4>Last update: @Model.DateUpdated.ToLocalTime().ToPrettyDateTimeString()</h4>
-                        <br/>
-
-                        <button type="button" class="btn btn-info">In Progress</button>
-                        <button type="button" class="btn btn-info">Resolved</button>
-                        <button type="button" id="btn-submit" class="btn btn-danger">Save</button>
-                        <br/>
-
-                    </div>
-                </div>
-            </div>
-        }
+        
+        <div id="edit-task">
+            @Html.Partial("_EditTask", Model)
+        </div>
 
         <div class="col-lg-12">
             <h4>Comments</h4>
@@ -172,28 +84,7 @@
             $("#btn-submit").click(function (event) {
                 $('#edit-form').submit();
             });
-
         });
-
-        function onSuccess(data) {
-            if (data) {
-                if (data.success === true) {
-
-                    Message.successDefault(data.responseText);
-
-                } else {
-                    Message.errorDefault(data.responseText);
-                }
-            } else {
-                console.log('There is no data returned form the server.');
-                Message.errorDefault('Something went wrong, please contact the administrator');
-            }
-        }
-
-        function onError(ajaxContext) {
-
-            Message.errorDefault(ajaxContext.statusText);
-        }
         
     </script>
 }

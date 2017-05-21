@@ -160,10 +160,12 @@ namespace PM.Web.Areas.Administration.Controllers
                     var project = await projectService.GetProjectAsync(domain.ProjectId,
                         this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
 
+                    domain = await taskService.GetTaskAsync(domain.Id);
                     vm = Mapper.Map<EditTaskViewModel>(domain);
+                    SetEditActionViewBags(project);
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
-                    return Json(new { success = true, responseText = "Task updated successfuly." }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = "Task updated successfuly.", html = this.RenderView("_EditTask", vm, this.ViewData) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -193,7 +195,7 @@ namespace PM.Web.Areas.Administration.Controllers
             ViewBag.ProjectName = projectWithUsers.Name;
             ViewBag.ProjectUsers = projectWithUsers.ProjectUsers.Select(p => p.User).ToDictionary(p => p.Id, d => d.UserName);
             ViewBag.PriorityList = lookupService.GetAllTaskPriority().ToDictionary(p => p.Id, d => d.Name);
-            ViewBag.StatusList = lookupService.GetAllTaskStatus().ToDictionary(p => p.Id, d => d.Name);
+            ViewBag.StatusList = lookupService.GetAllTaskStatus().OrderBy(d => d.SortOrder).ToDictionary(p => p.Id, d => d.Name);
         }
         
         #endregion Methods

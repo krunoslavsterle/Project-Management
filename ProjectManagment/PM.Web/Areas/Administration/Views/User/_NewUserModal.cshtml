@@ -4,8 +4,8 @@
                 new AjaxOptions()
                 {
                     HttpMethod = "POST",
-                    OnSuccess = "onSuccess(data);",
-                    OnFailure = "onError",
+                    OnSuccess = "Ajax.onSuccess(data, 'users-list', true);",
+                    OnFailure = "Ajax.onError",
                     LoadingElementId = "loader"
                 }, null))
 {
@@ -50,26 +50,3 @@
         </div>
     </div>
 }
-
-<script>
-
-    function onSuccess(data) {
-
-        $('#@Html.IdFor(p => p.UserName)').val('');
-        $('#@Html.IdFor(p => p.Email)').val('');
-
-        $('#new-user-modal').modal('hide');
-            Message.successDefault(data.responseText);
-
-            // Check if returned html variable contains value.
-            if (data.html) {
-                $('#users-list').html(data.html);
-            }
-        }
-
-        function onError(ajaxContext) {
-            
-            Message.errorDefault(ajaxContext.statusText);
-        }
-
-</script>

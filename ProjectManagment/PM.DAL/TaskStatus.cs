@@ -27,6 +27,7 @@ namespace PM.DAL
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateUpdated { get; set; }
         public byte[] TimeStamp { get; set; }
+        public int SortOrder { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> Tasks { get; set; }

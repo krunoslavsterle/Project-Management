@@ -225,6 +225,7 @@
     <Content Include="Content\font\summernote.eot" />
     <Content Include="Content\font\summernote.ttf" />
     <Content Include="Content\font\summernote.woff" />
+    <Content Include="Areas\Administration\Views\Task\_EditTask.cshtml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />

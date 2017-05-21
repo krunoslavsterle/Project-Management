@@ -33,16 +33,7 @@ namespace PM.Web.Administration.Task
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string DueDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the status identifier.
-        /// </summary>
-        /// <value>
-        /// The status identifier.
-        /// </value>
-        [Required]
-        public Guid StatusId { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the priority identifier.
         /// </summary>
@@ -67,13 +58,7 @@ namespace PM.Web.Administration.Task
         /// The project id.
         /// </value>
         public Guid ProjectId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the owner id.
-        /// </summary>
-        /// <value>The owner id.</value>
-        public Guid CreatedByUserId { get; set; }
-
+        
         #endregion Model Properties
         
     }
