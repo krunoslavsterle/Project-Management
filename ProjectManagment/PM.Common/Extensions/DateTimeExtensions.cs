@@ -31,17 +31,18 @@ namespace PM.Common.Extensions
         /// Returns formated datetime string. Performs null check and returns value.
         /// </summary>
         /// <param name="date">The date.</param>
+        /// <param name="toLocal">The toLocal datetime flag.</param>
         /// <param name="format">The format.</param>
         /// <param name="nullReturn">The null return.</param>
         /// <returns>Formated datetime string. Performs null check and returns value.</returns>
-        public static string ToNullableDateTimeString(this DateTime? date, string format = "dd/MM/yyyy", string nullReturn = "")
+        public static string ToNullableDateTimeString(this DateTime? date, bool toLocal = true, string format = "dd/MM/yyyy", string nullReturn = "")
         {
             if (date.HasValue)
             {
                 if (string.IsNullOrEmpty(format))
-                    return date.Value.ToShortDateString();
+                    return toLocal ? date.Value.ToLocalTime().ToShortDateString() : date.Value.ToShortDateString();
                 else
-                    return date.Value.ToString(format);
+                    return toLocal ?  date.Value.ToLocalTime().ToString(format) : date.Value.ToString(format);
             }
 
             return String.IsNullOrEmpty(nullReturn) ? "" : nullReturn;
