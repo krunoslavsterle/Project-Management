@@ -1,4 +1,5 @@
 ﻿using PM.Common;
+using PM.Common.Extensions;
 using PM.Model.Common;
 using PM.Service.Common;
 using PM.Web.Controllers;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using PM.Web.Administration.Project;
 using System.Net;
+using System.Linq;
 using System.Collections.Generic;
 using PM.Web.Infrastructure;
 
@@ -23,6 +25,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
         private readonly IProjectService projectService;
         private readonly IPMUserStore userStore;
+        private readonly ILookupService lookupService;
 
         #endregion Fields
 
@@ -34,11 +37,12 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="mapper">The mapper.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="identityService">The identity service.</param>
-        public ProjectController(IMapper mapper, IProjectService projectService, IPMUserStore userStore)
+        public ProjectController(IMapper mapper, IProjectService projectService, IPMUserStore userStore, ILookupService lookupService)
             : base(mapper)
         {
             this.projectService = projectService;
             this.userStore = userStore;
+            this.lookupService = lookupService;
         }
 
         #endregion Constructors
@@ -112,14 +116,17 @@ namespace PM.Web.Areas.Administration.Controllers
                 throw new Exception("The parameter [pId] is null or empty.");
 
             Guid projectId = ShortGuid.Decode(pId);                  
-            var project = await projectService.GetProjectAsync(projectId);
+            var project = await projectService.GetProjectAsync(projectId,
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks)));
+
             var vmProject = Mapper.Map<ProjectPreviewViewModel>(project);
+            var resolvedStatus = lookupService.GetAllTaskStatus().First(p => p.Abrv == "RESOLVED");
 
             var vm = new OverviewViewModel();
             vm.Project = vmProject;
-            vm.Project.TaskCount = 10;
-            vm.Project.LateTaskCount = 2;
-            vm.Project.CompletedTaskCount = 4;
+            vm.Project.TaskCount = project.Tasks.Count;
+            vm.Project.LateTaskCount = project.Tasks.Where(p => p.DueDate <= DateTime.UtcNow).Count();
+            vm.Project.CompletedTaskCount = project.Tasks.Where(p => p.StatusId == resolvedStatus.Id).Count();
 
             ViewBag.Title = project.Name;
             ViewBag.ProjectId = projectId;
