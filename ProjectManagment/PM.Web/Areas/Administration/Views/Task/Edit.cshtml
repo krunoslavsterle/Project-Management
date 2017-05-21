@@ -14,7 +14,7 @@
     <div class="page-content-header">
         <span class="breadcrumbs">
             @Html.ActionLink("Home", "Index", "Dashboard", null, null) /
-            @Html.ActionLink((string)ViewBag.ProjectName, "Overview", "Project", new { pId = PM.Common.ShortGuid.Encode(Model.PriorityId) }, null) /
+            @Html.ActionLink((string)ViewBag.ProjectName, "Overview", "Project", new { pId = PM.Common.ShortGuid.Encode(Model.ProjectId) }, null) /
             @Html.ActionLink("Tasks", "List", "Task", new { pId = PM.Common.ShortGuid.Encode(Model.ProjectId) }, null) /
             <span>Edit</span>
         </span>

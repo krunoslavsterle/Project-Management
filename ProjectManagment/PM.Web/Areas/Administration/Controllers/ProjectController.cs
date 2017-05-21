@@ -120,7 +120,7 @@ namespace PM.Web.Areas.Administration.Controllers
                 this.ToNavPropertyString(nameof(IProjectPoco.Tasks)));
 
             var vmProject = Mapper.Map<ProjectPreviewViewModel>(project);
-            var resolvedStatus = lookupService.GetAllTaskStatus().First(p => p.Abrv == "RESOLVED");
+            var resolvedStatus = lookupService.GetAllTaskStatus().First(p => p.Abrv == "CLOSED");
 
             var vm = new OverviewViewModel();
             vm.Project = vmProject;
