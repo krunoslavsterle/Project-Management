@@ -14,6 +14,7 @@ namespace PM.Web.App_Start
                 "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/moment.min.js",
                 "~/Scripts/iziToast.js",
                 "~/Scripts/site.js"));
 
@@ -22,6 +23,9 @@ namespace PM.Web.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/task-edit/js").Include(
                 "~/Scripts/summernote.js",
+                "~/Scripts/datepicker.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datepicker/js").Include(
                 "~/Scripts/datepicker.min.js"));
 
             #endregion Scripts
@@ -42,6 +46,9 @@ namespace PM.Web.App_Start
             bundles.Add(new StyleBundle("~/Content/task-edit/css").Include(
                 "~/Content/datepicker.min.css",
                 "~/Content/summernote.css"));
+
+            bundles.Add(new StyleBundle("~/Content/datepicker/css").Include(
+                "~/Content/datepicker.min.css"));
 
             #endregion CSS
         }

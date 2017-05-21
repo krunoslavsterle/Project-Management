@@ -23,8 +23,9 @@ namespace PM.Service.Common
         /// Gets the <see cref="ITaskPoco"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="includeProperties">The include properties.</param>
         /// <returns><see cref="ITaskPoco"/> model.</returns>
-        Task<ITaskPoco> GetTaskAsync(Guid id);
+        Task<ITaskPoco> GetTaskAsync(Guid id, params string[] includeProperties);
 
         /// <summary>
         /// Gets the list of Tasks asynchronous.

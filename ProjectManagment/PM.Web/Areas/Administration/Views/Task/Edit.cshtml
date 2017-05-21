@@ -1,90 +1,118 @@
-﻿
+﻿@model PM.Web.Administration.Task.EditTaskViewModel
+
+@using PM.Common.Extensions
+
 @{
     ViewBag.Title = "Task";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
 }
 
 <!-- LEFT MENU -->
-@Html.Partial("_LeftMenuBar", Guid.Empty)
+@Html.Partial("_LeftMenuBar", Model.ProjectId)
 
 <!-- PAGE -->
 <div class="page">
 
     <div class="page-content-header">
         <span class="breadcrumbs">
-            <a href="index.html">Home</a> /
-            <a href="project.html">Ksterle - Project1</a> /
-            <a href="tasks.html">Tasks</a> /
+            @Html.ActionLink("Home", "Index", "Dashboard", null, null) /
+            @Html.ActionLink((string)ViewBag.ProjectName, "Overview", "Project", new { pId = PM.Common.ShortGuid.Encode(Model.PriorityId) }, null) /
+            @Html.ActionLink("Tasks", "List", "Task", new { pId = PM.Common.ShortGuid.Encode(Model.ProjectId) }, null) /
             <span>Edit</span>
         </span>
     </div>
 
     <div class="page-content">
 
-        <!-- TASK LIST -->
-        <div class="col-md-9">
-            <div class="widget">
+        @using (Ajax.BeginForm("Edit", "Task", new { area = "Administration" },
+                new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "onSuccess(data);",
+                    OnFailure = "onError",
+                    LoadingElementId = "loader"
+                }, new { id = "edit-form" }))
+        {
 
-                <div class="create-task">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(vm => vm.Id)
+            @Html.HiddenFor(vm => vm.CreatedByUserId)
+            @Html.HiddenFor(vm => vm.ProjectId)
+            @Html.HiddenFor(vm => vm.StatusId)
+            @Html.HiddenFor(vm => vm.DateCreated)
+            @Html.HiddenFor(vm => vm.DateUpdated)
 
-                    <div class="form-group">
-                        <label for="task-title" class="">Title</label>
-                        <input type="text" id="task-title" class="form-control" placeholder="Enter task title">
-                    </div>
+            <!-- TASK LIST -->
+            <div class="col-md-9">
+                <div class="widget">
+                    <div class="create-task">
 
-                    <div class="form-group">
-                        <label for="task-description">Description</label>
-                        <textarea rows="4" id="task-description" class="form-control" placeholder="Enter task description"></textarea>
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(vm => vm.Title, "Title")
+                            @Html.TextBoxFor(vm => vm.Title, new { @class = "form-control", placeholder = "Enter task title" })
+                            @Html.ValidationMessageFor(p => p.Title)
+                        </div>
 
-                    <!-- DROPDOWNS -->
-                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(vm => vm.Description, "Description")
+                            @Html.TextAreaFor(vm => vm.Description, new { @class = "form-control", placeholder = "Enter task description", rows = 4 })
+                            @Html.ValidationMessageFor(p => p.Description)
+                        </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="task-assignee">Assigne to</label>
-                                <select id="task-assignee" class="form-control">
-                                    <option>ksterle</option>
-                                    <option>jdoe</option>
-                                </select>
+                        <!-- DROPDOWNS -->
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(vm => vm.AssignedToUserId, "Assigne to")
+                                    @Html.DropDownListFor(vm => vm.AssignedToUserId, new SelectList(ViewBag.ProjectUsers, "Key", "Value"), new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(vm => vm.PriorityId, "Priority")
+                                    @Html.DropDownListFor(vm => vm.PriorityId, new SelectList(ViewBag.PriorityList, "Key", "Value"), new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(vm => vm.DueDate, "Dou Date")
+                                    @Html.TextBoxFor(vm => vm.DueDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "dd/mm/yyyy" })
+                                    @Html.ValidationMessageFor(p => p.DueDate)
+                                </div>
+
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="task-priority">Priority</label>
-                                <select id="task-priority" class="form-control">
-                                    <option>Low</option>
-                                    <option>Normal</option>
-                                    <option>High</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="task-doudate">Dou Date</label>
-                                <input id="task-doudate" class="form-control" data-toggle="datepicker" placeholder="mm/dd/yyyy">
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </div>
-        </div>
 
-        <!-- Filtering widget -->
-        <div class="col-md-3">
-            <div class="widget">
-                <div class="tasks-filter">
+            <!-- Filtering widget -->
+            <div class="col-md-3">
+                <div class="widget">
+                    <div class="tasks-filter">
 
-                    <p>Status</p>
-                    <button class="btn btn-info">In Progress</button>
-                    <buttn class="btn btn-info">Resolved</buttn>
+                        <h3>Details</h3>
+                        <br/>
 
+                        <h4>Status: @ViewBag.StatusList[Model.StatusId]</h4>
+                        <h4>Created by: @ViewBag.ProjectUsers[Model.CreatedByUserId]</h4>
+                        <h4>Created: @Model.DateCreated.ToPrettyDateTimeString()</h4>
+                        <h4>Last update: @Model.DateUpdated.ToLocalTime().ToPrettyDateTimeString()</h4>
+                        <br/>
+
+                        <button type="button" class="btn btn-info">In Progress</button>
+                        <button type="button" class="btn btn-info">Resolved</button>
+                        <button type="button" id="btn-submit" class="btn btn-danger">Save</button>
+                        <br/>
+
+                    </div>
                 </div>
             </div>
-        </div>
+        }
 
         <div class="col-lg-12">
             <h4>Comments</h4>
@@ -96,40 +124,7 @@
                         <div class="task-comment">
                             <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
                             <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="widget">
-                        <div class="task-comment">
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="widget">
-                        <div class="task-comment">
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li>
-                    <div class="widget">
-                        <div class="task-comment">
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                <p>Task comments are not implemented yet, it will be implemented in the next version.</p>
                             </div>
                         </div>
                     </div>
@@ -147,32 +142,58 @@
     </div>
 </div>
 
-@section Scripts 
+@section Style
+{
+    @Styles.Render("~/Content/task-edit/css")
+}
+
+@section Scripts
 {
     @Scripts.Render("~/bundles/task-edit/js")
 
     <script>
 
-        var elem = '<a href="google.com">Edit Profile.</a>'+
-        '<a href="google.com">Logout.</a>';
+        $(document).ready(function () {
 
-        $('#meddelanden').popover({animation:true, content:elem, html:true});
+            $('#summernote').summernote({
+                height: 100,                 
+            });
 
-        $('[data-toggle="datepicker"]').datepicker({
+            $('#DueDate').datepicker({
+
                 autoHide: true,
+                clearBtn: 'true',
+                todayBtn: true,
+                todayHighlight: true,
+                format: "dd/MM/yyyy",
                 startDate: new Date()
             });
 
-        $(document).ready(function() {
-            $('#summernote').summernote({
-                height: 100,                 // set editor height
+            $("#btn-submit").click(function (event) {
+                $('#edit-form').submit();
             });
+
         });
 
-    </script>
-}
+        function onSuccess(data) {
+            if (data) {
+                if (data.success === true) {
 
-@section Style
-{
-    @Styles.Render("~/Content/task-edit/css")
+                    Message.successDefault(data.responseText);
+
+                } else {
+                    Message.errorDefault(data.responseText);
+                }
+            } else {
+                console.log('There is no data returned form the server.');
+                Message.errorDefault('Something went wrong, please contact the administrator');
+            }
+        }
+
+        function onError(ajaxContext) {
+
+            Message.errorDefault(ajaxContext.statusText);
+        }
+        
+    </script>
 }

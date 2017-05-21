@@ -75,3 +75,23 @@
     </div>
 
 </div>
+
+@section Style
+{
+    @Styles.Render("~/Content/datepicker/css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datepicker/js")
+
+    <script>
+
+        $('[data-toggle="datepicker"]').datepicker({
+            autoHide: true,
+            startDate: new Date()
+        });
+
+    </script>
+}
+

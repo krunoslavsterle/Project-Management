@@ -35,7 +35,11 @@ namespace PM.Web
             #region Task models
 
             CreateMap<ITaskPoco, CreateTaskViewModel>().ReverseMap();
-            CreateMap<ITaskPoco, EditTaskViewModel>().ReverseMap();
+            CreateMap<ITaskPoco, EditTaskViewModel>()
+                .ForMember(vm => vm.DueDate, d => d.MapFrom(poco => poco.DueDate.HasValue ? poco.DueDate.Value.ToLocalTime().ToShortDateString() : String.Empty))
+                .ReverseMap()
+                .ForMember(vm => vm.DueDate, d => d.MapFrom(poco => String.IsNullOrEmpty(poco.DueDate) ? (DateTime?)null : DateTime.Parse(poco.DueDate).ToUniversalTime()));
+
             CreateMap<ITaskPoco, TaskDTO>()
                 .ForMember(vm => vm.AssignedToUsername, d => d.MapFrom(poco => poco.AssignedToUser.UserName))
                 .ReverseMap();

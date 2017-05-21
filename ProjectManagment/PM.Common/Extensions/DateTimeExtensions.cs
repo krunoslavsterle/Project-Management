@@ -24,7 +24,7 @@ namespace PM.Common.Extensions
                 return "yesterday";
 
             // longer than yesterday.
-            return String.Format("{0} days ago", (int)dateNow.Subtract(date).TotalDays);
+            return String.Format("{0} days ago", (Math.Ceiling(dateNow.Subtract(date).TotalDays)));
         }
 
         /// <summary>

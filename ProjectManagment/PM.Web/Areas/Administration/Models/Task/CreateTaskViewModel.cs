@@ -30,7 +30,9 @@ namespace PM.Web.Administration.Task
         /// <value>
         /// The due date.
         /// </value>
-        public DateTime? DueDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string DueDate { get; set; }
 
         /// <summary>
         /// Gets or sets the status identifier.

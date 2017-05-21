@@ -116,7 +116,7 @@ namespace PM.Web.Areas.Administration.Controllers
                         return Json(new { success = true, responseText = "User is created successfuly.", html = this.RenderView("_UsersList", usersVm) }, JsonRequestBehavior.AllowGet);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     SetErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
                 }
