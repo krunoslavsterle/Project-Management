@@ -20,6 +20,12 @@ namespace PM.Service.Common
         IProjectPoco CreateProject();
 
         /// <summary>
+        /// Creates the project user in memory.
+        /// </summary>
+        /// <returns><see cref="IProjectUserPoco"/> model.</returns>
+        IProjectUserPoco CreateProjectUser();
+
+        /// <summary>
         /// Gets the <see cref="IProject"/> asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
@@ -80,5 +86,21 @@ namespace PM.Service.Common
         /// <param name="models">The list of models.</param>
         /// <returns>Task.</returns>
         Task UpdateProjectsAsync(IEnumerable<IProjectPoco> models);
+
+        /// <summary>
+        /// Gets the list of <see cref="IProjectUserPoco"/> models asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="IProjectUserPoco"/> models asynchronous.</returns>
+        Task<IEnumerable<IProjectUserPoco>> GetProjectUsersAsync(Expression<Func<IProjectUserPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+
+        /// <summary>
+        /// Inserts the project user asynchronous.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        Task InsertProjectUserAsync(IProjectUserPoco model);
     }
 }

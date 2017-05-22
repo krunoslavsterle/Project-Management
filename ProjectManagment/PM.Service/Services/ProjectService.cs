@@ -18,6 +18,7 @@ namespace PM.Service
         #region Fields
 
         private readonly IProjectRepository projectRepository;
+        private readonly IProjectUserRepository projectUserRepository;
 
         #endregion Fields
 
@@ -27,9 +28,11 @@ namespace PM.Service
         /// Initializes a new instance of the <see cref="ProjectService"/> class.
         /// </summary>
         /// <param name="projectRepository">The project repository.</param>
-        public ProjectService(IProjectRepository projectRepository)
+        /// <param name="projectUserRepository">The project user repository.</param>
+        public ProjectService(IProjectRepository projectRepository, IProjectUserRepository projectUserRepository)
         {
             this.projectRepository = projectRepository;
+            this.projectUserRepository = projectUserRepository;
         }
 
         #endregion Constructors
@@ -43,6 +46,15 @@ namespace PM.Service
         public virtual IProjectPoco CreateProject()
         {
             return projectRepository.CreateProject();
+        }
+
+        /// <summary>
+        /// Creates the project user in memory.
+        /// </summary>
+        /// <returns><see cref="IProjectUserPoco"/> model.</returns>
+        public virtual IProjectUserPoco CreateProjectUser()
+        {
+            return projectUserRepository.Create();
         }
 
         /// <summary>
@@ -135,6 +147,28 @@ namespace PM.Service
                 projectRepository.AddForUpdate(item);
 
             return projectRepository.SaveAsync();
+        }
+
+        /// <summary>
+        /// Gets the list of <see cref="IProjectUserPoco"/> models asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="IProjectUserPoco"/> models asynchronous.</returns>
+        public Task<IEnumerable<IProjectUserPoco>> GetProjectUsersAsync(Expression<Func<IProjectUserPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        {
+            return projectUserRepository.GetAsync(filter, orderBy, includeProperties);
+        }
+
+        /// <summary>
+        /// Inserts the project user asynchronous.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        public Task InsertProjectUserAsync(IProjectUserPoco model)
+        {
+            return projectUserRepository.InsertAsync(model);
         }
 
         #endregion Methods

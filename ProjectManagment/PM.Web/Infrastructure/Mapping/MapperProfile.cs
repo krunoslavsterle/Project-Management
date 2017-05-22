@@ -21,7 +21,10 @@ namespace PM.Web
             
             #endregion Identity models  
 
-            CreateMap<IUserPoco, UserPreviewViewModel>().ReverseMap();
+            CreateMap<IUserPoco, UserPreviewViewModel>()
+                .ForMember(vm => vm.UserId, poco => poco.MapFrom(d => d.Id))
+                .ReverseMap();
+
             CreateMap<IUserPoco, RegisterViewModel>().ReverseMap();
 
             #region Project models

@@ -34,7 +34,7 @@
                 </li>
 
                 <li>
-                    <a href="team.html"><i class="glyphicon glyphicon-user"></i><span>Team</span></a>
+                    @Html.MenuItemLink("Team", "Team", "Project", new { pId = PM.Common.ShortGuid.Encode(Model) }, "glyphicon glyphicon-user")
                 </li>
             }
             

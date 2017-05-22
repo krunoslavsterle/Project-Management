@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ninject.Modules;
-using Ninject.Web.Common;
 using PM.DAL;
 using PM.Repository.Common;
 
@@ -22,6 +21,7 @@ namespace PM.Repository
             Bind(typeof(IUserRoleRepository)).To(typeof(UserRoleRepository));
             Bind(typeof(IExternalLoginRepository)).To(typeof(ExternalLoginRepository));
             Bind(typeof(IProjectRepository)).To(typeof(ProjectRepository));
+            Bind(typeof(IProjectUserRepository)).To(typeof(ProjectUserRepository));
             Bind(typeof(ITaskRepository)).To(typeof(TaskRepository));
             Bind(typeof(ITaskPriorityRepository)).To(typeof(TaskPriorityRepository));
             Bind(typeof(ITaskStatusRepository)).To(typeof(TaskStatusRepository));

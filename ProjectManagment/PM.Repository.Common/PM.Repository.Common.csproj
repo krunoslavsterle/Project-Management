@@ -50,6 +50,7 @@
     <Compile Include="IProjectRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="Identity\IRoleRepository.cs" />
+    <Compile Include="IProjectUserRepository.cs" />
     <Compile Include="ITaskPriorityRepository.cs" />
     <Compile Include="ITaskRepository.cs" />
     <Compile Include="ITaskStatusRepository.cs" />

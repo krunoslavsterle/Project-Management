@@ -17,7 +17,7 @@ namespace PM.Repository.Common
         /// </summary>
         /// <returns></returns>
         IProjectPoco CreateProject();
-
+        
         /// <summary>
         /// Gets a list of all <see cref="IProjectPoco"/> models.
         /// </summary>
