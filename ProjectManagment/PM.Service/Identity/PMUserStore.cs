@@ -95,6 +95,16 @@ namespace PM.Service
         }
 
         /// <summary>
+        /// Finds the user by identifier.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>The user.</returns>
+        public IUserPoco FindById(Guid userId)
+        {
+            return userRepository.GetOne(p => p.Id == userId);
+        }
+
+        /// <summary>
         /// Find a user by name
         /// </summary>
         /// <param name="userName"></param>
@@ -113,6 +123,17 @@ namespace PM.Service
         public Task<IEnumerable<IUserPoco>> GetUsersByCompanyIdAsync(Guid companyId, params string[] includeProperties)
         {
             return userRepository.GetAsync(p => p.CompanyId == companyId, null, includeProperties);
+        }
+
+        /// <summary>
+        /// Gets the one <see cref="IUserPoco"/> model asynchronously.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>One <see cref="IUserPoco"/> asynchronously.</returns>
+        public Task<IUserPoco> GetUserAsync(Expression<Func<IUserPoco, bool>> filter = null,params string[] includeProperties)
+        {
+            return userRepository.GetOneAsync(filter, includeProperties);
         }
 
         /// <summary>

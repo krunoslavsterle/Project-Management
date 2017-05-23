@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 using System.Net;
+using PM.Service.Common;
+using System.Threading.Tasks;
 
 namespace PM.Web.Controllers
 {
@@ -21,9 +23,10 @@ namespace PM.Web.Controllers
         /// Initializes a new instance of the <see cref="BaseController"/> class.
         /// </summary>
         /// <param name="mapper">The mapper.</param>
-        public BaseController(IMapper mapper)
+        public BaseController(IMapper mapper, IPMUserStore userStore)
         {
             this.Mapper = mapper;
+            this.UserStore = userStore;
         }
         
         #endregion Constructors
@@ -82,10 +85,29 @@ namespace PM.Web.Controllers
                 return Guid.Empty;
             }
         }
+        
+        /// <summary>
+        /// Gets or sets the user store.
+        /// </summary>
+        /// <value>
+        /// The user store.
+        /// </value>
+        public IPMUserStore UserStore { get; set; }
 
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// Called before the action method is invoked.
+        /// </summary>
+        /// <param name="filterContext">Information about the current request and action.</param>
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+
+            ViewBag.UserEmail = GetUserEmail();
+        }
 
         /// <summary>
         /// Sets the response status code and description for error handling.
@@ -96,6 +118,24 @@ namespace PM.Web.Controllers
         {
             Response.StatusCode = (int)statusCode;
             Response.StatusDescription = description;
+        }
+
+        /// <summary>
+        /// Gets the user email.
+        /// </summary>
+        /// <returns></returns>
+        public string GetUserEmail()
+        {
+            var email = Session["UserEmail"];
+            if (email != null)
+                return (string)email;
+            else
+            {
+                var user = UserStore.FindById(UserId);
+                Session["UserEmail"] = user.Email;
+                return user.Email;
+            }
+
         }
 
         #endregion Methods

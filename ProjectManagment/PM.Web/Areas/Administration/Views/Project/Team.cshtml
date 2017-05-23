@@ -6,7 +6,7 @@
 }
 
 <!-- LEFT MENU -->
-@Html.Partial("_LeftMenuBar", Model.Projectid)
+@Html.Partial("_LeftMenuBar", Model.ProjectId)
 
 <!-- PAGE -->
 <div class="page">
@@ -15,7 +15,8 @@
 
         <span class="breadcrumbs">
             @Html.ActionLink("Home", "Index", "Dashboard", null, null) /
-            <span>Users</span>
+            @Html.ActionLink(Model.ProjectName, "Overview", "Project", new { pId = PM.Common.ShortGuid.Encode(Model.ProjectId) }, null) /
+            <span>Team</span>
         </span>
 
         <div class="header-content-right">

@@ -88,6 +88,14 @@ namespace PM.Service.Common
         Task UpdateProjectsAsync(IEnumerable<IProjectPoco> models);
 
         /// <summary>
+        /// Gets the one <see cref="IProjectUserPoco"/> model asynchronously.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>One <see cref="IProjectUserPoco"/> asynchronously.</returns>
+        Task<IProjectUserPoco> GetProjectUserAsync(Expression<Func<IProjectUserPoco, bool>> filter = null, params string[] includeProperties);
+
+        /// <summary>
         /// Gets the list of <see cref="IProjectUserPoco"/> models asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>

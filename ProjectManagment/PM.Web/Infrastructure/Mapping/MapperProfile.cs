@@ -3,6 +3,7 @@ using PM.Model.Common;
 using PM.Web.Administration.Project;
 using PM.Web.Administration.Task;
 using PM.Web.Administration.User;
+using PM.Web.Areas.Administration.Models;
 using PM.Web.Models;
 using System;
 
@@ -45,6 +46,10 @@ namespace PM.Web
 
             CreateMap<ITaskPoco, TaskDTO>()
                 .ForMember(vm => vm.AssignedToUsername, d => d.MapFrom(poco => poco.AssignedToUser.UserName))
+                .ReverseMap();
+
+            CreateMap<ITaskPoco, DashboardTaskDTO>()
+                .ForMember(vm => vm.ProjectName, p => p.MapFrom(poco => poco.Project != null ? poco.Project.Name : "No project"))
                 .ReverseMap();
 
             #endregion Task models

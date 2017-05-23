@@ -7,12 +7,14 @@ namespace PM.Web.Administration.Project
 {
     public class TeamViewModel
     {
-        public Guid Projectid { get; set; }
-
+        public Guid ProjectId { get; set; }
+        
         public Guid SelectedUserId { get; set; }
 
         public IEnumerable<UserPreviewViewModel> ProjectUsers { get; set; }
 
         public SelectList OptionalUsers { get; set; }
+
+        public string ProjectName { get; set; }
     }
 }

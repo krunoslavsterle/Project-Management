@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using GravatarHelper.Extensions
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -63,7 +65,7 @@
                         <li>
                             <div class="button-group">
                                 <button id="user-popup" data-title="Ksterle" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-popover-content="#user-popover" class="btn btn-sm btn-default btn-image" type="button">
-                                    <img src="http://i.pravatar.cc/150">
+                                    @Html.Gravatar((string)ViewBag.UserEmail, 60, GravatarHelper.Common.GravatarHelper.DefaultImageMysteryMan, null)
                                     <span class="caret"></span>
                                 </button>
                             </div>

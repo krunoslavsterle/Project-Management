@@ -10,6 +10,7 @@ using PM.Model.Common;
 using PM.Common;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using System.Security.Claims;
 
 namespace PM.Web.Controllers
 {
@@ -231,6 +232,7 @@ namespace PM.Web.Controllers
         { 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            Session["UserEmail"] = user.Email;
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 

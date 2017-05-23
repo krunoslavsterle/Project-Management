@@ -150,6 +150,17 @@ namespace PM.Service
         }
 
         /// <summary>
+        /// Gets the one <see cref="IProjectUserPoco"/> model asynchronously.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>One <see cref="IProjectUserPoco"/> asynchronously.</returns>
+        public Task<IProjectUserPoco> GetProjectUserAsync(Expression<Func<IProjectUserPoco, bool>> filter = null, params string[] includeProperties)
+        {
+            return projectUserRepository.GetOneAsync(filter, includeProperties);
+        }
+
+        /// <summary>
         /// Gets the list of <see cref="IProjectUserPoco"/> models asynchronous.
         /// </summary>
         /// <param name="filter">The filter expression.</param>

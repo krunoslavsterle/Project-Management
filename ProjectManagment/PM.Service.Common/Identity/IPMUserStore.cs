@@ -25,12 +25,27 @@ namespace PM.Service.Common
         IUserPoco CreateUser();
 
         /// <summary>
+        /// Finds the user by identifier.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>The user.</returns>
+        IUserPoco FindById(Guid userId);
+
+        /// <summary>
         /// Gets the users by company identifier asynchronous.
         /// </summary>
         /// <param name="companyId">The company identifier.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="IUserPoco"/>.</returns>
         Task<IEnumerable<IUserPoco>> GetUsersByCompanyIdAsync(Guid companyId, params string[] includeProperties);
+
+        /// <summary>
+        /// Gets the one <see cref="IUserPoco"/> model asynchronously.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>One <see cref="IUserPoco"/> asynchronously.</returns>
+        Task<IUserPoco> GetUserAsync(Expression<Func<IUserPoco, bool>> filter = null, params string[] includeProperties);
 
         /// <summary>
         /// Gets the users asynchronous.

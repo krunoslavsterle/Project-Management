@@ -26,7 +26,6 @@ namespace PM.Web.Areas.Administration.Controllers
         #region Fields
 
         private readonly ILookupService lookupService;
-        private readonly IPMUserStore userStore;
         private readonly UserManager<IUserPoco, Guid> userManager;
 
         #endregion Fields
@@ -41,10 +40,9 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="lookupService">The lookup service.</param>
         /// <param name="userManager">The user manager.</param>
         public UserController(IMapper mapper, IPMUserStore userStore, ILookupService lookupService)
-            : base(mapper)
+            : base(mapper, userStore)
         {
             this.lookupService = lookupService;
-            this.userStore = userStore;
             this.userManager = new UserManager<IUserPoco, Guid>(userStore);
 
             var provider = new DpapiDataProtectionProvider("ProjectManagment");
@@ -64,7 +62,7 @@ namespace PM.Web.Areas.Administration.Controllers
         public async Task<ActionResult> IndexAsync()
         {
             var user = await userManager.FindByIdAsync(UserId);
-            var users = await userStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
+            var users = await UserStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
 
             // List of users
             var vm = new IndexUserViewModel();
@@ -85,7 +83,7 @@ namespace PM.Web.Areas.Administration.Controllers
             {
                 var user = await userManager.FindByIdAsync(UserId);
 
-                var newUser = userStore.CreateUser();
+                var newUser = UserStore.CreateUser();
                 newUser.CompanyId = user.CompanyId;
                 newUser.UserName = vm.UserName;
                 newUser.Email = vm.Email;
@@ -109,7 +107,7 @@ namespace PM.Web.Areas.Administration.Controllers
                         }
 
                         // TODO: PUT THIS IN THE BASE CONTROLLER.
-                        var users = await userStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
+                        var users = await UserStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
                         var usersVm = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
 
                         Response.StatusCode = (int)HttpStatusCode.OK;

@@ -116,6 +116,14 @@ namespace PM.Model
         public ICollection<IUserRolePoco> UserRoles { get; set; }
 
         /// <summary>
+        /// Gets or sets the project users.
+        /// </summary>
+        /// <value>
+        /// The project users.
+        /// </value>
+        public ICollection<IProjectUserPoco> ProjectUsers { get; set; }
+
+        /// <summary>
         /// Gets or sets the company.
         /// </summary>
         /// <value>

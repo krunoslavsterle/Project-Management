@@ -2,6 +2,7 @@
 
 @using PM.Web.Infrastructure.HtmlHelpers
 @using PM.Common.Extensions
+@using GravatarHelper.Extensions
 
 @{
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
@@ -31,7 +32,7 @@
         <div class="col-md-3">
             <div class="widget">
                 <div class="block block-profile">
-                    <img class="img-avatar img-lg" src="http://i.pravatar.cc/300" alt="">
+                    @Html.Gravatar((string)ViewBag.UserEmail, 120, GravatarHelper.Common.GravatarHelper.DefaultImageMysteryMan, new { @class = "img-avatar img-lg" })
                     <h3>@Model.UserName</h3>
                 </div>
 
@@ -109,11 +110,11 @@
                                     @foreach (var task in Model.Tasks)
                                     {
                                         <tr>
-                                            <td>@task.Name</td>
-                                            <td>@task.Project</td>
-                                            <td>@task.Status</td>
-                                            <td>@task.DueDate.ToShortDateString()</td>
-                                            <td><a href="javascript:void(0)">View</a></td>
+                                            <td>@task.Title</td>
+                                            <td>@task.ProjectName</td>
+                                            <td>@Model.Statuses[task.StatusId]</td>
+                                            <td>@task.DueDate.ToNullableDateTimeString()</td>
+                                            <td>@Html.ActionLink("View", "Edit", "Task", new { area = "Administration", tId = PM.Common.ShortGuid.Encode(task.Id) }, null)</td>
                                         </tr>
                                     }
                                 

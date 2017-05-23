@@ -19,6 +19,7 @@ namespace PM.Repository
 
             CreateMap<UserPoco, IUserPoco>().ReverseMap();
             CreateMap<User, IUserPoco>()
+                .MaxDepth(1)
                 .ReverseMap()
                 .ForMember(ent => ent.Company, model => model.Ignore())
                 .ForMember(ent => ent.Projects, model => model.Ignore())

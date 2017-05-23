@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PM.Web.Areas.Administration.Models
 {
@@ -14,5 +15,6 @@ namespace PM.Web.Areas.Administration.Models
 
         public IEnumerable<DashboardActivityDTO> Activities { get; set; }
         public IEnumerable<DashboardTaskDTO> Tasks { get; set; }
+        public Dictionary<Guid, string> Statuses { get; set; }
     }
 }

@@ -29,14 +29,17 @@ namespace PM.Web.Areas.Administration.Controllers
         #endregion Fields
 
         #region Constructors
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskController"/> class.
         /// </summary>
         /// <param name="mapper">The mapper.</param>
+        /// <param name="userStore">The user store.</param>
         /// <param name="taskService">The task service.</param>
-        public TaskController(IMapper mapper, ITaskService taskService, IProjectService projectService, ILookupService lookupService) 
-            : base(mapper)
+        /// <param name="projectService">The project service.</param>
+        /// <param name="lookupService">The lookup service.</param>
+        public TaskController(IMapper mapper, IPMUserStore userStore, ITaskService taskService, IProjectService projectService, ILookupService lookupService) 
+            : base(mapper, userStore)
         {
             this.taskService = taskService;
             this.projectService = projectService;

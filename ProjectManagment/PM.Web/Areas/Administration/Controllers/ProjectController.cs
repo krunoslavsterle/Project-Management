@@ -25,7 +25,6 @@ namespace PM.Web.Areas.Administration.Controllers
         #region Fields
 
         private readonly IProjectService projectService;
-        private readonly IPMUserStore userStore;
         private readonly ILookupService lookupService;
 
         #endregion Fields
@@ -39,10 +38,9 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="projectService">The project service.</param>
         /// <param name="identityService">The identity service.</param>
         public ProjectController(IMapper mapper, IProjectService projectService, IPMUserStore userStore, ILookupService lookupService)
-            : base(mapper)
+            : base(mapper, userStore)
         {
             this.projectService = projectService;
-            this.userStore = userStore;
             this.lookupService = lookupService;
         }
 
@@ -78,7 +76,7 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userStore.FindByIdAsync(UserId);
+                var user = await UserStore.FindByIdAsync(UserId);
                 var domainProject = projectService.CreateProject();
                 Mapper.Map<CreateProjectViewModel, IProjectPoco>(vm, domainProject);
                 domainProject.ProjectLeaderId = user.Id;
@@ -166,10 +164,11 @@ namespace PM.Web.Areas.Administration.Controllers
                 this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
 
             var vm = new TeamViewModel();
-            vm.Projectid = project.Id;
+            vm.ProjectId = project.Id;
+            vm.ProjectName = project.Name;
             vm.ProjectUsers = Mapper.Map<IEnumerable<UserPreviewViewModel>>(project.ProjectUsers.Select(p => p.User));
 
-            var optionalUsers = await userStore.GetUsersAsync(p => p.CompanyId == project.CompanyId);
+            var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == project.CompanyId);
             optionalUsers = optionalUsers.Where(p => !(vm.ProjectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
 
             vm.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
@@ -189,18 +188,19 @@ namespace PM.Web.Areas.Administration.Controllers
             if (ModelState.IsValid)
             {
                 var domain = projectService.CreateProjectUser();
-                domain.ProjectId = vm.Projectid;
+                domain.ProjectId = vm.ProjectId;
                 domain.UserId = vm.SelectedUserId;
 
                 try
                 {
                     await this.projectService.InsertProjectUserAsync(domain);
-                    var project = await projectService.GetProjectAsync(vm.Projectid,
+                    var project = await projectService.GetProjectAsync(vm.ProjectId,
                         this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
-               
+
+                    vm.ProjectName = project.Name;
                     vm.ProjectUsers = Mapper.Map<IEnumerable<UserPreviewViewModel>>(project.ProjectUsers.Select(p => p.User));
 
-                    var optionalUsers = await userStore.GetUsersAsync(p => p.CompanyId == project.CompanyId);
+                    var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == project.CompanyId);
                     optionalUsers = optionalUsers.Where(p => !(vm.ProjectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
 
                     vm.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
