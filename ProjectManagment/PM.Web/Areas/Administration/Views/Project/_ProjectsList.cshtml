@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<PM.Web.Administration.Project.ProjectPreviewViewModel>
 
+@using GravatarHelper.Extensions
+
 @if (Model != null)
 {
     foreach (var project in Model)
@@ -11,13 +13,18 @@
                 </div>
                 <div class="block block-team text-center">
                     <ul>
-                        <li>
-                            <img class="img-avatar img-sm" src="http://i.pravatar.cc/300" alt="">
-                        </li>
-                        <li>
-                            <img class="img-avatar img-sm" src="http://i.pravatar.cc/300" alt="">
-                        </li>
-
+                        @if (project.TeamMembers != null && project.TeamMembers.Count() > 0)
+                        {
+                            foreach (var user in project.TeamMembers)
+                            {
+                                <li>@Html.Gravatar(user.Email, 60, GravatarHelper.Common.GravatarHelper.DefaultImageMysteryMan, new { @class = "img-avatar img-sm", title = user.UserName })</li>
+                            }
+                        }
+                        else
+                        {
+                            <li></li>
+                        }
+                        
                     </ul>
                 </div>
 

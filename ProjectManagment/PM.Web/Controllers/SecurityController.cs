@@ -232,7 +232,10 @@ namespace PM.Web.Controllers
         { 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+
             Session["UserEmail"] = user.Email;
+            Session["CompanyId"] = user.CompanyId;
+
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 

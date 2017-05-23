@@ -56,11 +56,26 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var domainList = await projectService.GetProjectsAsync();
+            var domainList = await projectService.GetProjectsAsync(p => p.CompanyId == this.CompanyId, null, 
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks)), this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), nameof(IProjectUserPoco.User)));
+
+            var statuses = lookupService.GetAllTaskStatus();
+
             var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
             var vm = new ProjectsViewModel();
-            vm.Projects = vmProjects;
 
+            foreach(var project in vmProjects)
+            {
+                var tasks = domainList.First(p => p.Id == project.Id).Tasks;
+                var team = Mapper.Map<IEnumerable<UserPreviewViewModel>>(domainList.First(p => p.Id == project.Id).ProjectUsers.Select(d => d.User));
+
+                project.TaskCount = tasks.Count();
+                project.CompletedTaskCount = tasks.Where(d => d.StatusId == statuses.First(s => s.Abrv == "CLOSED").Id).Count();
+                project.LateTaskCount = tasks.Where(p => p.DueDate <= DateTime.UtcNow).Count();
+                project.TeamMembers = team;
+            }
+
+            vm.Projects = vmProjects;
             return View("Projects", vm);
         }
         

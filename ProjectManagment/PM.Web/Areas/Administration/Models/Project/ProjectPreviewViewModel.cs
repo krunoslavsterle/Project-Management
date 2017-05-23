@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PM.Web.Administration.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,6 @@ namespace PM.Web.Administration.Project
 
         public int LateTaskCount { get; set; }
 
-        public IEnumerable<string> TeamMembers { get; set; }
+        public IEnumerable<UserPreviewViewModel> TeamMembers { get; set; }
     }
 }

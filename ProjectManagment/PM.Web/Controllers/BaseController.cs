@@ -85,7 +85,21 @@ namespace PM.Web.Controllers
                 return Guid.Empty;
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the company identifier.
+        /// </summary>
+        /// <value>
+        /// The company identifier.
+        /// </value>
+        public Guid CompanyId
+        {
+            get
+            {
+                return GetCompanyId();
+            }
+        }
+
         /// <summary>
         /// Gets or sets the user store.
         /// </summary>
@@ -129,13 +143,21 @@ namespace PM.Web.Controllers
             var email = Session["UserEmail"];
             if (email != null)
                 return (string)email;
-            else
-            {
-                var user = UserStore.FindById(UserId);
-                Session["UserEmail"] = user.Email;
-                return user.Email;
-            }
 
+            var user = UserStore.FindById(UserId);
+            Session["UserEmail"] = user.Email;
+            return user.Email;
+        }
+
+        private Guid GetCompanyId()
+        {
+            var companyId = Session["CompanyId"];
+            if (companyId != null)
+                return (Guid)companyId;
+
+            var user = UserStore.FindById(UserId);
+            Session["CompanyId"] = user.CompanyId;
+            return user.CompanyId;
         }
 
         #endregion Methods
