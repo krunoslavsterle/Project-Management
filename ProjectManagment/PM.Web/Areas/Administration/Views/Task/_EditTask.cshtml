@@ -6,7 +6,7 @@
                             new AjaxOptions()
                             {
                                 HttpMethod = "POST",
-                                OnSuccess = "Ajax.onSuccess(data, 'edit-task');",
+                                OnSuccess = "Ajax.onSuccess(data, 'edit-task', false, createSlider);",
                                 OnFailure = "Ajax.onError",
                                 LoadingElementId = "loader"
                             }, new { id = "edit-form" }))
@@ -80,8 +80,8 @@
                 <br />
               
                 <div class="btn-group btn-group-justified" data-toggle="buttons">
-
-                    @foreach (var status in (Dictionary<Guid, string>)ViewBag.StatusList)
+                    @{ var statuses = (Dictionary<Guid, string>)ViewBag.StatusList; }
+                    @foreach (var status in statuses)
                     {
                         <label class="btn btn-primary @(status.Key == Model.StatusId ? "active" : "")">
                             @Html.RadioButtonFor(vm => vm.StatusId, status.Key) @status.Value
@@ -89,6 +89,11 @@
                     }
 
                 </div>
+
+                <br />
+                <label for="progress-slider">Progress</label>
+                <div id="progress-slider"></div>
+                @Html.HiddenFor(vm => vm.Progress)
 
                 <br />
                 <button type="submit" class="btn btn-block btn-success">Save</button>

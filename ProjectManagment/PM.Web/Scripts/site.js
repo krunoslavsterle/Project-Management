@@ -47,7 +47,7 @@
 
 var Ajax = {
 
-    onSuccess: function (data, elId, invalidateInputs) {
+    onSuccess: function (data, elId, invalidateInputs, callbackFunction) {
 
         if (data) {
             if (data.success === true) {
@@ -64,6 +64,9 @@ var Ajax = {
                 // Check if returned html variable contains value.
                 if (data.html && elId) {
                     $('#' + elId).html(data.html);
+
+                    if (callbackFunction)
+                        callbackFunction();
                 }
 
             } else {

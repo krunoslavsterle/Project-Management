@@ -28,6 +28,9 @@ namespace PM.Web.App_Start
             bundles.Add(new ScriptBundle("~/bundles/datepicker/js").Include(
                 "~/Scripts/datepicker.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ui-slider/js").Include(
+                "~/Scripts/noUiSlider/nouislider.min.js"));
+
             #endregion Scripts
 
             #region CSS
@@ -49,6 +52,9 @@ namespace PM.Web.App_Start
 
             bundles.Add(new StyleBundle("~/Content/datepicker/css").Include(
                 "~/Content/datepicker.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/ui-slider/css").Include(
+                "~/Content/nouislider.min.css"));
 
             #endregion CSS
         }

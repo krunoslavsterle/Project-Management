@@ -1,19 +1,21 @@
 ﻿@model IEnumerable<PM.Web.Administration.User.UserPreviewViewModel>
+@using GravatarHelper.Extensions
 
 @foreach (var user in Model)
 {
     <div class="col-md-4">
         <div class="widget">
             <div class="block">
-                <img class="img-avatar img-lg pull-left" src="http://i.pravatar.cc/300" alt="">
+                @Html.Gravatar(user.Email, 120, GravatarHelper.Common.GravatarHelper.DefaultImageMysteryMan, new { @class = "img-avatar img-xl pull-left", title = user.UserName })
                 <div style="padding-left: 150px;">
-                    <h4>@user.UserName</h4>
-                    <p>Project Manager</p>
-                    <p>@user.Email</p>
+                    <div class="user-widget-title">
+                        <span>@user.UserName</span>
+                    </div>
+                    <div class="user-widget-body">
+                        <span>Project Manager</span><br />
+                        <span>@user.Email</span>
+                    </div>
                 </div>
-
-                <br />
-                <a>projects</a>
             </div>
         </div>
     </div>

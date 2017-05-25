@@ -18,6 +18,7 @@ namespace PM.Web.Areas.Administration.Controllers
     /// Task controller.
     /// </summary>
     /// <seealso cref="PM.Web.Controllers.BaseController" />
+    [Authorize]
     public class TaskController : BaseController
     {
         #region Fields

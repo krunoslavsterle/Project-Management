@@ -21,6 +21,7 @@ namespace PM.Web.Areas.Administration.Controllers
     /// <summary>
     /// User controller.
     /// </summary>
+    [Authorize]
     public class UserController : BaseController
     {
         #region Fields

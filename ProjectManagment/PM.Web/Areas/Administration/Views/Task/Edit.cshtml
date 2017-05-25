@@ -57,11 +57,13 @@
 @section Style
 {
     @Styles.Render("~/Content/task-edit/css")
+    @Styles.Render("~/Content/ui-slider/css")
 }
 
 @section Scripts
 {
     @Scripts.Render("~/bundles/task-edit/js")
+    @Scripts.Render("~/bundles/ui-slider/js")
 
     <script>
 
@@ -84,7 +86,30 @@
             $("#btn-submit").click(function (event) {
                 $('#edit-form').submit();
             });
+
+            createSlider();
+
+           
         });
-        
+
+        function createSlider() {
+
+            var slider = $('#progress-slider')[0];
+            noUiSlider.create(slider, {
+                start: $('#Progress').val(),
+                behaviour: 'tap',
+                connect: [true, false],
+                step: 1,
+                range: {
+                    'min': 0,
+                    'max': 100
+                }
+            });
+            slider.noUiSlider.on('change', function (value) {
+                $('#Progress').val(parseInt(value))
+            });
+            
+        }
+
     </script>
 }

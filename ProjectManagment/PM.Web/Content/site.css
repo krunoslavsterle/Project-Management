@@ -220,6 +220,11 @@ html {
     width: 96px;
     height: 96px;
 }
+.img-xl {
+    width: 120px;
+    height: 120px;
+}
+
 .block-profile-role {
     text-align: center;
     padding-bottom: 25px;
@@ -241,16 +246,10 @@ html {
 }
 
 .profile-link {
-    font-size: 16px;
-    font-weight: 600;
-    color: #5a7391;
 }
 
 .profile-link:focus, 
 .profile-link:hover {
-    font-size: 16px;
-    font-weight: 600;
-    color: #62a8ea;
     text-decoration: none;
 }
 .profile-late {
@@ -279,11 +278,16 @@ html {
 }
 .block-project {
     text-align: center;
+    padding: 10px;
+    background-color: #40454d;
+    font-weight: 500;
+    font-size: 25px;
+    color: white;
 }
-.block-project>h3 {
-    font-size: 23px;
-    font-weight: 600;
-    color: #5a7391;
+.block-project>a {
+    font-weight: 500;
+    font-size: 25px;
+    color: white;
 }
 .block-project-chart {
     border-radius: 50%;
@@ -709,6 +713,18 @@ html {
 }
 .login-body {
     padding-top:50px;
+}
+
+.user-widget-title {
+    background-color: #40454d;
+    margin-right: -20px;
+    padding: 10px 10px 10px 10px;
+    color: white;
+    font-size: 25px;
+}
+.user-widget-body {
+    margin-top: 15px;
+    font-size: 17px;
 }
 
 

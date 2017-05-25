@@ -8,8 +8,8 @@
     {
         <div class="col-md-3">
             <div class="widget">
-                <div class="block block-project">
-                    <a href="@Url.Action("Overview", "Project", new { area = "Administration", pId = PM.Common.ShortGuid.Encode(project.Id) })" class="profile-link"><h3>@project.Name</h3></a>
+                <div class="block-project">
+                    <a href="@Url.Action("Overview", "Project", new { area = "Administration", pId = PM.Common.ShortGuid.Encode(project.Id) })" class="profile-link"><span>@project.Name</span></a>
                 </div>
                 <div class="block block-team text-center">
                     <ul>

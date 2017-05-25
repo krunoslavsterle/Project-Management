@@ -19,6 +19,8 @@ namespace PM.Web.Administration.Task
         [Required]
         public Guid StatusId { get; set; }
 
+        public int Progress { get; set; }
+
         [Required]
         public DateTime DateCreated { get; set; }
 

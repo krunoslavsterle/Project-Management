@@ -82,6 +82,7 @@ namespace PM.Web.Controllers
                 {
                     return new Guid(userIdClaim.Value);
                 }
+
                 return Guid.Empty;
             }
         }
@@ -145,6 +146,9 @@ namespace PM.Web.Controllers
                 return (string)email;
 
             var user = UserStore.FindById(UserId);
+            if (user == null)
+                return null;
+
             Session["UserEmail"] = user.Email;
             return user.Email;
         }
@@ -156,6 +160,9 @@ namespace PM.Web.Controllers
                 return (Guid)companyId;
 
             var user = UserStore.FindById(UserId);
+            if (user == null)
+                return Guid.Empty;
+
             Session["CompanyId"] = user.CompanyId;
             return user.CompanyId;
         }

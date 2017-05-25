@@ -25,11 +25,12 @@
         <!-- Profile widget -->
         <div class="col-md-3">
             <div class="widget">
-                <div class="block block-project">
-                    <h3>@Model.Project.Name</h3>
-                    <div class="block-project-chart">
-                        <canvas id="myChart"></canvas>
-                    </div>
+                <div class="block-project">
+                    <span>@Model.Project.Name</span>
+                    
+                </div>
+                <div class="block-project-chart">
+                    <canvas id="myChart"></canvas>
                 </div>
 
 
@@ -172,27 +173,54 @@
         var todoTasks = totalTasks - completedTasks - lateTasks;
 
         var ctx = document.getElementById("myChart");
-        var myPieChart = new Chart(ctx,{
-        type: 'pie',
-        data: {
-            labels: ["Completed", "ToDo", "Late"],
-            datasets: [{
-                label: '# of Votes',
-                data: [completedTasks, todoTasks, lateTasks],
-                backgroundColor: [
-                    '#36c6d3',
-                    '#bac3d0',
-                    '#ed6b75'
-                ]
+        if (totalTasks === 0) {
 
-            }]
-        },
-        options: {
-             legend: {
-                display: false,
-            }
+            var myPieChart = new Chart(ctx,{
+                type: 'pie',
+                data: {
+                    labels: [""],
+                    datasets: [{
+                        data: [1],
+                        backgroundColor: [
+                            '#36c6d3'
+                        ]
+
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltips: {
+                        enabled: false
+                    }
+                }
+            });
+        } else {
+            var myPieChart = new Chart(ctx,{
+                type: 'pie',
+                data: {
+                    labels: ["Completed", "ToDo", "Late"],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [completedTasks, todoTasks, lateTasks],
+                        backgroundColor: [
+                            '#36c6d3',
+                            '#bac3d0',
+                            '#ed6b75'
+                        ]
+
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false,
+                    }
+                }
+            });
         }
-        });
+
+        
 
     </script>
 }

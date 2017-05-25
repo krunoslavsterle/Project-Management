@@ -218,6 +218,8 @@
     <Content Include="Content\iziToast.css" />
     <Content Include="Content\iziToast.min.css" />
     <Content Include="Content\landing.css" />
+    <Content Include="Content\nouislider.css" />
+    <Content Include="Content\nouislider.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\summernote.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -258,6 +260,8 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\noUiSlider\nouislider.js" />
+    <Content Include="Scripts\noUiSlider\nouislider.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\summernote.js" />
     <Content Include="Web.config">
