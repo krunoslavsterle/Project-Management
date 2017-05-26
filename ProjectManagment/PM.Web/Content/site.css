@@ -679,6 +679,11 @@ html {
 .tasks-filter {
     padding: 20px;
 }
+.tasks-filter-info {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+}
 .create-task {
     padding: 15px;
 }
@@ -715,6 +720,9 @@ html {
     padding-top:50px;
 }
 
+.user-widget-div {
+    padding-left: 150px;
+}
 .user-widget-title {
     background-color: #40454d;
     margin-right: -20px;
@@ -729,6 +737,35 @@ html {
 
 
 @media (max-width: 767px) {
+
+    .block-project {
+        font-size: 20px;
+    }
+    .block-project>a {
+        font-size: 20px;
+    }
+
+    .block-project-chart {
+        width: 100px;
+        height: 100px;
+    }
+
+    .user-widget-div{
+        padding-left: 80px;
+    }
+    .user-widget-title {
+        padding: 5px;
+        font-size: 20px;
+    }
+    .user-widget-body {
+        font-size: 14px;
+    }
+
+    .img-xl {
+        width: 60px;
+        height: 60px;
+    }
+
     ul.timeline:before {
         left: 40px;
     }
@@ -762,6 +799,48 @@ html {
             left: -14px;
             right: auto;
         }
+}
+
+@media (min-width: 767px) and (max-width: 1450px) {
+
+    .block-project-chart {
+        width: 170px;
+        height: 170px;
+    }
+
+    .block-project {
+        font-size: 22px;
+    }
+    .block-project>a {
+        font-size: 22px;
+    }
+
+    .user-widget-div{
+        padding-left: 100px;
+    }
+    .user-widget-title {
+        padding: 5px;
+        font-size: 22px;
+    }
+    .user-widget-body {
+        font-size: 16px;
+    }
+
+    .tasks-filter-info {
+        margin-left: 15px;
+        margin-right: 15px;
+        font-size: 16px;
+    }
+
+    .btn-group > .btn {
+       
+      }
+
+    .img-xl {
+        width: 80px;
+        height: 80px;
+    }
+
 }
 
 

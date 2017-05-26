@@ -199,7 +199,7 @@ namespace PM.Web.Areas.Administration.Controllers
             ViewBag.ProjectName = projectWithUsers.Name;
             ViewBag.ProjectUsers = projectWithUsers.ProjectUsers.Select(p => p.User).ToDictionary(p => p.Id, d => d.UserName);
             ViewBag.PriorityList = lookupService.GetAllTaskPriority().ToDictionary(p => p.Id, d => d.Name);
-            ViewBag.StatusList = lookupService.GetAllTaskStatus().OrderBy(d => d.SortOrder).ToDictionary(p => p.Id, d => d.Name);
+            ViewBag.StatusList = lookupService.GetAllTaskStatus().OrderBy(d => d.SortOrder);
         }
         
         #endregion Methods

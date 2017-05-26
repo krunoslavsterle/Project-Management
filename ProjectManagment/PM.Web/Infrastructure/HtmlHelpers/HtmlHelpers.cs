@@ -86,5 +86,28 @@ namespace PM.Web.Infrastructure.HtmlHelpers
             string htmlStr = String.Format("<i class='{0}'></i>", baseCss);
             return new MvcHtmlString(htmlStr);
         }
+
+        /// <summary>
+        /// Gets the html element for task status icon.
+        /// </summary>
+        /// <param name="helper">The helper.</param>
+        /// <param name="statusAbrv">The status abrv.</param>
+        /// <returns>The html element for task status icon.</returns>
+        public static MvcHtmlString TaskStatusIcon(this HtmlHelper helper, string statusAbrv)
+        {
+            string iconClass = string.Empty;
+
+            if (statusAbrv == "NEW")
+                iconClass = "fa-dot-circle-o";
+            else if (statusAbrv == "STARTED")
+                iconClass = "fa-refresh";
+            else if (statusAbrv == "RESOLVED")
+                iconClass = "fa-check";
+            else if (statusAbrv == "CLOSED")
+                iconClass = "fa-power-off ";
+
+            var htmlStr = String.Format("<i class='fa {0}' aria-hidden='true'></i>", iconClass);
+            return new MvcHtmlString(htmlStr);
+        }
     }
 }

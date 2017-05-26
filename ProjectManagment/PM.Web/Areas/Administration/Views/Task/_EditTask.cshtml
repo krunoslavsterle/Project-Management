@@ -1,6 +1,7 @@
 ﻿@model PM.Web.Administration.Task.EditTaskViewModel
 
 @using PM.Common.Extensions
+@using PM.Web.Infrastructure.HtmlHelpers
 
 @using (Ajax.BeginForm("Edit", "Task", new { area = "Administration" },
                             new AjaxOptions()
@@ -72,19 +73,19 @@
         <div class="widget">
             <div class="tasks-filter">
 
-                <div style="margin-left: 20px;margin-right:20px;">
-                    <h4>Author: <span class="pull-right">@ViewBag.ProjectUsers[Model.CreatedByUserId]</span></h4>
-                    <h4>Created: <span class="pull-right">@Model.DateCreated.ToPrettyDateTimeString()</span></h4>
-                    <h4>Last update: <span class="pull-right">@Model.DateUpdated.ToLocalTime().ToPrettyDateTimeString()</span></h4>
+                <div class="tasks-filter-info">
+                    <span>Author: <span class="pull-right">@ViewBag.ProjectUsers[Model.CreatedByUserId]</span></span> <br />
+                    <span>Created: <span class="pull-right">@Model.DateCreated.ToPrettyDateTimeString()</span></span> <br />
+                    <span>Last update: <span class="pull-right">@Model.DateUpdated.ToLocalTime().ToPrettyDateTimeString()</span></span>
                 </div>
                 <br />
               
                 <div class="btn-group btn-group-justified" data-toggle="buttons">
-                    @{ var statuses = (Dictionary<Guid, string>)ViewBag.StatusList; }
+                    @{ var statuses = (IEnumerable<PM.Model.Common.ITaskStatusPoco>)ViewBag.StatusList; }
                     @foreach (var status in statuses)
                     {
-                        <label class="btn btn-primary @(status.Key == Model.StatusId ? "active" : "")">
-                            @Html.RadioButtonFor(vm => vm.StatusId, status.Key) @status.Value
+                        <label title="@status.Name" class="btn btn-primary @(status.Id == Model.StatusId ? "active" : "")">
+                            @Html.RadioButtonFor(vm => vm.StatusId, status.Id) @Html.TaskStatusIcon(status.Abrv)
                         </label>
                     }
 
