@@ -31,7 +31,11 @@
                         if (Request.IsAuthenticated)
                         {
                             <li class="">
-                                @Html.ActionLink("Sign out", "SignOut", "Security")
+                                @using (Html.BeginForm("SignOut", "Security", new { area = "" }, FormMethod.Post, null))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-warning">Logout</button>
+                                }
                             </li>
                         }
                         else

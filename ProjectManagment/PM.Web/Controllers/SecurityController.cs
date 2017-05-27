@@ -89,7 +89,6 @@ namespace PM.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var test = await userStore.FindByIdAsync(new Guid("E8AB9AF0-DA85-4E91-B65E-5744B01F8235"));
                 var user = await userManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
@@ -111,6 +110,7 @@ namespace PM.Web.Controllers
         /// <returns>View.</returns>
         [HttpPost]
         [ActionName("SignOut")]
+        [ValidateAntiForgeryToken]
         public Task<RedirectToRouteResult> SignOutAsync()
         {
             AuthenticationManager.SignOut();
@@ -138,7 +138,6 @@ namespace PM.Web.Controllers
         [ActionName("Register")]
         public async Task<ActionResult> RegisterAsync(RegisterViewModel model)
         {
-            // TODO: Implement loger.
             if (ModelState.IsValid)
             {
                 var company = companyService.Create();
@@ -155,10 +154,13 @@ namespace PM.Web.Controllers
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user.Id, "Administrator");
+                    
                     // Need to invalidate Company model - circular reference for AutoMapper.
                     user.Company = null;
+
                     await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard", new { area = "Administration" });
                 }
                 else
                 {

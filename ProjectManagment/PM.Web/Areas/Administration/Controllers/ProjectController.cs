@@ -91,16 +91,21 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserStore.FindByIdAsync(UserId);
                 var domainProject = projectService.CreateProject();
+                var projectUser = projectService.CreateProjectUser();
+
                 Mapper.Map<CreateProjectViewModel, IProjectPoco>(vm, domainProject);
-                domainProject.ProjectLeaderId = user.Id;
-                domainProject.CompanyId = user.CompanyId;
+                domainProject.ProjectLeaderId = this.UserId;
+                domainProject.CompanyId = this.CompanyId;
+
+                projectUser.ProjectId = domainProject.Id;
+                projectUser.UserId = this.UserId;
+                domainProject.ProjectUsers.Add(projectUser);
 
                 try
                 {
                     await this.projectService.InsertProjectAsync(domainProject);
-                    var domainList = await projectService.GetProjectsAsync();
+                    var domainList = await projectService.GetProjectsAsync(p => p.CompanyId == this.CompanyId);
                     var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
 
                     Response.StatusCode = (int)HttpStatusCode.OK;

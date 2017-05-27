@@ -21,9 +21,9 @@ namespace PM.Repository
             CreateMap<User, IUserPoco>()
                 .MaxDepth(1)
                 .ReverseMap()
-                .ForMember(ent => ent.Company, model => model.Ignore())
                 .ForMember(ent => ent.Projects, model => model.Ignore())
-                .ForMember(ent => ent.ProjectUsers, model => model.Ignore());
+                .ForMember(ent => ent.ProjectUsers, model => model.Ignore())
+                .MaxDepth(1);
 
             CreateMap<RolePoco, IRolePoco>().ReverseMap();
             CreateMap<Role, IRolePoco>()
@@ -49,6 +49,8 @@ namespace PM.Repository
 
             CreateMap<ProjectPoco, IProjectPoco>().ReverseMap();
             CreateMap<Project, IProjectPoco>()
+                .MaxDepth(1)
+                .ReverseMap()
                 .ForMember(ent => ent.Company, e => e.Ignore())
                 .ForMember(ent => ent.ProjectLeader, e => e.Ignore())
                 .MaxDepth(1);
@@ -56,9 +58,11 @@ namespace PM.Repository
 
             CreateMap<ProjectUserPoco, IProjectUserPoco>().ReverseMap();
             CreateMap<ProjectUser, IProjectUserPoco>()
+                .MaxDepth(1)
                 .ReverseMap()
                 .ForMember(ent => ent.Project, model => model.Ignore())
-                .ForMember(ent => ent.User, model => model.Ignore());
+                .ForMember(ent => ent.User, model => model.Ignore())
+                .MaxDepth(1);
 
 
             CreateMap<TaskPoco, ITaskPoco>().ReverseMap();

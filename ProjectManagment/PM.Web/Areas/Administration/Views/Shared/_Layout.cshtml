@@ -89,6 +89,7 @@
         <div class="popover-body">
             @using (Html.BeginForm("SignOut", "Security", new { area = "" }, FormMethod.Post, null))
             {
+                @Html.AntiForgeryToken()
                 <button type="submit" class="btn btn-sm btn-warning">Logout</button>
             }
         </div>

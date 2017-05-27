@@ -50,6 +50,7 @@ namespace PM.Repository
             IProjectPoco project = new ProjectPoco()
             {
                 Id = Guid.NewGuid(),
+                ProjectUsers = new List<IProjectUserPoco>(),
                 DateCreated = DateTime.UtcNow,
                 DateUpdated = DateTime.UtcNow
             };
