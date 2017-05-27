@@ -46,7 +46,7 @@ namespace PM.Web.Areas.Administration.Controllers
             this.lookupService = lookupService;
             this.userManager = new UserManager<IUserPoco, Guid>(userStore);
 
-            var provider = new DpapiDataProtectionProvider("ProjectManagment");
+            var provider = Startup.DataProtectionProvider;
             this.userManager.UserTokenProvider = new DataProtectorTokenProvider<IUserPoco, Guid>(provider.Create("EmailConfirmation"));
         }
 
@@ -82,47 +82,41 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByIdAsync(UserId);
-
                 var newUser = UserStore.CreateUser();
-                newUser.CompanyId = user.CompanyId;
+                newUser.CompanyId = CompanyId;
                 newUser.UserName = vm.UserName;
                 newUser.Email = vm.Email;
-                
+
                 try
                 {
                     var created = await userManager.CreateAsync(newUser, GenerateTempPassword(7));
                     if (created.Succeeded)
                     {
                         await userManager.AddToRoleAsync(newUser.Id, "User");
-                        
+
                         // Send confirmation email.
                         var code = await userManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
-
-
                         var url = Url.Action("ActivateAccount", "Security", new { area = "", userId = newUser.Id, code = code }, protocol: Request.Url.Scheme);
-
                         using (var emailClient = new EmailClient())
                         {
-                            emailClient.SendEmail("Confirm PM Account", "<p>Please confirm your account by clicking this link: <a href=\"" + url + "\">link</a></p>", newUser.Email);
+                            await emailClient.SendEmail("Confirm PM Account", "<p>Please confirm your account by clicking this link: <a href=\"" + url + "\">link</a></p>", newUser.Email);
                         }
 
                         // TODO: PUT THIS IN THE BASE CONTROLLER.
-                        var users = await UserStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
+                        var users = await UserStore.GetUsersByCompanyIdAsync(CompanyId, this.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
                         var usersVm = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
 
                         Response.StatusCode = (int)HttpStatusCode.OK;
                         return Json(new { success = true, responseText = "User is created successfuly.", html = this.RenderView("_UsersList", usersVm) }, JsonRequestBehavior.AllowGet);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     SetErrorResponse(HttpStatusCode.InternalServerError, "Something went wrong");
                 }
             }
-            else
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return PartialView("_NewUserModal", vm);
         }
 

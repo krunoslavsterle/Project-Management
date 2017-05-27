@@ -52,6 +52,14 @@
       <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -238,6 +246,8 @@
     <Content Include="Areas\Administration\Views\Task\_EditTask.cshtml" />
     <Content Include="Areas\Administration\Views\Project\Team.cshtml" />
     <Content Include="Areas\Administration\Views\Project\_TeamList.cshtml" />
+    <None Include="Properties\PublishProfiles\pmanager-test - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\pmanager-test - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
@@ -356,9 +366,17 @@
       <Project>{ec16ea4f-0278-4c87-b659-a374a4f12ddf}</Project>
       <Name>PM.Model.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PM.Repository\PM.Repository.csproj">
+      <Project>{08e1ce17-ddc8-421c-b86c-2a8420a9f703}</Project>
+      <Name>PM.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PM.Service.Common\PM.Service.Common.csproj">
       <Project>{5efad5c8-e5e9-48d4-a6d0-645b732e6595}</Project>
       <Name>PM.Service.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PM.Service\PM.Service.csproj">
+      <Project>{a62eac7c-7f45-429b-888e-8181f42340ab}</Project>
+      <Name>PM.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

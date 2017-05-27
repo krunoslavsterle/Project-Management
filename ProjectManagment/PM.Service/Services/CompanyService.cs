@@ -2,6 +2,7 @@
 using PM.Repository;
 using PM.Service.Common;
 using System;
+using System.Threading.Tasks;
 
 namespace PM.Service
 {
@@ -34,6 +35,24 @@ namespace PM.Service
         public virtual ICompanyPoco Create()
         {
             return companyRepository.Create();
+        }
+
+        /// <summary>
+        /// Inserts the specified <see cref="ICompanyPoco"/> model into the database asynchronous.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        public virtual Task InsertAsync(ICompanyPoco model)
+        {
+            return companyRepository.InsertAsync(model);
+        }
+
+        /// <summary>
+        /// Deletes model by id asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public virtual Task DeleteAsync(Guid id)
+        {
+            return companyRepository.DeleteAsync(id);
         }
 
         #endregion Methods

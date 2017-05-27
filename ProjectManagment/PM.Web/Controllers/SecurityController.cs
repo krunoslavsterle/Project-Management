@@ -42,7 +42,7 @@ namespace PM.Web.Controllers
             this.mapper = mapper;
             this.userManager = new UserManager<IUserPoco, Guid>(userStore);
 
-            var provider = new DpapiDataProtectionProvider("ProjectManagment");
+            var provider = Startup.DataProtectionProvider;
             this.userManager.UserTokenProvider = new DataProtectorTokenProvider<IUserPoco, Guid>(provider.Create("EmailConfirmation"));
         }
 
@@ -148,24 +148,37 @@ namespace PM.Web.Controllers
                 var user = userStore.CreateUser();
                 user.UserName = model.UserName;
                 user.Email = model.Email;
-                user.Company = company;
                 user.CompanyId = company.Id;
 
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                bool companyCreated = false;
+                try
                 {
-                    await userManager.AddToRoleAsync(user.Id, "Administrator");
-                    
-                    // Need to invalidate Company model - circular reference for AutoMapper.
-                    user.Company = null;
+                    await companyService.InsertAsync(company);
+                    companyCreated = true;
 
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Dashboard", new { area = "Administration" });
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user.Id, "Administrator");
+
+                        // Need to invalidate Company model - circular reference for AutoMapper.
+                        user.Company = null;
+
+                        await SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Index", "Dashboard", new { area = "Administration" });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Faild to register user");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
+                    if (companyCreated)
+                        await companyService.DeleteAsync(company.Id);
+
                     ModelState.AddModelError("", "Faild to register user");
-                }
+                }                
             }
 
             return View(model);
@@ -214,13 +227,13 @@ namespace PM.Web.Controllers
             {
                 var userDomain = await userManager.FindByNameAsync(model.UserName);
 
-                var provider = new DpapiDataProtectionProvider("ProjectManagment");
+                var provider = Startup.DataProtectionProvider;
                 this.userManager.UserTokenProvider = new DataProtectorTokenProvider<IUserPoco, Guid>(provider.Create("PasswordReset"));
 
                 await userManager.ResetPasswordAsync(userDomain.Id, this.userManager.GeneratePasswordResetToken(userDomain.Id), model.Password);
 
                 await SignInAsync(userDomain, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Dashboard", new { area = "Administration" });
             }
 
             return View("Activate");

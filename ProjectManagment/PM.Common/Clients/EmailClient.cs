@@ -1,44 +1,34 @@
 ﻿using System;
-using System.Net.Mail;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Threading.Tasks;
 
 namespace PM.Common.Clients
 {
     public class EmailClient : IDisposable
     {
-        private SmtpClient smtpClient;
-        private MailAddress mailAddress;
+        private SendGridClient client;
+        private string apiKey = "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";
 
         public EmailClient()
         {
-            smtpClient = new SmtpClient();
-            smtpClient.Host = "localhost";
-
-            mailAddress = new MailAddress("admin@pm.mail.com");
+            client = new SendGridClient(apiKey);
         }
 
-        public async void SendEmail(string subject, string body, string address)
-        {   
-            var message = new MailMessage();
-            message.From = mailAddress;
-            message.To.Add(new MailAddress(address));
+        public Task SendEmail(string subject, string body, string address)
+        {
+            var msg = new SendGridMessage();
+            msg.SetFrom("support@pmanager.com", "PManager support");
+            msg.AddTo(address);
+            msg.SetSubject(subject);
+            msg.AddContent(MimeType.Html, body);
 
-            message.Subject = subject;
-            message.Body = body;
-            message.IsBodyHtml = true;
-
-            message.To.Add(new MailAddress(address)); 
-            message.IsBodyHtml = true;
-
-            using (var smtp = new SmtpClient())
-            {              
-                await smtp.SendMailAsync(message);
-            }
+            return client.SendEmailAsync(msg);
         }
 
         public void Dispose()
         {
-            smtpClient = null;
-            mailAddress = null;
+            client = null;
         }
     }
 }

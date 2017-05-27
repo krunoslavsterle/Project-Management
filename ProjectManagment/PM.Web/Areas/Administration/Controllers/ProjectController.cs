@@ -160,7 +160,7 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpGet]
         [ActionName("Timeline")]
-        public async Task<ActionResult> TimelineAsync(string pId)
+        public ActionResult TimelineAsync(string pId)
         {
             if (String.IsNullOrEmpty(pId))
                 throw new Exception("The parameter [pId] is null or empty.");
