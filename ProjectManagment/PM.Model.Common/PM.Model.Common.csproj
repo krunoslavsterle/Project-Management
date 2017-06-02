@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBasePoco.cs" />
     <Compile Include="Identity\IClaimPoco.cs" />
     <Compile Include="Identity\IExternalLoginPoco.cs" />
     <Compile Include="Identity\IRolePoco.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Models\ICompanyPoco.cs" />
     <Compile Include="Models\IProjectPoco.cs" />
     <Compile Include="Models\IProjectUserPoco.cs" />
+    <Compile Include="Models\ITaskCommentPoco.cs" />
     <Compile Include="Models\ITaskPoco.cs" />
     <Compile Include="Models\ITaskPriorityPoco.cs" />
     <Compile Include="Models\ITaskStatusPoco.cs" />

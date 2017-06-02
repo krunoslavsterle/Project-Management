@@ -88,6 +88,9 @@
     <Compile Include="Task.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TaskComment.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TaskPriority.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>

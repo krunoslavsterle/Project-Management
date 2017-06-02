@@ -30,6 +30,9 @@
         <AssociationConnector Association="PMDatabaseModel.FK_Task_AssignedToUser" />
         <AssociationConnector Association="PMDatabaseModel.FK_Task_CreatedByUser" />
         <AssociationConnector Association="PMDatabaseModel.FK_dbo_UserRole_dbo_User_UserId" />
+        <EntityTypeShape EntityType="PMDatabaseModel.TaskComment" Width="1.5" PointX="14.25" PointY="10.25" />
+        <AssociationConnector Association="PMDatabaseModel.FK_TaskComent_Task" />
+        <AssociationConnector Association="PMDatabaseModel.FK_TaskComent_User" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

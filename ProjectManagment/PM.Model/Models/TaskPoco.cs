@@ -1,23 +1,16 @@
 ﻿using PM.Model.Common;
 using System;
+using System.Collections.Generic;
 
 namespace PM.Model
 {
     /// <summary>
     /// Task poco class.
     /// </summary>
-    public class TaskPoco : ITaskPoco
+    public class TaskPoco : BasePoco, ITaskPoco
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public Guid Id { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the project identifier.
         /// </summary>
@@ -89,23 +82,7 @@ namespace PM.Model
         /// The progress.
         /// </value>
         public byte Progress { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date created.
-        /// </summary>
-        /// <value>
-        /// The date created.
-        /// </value>
-        public DateTime DateCreated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date updated.
-        /// </summary>
-        /// <value>
-        /// The date updated.
-        /// </value>
-        public DateTime DateUpdated { get; set; }
-        
+                
         #endregion Properties
 
         #region Navigation Properties
@@ -149,6 +126,14 @@ namespace PM.Model
         /// The task status.
         /// </value>
         public virtual ITaskStatusPoco TaskStatus { get; set; }
+
+        /// <summary>
+        /// Gets or sets the task comments.
+        /// </summary>
+        /// <value>
+        /// The task comments.
+        /// </value>
+        public virtual IEnumerable<ITaskCommentPoco> TaskComments { get; set; }
 
         #endregion Navigation Properties
     }

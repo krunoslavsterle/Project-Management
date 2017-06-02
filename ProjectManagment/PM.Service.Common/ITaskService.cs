@@ -13,6 +13,8 @@ namespace PM.Service.Common
     /// </summary>
     public interface ITaskService
     {
+        #region TaskPoco
+
         /// <summary>
         /// Creates new in-memory istance of <see cref="ITaskPoco"/> class.
         /// </summary>
@@ -80,5 +82,26 @@ namespace PM.Service.Common
         /// <param name="models">The list of models.</param>
         /// <returns>Task.</returns>
         Task UpdateTasksAsync(IEnumerable<ITaskPoco> models);
+
+        #endregion TaskPoco
+
+        #region TaskCommentPoco
+
+        /// <summary>
+        /// Creates <see cref="ITaskCommentPoco"/> in memmory.
+        /// </summary>
+        /// <returns><see cref="ITaskCommentPoco"/>.</returns>
+        ITaskCommentPoco CreateTaskComment();
+
+        /// <summary>
+        /// Gets the list of <see cref="ITaskCommentPoco"/> models asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="ITaskCommentPoco"/> models asynchronous.</returns>
+        Task<IEnumerable<ITaskCommentPoco>> GetTaskCommentAsync(Expression<Func<ITaskCommentPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
+
+        #endregion TaskCommentPoco
     }
 }

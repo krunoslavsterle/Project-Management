@@ -24,6 +24,7 @@ namespace PM.DAL
             this.TasksAssigned = new HashSet<Task>();
             this.TasksCreated = new HashSet<Task>();
             this.UserRoles = new HashSet<UserRole>();
+            this.TaskComments = new HashSet<TaskComment>();
         }
     
         public System.Guid Id { get; set; }
@@ -53,5 +54,7 @@ namespace PM.DAL
         public virtual ICollection<Task> TasksCreated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskComment> TaskComments { get; set; }
     }
 }

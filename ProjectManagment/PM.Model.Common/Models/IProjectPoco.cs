@@ -6,16 +6,10 @@ namespace PM.Model.Common
     /// <summary>
     /// Project contract.
     /// </summary>
-    public interface IProjectPoco
+    public interface IProjectPoco : IBasePoco
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        /// <value>The id.</value>
-        Guid Id { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the company identifier.
         /// </summary>
@@ -43,19 +37,7 @@ namespace PM.Model.Common
         /// </summary>
         /// <value>The description.</value>
         string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date created.
-        /// </summary>
-        /// <value>The date created.</value>
-        DateTime DateCreated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date updated.
-        /// </summary>
-        /// <value>The date updated.</value>
-        DateTime DateUpdated { get; set; }
-        
+                
         #endregion Properties
 
         #region Navigation Properties

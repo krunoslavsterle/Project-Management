@@ -86,6 +86,18 @@
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="TaskComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TaskId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
         <EntityType Name="TaskPriority">
           <Key>
             <PropertyRef Name="Id" />
@@ -301,6 +313,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TaskComent_Task">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="TaskComment" Type="Self.TaskComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskComment">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskComent_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="TaskComment" Type="Self.TaskComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskComment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -321,6 +357,7 @@
           <EntitySet Name="ProjectUser" EntityType="Self.ProjectUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskComment" EntityType="Self.TaskComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskPriority" EntityType="Self.TaskPriority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskStatus" EntityType="Self.TaskStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -376,6 +413,14 @@
           <AssociationSet Name="FK_Task_TaskStatus" Association="Self.FK_Task_TaskStatus">
             <End Role="TaskStatus" EntitySet="TaskStatus" />
             <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskComent_Task" Association="Self.FK_TaskComent_Task">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="TaskComment" EntitySet="TaskComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskComent_User" Association="Self.FK_TaskComent_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TaskComment" EntitySet="TaskComment" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Company" Association="Self.FK_User_Company">
             <End Role="Company" EntitySet="Company" />
@@ -454,6 +499,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
+          <EntitySet Name="TaskComments" EntityType="PMDatabaseModel.TaskComment" />
+          <AssociationSet Name="FK_TaskComent_Task" Association="PMDatabaseModel.FK_TaskComent_Task">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="TaskComment" EntitySet="TaskComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskComent_User" Association="PMDatabaseModel.FK_TaskComent_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TaskComment" EntitySet="TaskComments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Claim">
           <Key>
@@ -527,6 +581,7 @@
           <NavigationProperty Name="AssignedToUser" Relationship="PMDatabaseModel.FK_Task_AssignedToUser" FromRole="Task" ToRole="User" />
           <NavigationProperty Name="CreatedByUser" Relationship="PMDatabaseModel.FK_Task_CreatedByUser" FromRole="Task" ToRole="User" />
           <Property Name="Progress" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="TaskComments" Relationship="PMDatabaseModel.FK_TaskComent_Task" FromRole="Task" ToRole="TaskComment" />
           </EntityType>
         <EntityType Name="TaskPriority">
           <Key>
@@ -663,6 +718,7 @@
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="PasswordResetToken" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TaskComments" Relationship="PMDatabaseModel.FK_TaskComent_User" FromRole="User" ToRole="TaskComment" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -787,6 +843,44 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TaskComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="TaskId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Task" Relationship="PMDatabaseModel.FK_TaskComent_Task" FromRole="TaskComment" ToRole="Task" />
+          <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_TaskComent_User" FromRole="TaskComment" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_TaskComent_Task">
+          <End Type="PMDatabaseModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="PMDatabaseModel.TaskComment" Role="TaskComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskComment">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskComent_User">
+          <End Type="PMDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="PMDatabaseModel.TaskComment" Role="TaskComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskComment">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -934,6 +1028,19 @@
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskComments">
+            <EntityTypeMapping TypeName="PMDatabaseModel.TaskComment">
+              <MappingFragment StoreEntitySet="TaskComment">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

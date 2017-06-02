@@ -18,6 +18,7 @@ namespace PM.Service
         #region Fields
 
         private readonly ITaskRepository taskRepository;
+        private readonly ITaskCommentRepository taskCommentRepository;
 
         #endregion Fields
 
@@ -27,14 +28,18 @@ namespace PM.Service
         /// Initializes a new instance of the <see cref="TaskService"/> class.
         /// </summary>
         /// <param name="taskRepository">The task repository.</param>
-        public TaskService(ITaskRepository taskRepository)
+        /// <param name="taskCommentRepository">The task comment repository.</param>
+        public TaskService(ITaskRepository taskRepository, ITaskCommentRepository taskCommentRepository)
         {
             this.taskRepository = taskRepository;
+            this.taskCommentRepository = taskCommentRepository;
         }
 
         #endregion Constructors
 
         #region Methods
+
+        #region TaskPoco
 
         /// <summary>
         /// Creates new in-memory istance of <see cref="ITaskPoco"/> class.
@@ -63,7 +68,7 @@ namespace PM.Service
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="ITaskPoco"/>.</returns>
-        public Task<IEnumerable<ITaskPoco>> GetTasksAsync(Expression<Func<ITaskPoco, bool>> filter = null, ISortingParameters orderBy = null, 
+        public Task<IEnumerable<ITaskPoco>> GetTasksAsync(Expression<Func<ITaskPoco, bool>> filter = null, ISortingParameters orderBy = null,
             params string[] includeProperties)
         {
             return taskRepository.GetAsync(filter, orderBy, includeProperties);
@@ -77,7 +82,7 @@ namespace PM.Service
         /// <param name="orderBy">The order by.</param>
         /// <param name="includeProperties">The include properties.</param>
         /// <returns>List of <see cref="ITaskPoco"/> paged.</returns>
-        public Task<IPagedList<ITaskPoco>> GetTasksPagedAsync(IPagingParameters pagingParameters, Expression<Func<ITaskPoco, bool>> filter, 
+        public Task<IPagedList<ITaskPoco>> GetTasksPagedAsync(IPagingParameters pagingParameters, Expression<Func<ITaskPoco, bool>> filter,
             ISortingParameters orderBy = null, params string[] includeProperties)
         {
             return taskRepository.GetPagedAsync(pagingParameters, filter, orderBy, includeProperties);
@@ -144,6 +149,33 @@ namespace PM.Service
 
             return taskRepository.SaveAsync();
         }
+
+        #endregion TaskPoco
+
+        #region TaskCommentPoco
+
+        /// <summary>
+        /// Creates <see cref="ITaskCommentPoco"/> in memmory.
+        /// </summary>
+        /// <returns><see cref="ITaskCommentPoco"/>.</returns>
+        public virtual ITaskCommentPoco CreateTaskComment()
+        {
+            return taskCommentRepository.Create();
+        }
+
+        /// <summary>
+        /// Gets the list of <see cref="ITaskCommentPoco"/> models asynchronous.
+        /// </summary>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>List of <see cref="ITaskCommentPoco"/> models asynchronous.</returns>
+        public virtual Task<IEnumerable<ITaskCommentPoco>> GetTaskCommentAsync(Expression<Func<ITaskCommentPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
+        {
+            return taskCommentRepository.GetAsync(filter, orderBy, includeProperties);
+        }
+
+        #endregion TaskCommentPoco
 
         #endregion Methods
     }

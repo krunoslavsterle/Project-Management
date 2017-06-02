@@ -6,18 +6,10 @@ namespace PM.Model.Common
     /// <summary>
     /// Task priority poco contract.
     /// </summary>
-    public interface ITaskPriorityPoco
+    public interface ITaskPriorityPoco : IBasePoco
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        Guid Id { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the abrv.
         /// </summary>
@@ -49,23 +41,7 @@ namespace PM.Model.Common
         /// The sort order.
         /// </value>
         int SortOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date created.
-        /// </summary>
-        /// <value>
-        /// The date created.
-        /// </value>
-        DateTime DateCreated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date updated.
-        /// </summary>
-        /// <value>
-        /// The date updated.
-        /// </value>
-        DateTime DateUpdated { get; set; }
-
+        
         #endregion Properties
 
         #region Navigation Properties

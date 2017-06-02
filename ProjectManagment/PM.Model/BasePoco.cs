@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PM.Model.Common;
+using System;
 
 namespace PM.Model
 {
-    // TODO: IMPLEMENT BASE POCO CLASS
-    public abstract class BasePoco
+    /// <summary>
+    /// Base Poco class.
+    /// </summary>
+    public abstract class BasePoco : IBasePoco
     {
         public Guid Id { get; set; }
 

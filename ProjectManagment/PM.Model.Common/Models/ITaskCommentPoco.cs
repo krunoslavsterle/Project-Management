@@ -1,21 +1,23 @@
 ﻿using System;
 
+
 namespace PM.Model.Common
 {
     /// <summary>
-    /// ProjectUser poco contract.
+    /// TaskCommentPoco contract.
     /// </summary>
-    public interface IProjectUserPoco : IBasePoco
+    /// <seealso cref="PM.Model.Common.IBasePoco" />
+    public interface ITaskCommentPoco : IBasePoco
     {
         #region Properties
-        
+
         /// <summary>
-        /// Gets or sets the project identifier.
+        /// Gets or sets the task identifier.
         /// </summary>
         /// <value>
-        /// The project identifier.
+        /// The task identifier.
         /// </value>
-        Guid ProjectId { get; set; }
+        Guid TaskId { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -24,21 +26,29 @@ namespace PM.Model.Common
         /// The user identifier.
         /// </value>
         Guid UserId { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        string Text { get; set; }
+
         #endregion Properties
 
         #region Navigation Properties
 
         /// <summary>
-        /// Gets or sets the project.
+        /// Gets or sets the task navigation propertie.
         /// </summary>
         /// <value>
-        /// The project.
+        /// The task.
         /// </value>
-        IProjectPoco Project { get; set; }
+        ITaskPoco Task { get; set; }
 
         /// <summary>
-        /// Gets or sets the user.
+        /// Gets or sets the user navigation propertie.
         /// </summary>
         /// <value>
         /// The user.

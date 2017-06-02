@@ -14,6 +14,12 @@ namespace PM.DAL
     
     public partial class Task
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Task()
+        {
+            this.TaskComments = new HashSet<TaskComment>();
+        }
+    
         public System.Guid Id { get; set; }
         public System.Guid ProjectId { get; set; }
         public System.Guid CreatedByUserId { get; set; }
@@ -33,5 +39,7 @@ namespace PM.DAL
         public virtual TaskStatus TaskStatus { get; set; }
         public virtual User AssignedToUser { get; set; }
         public virtual User CreatedByUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskComment> TaskComments { get; set; }
     }
 }

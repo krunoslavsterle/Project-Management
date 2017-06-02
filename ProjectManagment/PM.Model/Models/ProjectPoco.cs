@@ -7,16 +7,10 @@ namespace PM.Model
     /// <summary>
     /// Project model.
     /// </summary>
-    public class ProjectPoco : IProjectPoco
+    public class ProjectPoco : BasePoco, IProjectPoco
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        /// <value>The id.</value>
-        public Guid Id { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the company identifier.
         /// </summary>
@@ -44,18 +38,6 @@ namespace PM.Model
         /// </summary>
         /// <value>The description.</value>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date created.
-        /// </summary>
-        /// <value>The date created.</value>
-        public DateTime DateCreated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date updated.
-        /// </summary>
-        /// <value>The date updated.</value>
-        public DateTime DateUpdated { get; set; }
         
         #endregion Properties
 

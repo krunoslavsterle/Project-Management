@@ -7,18 +7,10 @@ namespace PM.Model
     /// <summary>
     /// Task status poco class.
     /// </summary>
-    public class TaskStatusPoco : ITaskStatusPoco
+    public class TaskStatusPoco : BasePoco, ITaskStatusPoco
     {
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public Guid Id { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the abrv.
         /// </summary>
@@ -50,23 +42,7 @@ namespace PM.Model
         /// The sort order.
         /// </value>
         public int SortOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date created.
-        /// </summary>
-        /// <value>
-        /// The date created.
-        /// </value>
-        public DateTime DateCreated { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date updated.
-        /// </summary>
-        /// <value>
-        /// The date updated.
-        /// </value>
-        public DateTime DateUpdated { get; set; }
-
+        
         #endregion Properties
 
         #region Navigation Properties

@@ -4,19 +4,20 @@ using System;
 namespace PM.Model
 {
     /// <summary>
-    /// ProjectUser poco model.
+    /// TaskComment poco class.
     /// </summary>
-    public class ProjectUserPoco : BasePoco, IProjectUserPoco
+    /// <seealso cref="PM.Model.BasePoco" />
+    public class TaskCommentPoco : BasePoco, ITaskCommentPoco
     {
         #region Properties
-        
+
         /// <summary>
-        /// Gets or sets the project identifier.
+        /// Gets or sets the task identifier.
         /// </summary>
         /// <value>
-        /// The project identifier.
+        /// The task identifier.
         /// </value>
-        public Guid ProjectId { get; set; }
+        public Guid TaskId { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -26,25 +27,33 @@ namespace PM.Model
         /// </value>
         public Guid UserId { get; set; }
         
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
+        public string Text { get; set; }
+
         #endregion Properties
 
         #region Navigation Properties
 
         /// <summary>
-        /// Gets or sets the project.
+        /// Gets or sets the task navigation propertie.
         /// </summary>
         /// <value>
-        /// The project.
+        /// The task.
         /// </value>
-        public IProjectPoco Project { get; set; }
+        public virtual ITaskPoco Task { get; set; }
 
         /// <summary>
-        /// Gets or sets the user.
+        /// Gets or sets the user navigation propertie.
         /// </summary>
         /// <value>
         /// The user.
         /// </value>
-        public IUserPoco User { get; set; }
+        public virtual IUserPoco User { get; set; }
 
         #endregion Navigation Properties
     }
