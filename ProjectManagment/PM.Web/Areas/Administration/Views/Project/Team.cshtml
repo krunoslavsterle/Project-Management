@@ -8,6 +8,9 @@
 <!-- LEFT MENU -->
 @Html.Partial("_LeftMenuBar", Model.ProjectId)
 
+<!-- ADD TO TEAM MODAL -->
+@Html.Partial("_AddToTeamModal", Model)
+
 <!-- PAGE -->
 <div class="page">
 
@@ -24,9 +27,23 @@
         </div>
     </div>
 
-    <div id="users-list" class="page-content">
-        @Html.Partial("_TeamList", Model)
+    <div id="team-list" class="page-content">
+        @Html.Partial("_UsersList", Model.ProjectUsers)
     </div> 
-
+       
 </div>
+
+@section Scripts
+{
+    <script>
+
+        // If user is added remove it from the select list.
+        function onSuccess() {
+            $("select[name=SelectedUserId] option:selected").remove();
+        }
+
+    </script>
+}
+
+
 

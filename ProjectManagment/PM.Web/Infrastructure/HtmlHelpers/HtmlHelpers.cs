@@ -1,5 +1,6 @@
 ﻿using PM.Common.Enums;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace PM.Web.Infrastructure.HtmlHelpers
@@ -18,8 +19,9 @@ namespace PM.Web.Infrastructure.HtmlHelpers
         /// <param name="controller">The controller name.</param>
         /// <param name="routeValues">The route values.</param>
         /// <param name="iconClass">The icon class.</param>
+        /// <param name="subactions">The array of sub-actions to check.</param>
         /// <returns>Html link.</returns>
-        public static MvcHtmlString MenuItemLink(this HtmlHelper helper, string text, string action, string controller, object routeValues = null, string iconClass = "")
+        public static MvcHtmlString MenuItemLink(this HtmlHelper helper, string text, string action, string controller, object routeValues = null, string iconClass = "", params string[] subactions)
         {
             var context = helper.ViewContext;
             if (context.Controller.ControllerContext.IsChildAction)
@@ -29,8 +31,11 @@ namespace PM.Web.Infrastructure.HtmlHelpers
             var currentAction = routeData["action"].ToString();
             var currentController = routeData["controller"].ToString();
 
-            var linkClass = currentAction.Equals(action, StringComparison.InvariantCulture) && currentController.Equals(controller, StringComparison.InvariantCulture) ? 
-                "nav-item-active" : String.Empty;
+            if (subactions == null)
+                subactions = new string[0];
+
+            var linkClass = (currentAction.Equals(action, StringComparison.InvariantCultureIgnoreCase) || subactions.Contains(currentAction, StringComparer.InvariantCultureIgnoreCase)) 
+                && currentController.Equals(controller, StringComparison.InvariantCultureIgnoreCase) ? "nav-item-active" : String.Empty;
 
             UrlHelper urlHelper = new UrlHelper(context.RequestContext);
             var linkHref = urlHelper.Action(action, controller, routeValues);

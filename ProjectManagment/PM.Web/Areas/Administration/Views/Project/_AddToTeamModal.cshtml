@@ -1,15 +1,14 @@
 ﻿@model PM.Web.Administration.Project.TeamViewModel
 
-@Html.Partial("_UsersList", Model.ProjectUsers)
 
 @using (Ajax.BeginForm("AddToTeam", "Project", new { area = "Administration" },
-                                            new AjaxOptions()
-                                            {
-                                                HttpMethod = "POST",
-                                                OnSuccess = "Ajax.onSuccess(data, 'users-list', true);",
-                                                OnFailure = "Ajax.onError",
-                                                LoadingElementId = "loader"
-                                            }, null))
+                new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "Ajax.onSuccess(data, 'team-list', true, onSuccess);",
+                    OnFailure = "Ajax.onError",
+                    LoadingElementId = "loader"
+                }, null))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(vm => vm.ProjectId)
@@ -28,10 +27,9 @@
                 <div class="modal-body">
                     <div class="create-task">
 
-
                         <div class="form-group">
                             @Html.LabelFor(vm => vm.SelectedUserId, "Select User")
-                            @Html.DropDownListFor(vm => vm.SelectedUserId, Model.OptionalUsers, new { @class = "form-control" })
+                            @Html.DropDownListFor(vm => vm.SelectedUserId, (SelectList)ViewBag.OptionalUsers, new { @class = "form-control" })
                         </div>
 
                     </div>

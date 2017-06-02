@@ -56,26 +56,7 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var domainList = await projectService.GetProjectsAsync(p => p.CompanyId == this.CompanyId, null, 
-                this.ToNavPropertyString(nameof(IProjectPoco.Tasks)), this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), nameof(IProjectUserPoco.User)));
-
-            var statuses = lookupService.GetAllTaskStatus();
-
-            var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
-            var vm = new ProjectsViewModel();
-
-            foreach(var project in vmProjects)
-            {
-                var tasks = domainList.First(p => p.Id == project.Id).Tasks;
-                var team = Mapper.Map<IEnumerable<UserPreviewViewModel>>(domainList.First(p => p.Id == project.Id).ProjectUsers.Select(d => d.User));
-
-                project.TaskCount = tasks.Count();
-                project.CompletedTaskCount = tasks.Where(d => d.StatusId == statuses.First(s => s.Abrv == "CLOSED").Id).Count();
-                project.LateTaskCount = tasks.Where(p => p.DueDate <= DateTime.UtcNow).Count();
-                project.TeamMembers = team;
-            }
-
-            vm.Projects = vmProjects;
+            var vm = await GetProjectsViewModelAsync();
             return View("Projects", vm);
         }
         
@@ -105,11 +86,10 @@ namespace PM.Web.Areas.Administration.Controllers
                 try
                 {
                     await this.projectService.InsertProjectAsync(domainProject);
-                    var domainList = await projectService.GetProjectsAsync(p => p.CompanyId == this.CompanyId);
-                    var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
+                    var projectsVm = await GetProjectsViewModelAsync();
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
-                    return Json(new { success = true, responseText = "Project is added successfuly.", html = this.RenderView("_ProjectsList", vmProjects) }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = "Project is added successfuly.", html = this.RenderView("_ProjectsList", projectsVm.Projects) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -188,10 +168,7 @@ namespace PM.Web.Areas.Administration.Controllers
             vm.ProjectName = project.Name;
             vm.ProjectUsers = Mapper.Map<IEnumerable<UserPreviewViewModel>>(project.ProjectUsers.Select(p => p.User));
 
-            var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == project.CompanyId);
-            optionalUsers = optionalUsers.Where(p => !(vm.ProjectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
-
-            vm.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
+            await SetTeamListViewBagAsync(vm.ProjectUsers, project.CompanyId);
             return View("Team", vm);
         }
 
@@ -217,16 +194,11 @@ namespace PM.Web.Areas.Administration.Controllers
                     var project = await projectService.GetProjectAsync(vm.ProjectId,
                         this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
 
-                    vm.ProjectName = project.Name;
                     vm.ProjectUsers = Mapper.Map<IEnumerable<UserPreviewViewModel>>(project.ProjectUsers.Select(p => p.User));
-
-                    var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == project.CompanyId);
-                    optionalUsers = optionalUsers.Where(p => !(vm.ProjectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
-
-                    vm.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
+                    await SetTeamListViewBagAsync(vm.ProjectUsers, project.CompanyId);                    
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
-                    return Json(new { success = true, responseText = "Project is added successfuly.", html = this.RenderView("_TeamList", vm) }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = "User is added successfuly.", html = this.RenderView("_UsersList", vm.ProjectUsers) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -236,9 +208,44 @@ namespace PM.Web.Areas.Administration.Controllers
             else
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-            return PartialView("_TeamList", vm);
+            return PartialView("_AddToTeamModal", vm);
         }
 
         #endregion Actions
+
+        #region Methods
+
+        private async Task SetTeamListViewBagAsync(IEnumerable<UserPreviewViewModel> projectUsers, Guid companyId)
+        {
+            var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == companyId);
+            optionalUsers = optionalUsers.Where(p => !(projectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
+            ViewBag.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
+        }
+
+        private async Task<ProjectsViewModel> GetProjectsViewModelAsync()
+        {
+            var statuses = lookupService.GetAllTaskStatus();
+            var domainList = await projectService.GetProjectsAsync(p => p.CompanyId == this.CompanyId, null,
+                        this.ToNavPropertyString(nameof(IProjectPoco.Tasks)), this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), nameof(IProjectUserPoco.User)));
+
+            var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
+            var vm = new ProjectsViewModel();
+
+            foreach (var project in vmProjects)
+            {
+                var tasks = domainList.First(p => p.Id == project.Id).Tasks;
+                var team = Mapper.Map<IEnumerable<UserPreviewViewModel>>(domainList.First(p => p.Id == project.Id).ProjectUsers.Select(d => d.User));
+
+                project.TaskCount = tasks.Count();
+                project.CompletedTaskCount = tasks.Where(d => d.StatusId == statuses.First(s => s.Abrv == "CLOSED").Id).Count();
+                project.LateTaskCount = tasks.Where(p => p.DueDate <= DateTime.UtcNow).Count();
+                project.TeamMembers = team;
+            }
+
+            vm.Projects = vmProjects;
+            return vm;
+        }
+
+        #endregion Methods
     }
 }

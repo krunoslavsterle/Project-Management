@@ -36,6 +36,13 @@ html {
     height: 60px;
 }
 
+.pm-navbar-item-left {
+    padding-left: 20px;
+}
+.pm-navbar-item-right {
+    padding-right: 20px;
+}
+
 .navbar-container {
     margin-left: 230px;
     background-color: #fff;
@@ -738,6 +745,19 @@ html {
 
 @media (max-width: 767px) {
 
+    .pm-navbar-header {
+        width: 170px;
+    }
+    .navbar-container {
+        margin-left: 170px;
+    }
+    .page {
+        margin-left: 170px;
+    }
+    .site-menubar {
+        width: 170px;
+    }
+
     .block-project {
         font-size: 20px;
     }
@@ -803,9 +823,22 @@ html {
 
 @media (min-width: 767px) and (max-width: 1450px) {
 
+    .pm-navbar-header {
+        width: 190px;
+    }
+    .navbar-container {
+        margin-left: 190px;
+    }
+    .page {
+        margin-left: 190px;
+    }
+    .site-menubar {
+        width: 190px;
+    }
+
     .block-project-chart {
-        width: 170px;
-        height: 170px;
+        width: 190px;
+        height: 190px;
     }
 
     .block-project {

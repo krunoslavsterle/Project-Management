@@ -176,10 +176,14 @@ namespace PM.Service
         /// Inserts the project user asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <returns></returns>
-        public Task InsertProjectUserAsync(IProjectUserPoco model)
+        /// <returns>Task.</returns>
+        public async Task InsertProjectUserAsync(IProjectUserPoco model)
         {
-            return projectUserRepository.InsertAsync(model);
+            var exists = await projectUserRepository.GetCountAsync(p => p.ProjectId == model.ProjectId && p.UserId == model.UserId) > 0;
+            if (exists)
+                throw new Exception("Selected user is allredy added to this project");
+
+            await projectUserRepository.InsertAsync(model);
         }
 
         #endregion Methods

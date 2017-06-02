@@ -45,35 +45,39 @@
         <!-- NAVBAR CONTAINER -->
         <div class="navbar-container container-fluid">
             <div class="nav">
-                <ul class="nav navbar-toolbar navbar-left">
-                    <li>
+                <ul class="nav navbar-toolbar">
+                    <li class="pull-left pm-navbar-item-left">
                         <a href="javascript:void(0)" title="Notifications" role="button">
                             <i class="glyphicon glyphicon-bell" aria-hidden="true"></i>
                         </a>
                     </li>
 
-                    <li>
+                    <li class="pull-left pm-navbar-item-left">
                         <a href="javascript:void(0)" title="Messages" role="button">
                             <i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
                         </a>
                     </li>
+                    <li class="pull-right pm-navbar-item-right">
+                        <div class="button-group">
+                            <button id="user-popup" data-title="Ksterle" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-popover-content="#user-popover" class="btn btn-sm btn-default btn-image" type="button">
+                                @Html.Gravatar((string)ViewBag.UserEmail, 60, GravatarHelper.Common.GravatarHelper.DefaultImageMysteryMan, null)
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                    </li>
+
                 </ul>
 
                 <!-- NAVBAR RIGHT BUTTONS PANEL -->
-                <div class="navbar-right pm-navbar-right">
+                @*<div class="navbar-right pm-navbar-right">
                     <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
                         <li>
-                            <div class="button-group">
-                                <button id="user-popup" data-title="Ksterle" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-popover-content="#user-popover" class="btn btn-sm btn-default btn-image" type="button">
-                                    @Html.Gravatar((string)ViewBag.UserEmail, 60, GravatarHelper.Common.GravatarHelper.DefaultImageMysteryMan, null)
-                                    <span class="caret"></span>
-                                </button>
-                            </div>
+                            
                         </li>
                     </ul>
 
                     <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right navbar-toolbar-group"></ul>
-                </div>
+                </div>*@
 
             </div>
         </div>

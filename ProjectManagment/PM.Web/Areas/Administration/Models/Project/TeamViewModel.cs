@@ -13,8 +13,6 @@ namespace PM.Web.Administration.Project
 
         public IEnumerable<UserPreviewViewModel> ProjectUsers { get; set; }
 
-        public SelectList OptionalUsers { get; set; }
-
         public string ProjectName { get; set; }
     }
 }

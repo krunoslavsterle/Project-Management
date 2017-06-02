@@ -59,7 +59,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @Html.LabelFor(vm => vm.DueDate, "Dou Date")
-                                    @Html.TextBoxFor(vm => vm.DueDate, "{0:dd/MM/yyyy}", new { @class = "form-control", data_toggle = "datepicker", placeholder = "dd/mm/yyyy" })
+                                    @Html.TextBoxFor(vm => vm.DueDate, "{0:dd/MM/yyyy}", new { @class = "form-control", id = "due-date", placeholder = "dd/mm/yyyy" })
                                 </div>
                             </div>
                         </div>

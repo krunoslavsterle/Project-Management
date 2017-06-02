@@ -43,7 +43,7 @@ namespace PM.Web
                 .ReverseMap()
                 .ForMember(vm => vm.DueDate, d => d.MapFrom(poco => String.IsNullOrEmpty(poco.DueDate) ? (DateTime?)null : DateTime.ParseExact(poco.DueDate, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToUniversalTime())); ;
             CreateMap<ITaskPoco, EditTaskViewModel>()
-                .ForMember(vm => vm.DueDate, d => d.MapFrom(poco => poco.DueDate.HasValue ? poco.DueDate.Value.ToLocalTime().ToShortDateString() : String.Empty))
+                .ForMember(vm => vm.DueDate, d => d.MapFrom(poco => poco.DueDate.HasValue ? poco.DueDate.Value.ToLocalTime().ToString("dd/MM/yyyy") : String.Empty))
                 .ReverseMap()
                 .ForMember(vm => vm.DueDate, d => d.MapFrom(poco => String.IsNullOrEmpty(poco.DueDate) ? (DateTime?)null : DateTime.ParseExact(poco.DueDate, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToUniversalTime()));
 

@@ -71,28 +71,16 @@
 
             $('#summernote').summernote({
                 height: 100,                 
-            });
-
-            $('#DueDate').datepicker({
-
-                autoHide: true,
-                clearBtn: 'true',
-                todayBtn: true,
-                todayHighlight: true,
-                format: "dd/MM/yyyy",
-                startDate: new Date()
-            });
+            });            
 
             $("#btn-submit").click(function (event) {
                 $('#edit-form').submit();
             });
 
-            createSlider();
-
-           
+            onStart();           
         });
 
-        function createSlider() {
+        function onStart() {
 
             var slider = $('#progress-slider')[0];
             noUiSlider.create(slider, {
@@ -108,7 +96,16 @@
             slider.noUiSlider.on('change', function (value) {
                 $('#Progress').val(parseInt(value))
             });
-            
+
+            $('#due-date').datepicker({
+
+                autoHide: true,
+                clearBtn: 'true',
+                todayBtn: true,
+                todayHighlight: true,
+                format: "dd/MM/yyyy",
+                startDate: new Date()
+            });            
         }
 
     </script>
