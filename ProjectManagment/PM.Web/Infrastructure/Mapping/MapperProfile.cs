@@ -55,6 +55,9 @@ namespace PM.Web
                 .ForMember(vm => vm.ProjectName, p => p.MapFrom(poco => poco.Project != null ? poco.Project.Name : "No project"))
                 .ReverseMap();
 
+            CreateMap<ITaskCommentPoco, TaskCommentDTO>()
+                .ReverseMap();
+
             #endregion Task models
         }
     }

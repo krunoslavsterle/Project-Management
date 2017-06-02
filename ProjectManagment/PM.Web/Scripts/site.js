@@ -83,3 +83,14 @@ var Ajax = {
         Message.errorDefault(ajaxContext.statusText);
     }
 };
+
+var Spinner = {
+
+    show: function () {
+        $('#loader').show();
+    },
+
+    hide: function () {
+        $('#loader').hide();
+    }
+}

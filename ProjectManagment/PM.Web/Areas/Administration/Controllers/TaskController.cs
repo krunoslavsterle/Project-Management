@@ -132,7 +132,8 @@ namespace PM.Web.Areas.Administration.Controllers
             if (String.IsNullOrEmpty(tId))
                 throw new Exception("The parameter [tId] is null or empty.");
 
-            var task = await taskService.GetTaskAsync(ShortGuid.Decode(tId));
+            var task = await taskService.GetTaskAsync(ShortGuid.Decode(tId), this.ToNavPropertyString(nameof(ITaskPoco.TaskComments)));
+
             var project = await projectService.GetProjectAsync(task.ProjectId,
                 this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
                 
@@ -180,6 +181,30 @@ namespace PM.Web.Areas.Administration.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
             return Json(new { success = false, responseText = "Task has not been updated successfuly." }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ActionName("Comment")]
+        [ValidateInput(false)]
+        public async Task<ActionResult> CommentAsync(Guid taskId, string comment)
+        {
+            var domain = taskService.CreateTaskComment();
+            domain.Text = comment;
+            domain.TaskId = taskId;
+            domain.UserId = this.UserId;
+
+            try
+            {
+                await taskService.InsertTaskCommentAsync(domain);
+                var comments = await taskService.GetTaskCommentAsync(p => p.TaskId == taskId);
+
+                Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(new { success = true, responseText = "Comment saved successfully.", html = this.RenderView("_CommentsList", Mapper.Map<IEnumerable<TaskCommentDTO>>(comments)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         #endregion Actions

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PM.Web.Administration.Task
@@ -28,6 +30,8 @@ namespace PM.Web.Administration.Task
         public DateTime DateUpdated { get; set; }
 
         #endregion Model Properties
+
+        public IEnumerable<TaskCommentDTO> TaskComments { get; set; }
 
     }
 }

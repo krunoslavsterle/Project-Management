@@ -102,6 +102,12 @@ namespace PM.Service.Common
         /// <returns>List of <see cref="ITaskCommentPoco"/> models asynchronous.</returns>
         Task<IEnumerable<ITaskCommentPoco>> GetTaskCommentAsync(Expression<Func<ITaskCommentPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties);
 
+        /// <summary>
+        /// Inserts the specified <see cref="ITaskCommentPoco"/> model into the database asynchronous.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        Task InsertTaskCommentAsync(ITaskCommentPoco model);
+
         #endregion TaskCommentPoco
     }
 }

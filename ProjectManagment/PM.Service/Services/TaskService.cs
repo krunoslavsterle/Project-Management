@@ -177,6 +177,15 @@ namespace PM.Service
 
         #endregion TaskCommentPoco
 
+        /// <summary>
+        /// Inserts the specified <see cref="ITaskCommentPoco"/> model into the database asynchronous.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        public virtual Task InsertTaskCommentAsync(ITaskCommentPoco model)
+        {
+            return taskCommentRepository.InsertAsync(model);
+        }
+
         #endregion Methods
     }
 }

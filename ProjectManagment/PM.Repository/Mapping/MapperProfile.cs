@@ -74,7 +74,14 @@ namespace PM.Repository
                 .ForMember(ent => ent.Project, model => model.Ignore())
                 .ForMember(ent => ent.TaskPriority, model => model.Ignore())
                 .ForMember(ent => ent.TaskStatus, model => model.Ignore());
-            
+
+            CreateMap<TaskCommentPoco, ITaskCommentPoco>().ReverseMap();
+            CreateMap<TaskComment, ITaskCommentPoco>()
+                .MaxDepth(1)
+                .ReverseMap()
+                .ForMember(ent => ent.User, model => model.Ignore())
+                .ForMember(ent => ent.Task, model => model.Ignore());
+
             CreateMap<TaskStatusPoco, ITaskStatusPoco>().ReverseMap();
             CreateMap<TaskStatus, ITaskStatusPoco>()
                 .ReverseMap();

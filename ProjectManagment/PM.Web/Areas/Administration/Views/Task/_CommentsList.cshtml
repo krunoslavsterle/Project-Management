@@ -1,0 +1,20 @@
+﻿@model IEnumerable<PM.Web.Administration.Task.TaskCommentDTO>
+@using PM.Common.Extensions
+
+<h4>Comments</h4>
+
+<ul class="task-comments">
+    @foreach (var comment in Model)
+    {
+        <li>
+            <div class="widget">
+                <div class="task-comment">
+                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> @comment.DateUpdated.ToLocalTime().ToPrettyDateTimeString() by ksterle</small></p>
+                    <div class="timeline-body">
+                        <p>@Html.Raw(comment.Text)</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

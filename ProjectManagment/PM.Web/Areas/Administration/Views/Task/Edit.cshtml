@@ -27,28 +27,17 @@
         </div>
 
         <div class="col-lg-12">
-            <h4>Comments</h4>
+           <div id="comments-list">
+               @Html.Partial("_CommentsList", Model.TaskComments)
+           </div>
 
             <ul class="task-comments">
-
-                <li>
-                    <div class="widget">
-                        <div class="task-comment">
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago by ksterle</small></p>
-                            <div class="timeline-body">
-                                <p>Task comments are not implemented yet, it will be implemented in the next version.</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
                 <li>
                     <div class="widget">
                         <div id="summernote"></div>
                     </div>
-                    <button class="btn btn-md btn-success">Add Comment</button>
+                    <button type="button" class="btn btn-md btn-success" onclick="addComment();">Comment</button>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -79,6 +68,29 @@
 
             onStart();           
         });
+
+        function addComment() {
+
+            Spinner.show();
+            var comment = $('#summernote').summernote('code');
+            var taskId = $('#Id').val();
+
+            $.ajax({
+                url: '@Url.Action("Comment", "Task", new { area = "Administration" })',
+                data: { 'taskId' : taskId, 'comment' : comment },
+                type: 'POST',
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    $('#comments-list').html(data.html);
+                    Spinner.hide();
+                    Message.successDefault(data.responseText);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    Spinner.hide();
+                }
+            });
+        }
 
         function onStart() {
 
