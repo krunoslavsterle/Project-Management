@@ -65,8 +65,9 @@ namespace PM.Web.Areas.Administration.Controllers
 
             var project = await projectService.GetProjectAsync(ShortGuid.Decode(pId),
                 this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))),
-                this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))));
-
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))),
+                this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.TaskComments))));
+            
             var vm = new ListViewModel()
             {
                 ProjectName = project.Name,
@@ -100,7 +101,8 @@ namespace PM.Web.Areas.Administration.Controllers
                     await this.taskService.InsertTaskAsync(domainTask);
                     var project = await projectService.GetProjectAsync(domainTask.ProjectId,
                         this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))),
-                        this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))));
+                        this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.AssignedToUser))),
+                        this.ToNavPropertyString(nameof(IProjectPoco.Tasks), this.ToNavPropertyString(nameof(ITaskPoco.TaskComments))));
 
                     var tasksList = Mapper.Map<IEnumerable<TaskDTO>>(project.Tasks);
 
@@ -133,6 +135,8 @@ namespace PM.Web.Areas.Administration.Controllers
                 throw new Exception("The parameter [tId] is null or empty.");
 
             var task = await taskService.GetTaskAsync(ShortGuid.Decode(tId), this.ToNavPropertyString(nameof(ITaskPoco.TaskComments)));
+            if (task.TaskComments != null && task.TaskComments.Count() > 0)
+                task.TaskComments = task.TaskComments.OrderBy(p => p.DateUpdated);
 
             var project = await projectService.GetProjectAsync(task.ProjectId,
                 this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
@@ -197,6 +201,7 @@ namespace PM.Web.Areas.Administration.Controllers
             {
                 await taskService.InsertTaskCommentAsync(domain);
                 var comments = await taskService.GetTaskCommentAsync(p => p.TaskId == taskId);
+                comments = comments.OrderBy(p => p.DateUpdated);
 
                 Response.StatusCode = (int)HttpStatusCode.OK;
                 return Json(new { success = true, responseText = "Comment saved successfully.", html = this.RenderView("_CommentsList", Mapper.Map<IEnumerable<TaskCommentDTO>>(comments)) }, JsonRequestBehavior.AllowGet);

@@ -6,6 +6,7 @@ using PM.Web.Administration.User;
 using PM.Web.Areas.Administration.Models;
 using PM.Web.Models;
 using System;
+using System.Linq;
 using System.Globalization;
 
 namespace PM.Web
@@ -49,6 +50,7 @@ namespace PM.Web
 
             CreateMap<ITaskPoco, TaskDTO>()
                 .ForMember(vm => vm.AssignedToUsername, d => d.MapFrom(poco => poco.AssignedToUser.UserName))
+                .ForMember(vm => vm.CommentsCount, d => d.MapFrom(poco => poco.TaskComments != null ? poco.TaskComments.Count() : 0))
                 .ReverseMap();
 
             CreateMap<ITaskPoco, DashboardTaskDTO>()
