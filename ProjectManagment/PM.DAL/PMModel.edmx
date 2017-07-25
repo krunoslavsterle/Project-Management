@@ -313,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TaskComent_Task">
+        <Association Name="FK_TaskComment_Task">
           <End Role="Task" Type="Self.Task" Multiplicity="1" />
           <End Role="TaskComment" Type="Self.TaskComment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -325,7 +325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TaskComent_User">
+        <Association Name="FK_TaskComment_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="TaskComment" Type="Self.TaskComment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -414,11 +414,11 @@
             <End Role="TaskStatus" EntitySet="TaskStatus" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
-          <AssociationSet Name="FK_TaskComent_Task" Association="Self.FK_TaskComent_Task">
+          <AssociationSet Name="FK_TaskComment_Task" Association="Self.FK_TaskComment_Task">
             <End Role="Task" EntitySet="Task" />
             <End Role="TaskComment" EntitySet="TaskComment" />
           </AssociationSet>
-          <AssociationSet Name="FK_TaskComent_User" Association="Self.FK_TaskComent_User">
+          <AssociationSet Name="FK_TaskComment_User" Association="Self.FK_TaskComment_User">
             <End Role="User" EntitySet="User" />
             <End Role="TaskComment" EntitySet="TaskComment" />
           </AssociationSet>
