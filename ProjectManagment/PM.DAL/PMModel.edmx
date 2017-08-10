@@ -47,6 +47,19 @@
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProjectRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Abrv" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+          <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
         <EntityType Name="ProjectUser">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,6 +67,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectRoleId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateUpdated" Type="datetime" Nullable="false" />
           <Property Name="TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -241,6 +255,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProjectUser_ProjectRole">
+          <End Role="ProjectRole" Type="Self.ProjectRole" Multiplicity="1" />
+          <End Role="ProjectUser" Type="Self.ProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectUser">
+              <PropertyRef Name="ProjectRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProjectUser_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ProjectUser" Type="Self.ProjectUser" Multiplicity="*" />
@@ -314,7 +340,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TaskComment_Task">
-          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TaskComment" Type="Self.TaskComment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Task">
@@ -354,6 +382,7 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExternalLogin" EntityType="Self.ExternalLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectRole" EntityType="Self.ProjectRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectUser" EntityType="Self.ProjectUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
@@ -388,6 +417,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_ProjectUser_Project" Association="Self.FK_ProjectUser_Project">
             <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectUser" EntitySet="ProjectUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectUser_ProjectRole" Association="Self.FK_ProjectUser_ProjectRole">
+            <End Role="ProjectRole" EntitySet="ProjectRole" />
             <End Role="ProjectUser" EntitySet="ProjectUser" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectUser_User" Association="Self.FK_ProjectUser_User">
@@ -507,6 +540,11 @@
           <AssociationSet Name="FK_TaskComent_User" Association="PMDatabaseModel.FK_TaskComent_User">
             <End Role="User" EntitySet="Users" />
             <End Role="TaskComment" EntitySet="TaskComments" />
+          </AssociationSet>
+          <EntitySet Name="ProjectRoles" EntityType="PMDatabaseModel.ProjectRole" />
+          <AssociationSet Name="FK_ProjectUser_ProjectRole" Association="PMDatabaseModel.FK_ProjectUser_ProjectRole">
+            <End Role="ProjectRole" EntitySet="ProjectRoles" />
+            <End Role="ProjectUser" EntitySet="ProjectUsers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Claim">
@@ -671,6 +709,8 @@
           <Property Name="TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Project" Relationship="PMDatabaseModel.FK_ProjectUser_Project" FromRole="ProjectUser" ToRole="Project" />
           <NavigationProperty Name="User" Relationship="PMDatabaseModel.FK_ProjectUser_User" FromRole="ProjectUser" ToRole="User" />
+          <Property Name="ProjectRoleId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ProjectRole" Relationship="PMDatabaseModel.FK_ProjectUser_ProjectRole" FromRole="ProjectUser" ToRole="ProjectRole" />
           </EntityType>
         <Association Name="FK_ProjectUser_Project">
           <End Type="PMDatabaseModel.Project" Role="Project" Multiplicity="1" />
@@ -885,6 +925,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProjectRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Abrv" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_ProjectRole" FromRole="ProjectRole" ToRole="ProjectUser" />
+        </EntityType>
+        <Association Name="FK_ProjectUser_ProjectRole">
+          <End Type="PMDatabaseModel.ProjectRole" Role="ProjectRole" Multiplicity="1" />
+          <End Type="PMDatabaseModel.ProjectUser" Role="ProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectUser">
+              <PropertyRef Name="ProjectRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -985,6 +1051,7 @@
           <EntitySetMapping Name="ProjectUsers">
             <EntityTypeMapping TypeName="PMDatabaseModel.ProjectUser">
               <MappingFragment StoreEntitySet="ProjectUser">
+                <ScalarProperty Name="ProjectRoleId" ColumnName="ProjectRoleId" />
                 <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -1041,6 +1108,20 @@
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectRoles">
+            <EntityTypeMapping TypeName="PMDatabaseModel.ProjectRole">
+              <MappingFragment StoreEntitySet="ProjectRole">
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Abrv" ColumnName="Abrv" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

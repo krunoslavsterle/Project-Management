@@ -78,6 +78,9 @@
     <Compile Include="Project.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProjectRole.cs">
+      <DependentUpon>PMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProjectUser.cs">
       <DependentUpon>PMModel.tt</DependentUpon>
     </Compile>

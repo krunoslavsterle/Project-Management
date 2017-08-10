@@ -39,5 +39,6 @@ namespace PM.DAL
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<TaskComment> TaskComments { get; set; }
+        public virtual DbSet<ProjectRole> ProjectRoles { get; set; }
     }
 }
