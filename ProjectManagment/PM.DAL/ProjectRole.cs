@@ -17,7 +17,7 @@ namespace PM.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectRole()
         {
-            this.ProjectUsers = new HashSet<ProjectUser>();
+            this.ProjectUsersInRole = new HashSet<ProjectUser>();
         }
     
         public System.Guid Id { get; set; }
@@ -30,6 +30,6 @@ namespace PM.DAL
         public byte[] TimeStamp { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectUser> ProjectUsers { get; set; }
+        public virtual ICollection<ProjectUser> ProjectUsersInRole { get; set; }
     }
 }

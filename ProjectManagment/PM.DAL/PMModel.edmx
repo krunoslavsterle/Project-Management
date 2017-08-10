@@ -937,7 +937,7 @@
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="ProjectUsers" Relationship="PMDatabaseModel.FK_ProjectUser_ProjectRole" FromRole="ProjectRole" ToRole="ProjectUser" />
+          <NavigationProperty Name="ProjectUsersInRole" Relationship="PMDatabaseModel.FK_ProjectUser_ProjectRole" FromRole="ProjectRole" ToRole="ProjectUser" />
         </EntityType>
         <Association Name="FK_ProjectUser_ProjectRole">
           <End Type="PMDatabaseModel.ProjectRole" Role="ProjectRole" Multiplicity="1" />

@@ -56,6 +56,7 @@
     <Compile Include="Identity\UserRolePoco.cs" />
     <Compile Include="Models\CompanyPoco.cs" />
     <Compile Include="Models\ProjectPoco.cs" />
+    <Compile Include="Models\ProjectRolePoco.cs" />
     <Compile Include="Models\ProjectUserPoco.cs" />
     <Compile Include="Models\TaskCommentPoco.cs" />
     <Compile Include="Models\TaskPoco.cs" />

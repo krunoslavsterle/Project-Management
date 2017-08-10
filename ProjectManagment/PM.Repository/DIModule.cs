@@ -26,6 +26,7 @@ namespace PM.Repository
             Bind(typeof(ITaskCommentRepository)).To(typeof(TaskCommentRepository));
             Bind(typeof(ITaskPriorityRepository)).To(typeof(TaskPriorityRepository));
             Bind(typeof(ITaskStatusRepository)).To(typeof(TaskStatusRepository));
+            Bind(typeof(IProjectRoleRepository)).To(typeof(ProjectRoleRepository));
             Bind(typeof(ICompanyRepository)).To(typeof(CompanyRepository));
         }
     }

@@ -90,6 +90,10 @@ namespace PM.Repository
             CreateMap<TaskPriority, ITaskPriorityPoco>()
                 .ReverseMap();
 
+            CreateMap<ProjectRolePoco, IProjectRolePoco>().ReverseMap();
+            CreateMap<ProjectRole, IProjectRolePoco>()
+                .ReverseMap();
+
             CreateMap<CompanyPoco, ICompanyPoco>().ReverseMap();
             CreateMap<Company, ICompanyPoco>()
                 .ReverseMap();
