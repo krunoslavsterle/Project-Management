@@ -25,5 +25,11 @@ namespace PM.Service.Common
         /// </summary>
         /// <returns>List of all <see cref="IRolePoco"/> models.</returns>
         IEnumerable<IRolePoco> GetAllRoles();
+
+        /// <summary>
+        /// Gets a list of all <see cref="IProjectRolePoco"/> models.
+        /// </summary>
+        /// <returns>List of all <see cref="IProjectRolePoco"/> models.</returns>
+        IEnumerable<IProjectRolePoco> GetAllProjectRoles();
     }
 }
