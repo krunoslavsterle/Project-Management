@@ -81,6 +81,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
                 projectUser.ProjectId = domainProject.Id;
                 projectUser.UserId = this.UserId;
+                projectUser.ProjectRoleId = lookupService.GetAllProjectRoles().First(p => p.Abrv == "PM").Id;
                 domainProject.ProjectUsers.Add(projectUser);
 
                 try
@@ -187,6 +188,7 @@ namespace PM.Web.Areas.Administration.Controllers
                 var domain = projectService.CreateProjectUser();
                 domain.ProjectId = vm.ProjectId;
                 domain.UserId = vm.SelectedUserId;
+                domain.ProjectRoleId = vm.SelectedProjectRoleId;
 
                 try
                 {
@@ -219,7 +221,11 @@ namespace PM.Web.Areas.Administration.Controllers
         {
             var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == companyId);
             optionalUsers = optionalUsers.Where(p => !(projectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
+
+            var projectRoles = lookupService.GetAllProjectRoles();
+
             ViewBag.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
+            ViewBag.ProjectRoles = new SelectList(projectRoles, nameof(IProjectRolePoco.Id), nameof(IProjectRolePoco.Name));
         }
 
         private async Task<ProjectsViewModel> GetProjectsViewModelAsync()

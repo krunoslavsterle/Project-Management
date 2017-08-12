@@ -63,6 +63,7 @@ namespace PM.Repository
                 .ReverseMap()
                 .ForMember(ent => ent.Project, model => model.Ignore())
                 .ForMember(ent => ent.User, model => model.Ignore())
+                .ForMember(ent => ent.ProjectRole, model => model.Ignore())
                 .MaxDepth(1);
 
 

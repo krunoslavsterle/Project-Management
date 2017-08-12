@@ -24,7 +24,12 @@ namespace PM.Model.Common
         /// The user identifier.
         /// </value>
         Guid UserId { get; set; }
-        
+
+        /// <summary>
+        /// Get or sets the Project Role.
+        /// </summary>
+        Guid ProjectRoleId { get; set; }
+
         #endregion Properties
 
         #region Navigation Properties
@@ -44,6 +49,11 @@ namespace PM.Model.Common
         /// The user.
         /// </value>
         IUserPoco User { get; set; }
+
+        /// <summary>
+        /// Get or sets the ProjectRole navigation property.
+        /// </summary>
+        IProjectRolePoco ProjectRole { get; set; }
 
         #endregion Navigation Properties
     }
