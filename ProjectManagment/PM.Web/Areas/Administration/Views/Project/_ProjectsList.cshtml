@@ -1,4 +1,6 @@
-﻿@model IEnumerable<PM.Web.Administration.Project.ProjectPreviewViewModel>
+﻿@model IPagedList<PM.Web.Administration.Project.ProjectPreviewViewModel>
+@using PagedList.Mvc
+@using PagedList
 
 @using GravatarHelper.Extensions
 
@@ -53,8 +55,18 @@
             </div>
         </div>
     }
+
+    @Html.PagedListPager(Model, page => Url.Action("ProjectsList", "Project", new { area = "Administration", page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+           new AjaxOptions()
+           {
+               HttpMethod = "GET",
+               UpdateTargetId = "projects-list",
+               InsertionMode = InsertionMode.Replace
+           }))
 }
 else
 {
     <p>Project list is 'null'</p>
 }
+
+

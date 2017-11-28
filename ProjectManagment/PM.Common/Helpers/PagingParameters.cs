@@ -71,8 +71,8 @@ namespace PM.Common
             if (pageSize < 1)
                 throw new Exception("The page size must be greater than 0");
 
-            this.PageNumber = PageNumber;
-            this.PageSize = PageSize;
+            this.PageNumber = pageNumber;
+            this.PageSize = pageSize;
         }
 
         #endregion Constructors

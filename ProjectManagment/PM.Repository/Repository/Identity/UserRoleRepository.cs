@@ -184,7 +184,7 @@ namespace PM.Repository
         /// <returns>Paged list of <see cref="IUserRolePoco"/> models asynchronous.</returns>
         public virtual async Task<IPagedList<IUserRolePoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IUserRolePoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            var count = await genericRepository.GetCountAsync();
+            var count = await genericRepository.GetCountAsync(filter);
             var entities = await genericRepository.GetAsync(pagingParameters, filter, orderBy, includeProperties);
 
             return new StaticPagedList<IUserRolePoco>(mapper.Map<IEnumerable<IUserRolePoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);

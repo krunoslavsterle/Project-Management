@@ -86,7 +86,7 @@ namespace PM.Repository
                     if (item.IsAscending)
                         query = query.OrderBy(item.OrderBy);
                     else
-                        query = query.OrderBy(item.OrderBy + "descending");
+                        query = query.OrderBy(item.OrderBy + " descending");
                 }
             }
 

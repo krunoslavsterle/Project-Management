@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 using PM.Web.Infrastructure;
 using PM.Web.Administration.User;
+using PagedList;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -51,13 +52,31 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <summary>
         /// Projects async GET action.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>View.</returns>
         [HttpGet]
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var vm = await GetProjectsViewModelAsync();
+            var vm = await GetProjectsViewModelAsync(new PagingParameters(1, 5));
+
+            ViewBag.Page = 1;
             return View("Projects", vm);
+        }
+
+        /// <summary>
+        /// ProjectsList async GET action.
+        /// </summary>
+        /// <param name="page">Page number.</param>
+        /// <returns>Partial View.</returns>
+        [HttpGet]
+        [ActionName("ProjectsList")]
+        public async Task<ViewResult> ProjectsListAsync(int page = 1)
+        {
+            var pagingParameters = new PagingParameters(page, 5);
+            var vm = await GetProjectsViewModelAsync(pagingParameters);
+
+            ViewBag.Page = page;
+            return View("_ProjectsList", vm.Projects);
         }
         
         /// <summary>
@@ -87,7 +106,7 @@ namespace PM.Web.Areas.Administration.Controllers
                 try
                 {
                     await this.projectService.InsertProjectAsync(domainProject);
-                    var projectsVm = await GetProjectsViewModelAsync();
+                    var projectsVm = await GetProjectsViewModelAsync(new PagingParameters(1, 5));
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
                     return Json(new { success = true, responseText = "Project is added successfuly.", html = this.RenderView("_ProjectsList", projectsVm.Projects) }, JsonRequestBehavior.AllowGet);
@@ -228,15 +247,16 @@ namespace PM.Web.Areas.Administration.Controllers
             ViewBag.ProjectRoles = new SelectList(projectRoles, nameof(IProjectRolePoco.Id), nameof(IProjectRolePoco.Name));
         }
 
-        private async Task<ProjectsViewModel> GetProjectsViewModelAsync()
+        private async Task<ProjectsViewModel> GetProjectsViewModelAsync(IPagingParameters pagingParameters)
         {
+            var sortingParameter = new SortingParameters();
+            sortingParameter.Add(new SortingPair(nameof(IProjectPoco.DateCreated), false));
+            
             var statuses = lookupService.GetAllTaskStatus();
-            var domainList = await projectService.GetProjectsAsync(p => p.CompanyId == this.CompanyId, null,
+            var domainList = await projectService.GetProjectsPagedAsync(pagingParameters, p => p.CompanyId == this.CompanyId, sortingParameter,
                         this.ToNavPropertyString(nameof(IProjectPoco.Tasks)), this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), nameof(IProjectUserPoco.User)));
 
-            var vmProjects = Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList);
-            var vm = new ProjectsViewModel();
-
+            var vmProjects = new StaticPagedList<ProjectPreviewViewModel>(Mapper.Map<IEnumerable<ProjectPreviewViewModel>>(domainList.ToList()), pagingParameters.PageNumber, pagingParameters.PageSize, domainList.TotalItemCount);
             foreach (var project in vmProjects)
             {
                 var tasks = domainList.First(p => p.Id == project.Id).Tasks;
@@ -248,7 +268,10 @@ namespace PM.Web.Areas.Administration.Controllers
                 project.TeamMembers = team;
             }
 
-            vm.Projects = vmProjects;
+            var vm = new ProjectsViewModel()
+            {
+                Projects = vmProjects
+            };
             return vm;
         }
 

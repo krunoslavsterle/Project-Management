@@ -180,7 +180,7 @@ namespace PM.Repository
         /// <returns>Paged list of <see cref="IExternalLoginPoco"/> models asynchronous.</returns>
         public virtual async Task<IPagedList<IExternalLoginPoco>> GetPagedAsync(IPagingParameters pagingParameters, Expression<Func<IExternalLoginPoco, bool>> filter = null, ISortingParameters orderBy = null, params string[] includeProperties)
         {
-            var count = await genericRepository.GetCountAsync();
+            var count = await genericRepository.GetCountAsync(filter);
             var entities = await genericRepository.GetAsync(pagingParameters, filter, orderBy, includeProperties);
 
             return new StaticPagedList<IExternalLoginPoco>(mapper.Map<IEnumerable<IExternalLoginPoco>>(entities), pagingParameters.PageNumber, pagingParameters.PageSize, count);
