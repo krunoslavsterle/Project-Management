@@ -29,7 +29,7 @@ namespace PM.Web.Areas.Administration.Controllers
 
         #region Constructors
 
-        public DashboardController(IMapper mapper, IProjectService projectService, IPMUserStore userStore, ILookupService lookupService)
+        public DashboardController(IMapper mapper, IProjectService projectService, IPMUserStoreService userStore, ILookupService lookupService)
             : base(mapper, userStore)
         {
             this.projectService = projectService;

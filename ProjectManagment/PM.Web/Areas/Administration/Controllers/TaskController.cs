@@ -39,7 +39,7 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="taskService">The task service.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="lookupService">The lookup service.</param>
-        public TaskController(IMapper mapper, IPMUserStore userStore, ITaskService taskService, IProjectService projectService, ILookupService lookupService) 
+        public TaskController(IMapper mapper, IPMUserStoreService userStore, ITaskService taskService, IProjectService projectService, ILookupService lookupService) 
             : base(mapper, userStore)
         {
             this.taskService = taskService;

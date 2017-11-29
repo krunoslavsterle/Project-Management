@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using PM.Repository;
 using System.Linq.Expressions;
+using PagedList;
 
 namespace PM.Service
 {
     /// <summary>
     /// PM User store class.
     /// </summary>
-    /// <seealso cref="PM.Service.Common.IPMUserStore" />
-    public class PMUserStore : IPMUserStore
+    /// <seealso cref="PM.Service.Common.IPMUserStoreService" />
+    public class PMUserStoreService : IPMUserStoreService
     {
         #region Fields
 
@@ -29,13 +30,13 @@ namespace PM.Service
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PMUserStore"/> class.
+        /// Initializes a new instance of the <see cref="PMUserStoreService"/> class.
         /// </summary>
         /// <param name="userRepository">The user repository.</param>
         /// <param name="userRoleRepository">The user role repository.</param>
         /// <param name="roleRepository">The role repository.</param>
         /// <param name="mapper">The mapper.</param>
-        public PMUserStore(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository, IMapper mapper)
+        public PMUserStoreService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
             this.userRoleRepository = userRoleRepository;
@@ -123,6 +124,19 @@ namespace PM.Service
         public Task<IEnumerable<IUserPoco>> GetUsersByCompanyIdAsync(Guid companyId, params string[] includeProperties)
         {
             return userRepository.GetAsync(p => p.CompanyId == companyId, null, includeProperties);
+        }
+
+        /// <summary>
+        /// Gets the users by company identifier paged asynchronous.
+        /// </summary>
+        /// <param name="pagingParameters">The paging parameters.</param>
+        /// <param name="orderBy">The sorting parameter.</param>
+        /// <param name="companyId">The company id.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>The users by company identifier paged asynchronous</returns>
+        public Task<IPagedList<IUserPoco>> GetUsersByCompanyIdPagedAsync(IPagingParameters pagingParameters, ISortingParameters orderBy, Guid companyId, params string[] includeProperties)
+        {
+            return userRepository.GetPagedAsync(pagingParameters, p => p.CompanyId == companyId, orderBy, includeProperties);
         }
 
         /// <summary>

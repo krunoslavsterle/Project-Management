@@ -22,7 +22,7 @@ namespace PM.Web.Controllers
         #region Fields
 
         private readonly IMapper mapper;
-        private readonly IPMUserStore userStore;
+        private readonly IPMUserStoreService userStore;
         private readonly UserManager<IUserPoco, Guid> userManager;
         private readonly ICompanyService companyService;
 
@@ -35,7 +35,7 @@ namespace PM.Web.Controllers
         /// </summary>
         /// <param name="userStore">The user store.</param>
         /// <param name="companyService">The company service.</param>
-        public SecurityController(IPMUserStore userStore, ICompanyService companyService, IMapper mapper)
+        public SecurityController(IPMUserStoreService userStore, ICompanyService companyService, IMapper mapper)
         {
             this.companyService = companyService;
             this.userStore = userStore;

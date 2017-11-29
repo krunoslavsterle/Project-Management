@@ -1,10 +1,9 @@
-﻿using PM.Model.Common;
-using System.Collections.Generic;
+﻿using PagedList;
 
 namespace PM.Web.Administration.User
 {
     public class IndexUserViewModel
     {
-        public IEnumerable<UserPreviewViewModel> Users { get; set; }
+        public IPagedList<UserPreviewViewModel> Users { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace PM.Web.Controllers
         /// Initializes a new instance of the <see cref="BaseController"/> class.
         /// </summary>
         /// <param name="mapper">The mapper.</param>
-        public BaseController(IMapper mapper, IPMUserStore userStore)
+        public BaseController(IMapper mapper, IPMUserStoreService userStore)
         {
             this.Mapper = mapper;
             this.UserStore = userStore;
@@ -107,7 +107,7 @@ namespace PM.Web.Controllers
         /// <value>
         /// The user store.
         /// </value>
-        public IPMUserStore UserStore { get; set; }
+        public IPMUserStoreService UserStore { get; set; }
 
         #endregion Properties
 

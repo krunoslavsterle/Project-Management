@@ -15,6 +15,7 @@ using PM.Common.Extensions;
 using PM.Common.Clients;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using PagedList;
 
 namespace PM.Web.Areas.Administration.Controllers
 {
@@ -40,7 +41,7 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="identityService">The identity service.</param>
         /// <param name="lookupService">The lookup service.</param>
         /// <param name="userManager">The user manager.</param>
-        public UserController(IMapper mapper, IPMUserStore userStore, ILookupService lookupService)
+        public UserController(IMapper mapper, IPMUserStoreService userStore, ILookupService lookupService)
             : base(mapper, userStore)
         {
             this.lookupService = lookupService;
@@ -57,18 +58,31 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <summary>
         /// Index GET action.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>View.</returns>
         [HttpGet]
         [ActionName("Index")]
         public async Task<ActionResult> IndexAsync()
         {
             var user = await userManager.FindByIdAsync(UserId);
-            var users = await UserStore.GetUsersByCompanyIdAsync(user.CompanyId, user.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
-
-            // List of users
-            var vm = new IndexUserViewModel();
-            vm.Users = Mapper.Map<IEnumerable<UserPreviewViewModel>>(users);
+            var vm = new IndexUserViewModel()
+            {
+                Users = await GetUsersListViewModelsPaged(new PagingParameters(1, 9), user.CompanyId)
+            };
             return View("Index", vm);
+        }
+
+        /// <summary>
+        /// User list GET action.
+        /// </summary>
+        /// <param name="page">Page number.</param>
+        /// <returns>Partial view.</returns>
+        [HttpGet]
+        [ActionName("UsersList")]
+        public async Task<ViewResult> UsersListAsync(int page = 1)
+        {
+            var user = await userManager.FindByIdAsync(UserId);
+            var vm = await GetUsersListViewModelsPaged(new PagingParameters(page, 9), user.CompanyId);
+            return View("_UsersList", vm);
         }
         
         /// <summary>
@@ -123,7 +137,18 @@ namespace PM.Web.Areas.Administration.Controllers
         #endregion Actions
 
         #region Methods
-        
+
+        private async Task<IPagedList<UserPreviewViewModel>> GetUsersListViewModelsPaged(IPagingParameters pagingParameters, Guid companyId)
+        {
+            var sortingParameters = new SortingParameters();
+            sortingParameters.Add("DateCreated", false);
+
+            var users = await UserStore.GetUsersByCompanyIdPagedAsync(pagingParameters, sortingParameters, companyId,
+                this.ToNavPropertyString(nameof(IUserPoco.UserRoles), nameof(IUserRolePoco.Role)));
+
+            return new StaticPagedList<UserPreviewViewModel>(Mapper.Map<IEnumerable<UserPreviewViewModel>>(users.ToList()), pagingParameters.PageNumber, pagingParameters.PageSize, users.TotalItemCount);
+        }
+
         private string GenerateTempPassword(int length)
         {
             Random random = new Random();

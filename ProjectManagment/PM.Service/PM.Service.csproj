@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DIModule.cs" />
-    <Compile Include="Identity\PMUserStore.cs" />
+    <Compile Include="Identity\PMUserStoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\LookupService.cs" />

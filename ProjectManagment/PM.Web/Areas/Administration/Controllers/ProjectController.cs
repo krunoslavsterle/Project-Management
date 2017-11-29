@@ -38,7 +38,7 @@ namespace PM.Web.Areas.Administration.Controllers
         /// <param name="mapper">The mapper.</param>
         /// <param name="projectService">The project service.</param>
         /// <param name="identityService">The identity service.</param>
-        public ProjectController(IMapper mapper, IProjectService projectService, IPMUserStore userStore, ILookupService lookupService)
+        public ProjectController(IMapper mapper, IProjectService projectService, IPMUserStoreService userStore, ILookupService lookupService)
             : base(mapper, userStore)
         {
             this.projectService = projectService;
@@ -75,7 +75,6 @@ namespace PM.Web.Areas.Administration.Controllers
             var pagingParameters = new PagingParameters(page, 12);
             var vm = await GetProjectsViewModelAsync(pagingParameters);
 
-            ViewBag.Page = page;
             return View("_ProjectsList", vm.Projects);
         }
         
