@@ -56,13 +56,15 @@
         </div>
     }
 
-    @Html.PagedListPager(Model, page => Url.Action("ProjectsList", "Project", new { area = "Administration", page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+    <div class="widget-footer">
+        @Html.PagedListPager(Model, page => Url.Action("ProjectsList", "Project", new { area = "Administration", page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
            new AjaxOptions()
            {
                HttpMethod = "GET",
                UpdateTargetId = "projects-list",
                InsertionMode = InsertionMode.Replace
            }))
+    </div>
 }
 else
 {

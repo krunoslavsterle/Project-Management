@@ -57,7 +57,7 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("Projects")]
         public async Task<ViewResult> ProjectsAsync()
         {
-            var vm = await GetProjectsViewModelAsync(new PagingParameters(1, 5));
+            var vm = await GetProjectsViewModelAsync(new PagingParameters(1, 12));
 
             ViewBag.Page = 1;
             return View("Projects", vm);
@@ -72,7 +72,7 @@ namespace PM.Web.Areas.Administration.Controllers
         [ActionName("ProjectsList")]
         public async Task<ViewResult> ProjectsListAsync(int page = 1)
         {
-            var pagingParameters = new PagingParameters(page, 5);
+            var pagingParameters = new PagingParameters(page, 12);
             var vm = await GetProjectsViewModelAsync(pagingParameters);
 
             ViewBag.Page = page;
@@ -106,7 +106,7 @@ namespace PM.Web.Areas.Administration.Controllers
                 try
                 {
                     await this.projectService.InsertProjectAsync(domainProject);
-                    var projectsVm = await GetProjectsViewModelAsync(new PagingParameters(1, 5));
+                    var projectsVm = await GetProjectsViewModelAsync(new PagingParameters(1, 12));
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
                     return Json(new { success = true, responseText = "Project is added successfuly.", html = this.RenderView("_ProjectsList", projectsVm.Projects) }, JsonRequestBehavior.AllowGet);
