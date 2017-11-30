@@ -1,5 +1,7 @@
-﻿@model IEnumerable<PM.Web.Administration.Task.TaskDTO>
+﻿@model IPagedList<PM.Web.Administration.Task.TaskDTO>
 @using PM.Common.Extensions
+@using PagedList
+@using PagedList.Mvc
 
 @if (Model != null && Model.Count() > 0)
 {
@@ -63,5 +65,15 @@
             </table>
         </div>
 
-    </div>    
+    </div>
+
+    <div class="widget-footer">
+        @Html.PagedListPager(Model, page => Url.Action("TasksList", "Task", new { area = "Administration", pId = ViewBag.PId, page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "tasks-list",
+                InsertionMode = InsertionMode.Replace
+            }))
+    </div>
 }

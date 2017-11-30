@@ -1,6 +1,6 @@
-﻿using PM.Model.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using PagedList;
 
 namespace PM.Web.Administration.Task
 {
@@ -9,7 +9,7 @@ namespace PM.Web.Administration.Task
         public string ProjectName { get; set; }
         public Guid ProjectId { get; set; }
 
-        public IEnumerable<TaskDTO> Tasks { get; set; }
+        public IPagedList<TaskDTO> Tasks { get; set; }
 
         public Dictionary<Guid, string> TaskPriorityList { get; set; }
         public Dictionary<Guid, string> TaskStatusList { get; set; }
