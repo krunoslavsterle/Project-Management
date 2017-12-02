@@ -171,7 +171,7 @@ namespace PM.Web.Areas.Administration.Controllers
         /// Team GET action.
         /// </summary>
         /// <param name="pId">The product short guid.</param>
-        /// <returns></returns>
+        /// <returns>View.</returns>
         [HttpGet]
         [ActionName("Team")]
         public async Task<ActionResult> TeamAsync(string pId)
@@ -179,16 +179,25 @@ namespace PM.Web.Areas.Administration.Controllers
             if (String.IsNullOrEmpty(pId))
                 throw new Exception("The parameter [pId] is null or empty.");
 
-            var project = await projectService.GetProjectAsync(ShortGuid.Decode(pId),
-                this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
-
-            var vm = new TeamViewModel();
-            vm.ProjectId = project.Id;
-            vm.ProjectName = project.Name;
-            vm.ProjectUsers = Mapper.Map<IEnumerable<UserPreviewViewModel>>(project.ProjectUsers.Select(p => p.User));
-
-            await SetTeamListViewBagAsync(vm.ProjectUsers, project.CompanyId);
+            var vm = await GetTeamViewModelPaged(ShortGuid.Decode(pId), new PagingParameters(1, 9));
             return View("Team", vm);
+        }
+        
+        /// <summary>
+        /// Team List GET action.
+        /// </summary>
+        /// <param name="pId">Project short guid.</param>
+        /// <param name="page">Page number.</param>
+        /// <returns>Partial view.</returns>
+        [HttpGet]
+        [ActionName("TeamList")]
+        public async Task<ViewResult> TeamListAsync(string pId, int page = 1)
+        {
+            if (String.IsNullOrEmpty(pId))
+                throw new Exception("The parameter [pId] is null or empty.");
+
+            var vm = await GetTeamViewModelPaged(ShortGuid.Decode(pId), new PagingParameters(page, 9));
+            return View("_TeamList", vm.ProjectUsers);
         }
 
         /// <summary>
@@ -211,14 +220,10 @@ namespace PM.Web.Areas.Administration.Controllers
                 try
                 {
                     await this.projectService.InsertProjectUserAsync(domain);
-                    var project = await projectService.GetProjectAsync(vm.ProjectId,
-                        this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
-
-                    vm.ProjectUsers = Mapper.Map<IEnumerable<UserPreviewViewModel>>(project.ProjectUsers.Select(p => p.User));
-                    await SetTeamListViewBagAsync(vm.ProjectUsers, project.CompanyId);                    
+                    var vmProject = await GetTeamViewModelPaged(domain.ProjectId, new PagingParameters(1, 9));               
 
                     Response.StatusCode = (int)HttpStatusCode.OK;
-                    return Json(new { success = true, responseText = "User is added successfuly.", html = this.RenderView("_UsersList", vm.ProjectUsers) }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, responseText = "User is added successfuly.", html = this.RenderView("_TeamList", vmProject.ProjectUsers) }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -235,13 +240,38 @@ namespace PM.Web.Areas.Administration.Controllers
 
         #region Methods
 
-        private async Task SetTeamListViewBagAsync(IEnumerable<UserPreviewViewModel> projectUsers, Guid companyId)
+        private async Task<TeamViewModel> GetTeamViewModelPaged(Guid projectId, IPagingParameters pagingParameters)
         {
-            var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == companyId);
-            optionalUsers = optionalUsers.Where(p => !(projectUsers.Select(d => d.UserId).Contains(p.Id))).ToList();
+            var project = await projectService.GetProjectAsync(projectId,
+               this.ToNavPropertyString(nameof(IProjectPoco.ProjectUsers), this.ToNavPropertyString(nameof(IProjectUserPoco.User))));
+
+            var sortingParameters = new SortingParameters();
+            sortingParameters.Add("DateUpdated", false);
+
+            var projectUsers = await projectService.GetProjectUsersPagedAsync(pagingParameters, p => p.ProjectId == projectId, sortingParameters, 
+                this.ToNavPropertyString(nameof(IProjectUserPoco.User)));
+            var vmUsers = new StaticPagedList<UserPreviewViewModel>(Mapper.Map<IEnumerable<UserPreviewViewModel>>(projectUsers.Select(p => p.User).ToList()), pagingParameters.PageNumber, pagingParameters.PageSize, projectUsers.TotalItemCount);
+            var vm = new TeamViewModel()
+            {
+                ProjectId = project.Id,
+                ProjectName = project.Name,
+                ProjectUsers = vmUsers
+            };
+
+            await SetTeamListViewBagAsync(vm.ProjectUsers, project.CompanyId, vm.ProjectId);
+            return vm;
+        }
+
+        private async Task SetTeamListViewBagAsync(IEnumerable<UserPreviewViewModel> projectUsers, Guid companyId, Guid projectId)
+        {
+            var optionalUsers = await UserStore.GetUsersAsync(p => p.CompanyId == companyId, null, 
+                this.ToNavPropertyString(nameof(IUserPoco.ProjectUsers)));
+
+            optionalUsers = optionalUsers.Where(p => p.ProjectUsers.Count(d => d.ProjectId == projectId) == 0).ToList();
 
             var projectRoles = lookupService.GetAllProjectRoles();
 
+            ViewBag.PId = ShortGuid.Encode(projectId);
             ViewBag.OptionalUsers = new SelectList(optionalUsers, nameof(IUserPoco.Id), nameof(IUserPoco.UserName));
             ViewBag.ProjectRoles = new SelectList(projectRoles, nameof(IProjectRolePoco.Id), nameof(IProjectRolePoco.Name));
         }

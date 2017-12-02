@@ -173,6 +173,19 @@ namespace PM.Service
         }
 
         /// <summary>
+        /// Gets the paged list of <see cref="IProjectUserPoco"/> asynchrously. 
+        /// </summary>
+        /// <param name="pagingParameters">The paging parameters.</param>
+        /// <param name="filter">The filter expression.</param>
+        /// <param name="orderBy">The sorting parameters.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns>The paged list of <see cref="IProjectUserPoco"/> asynchrously. </returns>
+        public Task<IPagedList<IProjectUserPoco>> GetProjectUsersPagedAsync(IPagingParameters pagingParameters, Expression<Func<IProjectUserPoco, bool>> filter, ISortingParameters orderBy = null, params string[] includeProperties)
+        {
+            return projectUserRepository.GetPagedAsync(pagingParameters, filter, orderBy, includeProperties);
+        }
+
+        /// <summary>
         /// Inserts the project user asynchronous.
         /// </summary>
         /// <param name="model">The model.</param>

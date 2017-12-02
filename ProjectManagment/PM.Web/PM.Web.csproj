@@ -244,7 +244,7 @@
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Areas\Administration\Views\Project\_ProjectsList.cshtml" />
     <Content Include="Areas\Administration\Views\User\_NewUserModal.cshtml" />
-    <Content Include="Areas\Administration\Views\Shared\_UsersList.cshtml" />
+    <Content Include="Areas\Administration\Views\Project\_TeamList.cshtml" />
     <Content Include="Areas\Administration\Views\Task\_TasksList.cshtml" />
     <Content Include="Areas\Administration\Views\Task\_NewTaskModal.cshtml" />
     <Content Include="Content\font\summernote.eot" />
