@@ -51,5 +51,5 @@ For this project, I have used the [Onion Architecture](https://jeffreypalermo.co
 * run 
 
 ## Notes
-* This project is not finished. Majority of the features are implemented but not all (landing page, timeline, messages, and a few others)
+* This project is not finished. Some of the features are implemented but not all (landing page, timeline, messages, and a few others)
 * As landing page is not implemented, to open the Dashboard after the login you need to manually input the URL: '/Administration/Dashboard'
